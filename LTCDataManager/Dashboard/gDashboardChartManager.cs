@@ -49,30 +49,13 @@ namespace LTCDataManager.Dashboard
                 }
             }
 
-            return allowedCharts;
+            return allowedCharts;       
  }
 
         public static gChartPermission GetChartPermissions(int officeId, int userId)
         {
             var db = PocoDatabase.DbConnection(DbConfiguration.LtcDashboard);
             return db.Fetch<gChartPermission>($"SELECT CP.*, AG.Name 'Permission_Group_Name', AG.Permission_Level as 'Group_Permission_Level' FROM chart_permissions CP LEFT JOIN authentication_groups AG on CP.Permission_Group = AG.ID WHERE CP.Id = {userId} AND CP.Office_Sequence = {officeId}").FirstOrDefault();
-
-            ////get permission based on user id/groupid/officeid
-            //var model = new List<gDashboardChartPermission>();
-            //model.Add(new gDashboardChartPermission { ID = 1, ChartName = "NewPatient", ChartLevel = 1 });
-            //model.Add(new gDashboardChartPermission { ID = 2, ChartName = "TotalNetProduction", ChartLevel = 1 });
-            //model.Add(new gDashboardChartPermission { ID = 3, ChartName = "TotalNetRecareProduction", ChartLevel = 1 });
-            //model.Add(new gDashboardChartPermission { ID = 4, ChartName = "TotalNetTreatmentProduction", ChartLevel = 1 });
-
-            //model.Add(new gDashboardChartPermission { ID = 5, ChartName = "RecareReappointmentPassive", ChartLevel = 1 });
-            //model.Add(new gDashboardChartPermission { ID = 6, ChartName = "RecareReappointmentActive", ChartLevel = 1 });
-            //model.Add(new gDashboardChartPermission { ID = 7, ChartName = "TreatmentAcceptance", ChartLevel = 1 });
-            //model.Add(new gDashboardChartPermission { ID = 8, ChartName = "TreatmentScheduled", ChartLevel = 1 });
-            //model.Add(new gDashboardChartPermission { ID = 9, ChartName = "CancellationAndNoShows", ChartLevel = 1 });
-            //model.Add(new gDashboardChartPermission { ID = 10, ChartName = "UnscheduledTreatment", ChartLevel = 1 });
-            //model.Add(new gDashboardChartPermission { ID = 11, ChartName = "UnscheduledRecareActivePatient", ChartLevel = 1 });
-            //model.Add(new gDashboardChartPermission { ID = 12, ChartName = "NetCollection", ChartLevel = 1 });
-            //return model;
         }
 
         public static List<gUserCharts> GetUserCharts(int officeId, int userId)
@@ -91,6 +74,20 @@ namespace LTCDataManager.Dashboard
                     gUserCharts userChart = new gUserCharts();
                     userChart.User_Id = userId;
                     userChart.Chart_Id = chartId;
+                    db.Save(userChart);
+                }
+            }
+        }
+
+        public static void UpdateCardFilterTypes(int chartId, string filterTypes, int officeId)
+        {
+            using (var db = PocoDatabase.DbConnection(DbConfiguration.LtcDashboard))
+            {
+                var model = db.Fetch<gUserCharts>($"SELECT * FROM user_charts WHERE Chart_Id={chartId}").FirstOrDefault();
+                if (model == null)
+                {
+                    gUserCharts userChart = new gUserCharts();
+                    userChart.FilterTypes = filterTypes;
                     db.Save(userChart);
                 }
             }

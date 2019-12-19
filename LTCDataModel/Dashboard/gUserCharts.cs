@@ -14,7 +14,7 @@ namespace LTCDataModel.Dashboard
         public int ID { get; set; }
         public int User_Id { get; set; }
         public int Chart_Id { get; set; }
-
+        public string FilterTypes { get; set; }
 
     }
 }

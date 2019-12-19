@@ -18,6 +18,6 @@ namespace LTCDataModel.Dashboard
         public int? Order { get; set; }
         public int? Required_Permission_Level { get; set; }
 
-        public string FilterTypes { get; set; }
+        public string FilterTypes { get { return FilterTypes ?? ""; } set { FilterTypes = value; } }
     }
 }

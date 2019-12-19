@@ -1,0 +1,43 @@
+﻿<Properties StartupConfiguration="{E8AF7AB6-ECC9-4640-A503-C01CA1D8AE76}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LTCDashboard/wwwroot/Scripts/Dashboard/DashboardLayout.js">
+    <Files>
+      <File FileName="LTCDashboard/wwwroot/Scripts/Dashboard/DashboardLayout.js" Line="698" Column="24" />
+      <File FileName="LTCDashboard/Views/Dashboard/Index.cshtml" Line="516" Column="48" />
+      <File FileName="LTCDataModel/Dashboard/gCharts.cs" />
+      <File FileName="LTCDashboard/Controllers/DashboardController.cs" Line="75" Column="62" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="LTCDashboard" expanded="True">
+            <Node name="BAL" expanded="True">
+              <Node name="LTCDataManager" expanded="True">
+                <Node name="Dashboard" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="LTCDashboard" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Dashboard" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="Dashboard" expanded="True">
+                    <Node name="DashboardLayout.js" selected="True" />
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.LTCDashboard PreferredExecutionTarget="/Applications/Google Chrome.app" />
+</Properties>

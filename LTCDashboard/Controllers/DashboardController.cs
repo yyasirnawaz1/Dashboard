@@ -72,6 +72,20 @@ namespace LTCDashboard.Controllers
             }
         }
 
+        public ActionResult UpdateCardFilterTypes(int chartId, string filterTypes)
+        {
+            try
+            {
+                gDashboardChartManager.UpdateCardFilterTypes(chartId, filterTypes, OfficeSequence);
+
+                return Json(new { Success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Sucess = false });
+            }
+        }
+
 
         [HttpPost]
         public ActionResult RemoveChart(int chartId)
