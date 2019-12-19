@@ -23,29 +23,29 @@ var Dashboard = {
 
     officeList: null,
     chartType: "PracticeMetrics",
-    selectionHTML: '<div class="col-12 draggable order-{order} order-last" data-id="{id}" data-name="{name}" data-title="{title}" data-position="{position}" data-order="{order}"><div class="nav-link"><i class="{icon}"></i>{title}</div></div>',
+    selectionHTML: '<div class="col-12 draggable order-{order} order-last" data-id="{id}" data-name="{name}" data-title="{title}" data-position="{position}" data-order="{order}" data-filtertypes="{filtertypes}"><div class="nav-link"><i class="{icon}"></i>{title}</div></div>',
 
     //////Small Cards
     NewPatient: '<div id="cardStart-{name}" class="col col-lg-3 col-md-4 col-sm-6 cardStart order-{order}"><div id="card-{name}" class="card bg-blue-400"><div class="card-body dashboardCard pt-1 pb-1"><div class="d-flex cardHeading"><h3 class="font-weight-semibold mb-0 font-variant-smallCaps">{heading}</h3><div class="list-icons ml-auto"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div><div class="d-flex justify-content-center cardContent"><span id="card-{name}-value" class="font-weight-semibold mb-0 font-size-xs">0</span></div><div class="d-flex justify-content-end cardContent" data-toggle="modal" data-target="#patientListModal"><input type="button" class="btn bg-purple-400" value="Patient List" onclick="Dashboard.getPatientList();"/></div></div></div></div>',
-    TotalNetProduction: '<div id="cardStart-{name}" class="col col-lg-3 col-md-4 col-sm-6 cardStart order-{order}"><div id="card-{name}" class="card bg-teal-400"><div class="card-body dashboardCard pt-1 pb-1"><div class="d-flex cardHeading"><h3 class="font-weight-semibold mb-0 font-variant-smallCaps">{heading}</h3><div class="list-icons ml-auto"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div><div class="d-flex justify-content-center cardContent"><span id="card-{name}-value" class="font-weight-semibold mb-0 font-size-xs">0</span></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\')" class="spreadsheeticon" /></div></div></div></div>',
-    TotalPaymentReceipt: '<div id="cardStart-{name}" class="col col-lg-3 col-md-4 col-sm-6 cardStart order-{order}"><div id="card-{name}" class="card bg-pink-400"><div class="card-body dashboardCard pt-1 pb-1"><div class="d-flex cardHeading"><h3 class="font-weight-semibold mb-0 font-variant-smallCaps">{heading}</h3><div class="list-icons ml-auto"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div><div class="d-flex justify-content-center cardContent"><span id="card-{name}-value" class="font-weight-semibold mb-0 font-size-xs">0</span></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\')" class="spreadsheeticon" /></div></div></div></div>',
-    TotalNetPaymentReceipt: '<div id="cardStart-{name}" class="col col-lg-3 col-md-4 col-sm-6 cardStart order-{order}"><div id="card-{name}" class="card bg-blue-400"><div class="card-body dashboardCard pt-1 pb-1"><div class="d-flex cardHeading"><h3 class="font-weight-semibold mb-0 font-variant-smallCaps">{heading}</h3><div class="list-icons ml-auto"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div><div class="d-flex justify-content-center cardContent"><span id="card-{name}-value" class="font-weight-semibold mb-0 font-size-xs">0</span></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\')" class="spreadsheeticon" /></div></div></div></div>',
-    TotalNetHygenistProduction: '<div id="cardStart-{name}" class="col col-lg-3 col-md-4 col-sm-6 cardStart order-{order}"><div id="card-{name}" class="card bg-success"><div class="card-body dashboardCard pt-1 pb-1"><div class="d-flex cardHeading"><h3 class="font-weight-semibold mb-0 font-variant-smallCaps">{heading}</h3><div class="list-icons ml-auto"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div><div class="d-flex justify-content-center cardContent"><span id="card-{name}-value" class="font-weight-semibold mb-0 font-size-xs">0</span></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\')" class="spreadsheeticon" /></div></div></div></div>',
-    TotalNetDoctorProduction: '<div id="cardStart-{name}" class="col col-lg-3 col-md-4 col-sm-6 cardStart order-{order}"><div id="card-{name}" class="card bg-pink-400"><div class="card-body dashboardCard pt-1 pb-1"><div class="d-flex cardHeading"><h3 class="font-weight-semibold mb-0 font-variant-smallCaps">{heading}</h3><div class="list-icons ml-auto"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div><div class="d-flex justify-content-center cardContent"><span id="card-{name}-value" class="font-weight-semibold mb-0 font-size-xs">0</span></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\')" class="spreadsheeticon" /></div></div></div></div>',
-    AverageProductionPerPatient: '<div id="cardStart-{name}" class="col col-lg-3 col-md-4 col-sm-6 cardStart order-{order}"><div id="card-{name}" class="card bg-success"><div class="card-body dashboardCard pt-1 pb-1"><div class="d-flex cardHeading"><h3 class="font-weight-semibold mb-0 font-variant-smallCaps">{heading}</h3><div class="list-icons ml-auto"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div><div class="d-flex justify-content-center cardContent"><span id="card-{name}-value" class="font-weight-semibold mb-0 font-size-xs">0</span></div><div class="d-flex justify-content-end cardContent"></div></div></div></div>',
+    TotalNetProduction: '<div id="cardStart-{name}" class="col col-lg-3 col-md-4 col-sm-6 cardStart order-{order}"><div id="card-{name}" class="card bg-teal-400"><div class="card-body dashboardCard pt-1 pb-1"><div class="d-flex cardHeading"><h3 class="font-weight-semibold mb-0 font-variant-smallCaps">{heading}</h3><div class="list-icons ml-auto"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div><div class="d-flex justify-content-center cardContent"><span id="card-{name}-value" class="font-weight-semibold mb-0 font-size-xs">0</span></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\',\'{filtertypes}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\',\'{filtertypes}\')" class="spreadsheeticon" /></div></div></div></div>',
+    TotalPaymentReceipt: '<div id="cardStart-{name}" class="col col-lg-3 col-md-4 col-sm-6 cardStart order-{order}"><div id="card-{name}" class="card bg-pink-400"><div class="card-body dashboardCard pt-1 pb-1"><div class="d-flex cardHeading"><h3 class="font-weight-semibold mb-0 font-variant-smallCaps">{heading}</h3><div class="list-icons ml-auto"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div><div class="d-flex justify-content-center cardContent"><span id="card-{name}-value" class="font-weight-semibold mb-0 font-size-xs">0</span></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\',\'{filtertypes}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\',\'{filtertypes}\')" class="spreadsheeticon" /></div></div></div></div>',
+    TotalNetPaymentReceipt: '<div id="cardStart-{name}" class="col col-lg-3 col-md-4 col-sm-6 cardStart order-{order}"><div id="card-{name}" class="card bg-blue-400"><div class="card-body dashboardCard pt-1 pb-1"><div class="d-flex cardHeading"><h3 class="font-weight-semibold mb-0 font-variant-smallCaps">{heading}</h3><div class="list-icons ml-auto"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div><div class="d-flex justify-content-center cardContent"><span id="card-{name}-value" class="font-weight-semibold mb-0 font-size-xs">0</span></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\',\'{filtertypes}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\',\'{filtertypes}\')" class="spreadsheeticon" /></div></div></div></div>',
+    TotalNetHygenistProduction: '<div id="cardStart-{name}" class="col col-lg-3 col-md-4 col-sm-6 cardStart order-{order}"><div id="card-{name}" class="card bg-success"><div class="card-body dashboardCard pt-1 pb-1"><div class="d-flex cardHeading"><h3 class="font-weight-semibold mb-0 font-variant-smallCaps">{heading}</h3><div class="list-icons ml-auto"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div><div class="d-flex justify-content-center cardContent"><span id="card-{name}-value" class="font-weight-semibold mb-0 font-size-xs">0</span></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\',\'{filtertypes}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\',\'{filtertypes}\')" class="spreadsheeticon" /></div></div></div></div>',
+    TotalNetDoctorProduction: '<div id="cardStart-{name}" class="col col-lg-3 col-md-4 col-sm-6 cardStart order-{order}"><div id="card-{name}" class="card bg-pink-400"><div class="card-body dashboardCard pt-1 pb-1"><div class="d-flex cardHeading"><h3 class="font-weight-semibold mb-0 font-variant-smallCaps">{heading}</h3><div class="list-icons ml-auto"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div><div class="d-flex justify-content-center cardContent"><span id="card-{name}-value" class="font-weight-semibold mb-0 font-size-xs">0</span></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\',\'{filtertypes}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\',\'{filtertypes}\')" class="spreadsheeticon" /></div></div></div></div>',
+    AverageProductionPerPatient: '<div id="cardStart-{name}" class="col col-lg-3 col-md-4 col-sm-6 cardStart order-{order}"><div id="card-{name}" class="card bg-success"><div class="card-body dashboardCard pt-1 pb-1"><div class="d-flex cardHeading"><h3 class="font-weight-semibold mb-0 font-variant-smallCaps">{heading}</h3><div class="list-icons ml-auto"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div><div class="d-flex justify-content-center cardContent"><span id="card-{name}-value" class="font-weight-semibold mb-0 font-size-xs">0</span></div><div class="d-flex justify-content-end cardContent"></div></div></div></div>',
 
     ////charts
-    RecareReappointmentPassive: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="progressMeter"><div class="c100 p30 big green"><span>30%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div></div></div></div>',
-    RecareReappointmentActive: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="progressMeter"><div class="c100 p41 big green"><span>41%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div></div></div></div>',
-    TreatmentAcceptance: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="chart-container"><div class="progressMeter sm"><div class="c100 p45"><span>45%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div><div class="chart smallBarGraph" id="{name}-chart"></div></div></div></div></div>',
-    TreatmentScheduled: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="chart-container"><div class="progressMeter sm"><div class="c100 p63"><span>63%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div><div class="chart smallBarGraph" id="{name}-chart"></div></div></div></div></div>',
+    RecareReappointmentPassive: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="progressMeter"><div class="c100 p30 big green"><span>30%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div></div></div></div>',
+    RecareReappointmentActive: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="progressMeter"><div class="c100 p41 big green"><span>41%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div></div></div></div>',
+    TreatmentAcceptance: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="chart-container"><div class="progressMeter sm"><div class="c100 p45"><span>45%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div><div class="chart smallBarGraph" id="{name}-chart"></div></div></div></div></div>',
+    TreatmentScheduled: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="chart-container"><div class="progressMeter sm"><div class="c100 p63"><span>63%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div><div class="chart smallBarGraph" id="{name}-chart"></div></div></div></div></div>',
     //CancellationAndNoShows: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><div class="form-check form-check-switch form-check-switch-left"><label class="form-check-label d-flex align-items-center"><input id="cancellationAndNoShowMonthYear" type="checkbox" data-on-color="danger" data-off-color="primary" data-on-text="Month" data-off-text="Year" class="form-check-input-switch" checked></label></div><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"/><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"/></div></div></div><div class="card-body"><div class="chart-container"><div class="chart mediumBarGraph" id="{name}-chart" /></div></div><div class="d-flex justify-content-end cardContent"><input onclick="Dashboard.loadChartBreakdownData(\'{name}\')" type="button" class="btn bg-purple-400" value="" /></div></div></div>',
-    CancellationAndNoShows: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"/><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"/></div></div></div><div class="card-body"><div class="chart-container"><div class="chart mediumBarGraph" id="{name}-chart" /></div></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\')" class="spreadsheeticon" /></div></div></div>',
-    UnscheduledTreatment: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="chart-container"><div class="progressMeter progressMetersmall sm"><div class="c100 p20"><span>20%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div><div class="chart smallBarGraph" id="{name}-chart"></div><input type="button" class="btn bg-blue-400 pull-right chartPatientButton" data-toggle="modal" data-target="#patientListModal" value="Patient List" /></div></div></div></div>',
-    UnscheduledRecareActivePatient: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="chart-container"><div class="progressMeter progressMetersmall sm"><div class="c100 p80"><span>80%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div><div class="chart smallBarGraph" id="{name}-chart"></div><input type="button" class="btn bg-blue-400 pull-right chartPatientButton" data-toggle="modal" data-target="#patientListModal" value="Patient List" /></div></div></div></div>',
-    NetCollection: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="progressMeter"><div class="c100 p41 big green"><span>41%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div></div></div></div>',
-    ProductionBreakdown: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="chart-container"><div class="chart" id="{name}-chart" data-charttype="pie"></div></div></div></div></div>',
-    ServiceAnalysis: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="chart-container"><div class="chart" id="{name}-chart" data-charttype="pie"></div></div></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\')" class="spreadsheeticon" /></div></div></div>',
+    CancellationAndNoShows: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"/><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"/></div></div></div><div class="card-body"><div class="chart-container"><div class="chart mediumBarGraph" id="{name}-chart" /></div></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\',\'{filtertypes}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\',\'{filtertypes}\')" class="spreadsheeticon" /></div></div></div>',
+    UnscheduledTreatment: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="chart-container"><div class="progressMeter progressMetersmall sm"><div class="c100 p20"><span>20%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div><div class="chart smallBarGraph" id="{name}-chart"></div><input type="button" class="btn bg-blue-400 pull-right chartPatientButton" data-toggle="modal" data-target="#patientListModal" value="Patient List" /></div></div></div></div>',
+    UnscheduledRecareActivePatient: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{name}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="chart-container"><div class="progressMeter progressMetersmall sm"><div class="c100 p80"><span>80%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div><div class="chart smallBarGraph" id="{name}-chart"></div><input type="button" class="btn bg-blue-400 pull-right chartPatientButton" data-toggle="modal" data-target="#patientListModal" value="Patient List" /></div></div></div></div>',
+    NetCollection: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="progressMeter"><div class="c100 p41 big green"><span>41%</span><div class="slice"><div class="bar"></div><div class="fill"></div></div></div></div></div></div></div>',
+    ProductionBreakdown: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="chart-container"><div class="chart" id="{name}-chart" data-charttype="pie"></div></div></div></div></div>',
+    ServiceAnalysis: '<div id="cardStart-{name}" class="col-md-4 cardStart order-{order}"><div id="card-{name}" class="card dashboardGraph"><div class="card-header header-elements-inline"><h5 class="card-title font-variant-smallCaps">{heading}</h5><div class="header-elements"><div class="list-icons"><a class="icon-stats-growth chartButton" onclick="openChart(\'{name}\', \'{heading}\')"></a><a class="fa fa-pencil chartButton" onclick="openFilterTypesModel(\'{id}\', \'{filterTypes}\')"></a><a class="list-icons-item" data-action="remove" onclick="Dashboard.removeCard(this)" data-name="{name}"></a></div></div></div><div class="card-body"><div class="chart-container"><div class="chart" id="{name}-chart" data-charttype="pie"></div></div></div><div class="d-flex justify-content-end cardContent"><img src="/Resources/Images/pivotIcon.png" onclick="Dashboard.loadChartBreakdownData(\'{name}\',\'{filtertypes}\')" class="pivoticon" /><img src="/Resources/Images/spreadsheetIcon.png" onclick="DashboardSpreadSheet.loadChartSpreadSheetData(\'{name}\',\'{filtertypes}\')" class="spreadsheeticon" /></div></div></div>',
 
 
     CalendarSetup: function (id) {
@@ -96,7 +96,7 @@ var Dashboard = {
                 }
             });
     },
-
+        
     loadOfficeDropdown: function () {
         var officeDATAURL = window.location.origin + "/Home/GetOffices";
         //var DATAURL = window.location.origin + "/Home/GetBusinessNames";
@@ -222,9 +222,13 @@ var Dashboard = {
                     Dashboard.userCharts = data.UserCharts;
 
                     $.each(data.Data, function (i, data) {
-
-                        if (Dashboard.userCharts.filter(x => x.Chart_Id == data.ID).length > 0) {
-                            Dashboard.loadedCharts.push({ chartId: data.ID, chartName: data.Name, chartTitle: data.Title, position: data.Position, order: data.Order });
+                        let userCharts = Dashboard.userCharts.filter(x => x.Chart_Id == data.ID);
+                        if (userCharts.length > 0) {
+                            let filterTypes = userCharts[0].FilterTypes;
+                            if (filterTypes == null && filterTypes == '') {
+                                filterTypes = data.FilterTypes;
+                            }
+                            Dashboard.loadedCharts.push({ chartId: data.ID, chartName: data.Name, chartTitle: data.Title, position: data.Position, order: data.Order, filtertypes: filterTypes });
                         } else {
                             var html = Dashboard.selectionHTML
                                 ///blue/g
@@ -233,6 +237,7 @@ var Dashboard = {
                                 .replace(/{title}/g, data.Title)
                                 .replace(/{id}/g, data.ID)
                                 .replace(/{name}/g, data.Name)
+                                .replace(/{filtertypes}/g, data.FilterTypes)
                                 .replace(/{icon}/g, data.Icon);
                             $("#ChartSelectionOptions ." + data.Position).append(html);
                         }
@@ -248,7 +253,7 @@ var Dashboard = {
         });
     },
 
-    loadChartsData: function (chartName, chartType) {
+    loadChartsData: function (chartName, chartType, types) {
         var selectedProvider = $("#providerdropdown").val();
 
         var selectedOffices = $("#officedropdown").val();
@@ -264,7 +269,8 @@ var Dashboard = {
                     offices: selectedOffices,
                     providers: selectedProvider,
                     startDate: moment($('#dashboardCalendar').data('daterangepicker').startDate).format("YYYY-MM-DD"),
-                    endDate: moment($('#dashboardCalendar').data('daterangepicker').endDate).format("YYYY-MM-DD")
+                    endDate: moment($('#dashboardCalendar').data('daterangepicker').endDate).format("YYYY-MM-DD"),
+                    types: types
                 },
                 success: function (data) {
                     if (data.Success) {
@@ -309,14 +315,14 @@ var Dashboard = {
 
     },
 
-    loadChartBreakdownData: function (chartName) {
+    loadChartBreakdownData: function (chartName, types) {
         Dashboard.setting.isBreakdownTable = true;
         Dashboard.setting.isSpreadsheetTale = false;
         Dashboard.setting.loadedChartName = chartName;
-        Dashboard.loadModelData(chartName);
+        Dashboard.loadModelData(chartName, types);
     },
 
-    loadModelData: function (chartName) {
+    loadModelData: function (chartName, types) {
         var selectedProvider = $("#providerdropdown").val();
         var selectedOffices = $("#officedropdown").val();
 
@@ -331,7 +337,8 @@ var Dashboard = {
                     offices: selectedOffices,
                     providers: selectedProvider,
                     startDate: moment($('#dashboardCalendar').data('daterangepicker').startDate).format("YYYY-MM-DD"),
-                    endDate: moment($('#dashboardCalendar').data('daterangepicker').endDate).format("YYYY-MM-DD")
+                    endDate: moment($('#dashboardCalendar').data('daterangepicker').endDate).format("YYYY-MM-DD"),
+                    types: types
                 },
                 success: function (data) {
                     if (data.Success) {
@@ -595,7 +602,7 @@ var Dashboard = {
         }
     },
 
-    chartSelection: function (id, name, chartTitle, position, order, addToDatabase) {
+    chartSelection: function (id, name, chartTitle, position, order, types, addToDatabase) {
         var data = Dashboard.charts.filter(x => x.ID == id);
 
         if (data.length > 0) {
@@ -604,6 +611,7 @@ var Dashboard = {
             html = html.replace(/{heading}/g, chartTitle);
             html = html.replace(/{order}/g, order);
             html = html.replace(/{name}/g, name);
+            html = html.replace(/{filtertypes}/g, types);
             $(".droppable ." + position).append(html);
             Layout.showCardLoader('card-' + name);
 
@@ -611,7 +619,7 @@ var Dashboard = {
             data = data[0];
             var chartType = data.Chart_Type;
 
-            Dashboard.loadChartsData(name, chartType);
+            Dashboard.loadChartsData(name, chartType, types);
 
 
 
@@ -651,6 +659,22 @@ var Dashboard = {
             });
         }
 
+    },
+
+    selectedchartname:'',
+    openFilterTypesModel: function (id, types) {
+        selectedchartname = id;
+        // open bootstrap modal
+        $("#filterTypesModal").modal('show');
+
+        // load types to select
+
+
+        // select previously selected types
+
+
+        // all user to save settings
+        // reload the chart
     },
 
     PieChart: function (id, data) {
@@ -818,7 +842,7 @@ var Dashboard = {
                 myChart.draw(0, true);
 
                 // Remove axis titles
-               // x.titleShape.remove();
+                // x.titleShape.remove();
             }
         }
 
@@ -862,6 +886,7 @@ var Dashboard = {
                             .replace(/{title}/g, data.Title)
                             .replace(/{id}/g, data.ID)
                             .replace(/{name}/g, dataId)
+                            .replace(/{filtertypes}/g, data.FilterTypes)
                             .replace(/{icon}/g, data.Icon);
 
                         $("#ChartSelectionOptions ." + data.Position).append(html);
@@ -902,9 +927,10 @@ var Dashboard = {
                 var chartTitle = ui.draggable.data('title');
                 var position = ui.draggable.data('position');
                 var order = ui.draggable.data('order');
+                var filtertypes = ui.draggable.data('filtertypes');
 
-                Dashboard.loadedCharts.push({ chartId: chartId, chartName: chartName, chartTitle: chartTitle, position: position, order: order });
-                Dashboard.chartSelection(chartId, chartName, chartTitle, position, order, true);
+                Dashboard.loadedCharts.push({ chartId: chartId, chartName: chartName, chartTitle: chartTitle, position: position, order: order, filtertypes: filtertypes });
+                Dashboard.chartSelection(chartId, chartName, chartTitle, position, order, filtertypes, true);
             }
         });
 
@@ -920,7 +946,7 @@ var Dashboard = {
         if (selectedProvider.length > 0 && selectedOffices.length > 0) {
             $.each(Dashboard.loadedCharts, function (i, item) {
                 $("#cardStart-" + item.chartName).remove();
-                Dashboard.chartSelection(item.chartId, item.chartName, item.chartTitle, item.position, item.order, false);
+                Dashboard.chartSelection(item.chartId, item.chartName, item.chartTitle, item.position, item.order, item.filtertypes, false);
             });
         }
         else {

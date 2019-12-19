@@ -1,12 +1,12 @@
 ﻿var DashboardSpreadSheet = {
     spreadsheetTable: null,
 
-    loadChartSpreadSheetData: function (chartName) {
+    loadChartSpreadSheetData: function (chartName, types) {
         Dashboard.setting.isBreakdownTable = false;
         Dashboard.setting.isSpreadsheetTale = true;
         Dashboard.setting.loadedChartName = chartName;
 
-        Dashboard.loadModelData(chartName);
+        Dashboard.loadModelData(chartName,types);
     },
 
     setupSpreadSheetGrid: function () {

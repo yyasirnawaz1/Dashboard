@@ -501,6 +501,32 @@
     </div>
 </div>
 
+
+<div id="filterTypesModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <div class="headerMultiButton" style="width:95%;">
+                    <h5 id="modalChartTitle" class="modal-title font-variant-smallCaps">Filter Types</h5>
+                </div>
+                <button type="button" class="close headerMultiWithCloseButton" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div id="allowedFilterTypes" class="col-12">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link">Save</button>
+                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section headscripts{
     <link href="~/Resources/Meter/css/circle.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
     <script src="~/Resources/theme/js/mydragable.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
