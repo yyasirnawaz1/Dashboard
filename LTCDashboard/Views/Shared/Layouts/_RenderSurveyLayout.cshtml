@@ -1,0 +1,106 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>LTC-Dental (Survey) @ViewBag.Title</title>
+
+    <!-- META SECTION -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- END META SECTION -->
+    <!-- CSS INCLUDE -->
+    <link href="~/Resources/loadermain.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
+    <link href="~/Resources/loadernormalize.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
+    <script src="~/Resources/theme/js/modernizr-2.8.3.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <style type="text/css">
+
+        .back-link a {
+            color: #4ca340;
+            text-decoration: none;
+            border-bottom: 1px #4ca340 solid;
+        }
+
+            .back-link a:hover,
+            .back-link a:focus {
+                color: #408536;
+                text-decoration: none;
+                border-bottom: 1px #408536 solid;
+            }
+
+        h1 {
+            height: 100%;
+            /* The html and body elements cannot have any padding or margin. */
+            margin: 0;
+            font-size: 14px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 32px;
+            margin-bottom: 3px;
+        }
+
+        .entry-header {
+            text-align: left;
+            margin: 0 auto 50px auto;
+            width: 80%;
+            max-width: 978px;
+            position: relative;
+            z-index: 10001;
+        }
+
+        #demo-content {
+            padding-top: 100px;
+        }
+    </style>
+    <link rel="stylesheet" href="~/Resources/theme/css/styles.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]">
+
+    @RenderSection("pagelevelstyles", required: false)
+    <!-- EOF CSS INCLUDE -->
+
+    @RenderSection("headscripts", required: false)
+    <link href="~/Resources/Site.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
+    @*<link href="~/Resources/CornerMenu.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />*@
+</head>
+<body class="demo">
+    <div id="loader-wrapper">
+        @*<span class="loaderText">Loading Permissions....</span>*@
+        <div id="loader"></div>
+
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+
+    </div>
+    <!-- APP WRAPPER -->
+    <div class="app">
+
+        <!-- START APP CONTAINER -->
+        <div class="container">
+            <!-- START APP CONTENT -->
+            <div class="container-boxed">
+                <!-- START PAGE CONTAINER -->
+                <div class="container">
+                    @RenderBody()
+                </div>
+                <!-- END PAGE CONTAINER -->
+
+            </div>
+            <!-- END APP CONTENT -->
+
+        </div>
+
+        <!-- APP OVERLAY -->
+        <div class="app-overlay"></div>
+        <!-- END APP OVERLAY -->
+    </div>
+    @Html.Partial("_AppScripts")
+
+    <script src="~/Scripts/SharedJS/Layout.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

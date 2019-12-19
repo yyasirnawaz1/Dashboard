@@ -1,0 +1,118 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+
+
+
+<div id="divSurveyList" class="row card">
+    <div class="col-md-12">
+        <div class="block block-condensed noWhite">
+            <div class="block-content">
+                <div class="row row-margin">
+                    <div class="col-lg-12 col-md-12">
+                        <button id="btnPrivateSurveyToogle" title="Preview" class="btn btn-primary pull-right isPreviewHidden" onclick="Layout.togglePreviewButton(this,'privateSurveyListToggleParent')">
+                            <span class="fa fa-eye"></span>
+                        </button>
+                        <button id="btnPrivateSurveyCreateNew" type="button" class="btn btn-success margin-right-55 pull-right titleButtonsDefault" onclick="SurveyControls.createNewForm();">Create New Survey</button>
+                        <button id="btnPrivateSurveyShowTemplates" type="button" class="btn btn-success margin-right-5 pull-right titleButtonsDefault" data-toggle="modal" data-target="#publicSurveyModal" onclick="SurveyControls.showPublicTemplates();">Show Templates</button>
+                    </div>
+                </div>
+                <div id="privateSurveyListToggleParent" class="row toggleDivParent toggleDivHidden">
+                    <div class="panel-left col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                        <table id="tblPrivateSurveyForms" class="table datatable-basic table-striped datatable-extended">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="splitter">
+                    </div>
+                    <div class="panel-right toogleDivMain">
+                        <div class="toogleDivTitle">
+                            <h2>
+                                preview
+                            </h2>
+                        </div>
+                        <div class="toogleDivContent">
+                            <iframe id="iframePreviewPrivateSurvey"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row card" id="divSurveyDesigner" style="display:none;">
+    <div class="col-lg-12 col-md-12">
+        <div class="row row-margin">
+            <div class="col-md-9">
+                <input type="hidden" name="hdsid" id="hdsid" value="-1" />
+                <input type="text" name="txtsurveyname" id="txtsurveyname" class="form-control pull-left" placeholder="Survey Name" value="" />
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary margin-right-5 pull-left" onclick="SurveyControls.showSurveyList();">Cancel</button>
+                <button id="btnSaveFormBottom" type="button" class="btn btn-success margin-right-5 pull-left " onclick="SurveyControls.saveSurveyDesign();">Save</button>
+            </div>
+        </div>
+        <div class="row toggleDivParent toggleDivHidden">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div id="fb-editor"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="publicSurveyModal" tabindex="-1" role="dialog" aria-labelledby="modal-default-header" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content block minModelSize">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-default-header">Rendering View</h4>
+                <div class="pull-right">
+                    <button id="btnPrivateSurveySelectionPublicToggle" title="Preview" class="btn btn-primary pull-right isPreviewHidden" onclick="Layout.togglePreviewButton(this,'privateSurveySelectionPublicToggleParent')">
+                        <span class="fa fa-eye"></span>
+                    </button>
+
+                    <button id="btnPrivateSurveySelectionPublicDuplicate" type="button" class="btn btn-success margin-right-5 pull-right titleButtons" onclick="SurveyControls.duplicatePublicForm();">Duplicate Survey</button>
+                </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="privateSurveySelectionPublicToggleParent" class="row toggleDivParent toggleDivHidden">
+                    <div class="panel-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <table id="tblPublicSurveyForms" class="table table-striped table-bordered datatable-extended">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="splitter">
+                    </div>
+                    <div class="panel-right toogleDivMain">
+                        <div class="toogleDivTitle">
+                            <h2>
+                                preview
+                            </h2>
+                        </div>
+                        <div class="toogleDivContent">
+                            <iframe id="iframePreviewPrivateSurveyPublicList"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

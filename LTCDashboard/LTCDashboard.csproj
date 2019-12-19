@@ -1,0 +1,421 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\Resources\Limitless\layout_1\LTR\material\**" />
+    <Compile Remove="wwwroot\Resources\Limitless\layout_1\RTL\**" />
+    <Compile Remove="wwwroot\Resources\Limitless\layout_2\**" />
+    <Compile Remove="wwwroot\Resources\Limitless\layout_3\**" />
+    <Compile Remove="wwwroot\Resources\Limitless\layout_4\**" />
+    <Compile Remove="wwwroot\Resources\Limitless\layout_5\**" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\material\**" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\RTL\**" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_2\**" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_3\**" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_4\**" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_5\**" />
+    <EmbeddedResource Remove="wwwroot\Resources\Limitless\layout_1\LTR\material\**" />
+    <EmbeddedResource Remove="wwwroot\Resources\Limitless\layout_1\RTL\**" />
+    <EmbeddedResource Remove="wwwroot\Resources\Limitless\layout_2\**" />
+    <EmbeddedResource Remove="wwwroot\Resources\Limitless\layout_3\**" />
+    <EmbeddedResource Remove="wwwroot\Resources\Limitless\layout_4\**" />
+    <EmbeddedResource Remove="wwwroot\Resources\Limitless\layout_5\**" />
+    <None Remove="wwwroot\Resources\Limitless\layout_1\LTR\material\**" />
+    <None Remove="wwwroot\Resources\Limitless\layout_1\RTL\**" />
+    <None Remove="wwwroot\Resources\Limitless\layout_2\**" />
+    <None Remove="wwwroot\Resources\Limitless\layout_3\**" />
+    <None Remove="wwwroot\Resources\Limitless\layout_4\**" />
+    <None Remove="wwwroot\Resources\Limitless\layout_5\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\alpaca_advanced.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\alpaca_basic.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\alpaca_controls.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\animations_css3.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\animations_velocity_basic.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\animations_velocity_examples.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\animations_velocity_ui.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\blog_classic_h.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\blog_classic_v.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\blog_grid.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\blog_sidebar_left.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\blog_sidebar_right.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\blog_single.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\c3_advanced.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\c3_axis.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\c3_bars_pies.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\c3_grid.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\c3_lines_areas.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\changelog.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\chat_layouts.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\chat_options.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_blue.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_brown.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_danger.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_green.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_grey.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_indigo.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_info.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_orange.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_pink.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_primary.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_purple.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_slate.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_success.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_teal.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_violet.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\colors_warning.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_alerts.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_badges.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_breadcrumbs.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_buttons.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_collapsible.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_dropdowns.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_media.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_modals.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_navs.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_pagination.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_pills.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_popups.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_progress.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_scrollspy.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\components_tabs.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\content_cards.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\content_cards_content.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\content_cards_draggable.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\content_cards_footer.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\content_cards_header.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\content_cards_layouts.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\content_grid.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\content_helpers.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\content_helpers_flex.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\content_page_header.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\content_syntax_highlighter.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\content_text_styling.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\content_typography.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\d3_bars_advanced.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\d3_bars_basic.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\d3_circle_diagrams.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\d3_lines_advanced.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\d3_lines_basic.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\d3_other.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\d3_pies.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\d3_tree.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_advanced.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_api.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_basic.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_data_sources.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_extension_autofill.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_extension_buttons_flash.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_extension_buttons_html5.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_extension_buttons_init.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_extension_buttons_print.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_extension_colvis.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_extension_fixed_columns.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_extension_fixed_header.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_extension_key_table.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_extension_reorder.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_extension_row_reorder.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_extension_scroller.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_extension_select.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_responsive.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_sorting.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\datatable_styling.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\dimple_area_horizontal.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\dimple_area_vertical.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\dimple_bars_horizontal.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\dimple_bars_vertical.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\dimple_bubble.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\dimple_lines_horizontal.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\dimple_lines_vertical.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\dimple_pies.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\dimple_rings.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\dimple_scatter.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\dimple_step_horizontal.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\dimple_step_vertical.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\echarts_areas.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\echarts_bars_tornados.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\echarts_candlesticks_others.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\echarts_columns_waterfalls.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\echarts_funnels_calendars.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\echarts_lines.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\echarts_pies_donuts.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\echarts_scatter.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\ecommerce_customers.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\ecommerce_orders_history.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\ecommerce_pricing.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\ecommerce_product_grid.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\ecommerce_product_list.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\editor_ckeditor.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\editor_code.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\editor_summernote.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\editor_trumbowyg.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\error_403.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\error_404.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\error_405.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\error_500.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\error_503.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\error_offline.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\extension_blockui.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\extension_dnd.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\extension_image_cropper.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\extra_context_menu.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\extra_fab.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\extra_idle_timeout.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\extra_jgrowl_noty.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\extra_pnotify.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\extra_session_timeout.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\extra_sliders_ion.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\extra_sliders_noui.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\extra_sweetalert.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\extra_trees.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_actions.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_checkboxes_radios.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_controls_extended.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_dual_listboxes.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_floating_labels.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_inputs.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_inputs_grid.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_input_groups.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_layout_horizontal.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_layout_vertical.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_multiselect.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_select2.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_tag_inputs.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_validation.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\form_wizard.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\fullcalendar_advanced.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\fullcalendar_formats.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\fullcalendar_styling.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\fullcalendar_views.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\gallery_description.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\gallery_grid.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\gallery_library.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\gallery_titles.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\general_embeds.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\general_faq.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\general_feed.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\general_knowledgebase.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\google_bars.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\google_lines.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\google_other.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\google_pies.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\google_scatter_bubble.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\handsontable_ac_password.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\handsontable_advanced.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\handsontable_basic.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\handsontable_cells.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\handsontable_cols.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\handsontable_context.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\handsontable_custom_checks.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\handsontable_search.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\handsontable_types.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\icons_fontawesome.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\icons_icomoon.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\icons_material.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\index.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\internationalization_callbacks.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\internationalization_fallback.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\internationalization_switch_direct.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\internationalization_switch_query.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\invoice_archive.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\invoice_grid.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\invoice_template.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\job_apply.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\job_detailed.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\job_list_cards.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\job_list_list.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\jqueryui_components.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\jqueryui_forms.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\jqueryui_interactions.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\jqueryui_navigation.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\jqueryui_sliders.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\layout_boxed_content.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\layout_boxed_default.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\layout_boxed_full.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\layout_boxed_mini.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\layout_fixed_footer.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\layout_fixed_hideable_navbar.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\layout_fixed_navbar.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\layout_fixed_sidebar_custom.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\layout_fixed_sidebar_native.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\learning_detailed.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\learning_grid.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\learning_list.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\login_advanced.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\login_background.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\login_hide_navbar.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\login_modals.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\login_password_recover.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\login_registration.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\login_registration_advanced.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\login_simple.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\login_tabbed.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\login_transparent.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\login_unlock.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\login_validation.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\mail_list.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\mail_list_detached.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\mail_read.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\mail_write.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\maps_google_basic.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\maps_google_controls.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\maps_google_drawings.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\maps_google_layers.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\maps_google_markers.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\maps_vector.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_colors.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_components.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_component_multiple.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_component_single.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_hideable.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_multiple_bottom_fixed.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_multiple_bottom_static.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_multiple_secondary_sticky.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_multiple_top_bottom.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_multiple_top_fixed.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_multiple_top_static.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_single_bottom_fixed.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_single_bottom_static.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_single_content_after.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_single_header_after.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_single_header_before.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_single_top_fixed.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_single_top_static.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navbar_sizes.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navigation_horizontal_click.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navigation_horizontal_disabled.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navigation_horizontal_elements.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navigation_horizontal_hover.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navigation_horizontal_mega.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navigation_horizontal_tabs.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navigation_vertical_accordion.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navigation_vertical_badges.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navigation_vertical_bordered.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navigation_vertical_collapsible.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navigation_vertical_disabled.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\navigation_vertical_right_icons.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\picker_color.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\picker_date.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\picker_location.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\search_basic.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\search_images.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\search_users.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\search_videos.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\service_sitemap.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_components.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_content_color_custom.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_content_color_dark.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_content_color_sections_custom.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_content_left.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_content_left_hidden.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_content_left_stretch.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_content_right.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_content_right_hidden.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_content_right_stretch.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_content_sections.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_default_collapse.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_default_color_custom.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_default_color_light.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_default_hidden.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_default_hide.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_mini_collapse.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_mini_hidden.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_mini_hide.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_right_color_custom.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_right_color_dark.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_right_default_collapse.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_right_default_hide.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_right_default_toggle.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_right_mini_toggle.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_right_secondary_hide.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_right_visible.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_secondary_after.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_secondary_before.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_secondary_color_custom.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_secondary_color_dark.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\sidebar_secondary_hidden.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\table_basic.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\table_borders.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\table_elements.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\table_responsive.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\table_sizing.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\table_styling.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\task_manager_detailed.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\task_manager_grid.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\task_manager_list.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\timelines_center.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\timelines_left.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\timelines_right.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\uploader_bootstrap.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\uploader_dropzone.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\uploader_plupload.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\user_pages_cards.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\user_pages_list.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\user_pages_profile.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\user_pages_profile_cover.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\user_pages_profile_tabbed.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\widgets_content.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\full\widgets_stats.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\layout_boxed.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\layout_fixed.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\layout_nav_horizontal.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\navbar_fixed_both.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\navbar_fixed_main.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\navbar_fixed_secondary.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\sidebar_content_left.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\sidebar_content_right.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\sidebar_main.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\sidebar_none.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\sidebar_right.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\sidebar_right_hidden.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\sidebar_right_visible.html" />
+    <Content Remove="wwwroot\Resources\Limitless\layout_1\LTR\default\seed\sidebar_secondary.html" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\LTCDataManager\LTCDataManager.csproj" />
+    <ProjectReference Include="..\LTCDataModel\LTCDataModel.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Newsletter\Data\" />
+    <Folder Include="Areas\Newsletter\Models\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="wwwroot\Resources\Meter\sass\circle.scss" />
+  </ItemGroup>
+
+</Project>

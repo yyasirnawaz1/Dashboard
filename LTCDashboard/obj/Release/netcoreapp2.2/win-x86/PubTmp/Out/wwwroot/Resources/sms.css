@@ -1,0 +1,31 @@
+﻿.card-body {
+    text-align: center;
+}
+
+    .card-body span {
+        font-size: 26px;
+    }
+.card-header {
+    border-bottom: 1px solid lightgray !important;
+    padding-bottom: 0px !important;
+    padding-top: 14px !important;
+}
+/*.card-header {
+    padding: 10px;
+}*/
+
+.cardContent span {
+    font-size: 40px;
+}
+
+.smallFont {
+    font-size: 13px;
+}
+
+.card-body {
+    padding: 10px
+}
+
+.c3-chart-arcs-title {
+    font-size: 12px;
+}

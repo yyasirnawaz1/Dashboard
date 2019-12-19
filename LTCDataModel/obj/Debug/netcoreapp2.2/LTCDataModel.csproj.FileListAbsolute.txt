@@ -1,0 +1,8 @@
+C:\Users\Yasir\source\repos\LTCDashboard\LTCDataModel\bin\Debug\netcoreapp2.2\LTCDataModel.deps.json
+C:\Users\Yasir\source\repos\LTCDashboard\LTCDataModel\bin\Debug\netcoreapp2.2\LTCDataModel.dll
+C:\Users\Yasir\source\repos\LTCDashboard\LTCDataModel\bin\Debug\netcoreapp2.2\LTCDataModel.pdb
+C:\Users\Yasir\source\repos\LTCDashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.AssemblyInfoInputs.cache
+C:\Users\Yasir\source\repos\LTCDashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.AssemblyInfo.cs
+C:\Users\Yasir\source\repos\LTCDashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.dll
+C:\Users\Yasir\source\repos\LTCDashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.pdb
+C:\Users\Yasir\source\repos\LTCDashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.csprojAssemblyReference.cache

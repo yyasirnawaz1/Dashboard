@@ -1,0 +1,42 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject IConfiguration Configuration
+
+@{
+    ViewBag.Title = "Patient Survey";
+    Layout = "~/Views/Shared/_RenderLayout.cshtml";
+
+    string os = "0", fid = "0", pid = "0", ac = "0";
+    os = HttpContextAccessor.HttpContext.Request.Query["os"].ToString();
+    pid = HttpContextAccessor.HttpContext.Request.Query["pi"].ToString();
+    fid = HttpContextAccessor.HttpContext.Request.Query["fi"].ToString();
+    ac = HttpContextAccessor.HttpContext.Request.Query["ac"].ToString();
+
+}
+
+<link href="~/Resources/FormDesigner/assets/css/RateYo/RateYo.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-md-12">
+        <input type="hidden" id="hid_os" value="@os" />
+        <input type="hidden" id="hid_fid" value="@fid" />
+        <input type="hidden" id="hid_pid" value="@pid" />
+        <input type="hidden" id="hid_ac" value="@ac" />
+        <div id="render-container" class="renderingSurveyStyling">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <input id="btnSubmit" type='button' class="btn btn-success pull-right" value="Submit form" onclick="SurveyRender.saveRendering()" />
+    </div>
+</div>
+
+<br />
+@section scripts{
+    <script src="~/Scripts/CommonJS.js"></script>
+    <script src="~/Resources/theme/js/vendor/datatables.net/js/datatables.min.js"></script>
+    <script src="~/Resources/theme/js/vendor/datatables.net/js/Select-1.2.6/js/select.bootstrap.min.js"></script>
+    <script src="~/Resources/FormDesigner/assets/js/form-render.min.js"></script>
+    <script src="~/Resources/FormDesigner/assets/js/Rateyo/jquery.rateyo.min.js"></script>
+    <script src="~/Scripts/Home/SurveyRender.js"></script>
+}
