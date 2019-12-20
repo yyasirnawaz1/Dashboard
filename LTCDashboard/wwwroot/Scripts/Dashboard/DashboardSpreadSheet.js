@@ -6,11 +6,11 @@
         Dashboard.setting.isSpreadsheetTale = true;
         Dashboard.setting.loadedChartName = chartName;
 
-        Dashboard.loadModelData(chartName,types);
+        Dashboard.loadModelData(chartName, types);
     },
 
     setupSpreadSheetGrid: function () {
-      
+
         if (Dashboard.chartsDetailData != null) {
             DashboardSpreadSheet.spreadsheetTable = $("#spreadsheet-Table").kendoSpreadsheet({
                 //columns: 6,

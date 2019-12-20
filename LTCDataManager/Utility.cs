@@ -2,19 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LTCDataManager.DataAccess;
+using LTCDataModel;
 using LTCDataModel.Configurations;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using SelectPdf;
+
 
 namespace LTCDataManager
 {
     public class Utility
     {
         public static ConfigSettings Config;
-
         public static List<gDentalProvider> ProviderToList(string[] model)
         {
             List<gDentalProvider> result = new List<gDentalProvider>();
@@ -47,16 +51,25 @@ namespace LTCDataManager
             return result;
         }
 
-        //public static string ProviderToString(string[] providerList)
-        //{
-        //    var result = "";
-        //    foreach (var item in providerList)
-        //    {
-        //        result += "\'" + item + "\'" + ",";
-        //    }
-        //    result = result.Trim(',');
-        //    return result;
-        //}
+        public static string StringToCharacterString(string originalType, string backupType)
+        {
+            string result = "";
+            if (string.IsNullOrEmpty(originalType))
+            {
+                result = backupType;
+            }
+            else
+            {
+                string[] originalTypeArray = originalType.Split(',');
+
+                foreach (var item in originalTypeArray)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                        result += "\'" + item + "\'";
+                }
+            }
+            return result;
+        }
 
         /// <summary>
         /// This method should cache the authentication_office_list table detail rather than hitting the database on every call, 
@@ -165,6 +178,159 @@ namespace LTCDataManager
                 return "0,1";
             }
         }
+
+        public static string GeneratePdf(string content, string filePath)
+        {
+            #region Create PDF file
+
+            var htmlPage = System.IO.File.ReadAllText(filePath);
+
+            var result = JsonConvert.DeserializeObject<List<gSelectedData>>(content);
+            var html = " <form id='rendered-form'><div class='rendered-form'>";
+            foreach (var element in result)
+            {
+                if (element.type == "header")
+                    html += "<div class='form-group'><h1>" + element.label + "</h1></div>";
+                else if (element.type == "paragraph")
+                    html += "<div class='form-group'><p>" + element.label + "</p></div>";
+
+                if (element.userData != null && element.userData[0] != string.Empty)
+                {
+                    //if (element.className == string.Empty)
+                    //{
+                    element.className = "form-control";
+                    //}
+
+                    if (element.type == "textarea")
+                        html += "<div class='form-group'><label>" + element.label + "</label><p>";
+                    else
+                        html += "<div class='form-group'><label>" + element.label +
+                                "</label><input class='form-control' id=" + element.name + " value = '";
+
+                    foreach (var userData in element.userData)
+                    {
+                        html += userData + " ,";
+                    }
+
+                    html = html.Remove(html.Length - 1, 1);
+                    if (element.type == "textarea")
+                        html += "</p></div>";
+                    else
+                        html += "' /></div>";
+                }
+            }
+
+            html += "</div></form>";
+            htmlPage = htmlPage.Replace("[Body]", html);
+
+            HtmlToPdf converter = new HtmlToPdf();
+
+            PdfDocument doc = converter.ConvertHtmlString(htmlPage);
+            MemoryStream stream = new MemoryStream();
+            doc.Save(stream);
+            doc.Close();
+            byte[] docBytes = stream.ToArray();
+            return Encoding.ASCII.GetString(docBytes);
+
+            #endregion
+        }
+
+        public static byte[] GeneratePdfArray(string content, string filePath)
+        {
+            #region Create PDF file
+
+            var htmlPage = System.IO.File.ReadAllText(filePath);
+
+            var result = JsonConvert.DeserializeObject<List<gSelectedData>>(content);
+            var html = " <form id='rendered-form'><div class='rendered-form'>";
+            foreach (var element in result)
+            {
+                if (element.type == "header")
+                    html += "<div class='form-group'><h1>" + element.label + "</h1></div>";
+                else if (element.type == "paragraph")
+                    html += "<div class='form-group'><p>" + element.label + "</p></div>";
+                else if (element.type == "button")
+                    html += "<div class='form-group'><button type='button' class='btn btn-primary'>" + element.label + "</button><p></div>";
+                else if (element.type == "NewLine")
+                    html += "<div class='form-group'><br/></div>";
+                else if (element.type == "starRating")
+                    html += "<div class='form-group'><label>" + element.label + "<label></div>";
+                else if (element.type == "LineSeprator")
+                    html += "<div class='form-group'><hr/></div>";
+                else if (element.type == "file")
+                    html += "<div class='form-group'><label>" + element.label + "<label></div>";
+                //else if (element.type == "number" || element.type == "text"|| element.type == "textarea"|| element.type == "date")
+                //    html += "<div class='form-group'><label>" + element.label + "<label></div>";
+                if (element.userData != null && element.userData[0] != string.Empty)
+                {
+                    //if (element.className == string.Empty)
+                    //{
+                    element.className = "form-control";
+                    //}
+
+                    if (element.type == "textarea")
+                        html += "<div class='form-group'><label>" + element.label + "</label><p>";
+                    else
+                        html += "<div class='form-group'><label>" + element.label +
+                                "</label><input class='form-control' id=" + element.name + " value = '";
+
+                    foreach (var userData in element.userData)
+                    {
+                        html += userData + " ,";
+                    }
+
+                    html = html.Remove(html.Length - 1, 1);
+                    if (element.type == "textarea")
+                        html += "</p></div>";
+                    else
+                        html += "' /></div>";
+                }
+                //else if (element.values != null)
+                //{
+                //    element.className = "form-control";
+
+                //    if (element.type == "textarea")
+                //        html += "<div class='form-group'><label>" + element.label + "</label><p>";
+                //    else
+                //        html += "<div class='form-group'><label>" + element.label +
+                //                "</label><input class='form-control' id=" + element.name + " value = ' ";
+
+                //    foreach (var value in element.values)
+                //    {
+                //        if (value.selected)
+                //        {
+                //            html += value.value + " ,";
+                //        }
+                //    }
+
+                //    html = html.Remove(html.Length - 1, 1);
+                //    if (element.type == "textarea")
+                //        html += "</p></div>";
+                //    else
+                //        html += "' /></div>";
+                //}
+            }
+
+            html += "</div></form>";
+            htmlPage = htmlPage.Replace("[Body]", html);
+
+            HtmlToPdf converter = new HtmlToPdf();
+
+            PdfDocument doc = converter.ConvertHtmlString(htmlPage);
+
+            MemoryStream stream = new MemoryStream();
+            doc.Save(stream);
+            doc.Close();
+            byte[] docBytes = stream.ToArray();
+
+
+            return docBytes;
+
+
+
+            #endregion
+        }
+
 
     }
 }

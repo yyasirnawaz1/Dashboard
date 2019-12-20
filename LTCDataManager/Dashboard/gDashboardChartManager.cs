@@ -49,8 +49,8 @@ namespace LTCDataManager.Dashboard
                 }
             }
 
-            return allowedCharts;       
- }
+            return allowedCharts;
+        }
 
         public static gChartPermission GetChartPermissions(int officeId, int userId)
         {
@@ -84,9 +84,12 @@ namespace LTCDataManager.Dashboard
             using (var db = PocoDatabase.DbConnection(DbConfiguration.LtcDashboard))
             {
                 var model = db.Fetch<gUserCharts>($"SELECT * FROM user_charts WHERE Chart_Id={chartId}").FirstOrDefault();
-                if (model == null)
+                if (model != null)
                 {
                     gUserCharts userChart = new gUserCharts();
+                    userChart.User_Id = model.User_Id;
+                    userChart.ID = model.ID;
+                    userChart.Chart_Id = model.Chart_Id;
                     userChart.FilterTypes = filterTypes;
                     db.Save(userChart);
                 }

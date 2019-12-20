@@ -17,11 +17,13 @@ namespace LTCDataModel
         public List<gValues> values { get; set; }
         public List<string> userData { get; set; }
         public string subtype { get; set; }
+        public string value { get; set; }
     }
 
     public class gValues
     {
         public string label { get; set; }
         public string value { get; set; }
+        public bool selected { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using LTCDataManager.DataAccess;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,7 +34,7 @@ namespace LTCDashboard.Controllers
         //TODO: remove this method and get the connection string based on office id
         public string GetUserConnectionString()
         {
-            throw new Exception("Figure this part out, get the connection string based on the selected office");
+            return DbConfiguration.LtcDental;
         }
 
         

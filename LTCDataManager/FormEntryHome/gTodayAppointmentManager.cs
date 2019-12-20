@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LTCDataManager.DataAccess;
 using LTCDataModel.Configurations;
 using LTCDataModel.FormEntryHome;
 using LTCDataModel.PetaPoco;
@@ -108,7 +109,7 @@ namespace LTCDataManager.TodayAppointment
                 //for sp
                 //var result = db.Fetch<dynamic>(";EXEC GetPermitPendingApproval @@permitYear = @0", 2013);
 
-                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LTCDental"].ConnectionString))
+                using (MySqlConnection conn = new MySqlConnection(DbConfiguration.LtcDental))
                 {
                     using (MySqlCommand cmd = new MySqlCommand("Save_Form_Data", conn))
                     {
@@ -127,7 +128,8 @@ namespace LTCDataManager.TodayAppointment
             }
             else
             {
-                using (MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["LTCDental"].ConnectionString))
+                
+                using (MySqlConnection conn = new MySqlConnection(DbConfiguration.LtcDental))
                 {
                     using (MySqlCommand cmd = new MySqlCommand("Save_Survey_Data", conn))
                     {

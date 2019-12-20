@@ -138,7 +138,8 @@ namespace LTCDataManager.Dashboard
         /// <returns></returns>
         public decimal GetTotalNetProduction(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
-
+            types = Utility.StringToCharacterString(types, _configuration.TotalNetProductionInvoiceTypes);
+           
             decimal result = 0;
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -152,7 +153,7 @@ namespace LTCDataManager.Dashboard
                 string query =
                 $"SELECT IFNULL(sum(patamount/100) + sum(insamount/100),0) as amount FROM item " +
                 $"where provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("TotalNetProductionTypes")})) and " +
-                $"invoiceType in ({_configuration.TotalNetProductionInvoiceTypes}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
+                $"invoiceType in ({types}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
                 $"AND Office_sequence = {office}";
 
                 var model = db.ExecuteScalar<decimal>(query);
@@ -172,6 +173,8 @@ namespace LTCDataManager.Dashboard
         /// <returns></returns>
         public List<gBreakdown> GetTotalNetProductionBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.TotalNetProductionInvoiceTypes);
+          
             List<gBreakdown> result = new List<gBreakdown>();
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -185,7 +188,7 @@ namespace LTCDataManager.Dashboard
                 string query =
               $"SELECT i.Office_sequence,i.patientNumber,i.invoicedate,i.patamount/100 patamount ,i.insamount/100 insamount ,i.provider,i.invoiceType, lastname, firstname,title FROM item i LEFT JOIN patient P on i.patientnumber = P.patientnumber AND i.Office_sequence = P.Office_sequence " +
               $"where provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND i.Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("TotalNetProductionTypes")})) and " +
-              $"invoiceType in ({_configuration.TotalNetProductionInvoiceTypes}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
+              $"invoiceType in ({types}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
               $"AND i.Office_sequence = {office} order by invoicedate,invoiceType";
 
                 var model = db.Fetch<gBreakdown>(query);
@@ -199,6 +202,8 @@ namespace LTCDataManager.Dashboard
 
         public decimal GetTotalPaymentReceipt(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.TotalPaymentReceiptInvoiceTypes);
+            
             decimal result = 0;
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -212,7 +217,7 @@ namespace LTCDataManager.Dashboard
                 string query =
                 $"SELECT IFNULL(sum(patamount/100) + sum(insamount/100),0) as amount FROM item " +
                 $"where provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("TotalPaymentReceiptTypes")})) and " +
-                $"invoiceType in ({_configuration.TotalPaymentReceiptInvoiceTypes}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
+                $"invoiceType in ({types}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
                 $"AND Office_sequence = {office}";
 
                 var model = db.ExecuteScalar<decimal>(query);
@@ -232,6 +237,8 @@ namespace LTCDataManager.Dashboard
         /// <returns></returns>
         public List<gBreakdown> GetTotalPaymentReceiptBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.TotalPaymentReceiptInvoiceTypes);
+           
             List<gBreakdown> result = new List<gBreakdown>();
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -245,7 +252,7 @@ namespace LTCDataManager.Dashboard
                 string query =
               $"SELECT i.Office_sequence,i.patientNumber,i.invoicedate,i.patamount/100 patamount ,i.insamount/100 insamount ,i.provider,i.invoiceType, lastname, firstname,title FROM item i LEFT JOIN patient P on i.patientnumber = P.patientnumber AND i.Office_sequence = P.Office_sequence " +
               $"where provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND i.Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("TotalPaymentReceiptTypes")})) and " +
-              $"invoiceType in ({_configuration.TotalPaymentReceiptInvoiceTypes}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
+              $"invoiceType in ({types}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
               $"AND i.Office_sequence = {office} order by invoicedate,invoiceType";
 
                 var model = db.Fetch<gBreakdown>(query);
@@ -259,6 +266,8 @@ namespace LTCDataManager.Dashboard
 
         public decimal GetTotalNetPaymentReceipt(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.TotalNetPaymentReceiptInvoiceTypes);
+           
             decimal result = 0;
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -272,7 +281,7 @@ namespace LTCDataManager.Dashboard
                 string query =
                 $"SELECT IFNULL(sum(patamount/100) + sum(insamount/100),0) as amount FROM item " +
                 $"where provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("TotalNetPaymentReceiptTypes")})) and " +
-                $"invoiceType in ({_configuration.TotalNetPaymentReceiptInvoiceTypes}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
+                $"invoiceType in ({types}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
                 $"AND Office_sequence = {office}";
 
                 var model = db.ExecuteScalar<decimal>(query);
@@ -292,6 +301,8 @@ namespace LTCDataManager.Dashboard
         /// <returns></returns>
         public List<gBreakdown> GetTotalNetPaymentReceiptBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.TotalNetPaymentReceiptInvoiceTypes);
+         
             List<gBreakdown> result = new List<gBreakdown>();
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -305,7 +316,7 @@ namespace LTCDataManager.Dashboard
                 string query =
               $"SELECT i.Office_sequence,i.patientNumber,i.invoicedate,i.patamount/100 patamount ,i.insamount/100 insamount ,i.provider,i.invoiceType, lastname, firstname,title FROM item i LEFT JOIN patient P on i.patientnumber = P.patientnumber AND i.Office_sequence = P.Office_sequence " +
               $"where provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND i.Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("TotalNetPaymentReceiptTypes")})) and " +
-              $"invoiceType in ({_configuration.TotalNetPaymentReceiptInvoiceTypes}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
+              $"invoiceType in ({types}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
               $"AND i.Office_sequence = {office} order by invoicedate,invoiceType";
 
                 var model = db.Fetch<gBreakdown>(query);
@@ -327,6 +338,8 @@ namespace LTCDataManager.Dashboard
         /// <returns></returns>
         public decimal GetTotalHygenistProduction(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.TotalHygenistProductionInvoiceTypes);
+           
             decimal result = 0;
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -340,7 +353,7 @@ namespace LTCDataManager.Dashboard
                 string query =
                  $"SELECT IFNULL(sum(patamount/100) + sum(insamount/100),0) as amount FROM item " +
                  $"where provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("TotalHygenistProductionType")})) and " +
-                 $"invoiceType in ({_configuration.TotalHygenistProductionInvoiceTypes}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
+                 $"invoiceType in ({types}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
                  $"AND Office_sequence = {office}";
 
                 var model = db.ExecuteScalar<decimal>(query);
@@ -360,6 +373,8 @@ namespace LTCDataManager.Dashboard
         /// <returns></returns>
         public List<gBreakdown> GetTotalHygenistProductionBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.TotalHygenistProductionInvoiceTypes);
+            
             List<gBreakdown> result = new List<gBreakdown>();
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -373,7 +388,7 @@ namespace LTCDataManager.Dashboard
                 string query =
                 $"SELECT i.Office_sequence,i.patientNumber,i.invoicedate,i.patamount/100 patamount ,i.insamount/100 insamount,i.provider,i.invoiceType, lastname, firstname,title FROM item i LEFT JOIN patient P on i.patientnumber = P.patientnumber  AND i.Office_sequence = P.Office_sequence " +
                 $"where provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND i.Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("TotalHygenistProductionType")})) and " +
-                $"invoiceType in ({_configuration.TotalHygenistProductionInvoiceTypes}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
+                $"invoiceType in ({types}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
                 $"AND i.Office_sequence = {office} order by invoicedate,invoiceType";
 
                 var model = db.Fetch<gBreakdown>(query);
@@ -395,6 +410,8 @@ namespace LTCDataManager.Dashboard
         /// <returns></returns>
         public decimal GetTotalNetDoctorProduction(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.TotalTotalNetDoctorProductionInvoiceTypes);
+          
             decimal result = 0;
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -408,7 +425,7 @@ namespace LTCDataManager.Dashboard
                 string query =
            $"SELECT IFNULL(sum(patamount/100) + sum(insamount/100),0) as amount FROM item " +
            $"where provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("TotalTotalNetDoctorProductionType")})) and " +
-           $"invoiceType in ({_configuration.TotalTotalNetDoctorProductionInvoiceTypes}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
+           $"invoiceType in ({types}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
            $"AND Office_sequence = {office}";
 
                 var model = db.ExecuteScalar<decimal>(query);
@@ -428,6 +445,8 @@ namespace LTCDataManager.Dashboard
         /// <returns></returns>
         public List<gBreakdown> GetTotalNetDoctorProductionBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.TotalTotalNetDoctorProductionInvoiceTypes);
+           
             List<gBreakdown> result = new List<gBreakdown>();
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -441,7 +460,7 @@ namespace LTCDataManager.Dashboard
                 string query =
                  $"SELECT i.Office_sequence,i.patientNumber,i.invoicedate,i.patamount/100 patamount ,i.insamount/100 insamount,i.provider,i.invoiceType, lastname, firstname,title FROM item i LEFT JOIN patient P on i.patientnumber = P.patientnumber  AND i.Office_sequence = P.Office_sequence " +
                  $"where provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND i.Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("TotalTotalNetDoctorProductionType")})) and " +
-                 $"invoiceType in ({_configuration.TotalTotalNetDoctorProductionInvoiceTypes}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
+                 $"invoiceType in ({types}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
                  $"AND i.Office_sequence = {office} order by invoicedate,invoiceType";
 
                 var model = db.Fetch<gBreakdown>(query);
@@ -463,6 +482,8 @@ namespace LTCDataManager.Dashboard
         /// <returns></returns>
         public List<gPieChart> GetServiceAnalysis(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.ServiceAnalysisInvoiceTypes);
+           
             List<gCode> codes = new List<gCode>();
             List<gPieChart> serviceAnalysisList = new List<gPieChart>();
             var providers = Utility.ProviderToList(providerList);
@@ -487,7 +508,7 @@ namespace LTCDataManager.Dashboard
                         + $"LEFT JOIN detail d on i.invoiceNumber = d.invoicenumber "
                         + $"LEFT JOIN provider p on i.provider = p.provider "
                         + $"WHERE i.provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("ServiceAnalysisTypes")})) "
-                        + $"AND InvoiceType in ({_configuration.ServiceAnalysisInvoiceTypes}) "
+                        + $"AND InvoiceType in ({types}) "
                         + $"AND i.invoicedate >= '{startDate}' "
                         + $"AND i.invoicedate <= '{endDate}' "
                         + $"AND i.Office_sequence = {office} "
@@ -509,7 +530,7 @@ namespace LTCDataManager.Dashboard
                             var intCode = officeCodeList.FirstOrDefault(x => x.Office_Sequence == office
                                                                             && serviceCode >= x.Line1Int
                                                                             && serviceCode <= x.Line2Int);
-                            
+
                             item.xLabel = intCode != null ? intCode.Code : "";
 
                         }
@@ -537,6 +558,8 @@ namespace LTCDataManager.Dashboard
         /// <returns></returns>
         public List<gServiceAnalysis> GetServiceAnalysisBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.ServiceAnalysisInvoiceTypes);
+            
             List<gCode> codes = new List<gCode>();
             List<gServiceAnalysis> serviceAnalysisList = new List<gServiceAnalysis>();
             var providers = Utility.ProviderToList(providerList);
@@ -559,7 +582,7 @@ namespace LTCDataManager.Dashboard
                         + $"LEFT JOIN detail d on i.invoiceNumber = d.invoicenumber "
                         + $"LEFT JOIN provider p on i.provider = p.provider "
                         + $"WHERE i.provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("ServiceAnalysisTypes")})) "
-                        + $"AND InvoiceType in ({_configuration.ServiceAnalysisInvoiceTypes}) "
+                        + $"AND InvoiceType in ({types}) "
                         + $"AND i.invoicedate >= '{startDate}' "
                         + $"AND i.invoicedate <= '{endDate}' "
                         + $"AND i.Office_sequence = {office} "
@@ -615,6 +638,8 @@ namespace LTCDataManager.Dashboard
         /// <returns></returns>
         public List<gBarChart> GetCancellationAndNoShows(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.CancellationAndNoShowsStatusTypes);
+           
             List<gCode> codes = new List<gCode>();
             List<gBarChart> serviceAnalysisList = new List<gBarChart>();
             var providers = Utility.ProviderToList(providerList);
@@ -631,7 +656,7 @@ namespace LTCDataManager.Dashboard
                         + $"LEFT JOIN provider p on r.provider = p.provider  "
                         + $"LEFT JOIN patient pt on r.patientNumber = pt.patientnumber "
                         + $"WHERE r.provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("CancellationAndNoShowsTypes")})) "
-                        + $"AND status in ({_configuration.CancellationAndNoShowsStatusTypes}) "
+                        + $"AND status in ({types}) "
                         + $"AND r.contactdate >= '{startDate}' "
                         + $"AND r.contactdate <= '{endDate}' "
                         + $"AND r.Office_sequence = {office} "
@@ -665,6 +690,8 @@ namespace LTCDataManager.Dashboard
         /// <returns></returns>
         public List<gCancellationAndNoShows> GetCancellationAndNoShowsBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.CancellationAndNoShowsStatusTypes);
+           
             List<gCode> codes = new List<gCode>();
             List<gCancellationAndNoShows> serviceAnalysisList = new List<gCancellationAndNoShows>();
             var providers = Utility.ProviderToList(providerList);
@@ -681,7 +708,7 @@ namespace LTCDataManager.Dashboard
                         + $"LEFT JOIN provider p on r.provider = p.provider  "
                         + $"LEFT JOIN patient pt on r.patientNumber = pt.patientnumber "
                         + $"WHERE r.provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("CancellationAndNoShowsTypes")})) "
-                        + $"AND status in ({_configuration.CancellationAndNoShowsStatusTypes}) "
+                        + $"AND status in ({types}) "
                         + $"AND r.contactdate >= '{startDate}' "
                         + $"AND r.contactdate <= '{endDate}' "
                         + $"AND r.Office_sequence = {office} ";
@@ -710,6 +737,8 @@ namespace LTCDataManager.Dashboard
         /// <returns></returns>
         public decimal GetAverageProductionPerPatient(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
+            types = Utility.StringToCharacterString(types, _configuration.TotalAverageProductionPerPatientInvoiceTypes);
+            
             decimal paidAmount = 0;
             decimal patientCount = 0;
             var providers = Utility.ProviderToList(providerList);
@@ -725,7 +754,7 @@ namespace LTCDataManager.Dashboard
                 string query =
                 $"SELECT IFNULL(sum(patamount/100) + sum(insamount/100),0) as amount FROM item " +
                 $"where provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("TotalAverageProductionPerPatientType")})) and " +
-                $"invoiceType in ({_configuration.TotalAverageProductionPerPatientInvoiceTypes}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
+                $"invoiceType in ({types}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
                 $"AND Office_sequence = {office}";
                 var model = db.ExecuteScalar<decimal>(query);
 

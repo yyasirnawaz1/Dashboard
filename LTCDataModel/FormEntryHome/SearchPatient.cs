@@ -8,9 +8,9 @@ namespace LTCDataModel.FormEntryHome
 {
     public class gSearchPatient
     {
-        public int Account { get; set; }
-        public int PatientNumber { get; set; }
-        public int Office_Sequence { get; set; }
+        public Int64 Account { get; set; }
+        public Int64 PatientNumber { get; set; }
+        public Int64 Office_Sequence { get; set; }
         public string Doctor { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
@@ -23,9 +23,9 @@ namespace LTCDataModel.FormEntryHome
     }
     public class gSearchPatientViewModel
     {
-        public int Account { get; set; }
-        public int PatientNumber { get; set; }
-        public int Office_Sequence { get; set; }
+        public Int64 Account { get; set; }
+        public Int64 PatientNumber { get; set; }
+        public Int64 Office_Sequence { get; set; }
         public string Doctor { get; set; }
         public string Name { get; set; }
         public string Sex_Age { get; set; }

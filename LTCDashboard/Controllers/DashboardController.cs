@@ -129,7 +129,7 @@ namespace LTCDashboard.Controllers
                 else if (chartName == "TotalNetHygenistProduction")
                 {
                     var data = _gChartManager.GetTotalHygenistProduction(offices, providers, startDate, endDate, types);
-                    return Json(new { Success = true, Data = data, IsCurrency = true, hasMultipleRecords = false });
+                    return Json(new { Success = true, Data = data, IsCurrency = true, hasMGetTotalNetProductionultipleRecords = false });
                 }
                 else if (chartName == "TotalNetDoctorProduction")
                 {
@@ -209,7 +209,7 @@ namespace LTCDashboard.Controllers
                 }
 
                 return Json(new { Success = true });
-            }   
+            }
             catch (Exception ex)
             {
                 return Json(new { Sucess = false });
@@ -275,8 +275,6 @@ namespace LTCDashboard.Controllers
         }
 
         #endregion
-
-
 
 
         #region Kendo Download

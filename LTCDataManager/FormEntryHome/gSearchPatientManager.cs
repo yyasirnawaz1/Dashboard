@@ -29,7 +29,7 @@ namespace LTCDataManager.FormEntryHome
                 var q = @"SELECT pt.Office_sequence,pt.Account,pt.PatientNumber,pt.Doctor,pt.LastName,pt.FirstName,pt.Sex,pt.Birthdate,pt.LastVisit,pt.BestPhone,
                     (Select phonenumber from patientphone ph where PatientNumber = pt.PatientNumber AND phoneType='P' AND Office_sequence=" + OfficeId + @") AS PhoneNumber,
                     (Select phonenumber from patientphone ph where PatientNumber = pt.PatientNumber AND phoneType='W' AND Office_sequence=" + OfficeId + @") As MobilePhone
-                    FROM patient pt where pt.Office_sequence=" + OfficeId;
+                    FROM patient pt where pt.Office_sequence=" + OfficeId ;
 
 
                 var results = db.Fetch<gSearchPatient>(q).ToList();

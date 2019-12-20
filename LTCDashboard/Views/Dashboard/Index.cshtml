@@ -7,19 +7,6 @@
 }
 
 <div class="card-body dashboard">
-    @*<div class="row">
-            <div class="col-9"></div>
-            <div class="col-3">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input id="dashboardCalendar" type="text" class="form-control daterange-left" value="">
-                        <span class="input-group-append">
-                            <span class="input-group-text"><i class="icon-calendar22"></i></span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>*@
     <div class="row">
         <!--Left Panel -->
         <div class="col-md">
@@ -75,7 +62,7 @@
     </div>
 </div>
 
-<div id="chartBreakdown" class="modal fade" tabindex="-1">
+<div id="chartBreakdown" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-full">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -140,19 +127,19 @@
                 </div>
 
                 @*<div id="serviceAnalysisDetailDiv" style="display:none;">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="hidden-on-narrow" id="breakdown-tableServiceAnalysis"></div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="hidden-on-narrow" id="breakdown-tableServiceAnalysis"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div id="cancellationAndNoShowsDetailDiv" style="display:none;">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="hidden-on-narrow" id="breakdown-tableCancellationAndNoShows"></div>
+                    <div id="cancellationAndNoShowsDetailDiv" style="display:none;">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="hidden-on-narrow" id="breakdown-tableCancellationAndNoShows"></div>
+                            </div>
                         </div>
-                    </div>
-                </div>*@
+                    </div>*@
                 <div id="spreadsheetDetailDiv" style="display:none;">
                     <div class="row">
                         <div class="col-12">
@@ -168,7 +155,7 @@
     </div>
 </div>
 
-<div id="patientListModal" class="modal fade" tabindex="-1">
+<div id="patientListModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-full">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -375,7 +362,7 @@
     </div>
 </div>
 
-<div id="chartModal" class="modal fade" tabindex="-1">
+<div id="chartModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-full">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -502,8 +489,8 @@
 </div>
 
 
-<div id="filterTypesModal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-full">
+<div id="filterTypesModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header bg-primary">
                 <div class="headerMultiButton" style="width:95%;">
@@ -520,12 +507,13 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link">Save</button>
+                <button type="button" class="btn btn-link" onclick="Dashboard.saveFilterTypeOptions()">Save</button>
                 <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+
 
 @section headscripts{
     <link href="~/Resources/Meter/css/circle.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
