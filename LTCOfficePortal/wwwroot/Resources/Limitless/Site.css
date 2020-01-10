@@ -1,0 +1,360 @@
+﻿.login-userName {
+    margin-left: 5px;
+}
+
+.crossButton {
+    height: 88.5px;
+    background-color: lightgray;
+    visibility: hidden;
+}
+
+.loginTiles {
+    width: 100%;
+}
+
+
+iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+.iframeParent {
+    width: 100%;
+    height: 100%;
+}
+
+.tab-pane#preview iframe {
+    min-height: 566px;
+}
+
+.mainMenuDiv {
+    margin-top: -30px;
+}
+
+
+/* toggle preview panel start*/
+.toggleDivParent {
+    display: flex;
+    width: 100%;
+}
+
+.toogleDivMain {
+    background: #6aa9f6;
+    padding: 0;
+    padding-right: 0 !important;
+    min-height: 250px;
+    max-height: 800px;
+    border: 1px solid #DBE0E4;
+}
+
+.toogleDivTitle {
+    margin: 0;
+    float: left;
+    width: 25px;
+    height: 100%;
+    cursor: pointer;
+}
+
+    .toogleDivTitle h2 {
+        /*transform: rotate(-90deg);
+        text-align: center;
+        width: 17px;
+        position: relative;
+        top: 50%;*/
+        color: white;
+        transform: rotate(90deg);
+        transform-origin: left top 0;
+        white-space: normal;
+    }
+
+
+.toogleDivContent {
+    height: 100%;
+    background: white;
+    width: auto;
+    overflow: hidden;
+}
+
+.toggleDivHidden .panel-right, .toggleDivHidden .splitter {
+    display: none;
+}
+
+.toggleDivHidden .panel-left {
+    min-width: 100% !important;
+}
+
+.droppableLeftMinWidth {
+    max-width: 70% !important;
+}
+
+.droppableRightMinWidth {
+    min-width: 28% !important;
+}
+/* toggle preview panel end*/
+.minTableSize {
+    min-width: 400px;
+}
+
+.noDataRecord {
+    min-height: 450px;
+}
+
+    .noDataRecord span {
+        display: table;
+        margin: auto;
+    }
+
+
+.nav-tabs {
+    margin-bottom: -1px !important;
+}
+
+.table {
+    width: 100% !important;
+    border: 1px solid #ddd !important;
+    margin-top: 3px;
+}
+
+.tabCrossButton {
+    margin-top: -10px;
+    margin-left: 15px;
+    margin-right: -10px;
+    float: right;
+}
+
+.newsletterCreateButtons {
+    float: left;
+    width: 255px;
+    margin-top: 20px;
+}
+
+
+.droppableUl li ul li:first-child {
+    border-radius: 5px 5px 0 0;
+    margin-top: 0;
+}
+
+.droppableUl li ul li {
+    cursor: move;
+    list-style: none;
+    margin: 0 0 -1px;
+    padding: 10px;
+    text-align: left;
+    background: #fff;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px #c5c5c5;
+    width: 80%;
+}
+/*.nav-tabs .nav-link {
+    color: #333;
+    background-color: #fff;
+    border-color: #ddd #ddd #fff;
+}*/
+
+.margin-right-55 {
+    margin-right: 55px;
+}
+
+.margin-right-5 {
+    margin-right: 5px;
+}
+
+
+.titleButtonsDefault {
+    margin-right: 7px;
+}
+
+
+.textboxMinWidth {
+    max-width: 300px;
+    margin-right: 10px;
+}
+
+.minModelSize {
+    min-height: 350px;
+}
+
+
+
+
+
+span.k-in.k-state-hover {
+    width: 100% !important;
+}
+
+li.k-tool-group {
+    width: auto !important;
+}
+
+.k-content {
+    min-height: 500px;
+}
+
+
+span.k-in.k-state-hover {
+    width: 100% !important;
+}
+
+li.k-tool-group {
+    width: auto !important;
+}
+
+.k-content {
+    min-height: 500px;
+}
+
+table.table-striped {
+    width: 100% !important;
+}
+
+/* split panel start*/
+
+
+.panel-left {
+    flex: 0 0 auto;
+    padding: 0 10px;
+    min-height: 200px;
+    min-width: 50%;
+    white-space: nowrap;
+    max-width: 80%;
+}
+
+.splitter {
+    flex: 0 0 auto;
+    width: 14px;
+    background: url("/Content/theme/js/vendor/ResizePanel/vsizegrip.png") center center no-repeat;
+    border: 1px solid #DBE0E4;
+    background-color: lightblue;
+    min-height: 200px;
+    cursor: col-resize;
+}
+
+.panel-right {
+    flex: 1 1 auto;
+    /* resizable */
+    /*padding: 10px;*/
+    width: 18%;
+    min-height: 200px;
+    /*min-width: 200px;*/
+}
+
+.tab-content {
+    margin-top: 0px !important;
+}
+
+
+/* split panel end*/
+
+
+
+
+.row-margin {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+
+
+
+.newslettertreeview {
+    border: 1px solid #DBE0E4;
+}
+
+.createNewsletterDiv {
+    max-width: 185px;
+    float: left;
+    margin-right: 9px;
+}
+
+.createNewsletterDivButtons {
+    float: left;
+}
+
+
+.frmb {
+    min-height: 570px !important;
+}
+
+.form-wrap.form-builder .stage-wrap.empty {
+    min-height: 500px !important;
+}
+
+.form-wrap.form-builder .frmb li  {
+    padding: 0px !important;
+    margin-bottom: 0px !important;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+.form-wrap.form-builder .frmb .field-actions .btn  {
+    width: 27px !important;
+    height: 27px !important;
+    padding: 0px !important;
+    line-height: 27px !important;
+}
+
+.form-wrap.form-builder .frmb .field-label,   .form-wrap.form-builder .frmb .legend  {
+    margin-bottom: 0px !important;
+}
+
+.form-actions.btn-group {
+    display: none !important;
+}
+
+
+
+/*Public news letter dropdown*/
+.newsletter-industry-ddl {
+    width: 40% !important;
+    margin-right: 10px;
+}
+/*Public news letter dropdown*/
+
+
+
+
+.datatableLeftLengthDiv {
+    float: left;
+    margin-top: 6px;
+    white-space: nowrap;
+}
+
+
+/*for forms designer right items*/
+li.input-control {
+    width: 100%;
+}
+
+
+.RightMenuButton {
+    min-height: 40px;
+    padding-left: 21px !important;
+}
+
+    .RightMenuButton.dateSelector {
+        max-width: 30px !important;
+    }
+
+.dropdown-menu.dropdown-form > li {
+    padding: 15px;
+}
+
+
+.multiSelect, .dateSelector {
+    width: 250px !important;
+    margin-right: 5px;
+    float: right !important;
+}
+
+
+.login-coverFix {
+    background-color: #eeeded;
+}

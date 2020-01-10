@@ -1,0 +1,215 @@
+﻿@using System.Security.Claims
+@using LTCDashboard.Models
+@using LTCDataManager.User
+
+
+<ul class="navbar-nav">
+    <li class="nav-item dropdown">
+        <a href="#" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown">
+            <i class="icon-git-compare"></i>
+            <span class="d-md-none ml-2">Navigate</span>
+        </a>
+        <div class="dropdown-menu dropdown-content wmin-md-350">
+            @*<div class="dropdown-content-header">
+                    <span class="font-weight-semibold">Navigate</span>
+                </div>*@
+            <div class="dropdown-content-body dropdown-scrollable fullNavMenu">
+
+                @{
+
+                    int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var userId);
+
+                    <ul class="media-list">
+
+                        @if (gUserModuleManager.GetAuthenticationModule(userId, "dashboard"))
+                        {
+                            <li class="media" onclick="Layout.openMenu('dashboard');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon"><i class="icon-meter2"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Dashboard
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="media" onclick="alert('Selected option not subscribed');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon"><i class="icon-meter2"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Dashboard
+                                </div>
+                            </li>
+
+                        }
+
+                        @if (gUserModuleManager.GetAuthenticationModule(userId, "officemanagement"))
+                        {
+                            <li class="media" onclick="Layout.openMenu('officemanagement');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-warning text-warning rounded-round border-2 btn-icon"><i class="icon-atom"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Paradigm Cloud
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="media" onclick="alert('Selected option not subscribed');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-warning text-warning rounded-round border-2 btn-icon"><i class="icon-atom"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Paradigm Cloud
+                                </div>
+                            </li>
+                        }
+
+                        @if (gUserModuleManager.GetAuthenticationModule(userId, "report"))
+                        {
+                            <li class="media" onclick="Layout.openMenu('report');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-info text-info rounded-round border-2 btn-icon"><i class="icon-printer"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Office Portal
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="media" onclick="alert('Selected option not subscribed');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-info text-info rounded-round border-2 btn-icon"><i class="icon-printer"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Office Portal
+                                </div>
+                            </li>
+                        }
+
+                        @if (gUserModuleManager.GetAuthenticationModule(userId, "form"))
+                        {
+                            <li class="media" onclick="Layout.openMenu('form');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-success text-success rounded-round border-2 btn-icon"><i class="icon-pencil3"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Designer
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="media" onclick="alert('Selected option not subscribed');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-success text-success rounded-round border-2 btn-icon"><i class="icon-pencil3"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Designer
+                                </div>
+                            </li>
+                        }
+
+                        @if (gUserModuleManager.GetAuthenticationModule(userId, "newsletter"))
+                        {
+                            <li class="media" onclick="Layout.openMenu('newsletter');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon"><i class="icon-magazine"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Newsletter
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="media" onclick="alert('Selected option not subscribed');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon"><i class="icon-magazine"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Newsletter
+                                </div>
+                            </li>
+                        }
+
+                        @if (gUserModuleManager.GetAuthenticationModule(userId, "report"))
+                        {
+                            <li class="media" onclick="Layout.openMenu('report');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-info text-info rounded-round border-2 btn-icon"><i class="icon-mail5"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Review
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="media" onclick="alert('Selected option not subscribed');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-info text-info rounded-round border-2 btn-icon"><i class="icon-mail5"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Review
+                                </div>
+                            </li>
+                        }
+
+
+                        @if (gUserModuleManager.GetAuthenticationModule(userId, "survey"))
+                        {
+                            <li class="media" onclick="Layout.openMenu('survey');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-success text-success rounded-round border-2 btn-icon"><i class="icon-stack"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Survey
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="media" onclick="alert('Selected option not subscribed');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-success text-success rounded-round border-2 btn-icon"><i class="icon-stack"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    Survey
+                                </div>
+                            </li>
+                        }
+
+                        @if (gUserModuleManager.GetAuthenticationModule(userId, "report"))
+                        {
+                            <li class="media" onclick="Layout.openMenu('report');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon"><i class="icon-users2"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    My Contact
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+
+                            <li class="media" onclick="alert('Selected option not subscribed');">
+                                <div class="mr-2">
+                                    <a href="#" class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon"><i class="icon-users2"></i></a>
+                                </div>
+                                <div class="media-body">
+                                    My Contact
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </li>
+</ul>

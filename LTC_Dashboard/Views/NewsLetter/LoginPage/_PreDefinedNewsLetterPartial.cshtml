@@ -1,0 +1,61 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+
+<div id="PreDefinedNewsLetter" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Public Newsletters</h5>
+
+                <button id="btnPredefinedNewsLetterSelectionToggle" title="Preview" class="btn btn-primary pull-right isPreviewHidden" onclick="Layout.togglePreviewButton(this,'predefinedNewsletterSelectionList')">
+                    <span class="fa fa-eye"></span>
+                </button>
+                <select id="ddlNewsLetterIndustries" class="bs-select form-control pull-right newsletter-industry-ddl" onchange="PreNewsLetterControls.searchPredifinedNLOnIndustry();">
+                    <option value="0">All Industries</option>
+                </select>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="block-content">
+                            <div id="predefinedNewsletterSelectionList" class="row toggleDivParent toggleDivHidden">
+                                <div class="panel-left col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <table id="tblPrivateNewsLetterForms" class="table datatable-basic table-striped datatable-extended">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Description</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="splitter">
+                                </div>
+                                <div class="panel-right toogleDivMain">
+                                    <div class="toogleDivTitle">
+                                        <h2>
+                                            preview
+                                        </h2>
+                                    </div>
+                                    <div class="toogleDivContent">
+                                        <iframe id="previewPreNewsLetter"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>

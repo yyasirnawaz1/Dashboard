@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29230.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LTCOfficePortal", "LTCOfficePortal\LTCOfficePortal.csproj", "{231BF04D-F655-4E6A-ABBE-8D7E0EB0DC8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BAL", "BAL", "{81051E43-5EDD-4ECB-936B-F7029316A3C7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LTCDataModel", "LTCDataModel\LTCDataModel.csproj", "{C2550BFC-1A46-4BFF-87C6-3E5637E02635}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LTCDataManager", "LTCDataManager\LTCDataManager.csproj", "{62665F28-B9E0-4970-9859-E1A36480E3D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LTCAdminPortal", "LTCAdminPortal\LTCAdminPortal.csproj", "{0384E52D-F55C-49D7-B145-C5D1248DD471}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LTC_Dashboard", "LTC_Dashboard\LTC_Dashboard.csproj", "{2BCDCEB4-A61D-46EF-8BF8-D18D7F6B4FE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{231BF04D-F655-4E6A-ABBE-8D7E0EB0DC8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{231BF04D-F655-4E6A-ABBE-8D7E0EB0DC8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{231BF04D-F655-4E6A-ABBE-8D7E0EB0DC8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{231BF04D-F655-4E6A-ABBE-8D7E0EB0DC8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2550BFC-1A46-4BFF-87C6-3E5637E02635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2550BFC-1A46-4BFF-87C6-3E5637E02635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2550BFC-1A46-4BFF-87C6-3E5637E02635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2550BFC-1A46-4BFF-87C6-3E5637E02635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62665F28-B9E0-4970-9859-E1A36480E3D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62665F28-B9E0-4970-9859-E1A36480E3D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62665F28-B9E0-4970-9859-E1A36480E3D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62665F28-B9E0-4970-9859-E1A36480E3D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0384E52D-F55C-49D7-B145-C5D1248DD471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0384E52D-F55C-49D7-B145-C5D1248DD471}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0384E52D-F55C-49D7-B145-C5D1248DD471}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0384E52D-F55C-49D7-B145-C5D1248DD471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BCDCEB4-A61D-46EF-8BF8-D18D7F6B4FE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BCDCEB4-A61D-46EF-8BF8-D18D7F6B4FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BCDCEB4-A61D-46EF-8BF8-D18D7F6B4FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BCDCEB4-A61D-46EF-8BF8-D18D7F6B4FE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C2550BFC-1A46-4BFF-87C6-3E5637E02635} = {81051E43-5EDD-4ECB-936B-F7029316A3C7}
+		{62665F28-B9E0-4970-9859-E1A36480E3D9} = {81051E43-5EDD-4ECB-936B-F7029316A3C7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE5A1C57-206A-4458-97AD-F35F9EEFF57D}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://logictechcorp-kenneth.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = LTCOfficePortal\\LTCOfficePortal.csproj
+		SccProjectName1 = LTCOfficePortal
+		SccLocalPath1 = LTCOfficePortal
+		SccProjectUniqueName2 = LTCDataModel\\LTCDataModel.csproj
+		SccProjectTopLevelParentUniqueName2 = LTCDashboard.sln
+		SccProjectName2 = LTCDataModel
+		SccLocalPath2 = LTCDataModel
+		SccProjectUniqueName3 = LTCDataManager\\LTCDataManager.csproj
+		SccProjectTopLevelParentUniqueName3 = LTCDashboard.sln
+		SccProjectName3 = LTCDataManager
+		SccLocalPath3 = LTCDataManager
+		SccProjectUniqueName4 = LTCAdminPortal\\LTCAdminPortal.csproj
+		SccProjectName4 = LTCAdminPortal
+		SccLocalPath4 = LTCAdminPortal
+		SccProjectUniqueName5 = LTC_Dashboard\\LTC_Dashboard.csproj
+		SccProjectName5 = LTC_Dashboard
+		SccLocalPath5 = LTC_Dashboard
+	EndGlobalSection
+EndGlobal

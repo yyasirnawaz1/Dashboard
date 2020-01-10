@@ -1,0 +1,620 @@
+﻿@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700|Oswald:400,300,700);
+
+body {
+    /*background-color: rgba(218, 245, 255, 0.97);*/
+    /*font-family: 'Oswald', sans-serif;*/
+}
+
+input, textarea {
+    -webkit-user-select: text !important;
+    -khtml-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+}
+
+
+/*.navire {
+    background: url(https://res.cloudinary.com/dioieuprs/image/upload/v1471359656/navire_n02z6s.png) no-repeat;
+    background-size: 100% auto;
+    width: 120px;
+    height: 100px;
+    position: absolute;
+    top: -50px;
+    right: -130px;
+    -webkit-transition: right 0.2s ease;
+    transition: right 0.2s ease;
+}*/
+
+/*.mainMenuOverlay.open .navire {
+    right: 70%;
+    -webkit-transition: right 28s ease 1s;
+    transition: right 28s ease 1s;
+}*/
+/* ### main Menu Overlay */
+.mainMenuOverlay {
+    /*background-color: rgba(34, 152, 195, 0.84);*/
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: -420px;
+    z-index: 999;
+    height: 420px;
+    /*box-shadow: 0 0 15px -3px #03374A;*/
+    border-radius: 100% 100% 0 0 / 14% 14% 0 0;
+    -webkit-transition: bottom 0.5s ease;
+    transition: bottom 0.5s ease;
+}
+
+    .mainMenuOverlay.open {
+        bottom: 0;
+        height: 800px;
+        top: 65px;
+        z-index:1;
+    }
+
+    .mainMenuOverlay .toggleMenu {
+        display: block;
+        /*background: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/sandwich.png) no-repeat center center #65B5D0;background-size: 23px auto;*/
+        background-color: #65B5D0;
+        border: 1px solid #FFF;
+        border-radius: 150px;
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        margin: -31px 0 0 -31px;
+        cursor: pointer;
+        font-size: 24px;
+        color: #FFF;
+        text-align: center;
+        line-height: 62px;
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.2) inset, 0 0 16px -4px #063343;
+        -webkit-transition: box-shadow 0.5s ease, top 0.5s ease;
+        transition: box-shadow 0.5s ease, top 0.5s ease;
+    }
+
+        .mainMenuOverlay .toggleMenu:hover, .mainMenuOverlay .toggleMenu:active {
+        }
+
+    .mainMenuOverlay.open .toggleMenu {
+        top: 41%;
+        left: 46%;
+        background-color: #2298C3;
+    }
+
+    .mainMenuOverlay .itemMenuBox {
+        background: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/go2.png) no-repeat center center;
+        background-size: 28px auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -31px 0 0 -31px;
+        height: 62px;
+        width: 142px;
+        text-align: right;
+        border-radius: 40px;
+        -webkit-transform-origin: 31px 31px;
+        -ms-transform-origin: 31px 31px;
+        transform-origin: 31px 31px;
+        -webkit-transition: all 1s ease 0.4s;
+        transition: all 1s ease 0.4s;
+    }
+
+    .mainMenuOverlay.open .itemMenuBox {
+        width: 430px;
+        -webkit-transition: all 1s ease 0s;
+        transition: all 1s ease 0s;
+    }
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+}
+/*iPad in landscape*/
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) { /* STYLES GO HERE */
+    .mainMenuOverlay.open .itemMenuBox {
+        width: 362px;
+        -webkit-transition: all 1s ease 0s;
+        transition: all 1s ease 0s;
+    }
+
+    .mainMenuOverlay.open .toggleMenu {
+        top: 41%;
+        left: 44%;
+        background-color: #2298C3;
+    }
+}
+
+/*iPad in portrait*/
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { /* STYLES GO HERE */
+    .mainMenuOverlay.open .itemMenuBox {
+        width: 362px;
+        -webkit-transition: all 1s ease 0s;
+        transition: all 1s ease 0s;
+    }
+
+    .mainMenuOverlay.open .toggleMenu {
+        top: 41%;
+        left: 42%;
+        background-color: #2298C3;
+    }
+}
+
+/*@media only screen and (max-width: 1024px) and (max-height: 768px) {
+}*/
+
+.mainMenuOverlay .itemMenuBox .itemMenu {
+    display: inline-block;
+    border: 2px solid rgba(255,255,255,0.6);
+    border-radius: 40px;
+    background-color: #1f97c2;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 200px;
+    height: 200px;
+    border-radius: 150px;
+    transition: all 0.8s ease;
+    color: #FFF;
+    font-size: 24px;
+    line-height: 64px;
+    text-align: center;
+}
+
+
+.mainMenuOverlay .itemMenuBox.bills {
+    -webkit-transform: rotate(292.5deg);
+    -ms-transform: rotate(292.5deg);
+    transform: rotate(292.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.tarsheed {
+    -webkit-transform: rotate(337.5deg);
+    -ms-transform: rotate(337.5deg);
+    transform: rotate(337.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.employees {
+    -webkit-transform: rotate(22.5deg);
+    -ms-transform: rotate(22.5deg);
+    transform: rotate(22.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.location {
+    -webkit-transform: rotate(67.5deg);
+    -ms-transform: rotate(67.5deg);
+    transform: rotate(67.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.eservices {
+    -webkit-transform: rotate(112.5deg);
+    -ms-transform: rotate(112.5deg);
+    transform: rotate(112.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.contact {
+    -webkit-transform: rotate(157.5deg);
+    -ms-transform: rotate(157.5deg);
+    transform: rotate(157.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.contact1 {
+    -webkit-transform: rotate(202.5deg);
+    -ms-transform: rotate(202.5deg);
+    transform: rotate(202.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.contact2 {
+    -webkit-transform: rotate(247.5deg);
+    -ms-transform: rotate(247.5deg);
+    transform: rotate(247.5deg);
+}
+
+
+
+
+.mainMenuOverlay .itemMenuBox.bills .itemMenu {
+    /*background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/file.png);
+	background-size: 20px auto;*/
+    -webkit-transform: rotate(67.5deg);
+    -ms-transform: rotate(67.5deg);
+    transform: rotate(67.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.tarsheed .itemMenu {
+    /* background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/tarsheed.png); 
+	background-size: 38px auto;*/
+    -webkit-transform: rotate(22.5deg);
+    -ms-transform: rotate(22.5deg);
+    transform: rotate(22.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.employees .itemMenu {
+    /*background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/employees.png);
+	background-size: 38px auto;*/
+    -webkit-transform: rotate(337.5deg);
+    -ms-transform: rotate(337.5deg);
+    transform: rotate(337.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.location .itemMenu {
+    /*background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/marker.png);
+	background-size: 24px auto;*/
+    -webkit-transform: rotate(292.5deg);
+    -ms-transform: rotate(292.5deg);
+    transform: rotate(292.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.eservices .itemMenu {
+    /*background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/mouse.png);
+	background-size: 32px auto;*/
+    -webkit-transform: rotate(247.5deg);
+    -ms-transform: rotate(247.5deg);
+    transform: rotate(247.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.contact .itemMenu {
+    /*background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/phone.png);
+	background-size: 19px auto;*/
+    -webkit-transform: rotate(202.5deg);
+    -ms-transform: rotate(202.5deg);
+    transform: rotate(202.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.contact1 .itemMenu {
+    /*background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/phone.png);
+	background-size: 19px auto;*/
+    -webkit-transform: rotate(157.5deg);
+    -ms-transform: rotate(157.5deg);
+    transform: rotate(157.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.contact2 .itemMenu {
+    /*background-image: url(https://res.cloudinary.com/dioieuprs/image/upload/v1466688705/floating-menu/phone.png);
+	background-size: 19px auto;*/
+    -webkit-transform: rotate(112.5deg);
+    -ms-transform: rotate(112.5deg);
+    transform: rotate(112.5deg);
+}
+
+
+/* Hover */
+.mainMenuOverlay .itemMenuBox.bills .itemMenu:hover {
+    -webkit-transform: rotate(427.5deg);
+    -ms-transform: rotate(427.5deg);
+    transform: rotate(427.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.tarsheed .itemMenu:hover {
+    -webkit-transform: rotate(382.5deg);
+    -ms-transform: rotate(382.5deg);
+    transform: rotate(382.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.employees .itemMenu:hover {
+    -webkit-transform: rotate(697.5deg);
+    -ms-transform: rotate(697.5deg);
+    transform: rotate(697.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.location .itemMenu:hover {
+    -webkit-transform: rotate(652.5deg);
+    -ms-transform: rotate(652.5deg);
+    transform: rotate(652.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.eservices .itemMenu:hover {
+    -webkit-transform: rotate(607.5deg);
+    -ms-transform: rotate(607.5deg);
+    transform: rotate(607.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.contact .itemMenu:hover {
+    -webkit-transform: rotate(562.5deg);
+    -ms-transform: rotate(562.5deg);
+    transform: rotate(562.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.contact1 .itemMenu:hover {
+    -webkit-transform: rotate(517.5deg);
+    -ms-transform: rotate(517.5deg);
+    transform: rotate(517.5deg);
+}
+
+.mainMenuOverlay .itemMenuBox.contact2 .itemMenu:hover {
+    -webkit-transform: rotate(472.5deg);
+    -ms-transform: rotate(472.5deg);
+    transform: rotate(472.5deg);
+}
+
+
+
+.floating {
+    -webkit-animation-name: Floatingx;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-name: Floating;
+    -moz-animation-duration: 3s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes Floatingx {
+    from {
+        -webkit-transform: translate(0, 0px);
+    }
+
+    65% {
+        -webkit-transform: translate(0, 5px);
+    }
+
+    to {
+        -webkit-transform: translate(0, -0px);
+    }
+}
+
+@-moz-keyframes Floating {
+    from {
+        -moz-transform: translate(0, 0px);
+    }
+
+    65% {
+        -moz-transform: translate(0, 5px);
+    }
+
+    to {
+        -moz-transform: translate(0, -0px);
+    }
+}
+
+.floating2 {
+    -webkit-animation-name: Floatingx2;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-name: Floating2;
+    -moz-animation-duration: 3s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes Floatingx2 {
+    from {
+        -webkit-transform: translate(0, 0px);
+    }
+
+    45% {
+        -webkit-transform: translate(0, 8px);
+    }
+
+    to {
+        -webkit-transform: translate(0, -0px);
+    }
+}
+
+@-moz-keyframes Floating2 {
+    from {
+        -moz-transform: translate(0, 0px);
+    }
+
+    45% {
+        -moz-transform: translate(0, 8px);
+    }
+
+    to {
+        -moz-transform: translate(0, -0px);
+    }
+}
+
+.floating3 {
+    -webkit-animation-name: Floatingx3;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-name: Floating3;
+    -moz-animation-duration: 3s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes Floatingx3 {
+    from {
+        -webkit-transform: translate(0, 0px);
+    }
+
+    50% {
+        -webkit-transform: translate(2px, 4px);
+    }
+
+    to {
+        -webkit-transform: translate(0, -0px);
+    }
+}
+
+@-moz-keyframes Floating3 {
+    from {
+        -moz-transform: translate(0, 0px);
+    }
+
+    50% {
+        -moz-transform: translate(2px, 4px);
+    }
+
+    to {
+        -moz-transform: translate(0, -0px);
+    }
+}
+
+
+
+/* signature */
+.signatureBox {
+    text-align: right;
+    padding: 4px;
+}
+
+    .signatureBox.fixed {
+        position: fixed;
+        bottom: 8px;
+        right: 8px;
+    }
+
+.signature, .signature a {
+    color: #484848;
+}
+
+    .signature:before, .signature:after {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: bottom;
+        -webkit-transition: all 0.5s;
+        -webkit-transition: all 0.5s;
+        width: 11px
+    }
+
+    .signature:before {
+        content: 'Mahmoud';
+    }
+
+    .signature:after {
+        content: 'NBET';
+        margin-left: 0px;
+        width: 10px
+    }
+
+    .signature:hover {
+        color: #484848;
+    }
+
+        .signature:hover:before {
+            width: 76px;
+        }
+
+        .signature:hover:after {
+            width: 34px;
+            margin-left: 3px;
+        }
+
+
+.loginDiv {
+    height: 70px;
+    width: 100%;
+    background-color: black;
+    position:fixed;
+    z-index:99999;
+}
+
+    .loginDiv > a {
+        margin-top: 7px;
+    }
+
+.adjustToggleMenu {
+    margin-top: 42px;
+}
+
+.dashboardIcon {
+    margin-top: -65px;
+}
+
+.surveyIcon {
+    margin-top: -68px;
+}
+
+.formIcon {
+    margin-top: -79px;
+}
+
+.newsletterIcon {
+    margin-top: -68px;
+}
+
+.reportIcon {
+    margin-top: -68px;
+}
+
+.itemMenu span {
+    display: block;
+}
+
+.officeManagementspan {
+    line-height: 21px;
+}
+
+
+.menuIconMargin i {
+    margin-top: 20px;
+}
+
+.menuIconMargin span {
+    line-height: 23px;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+
+
+/* Style The Dropdown Button */
+.dropbtn {
+    /*background-color: #4CAF50;*/
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 195px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 9999;
+    right: 12px;
+}
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content .divider {
+        height: 1px !important;
+        margin: 0;
+        overflow: hidden;
+        background-color: #e5e5e5;
+        padding: 0;
+    }
+    /* Change color of dropdown links on hover */
+    .dropdown-content.open {
+        background-color: #f1f1f1
+    }
+
+/* Show the dropdown menu on hover */
+.dropdown.open .dropdown-content {
+    display: block;
+}
+
+[disabled] {
+    color: grey !important;
+}
+
+
+.loaderText {
+    color: white;
+    display: block;
+    position: relative;
+    left: 46%;
+    top: 3%;
+    z-index: 1001;
+}

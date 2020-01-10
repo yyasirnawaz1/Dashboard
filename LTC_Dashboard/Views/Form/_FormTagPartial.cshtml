@@ -1,0 +1,95 @@
+﻿<div class="row card">
+    <div class="col-md-12">
+        <div class="block block-condensed noWhite">
+
+            <div class="block-content">
+                <div class="row row-margin">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-success margin-right-5 pull-right titleButtonsDefault" onclick="PrivateTag.createNewPrivateTag();" @*data-toggle="modal" data-target="#PrivateTagModal"*@>Create New Tag</button>
+                    </div>
+                </div>
+                <div>
+                    <div class="pull-left col-md-12">
+                        <div>
+                            <table id="tblTag" class="table datatable-basic table-striped datatable-extended">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="PublicDuplicationModel" tabindex="-1" role="dialog" aria-labelledby="modal-default-header" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content block">
+            <div class="modal-header">
+                <h4 class="modal-title">Public Tags</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="block-divider"></div>
+            <div class="modal-body">
+                <table id="tblPublicDuplicateTag" class="table datatable-basic table-striped datatable-extended">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger margin-right-5 pull-right  " data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success margin-right-5 pull-right " data-dismiss="modal" data-toggle="modal" data-target="#renderPrivateTagModal" onclick="PrivateTag.copyPrivateTag()">Copy</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="PrivateTagModal" tabindex="-1" role="dialog" aria-labelledby="modal-default-header" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content block">
+            <div class="modal-header">
+                <h4 class="modal-title" id="renderPrivateTagModal-header">Private Tag</h4>
+                <button type="button" class="btn btn-success margin-right-5 pull-right " onclick="PrivateTag.savePrivateTag()">Save</button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="block-divider"></div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <input type="hidden" id="hdnPrivateTagId" value="" />
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Category</label>
+                        <div class="col-md-10">
+                            <select id="ddlPrivateTagCategories" class="form-control" onchange="PrivateTag.onChangeddlPrivateTagCategories()">
+                                <option value="-1">---select category---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Description</label>
+                        <div class="col-md-10">
+                            <input id="txtPrivateTagDescription" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+            @*<div class="modal-footer">
+
+
+                </div>*@
+        </div>
+    </div>
+</div>

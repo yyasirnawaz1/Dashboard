@@ -1,0 +1,594 @@
+﻿input, textarea {
+    -webkit-user-select: text !important;
+    -khtml-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+}
+
+.usernameHeight {
+    line-height: 38px !important;
+}
+
+.dragDropPanelStyle {
+    min-height: 663px;
+    height: 100%;
+}
+
+.noBorder {
+    border: none !important;
+}
+
+
+
+
+
+.app-sidebar-leftZero {
+    padding-left: 0 !important;
+}
+
+    .app-sidebar-leftZero .container-boxed {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+
+.app .app-footer.app-footer-light {
+    z-index: 20;
+}
+
+
+.stickToBottom {
+    position: absolute !important;
+    bottom: 0;
+}
+
+.stage-wrap {
+    width: 80% !important;
+}
+
+.cb-wrap {
+    width: 19% !important;
+}
+
+
+.form-wrap.form-builder .frmb {
+    border: 3px dashed #ccc;
+}
+
+.form-actions button {
+    color: white !important;
+}
+
+.marginRight-5 {
+    margin-right: 5px;
+}
+
+.app-sidebar {
+    min-height: 100% !important;
+}
+
+.titleWithButtons {
+    width: 100%;
+}
+
+.titleButtons {
+    /*margin-top: -28px;*/
+    margin-right: 7px;
+}
+
+.titleButtonsDefault {
+    margin-right: 7px;
+}
+
+.noWhite {
+    background: none !important;
+}
+
+.datatableLeftLengthDiv {
+    float: left;
+}
+
+.datatableLeftInfoDiv {
+    float: left;
+    margin-left: 15px;
+}
+
+.app-navigation nav > ul > li a {
+    text-transform: none !important;
+}
+
+.buttonDiv {
+    margin: 10px 0;
+    display: flex;
+    float: right;
+}
+
+tr.selected {
+    background-color: lightblue !important;
+}
+
+
+.desginerbuttonsRow {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+.form-wrap.form-builder .stage-wrap.empty {
+    min-height: 500px !important;
+}
+
+
+.renderingSurveyStyling {
+    width: 60%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+
+.noDataRecord {
+    min-height: 450px;
+}
+
+    .noDataRecord span {
+        display: table;
+        margin: auto;
+    }
+
+[disabled] {
+    color: grey !important;
+}
+
+
+.frmb {
+    min-height: 570px !important;
+}
+
+/*News lettere css copied from Views*/
+ul li, ol li {
+    /*width: auto !important;*/
+}
+
+.droppableUl li ul li:first-child {
+    border-radius: 5px 5px 0 0;
+    margin-top: 0;
+}
+
+.droppableUl li ul li {
+    cursor: move;
+    list-style: none;
+    margin: 0 0 -1px;
+    padding: 10px;
+    text-align: left;
+    background: #fff;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px #c5c5c5;
+    width: 80%;
+}
+
+span.k-in.k-state-hover {
+    width: 100% !important;
+}
+
+li.k-tool-group {
+    width: auto !important;
+}
+
+.k-content {
+    min-height: 500px;
+}
+
+.droppableUl li ul li:first-child {
+    border-radius: 5px 5px 0 0;
+    margin-top: 0;
+}
+
+.droppableUl li ul li {
+    cursor: move;
+    list-style: none;
+    margin: 0 0 -1px;
+    padding: 10px;
+    text-align: left;
+    background: #fff;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px #c5c5c5;
+    width: 80%;
+}
+
+span.k-in.k-state-hover {
+    width: 100% !important;
+}
+
+li.k-tool-group {
+    width: auto !important;
+}
+
+.k-content {
+    min-height: 500px;
+}
+
+table.table-striped {
+    width: 100% !important;
+}
+/*News lettere css copied from Views*/
+
+iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+.iframeParent {
+    width: 100%;
+    height: 100%;
+}
+
+/*Public news letter dropdown*/
+.newsletter-industry-ddl {
+    width: 40% !important;
+    margin-right: 10px;
+}
+/*Public news letter dropdown*/
+
+/**/
+.form-actions.btn-group {
+    display: none !important;
+}
+/**/
+
+/*form builder fields*/
+.form-wrap.form-builder .frmb li  {
+    padding: 0px !important;
+    margin-bottom: 0px !important;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+.form-wrap.form-builder .frmb .field-actions .btn  {
+    width: 27px !important;
+    height: 27px !important;
+    padding: 0px !important;
+    line-height: 27px !important;
+}
+
+label  {
+    margin-bottom: 0px !important;
+}
+
+.form-wrap.form-builder .frmb .field-label,   .form-wrap.form-builder .frmb .legend  {
+    margin-bottom: 0px !important;
+}
+
+/*form builder fields*/
+
+.modal-dialog.modal-lg {
+    width: 90% !important;
+    margin: 100px auto 0;
+}
+
+.modal-dialog.modal-minlg {
+    width: 60% !important;
+    margin: 100px auto 0;
+}
+
+
+
+
+
+/* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+.accordionMainDiv * {
+    box-sizing: border-box;
+    /*   border: 1px solid black; */
+}
+
+.accordionMainDiv body {
+    /*font-family: 'Lato';*/
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizelegibility;
+}
+
+.accordionMainDiv ul {
+    display: flex;
+    /*min-height: 100vh;*/
+    /*max-height: 100vh;*/
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style-type: none;
+    min-height: 300px !important;
+    max-height: 525px !important;
+}
+
+.accordionMainDiv li {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    /*padding: 20px;
+        padding-left: 0px;*/
+    /*background: #6aa9f6;*/
+    cursor: pointer;
+    transition: all .5s ease;
+    min-height: 300px;
+    max-height: 525px;
+}
+
+    .accordionMainDiv li:hover {
+        background: #87baf7;
+    }
+
+    .accordionMainDiv li.active {
+        flex: 5;
+        background: #fff;
+        border: 1px solid;
+        cursor: default;
+    }
+
+        /*.accordionMainDiv  li.active h2 {
+                color: #6aa9f6;
+            }*/
+
+        .accordionMainDiv li.active .section-content {
+            flex: 4;
+            opacity: 1;
+            transform: scaleX(1);
+            color: #6aa9f6;
+        }
+
+            .accordionMainDiv li.active .section-content > div {
+                /*max-height: 525px;*/
+                overflow-y: auto;
+                width: 100%;
+                height: 100%;
+            }
+
+    .accordionMainDiv li .section-title {
+        flex: 0;
+        display: flex;
+        align-items: center;
+        /*width: 50%;*/
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        color: white;
+        background-color: #6aa9f6;
+        max-width: 30px;
+        border: 1px solid;
+    }
+
+    .accordionMainDiv li.active .section-title {
+        border: none;
+    }
+
+    .accordionMainDiv li .section-title h2 {
+        margin: 0;
+        transform: rotate(-90deg);
+        white-space: nowrap;
+    }
+
+    .accordionMainDiv li .section-content {
+        flex: 0;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        opacity: 0;
+        transition: all .25s .1s ease-out;
+    }
+
+.newslettertreeview {
+    border: 1px solid #DBE0E4;
+}
+
+.createNewsletterDiv {
+    max-width: 160px;
+    float: left;
+    margin-right: 9px;
+}
+
+.createNewsletterDivButtons {
+    float: left;
+}
+/*#templateEditordiv {
+    display: flex;
+}*/
+/*modal-dialog.modal-lg  {
+    margin: 10px !important;
+}*/
+/*Iframe {
+        min-height: 500px;
+    }*/
+
+.minTableSize {
+    min-width: 400px;
+}
+
+
+/*.modal-dialog {
+    position: relative !important;
+    display: table !important; 
+    overflow-y: auto !important;
+    overflow-x: auto !important;
+    width: auto !important;
+    min-width: 300px !important;
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* toggle preview panel start*/
+.toggleDivParent {
+    display: flex;
+    width: 100%;
+}
+
+.toogleDivMain {
+    background: #6aa9f6;
+    padding: 0;
+    padding-right: 0 !important;
+    min-height: 250px;
+    max-height: 800px;
+    border: 1px solid #DBE0E4;
+}
+
+.toogleDivTitle {
+    margin: 0;
+    float: left;
+    width: 25px;
+    height: 100%;
+    cursor: pointer;
+}
+
+    .toogleDivTitle h2 {
+        transform: rotate(-90deg);
+        text-align: center;
+        width: 17px;
+        position: relative;
+        top: 50%;
+        color: white;
+    }
+
+
+.toogleDivContent {
+    height: 100%;
+    background: white;
+    width: auto;
+    overflow: hidden;
+}
+
+/*.toggleDivCollapse{
+    width:28px;
+}*/
+
+.toggleDivHidden .panel-right, .toggleDivHidden .splitter {
+    display: none;
+}
+
+.toggleDivHidden .panel-left {
+    min-width: 100% !important;
+}
+
+/* toggle preview panel end*/
+.textboxMinWidth {
+    max-width: 300px;
+    margin-right: 10px;
+}
+
+.minModelSize {
+    min-height: 350px;
+}
+
+
+
+/* split panel start*/
+
+
+.panel-left {
+    flex: 0 0 auto;
+    padding: 10px;
+    min-height: 200px;
+    min-width: 50%;
+    white-space: nowrap;
+    max-width: 80%;
+}
+
+.splitter {
+    flex: 0 0 auto;
+    width: 14px;
+    background: url("/Content/theme/js/vendor/ResizePanel/vsizegrip.png") center center no-repeat;
+    border: 1px solid #DBE0E4;
+    background-color: lightblue;
+    min-height: 200px;
+    cursor: col-resize;
+}
+
+.panel-right {
+    flex: 1 1 auto;
+    /* resizable */
+    /*padding: 10px;*/
+    width: 100%;
+    min-height: 200px;
+    /*min-width: 200px;*/
+}
+
+.tab-content {
+    margin-top: 0px !important;
+}
+
+.tab-pane#preview iframe {
+    min-height: 566px;
+}
+/* split panel end*/
+
+
+.dateSelector {
+    width: 254px;
+    float: right;
+    margin-top:-3px;
+    margin-left:5px !important;
+}
+
+.officeName{
+    margin-top:10px;
+}
+
+.bootstrap-select .dropdown-menu.open{
+    top:100%;
+}
+
+#tblSearchPatient_filter.dataTables_filter {
+    float:left;
+    margin-bottom:5px;
+}
+
+.apply-Cursur-Pointer{
+    cursor:pointer;
+}
+
+.bootstrap-select{
+    max-width:20%;
+}
+
+
+/*.nav.nav-tabs li span{
+    float:right;
+    z-index:9999999999999999999999999999999999999999999999999999999999999;
+}*/
+
+
+.tabCrossButton {
+    width: 1px;
+    margin-top: -31px;
+    margin-right: -3px;
+}

@@ -1,0 +1,593 @@
+﻿@*@using System.Configuration*@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_DashboardLayout.cshtml";
+}
+
+<div class="card-body dashboard">
+    <div class="row">
+        <!--Left Panel -->
+        <div class="col-md">
+            <div class="row droppable minDragDropAreaHeight leftDroppableArea">
+                <div class="row top">
+
+                </div>
+                <div class="row center">
+
+                </div>
+                <div class="row bottom">
+
+                </div>
+            </div>
+        </div>
+        <!--Right Panel to Put Dragable Widgets Timeline-->
+        <div id="widgetarea" class="col-md-3" style="display:none;">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div id="accordPracticeMetrics" class="sidebar sidebar-light sidebar-component position-static w-100 d-block mb-md-4">
+                        <div class="sidebar-content position-static">
+                            <!-- User menu -->
+                            <div class="card sidebar-user bg-info">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <div id="accordPracticeMetricsHeading" class="media-title font-weight-semibold">Practice Metrics</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /user menu -->
+                            <!-- Navigation -->
+                            <div class="card">
+                                <div id="ChartSelectionOptions" class=" nav-sidebar minDragDropAreaHeight row RightDraggableMenu" data-nav-type="collapsible">
+                                    <div class="row top">
+
+                                    </div>
+                                    <div class="row center">
+
+                                    </div>
+                                    <div class="row bottom">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /navigation -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="chartBreakdown" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title ">Breakdown</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="breakdownDetailDiv">
+                    <div class="row">
+                        <div class="col-md-8">
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-check-switch form-check-switch-left">
+                                <label class="form-check-label d-flex align-items-center pull-right">
+                                    Configuration: &nbsp;<input id="breakdownButtonSwitch" type="checkbox" data-on-color="success" data-off-color="danger" data-on-text="Basic" data-off-text="Advanced" class="form-check-input-switch" checked>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="breakdownbasicDetail">
+                                <div class="hidden-on-narrow" id="breakdownBasic-table"></div>
+                            </div>
+                            <div id="breakdownAdvancedDetail" style="display:none;">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul class="nav nav-sidebar" data-nav-type="collapsible">
+                                            <li id="configuratorDiv" class="nav-item nav-item-submenu">
+                                                <a href="#" class="nav-link" style="background-color: lightblue;color: white;">
+                                                    <i class="icon-copy"></i>
+                                                    <span>Grid Configuration</span>
+                                                </a>
+                                                <ul class="nav nav-group-sub" data-submenu-title="Folded nav title">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="hidden-on-narrow" id="configurator"></div>
+                                                        </div>
+                                                    </div>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="hidden-on-narrow" id="breakdown-table"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="breakdownDiv" style="display:none;">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="hidden-on-narrow" id="breakdownGrid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div id="serviceAnalysisDetailDiv" style="display:none;">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="hidden-on-narrow" id="breakdown-tableServiceAnalysis"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="cancellationAndNoShowsDetailDiv" style="display:none;">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="hidden-on-narrow" id="breakdown-tableCancellationAndNoShows"></div>
+                            </div>
+                        </div>
+                    </div>*@
+                <div id="spreadsheetDetailDiv" style="display:none;">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="hidden-on-narrow" id="spreadsheet-Table" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="patientListModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title "> Patient List</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-header bg-white header-elements-inline">
+                                    <h6 class="card-title">Total Patients: <span id="patientCount"></span></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="dropdown-menu keepItOpen" id="patientListDiv">
+                                    @*<a href="#" class="dropdown-item" onclick="loadPatientList('Patient 1')">Patient 1</a>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="row">
+                            <div class="col-8">
+                                <ul class="nav nav-pills nav-pills-bordered nav-justified">
+                                    <li class="nav-item">
+                                        <a id="patientListHeading" href="javascript:;" class="nav-link active show patientListHeading" data-toggle="tab">Patient 1</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-4">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span style="color:@Configuration.GetSection("Configuration")["valueColor"]">
+                                            Last Recare: May 5, 2019
+                                        </span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span style="color:@Configuration.GetSection("Configuration")["valueColor"]">
+                                            Next Recare: May 15, 2019
+                                        </span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span style="color:@Configuration.GetSection("Configuration")["valueColor"]">
+                                            Next Treatment: May 25, 2019
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="nav nav-tabs nav-tabs-highlight">
+                                    <li class="nav-item"><a href="#ProfileTab" class="nav-link active" data-toggle="tab">Profile</a></li>
+                                    @*<li class="nav-item"><a href="#AppointmentsTab" class="nav-link" data-toggle="tab">Appointments</a></li>
+                                        <li class="nav-item"><a href="#TreatmentTab" class="nav-link" data-toggle="tab">Treatment</a></li>*@
+                                </ul>
+                                <div class="tab-content tabFullBorder">
+                                    <div class="tab-pane fade show active" id="ProfileTab">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-2" style="color:@Configuration.GetSection("Configuration")["valueColor"]">Address:</label>
+                                            <div class="col-8">
+                                                <span class="form-text" id="lblPatientAddress" style="color:@Configuration.GetSection("Configuration")["labelColor"]">[Address here]</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-2" style="color:@Configuration.GetSection("Configuration")["valueColor"]">Home Phone:</label>
+                                            <div class="col-8">
+                                                <span class="form-text" id="lblPatientHomePhone" style="color:@Configuration.GetSection("Configuration")["labelColor"]">[Home Phone]</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-2" style="color:@Configuration.GetSection("Configuration")["valueColor"]">Work Phone:</label>
+                                            <div class="col-8">
+                                                <span class="form-text" id="lblPatientWorkPhone" style="color:@Configuration.GetSection("Configuration")["labelColor"]">[Work Phone]</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-2" style="color:@Configuration.GetSection("Configuration")["valueColor"]">Other Phone:</label>
+                                            <div class="col-8">
+                                                <span class="form-text" id="lblPatientOtherPhone" style="color:@Configuration.GetSection("Configuration")["labelColor"]">[Other Phone]</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-2" style="color:@Configuration.GetSection("Configuration")["valueColor"]">Age:</label>
+                                            <div class="col-8">
+                                                <span class="form-text" id="lblPatientAge" style="color:@Configuration.GetSection("Configuration")["labelColor"]">[Age]</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-2" style="color:@Configuration.GetSection("Configuration")["valueColor"]">Sex:</label>
+                                            <div class="col-8">
+                                                <span class="form-text" id="lblSex" style="color:@Configuration.GetSection("Configuration")["labelColor"]">[Sex]</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-2" style="color:@Configuration.GetSection("Configuration")["valueColor"]">Marital Status:</label>
+                                            <div class="col-8">
+                                                <span class="form-text" id="lblMaritialStatus" style="color:@Configuration.GetSection("Configuration")["labelColor"]">[Marital Status]</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-2" style="color:@Configuration.GetSection("Configuration")["valueColor"]">Insurance Provider:</label>
+                                            <div class="col-8">
+                                                <span class="form-text" id="lblInsuranceProvider" style="color:@Configuration.GetSection("Configuration")["labelColor"]">[Insurance Provider]</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="row">
+                                                <label class="col-form-label col-4 font-weight-semibold text-danger" style="color:@Configuration.GetSection("Configuration")["valueColor"]">Total Outstanding Balance (Cash):</label>
+                                                <div class="col-8">
+                                                    <span class="form-text text-danger" id="lblTotalOutstandingCashBalance">$XXX.XX</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-form-label col-4 font-weight-semibold text-danger" style="color:@Configuration.GetSection("Configuration")["valueColor"]">Total Outstanding Balance (Insurance):</label>
+                                                <div class="col-8">
+                                                    <span class="form-text text-danger" id="lblTotalOutstandingInsuranceBalance">$XXX.XX</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-form-label col-4 font-weight-semibold text-danger" style="color:@Configuration.GetSection("Configuration")["valueColor"]">Outstanding Balance:</label>
+                                                <div class="col-8">
+                                                    <span class="form-text text-danger" id="lblOutstandingBalance">$XXX.XX</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="AppointmentsTab">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Provider</th>
+                                                        <th>Procedure</th>
+                                                        <th>Status</th>
+                                                        <th>Fee</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="patientAppointmentDiv"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="TreatmentTab">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Treatment</th>
+                                                        <th>Status</th>
+                                                        <th>Fee</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>xxx</td>
+                                                        <td>xxxx</td>
+                                                        <td>Pending/Scheduled/Completed</td>
+                                                        <td>$98.03</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>xxx</td>
+                                                        <td>xxxx</td>
+                                                        <td>Pending/Scheduled/Completed</td>
+                                                        <td>$8.03</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>xxx</td>
+                                                        <td>xxxx</td>
+                                                        <td>Pending/Scheduled/Completed</td>
+                                                        <td>$34.03</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>xxx</td>
+                                                        <td>xxxx</td>
+                                                        <td>Pending/Scheduled/Completed</td>
+                                                        <td>$38.03</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>[Total Fee]</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="chartModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <div class="headerMultiButton" style="width:95%;">
+                    <h5 id="modalChartTitle" class="modal-title font-variant-smallCaps"></h5>
+                    <a class="icon-download pull-right chartButton ml-2"></a>
+                    <a class="icon-printer2 pull-right chartButton ml-2"></a>
+                </div>
+                <button type="button" class="close headerMultiWithCloseButton" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-9">
+
+
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input id="dashboardModelCalendar" type="text" class="form-control daterange-left" value="">
+                                        <span class="input-group-append">
+                                            <span class="input-group-text"><i class="icon-calendar22"></i></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="chart" id="c3-combined-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <span class="font-weight-bold">Average</span>
+                                <div class="position-relative">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            12 month
+                                        </div>
+                                        <div class="col-4">
+                                            $100
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            6 month
+                                        </div>
+                                        <div class="col-4">
+                                            $100
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            3 month
+                                        </div>
+                                        <div class="col-4">
+                                            $100
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            1 month
+                                        </div>
+                                        <div class="col-4">
+                                            $100
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <span class="font-weight-bold">year-over-year</span>
+                                <div class="svg-center position-relative">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            annual
+                                        </div>
+                                        <div class="col-4">
+                                            15%
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            1st quarter
+                                        </div>
+                                        <div class="col-4">
+                                            (15%)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            2nd quarter
+                                        </div>
+                                        <div class="col-4">
+                                            (15%)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            3rd quarter
+                                        </div>
+                                        <div class="col-4">
+                                            (15%)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="filterTypesModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <div class="headerMultiButton" style="width:95%;">
+                    <h5 id="modalChartTitle" class="modal-title font-variant-smallCaps">Filter Types</h5>
+                </div>
+                <button type="button" class="close headerMultiWithCloseButton" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @*<div class="row">
+                    <div id="allowedFilterTypes" class="col-12">
+
+                    </div>
+                </div>*@
+                <div class="row">
+                    <div class="col-md-12">
+                        <select id="allowedFilterTypes" multiple="multiple">
+                            @*<option value="cheese">Cheese</option>
+                            <option value="tomatoes">Tomatoes</option>
+                            <option value="mozarella">Mozzarella</option>
+                            <option value="mushrooms">Mushrooms</option>
+                            <option value="pepperoni">Pepperoni</option>
+                            <option value="onions">Onions</option>*@
+                        </select>
+                    </div>
+                </div>
+                <div class="row"><div class="col-md-12"></div></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="text" name="txtAdditionalFilters" id="txtAdditionalFilters" class="form-control pull-left" placeholder="Additional Filters" value="" />
+                        <br />
+                        <i>(please add comma separated values for additional types)</i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" onclick="Dashboard.saveFilterTypeOptions()">Save</button>
+                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section headscripts{
+    <link href="~/Resources/Meter/css/circle.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
+    <script src="~/Resources/theme/js/mydragable.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    @*<script src="~/Resources/theme/js/vendor/datatables.net/js/datatables.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>*@
+
+    <link href="~/Resources/kendo/styles/kendo.common.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
+    <link href="~/Resources/kendo/styles/kendo.default.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
+    <script src="~/Resources/kendo/js/jszip.min.js"></script>
+    <script src="~/Resources/kendo/js/kendo.all.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+
+
+    <!-- Theme JS files -->
+    <script src="~/Resources/Limitless/global_assets/js/plugins/visualization/c3/c3.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Resources/Limitless/global_assets/js/plugins/visualization/d3/d3.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Resources/Limitless/global_assets/js/plugins/visualization/dimple/dimple.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Resources/Limitless/global_assets/js/plugins/forms/styling/switch.min.js"></script>
+
+    <script type="text/javascript">
+
+        //appSettings
+        officeNameSetting = '@Configuration.GetSection("Configuration")["OfficeName"]';
+        patAmountSetting =  '@Configuration.GetSection("Configuration")["PatAmount"]';
+        insAmountSetting =  '@Configuration.GetSection("Configuration")["InsAmount"]';
+
+        isShowRightMenu = false;
+
+        //used in the layout
+        function toggleRightMenuSection() {
+            if (!isShowRightMenu) {
+                $("#widgetarea").show();
+                $("#btntoggleRightMenuSection").addClass("btn-success");
+                $("#btntoggleRightMenuSection").removeClass("btn-danger");
+
+                $("#btntoggleRightMenuSection > i").removeClass("icon-arrow-right8");
+                $("#btntoggleRightMenuSection > i").addClass("icon-arrow-down8");
+
+                isShowRightMenu = true;
+            } else {
+                $("#widgetarea").hide();
+                $("#btntoggleRightMenuSection").addClass("btn-danger");
+                $("#btntoggleRightMenuSection").removeClass("btn-success");
+
+                $("#btntoggleRightMenuSection > i").addClass("icon-arrow-right8");
+                $("#btntoggleRightMenuSection > i").removeClass("icon-arrow-down8");
+
+                isShowRightMenu = false;
+            }
+            window.dispatchEvent(new Event('resize'));
+        }
+
+        function removeChart(id) {
+            //need to use this to remove charts
+        }
+
+    </script>
+}
