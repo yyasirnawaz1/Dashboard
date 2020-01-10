@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTC_Dashboard\\LTC_Dashboard.csproj": {}
+    "D:\\Office\\Github\\Dashboard\\LTC_Dashboard\\LTC_Dashboard.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataManager\\LTCDataManager.csproj": {
+    "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataManager\\LTCDataManager.csproj",
+        "projectUniqueName": "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj",
         "projectName": "LTCDataManager",
-        "projectPath": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataManager\\LTCDataManager.csproj",
+        "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj",
         "packagesPath": "C:\\Users\\Yasir\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataManager\\obj\\",
+        "outputPath": "D:\\Office\\Github\\Dashboard\\LTCDataManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataModel\\LTCDataModel.csproj": {
-                "projectPath": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataModel\\LTCDataModel.csproj"
+              "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {
+                "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj"
               }
             }
           }
@@ -86,14 +86,14 @@
         }
       }
     },
-    "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataModel\\LTCDataModel.csproj": {
+    "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataModel\\LTCDataModel.csproj",
+        "projectUniqueName": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj",
         "projectName": "LTCDataModel",
-        "projectPath": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataModel\\LTCDataModel.csproj",
+        "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj",
         "packagesPath": "C:\\Users\\Yasir\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataModel\\obj\\",
+        "outputPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -152,14 +152,14 @@
         }
       }
     },
-    "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTC_Dashboard\\LTC_Dashboard.csproj": {
+    "D:\\Office\\Github\\Dashboard\\LTC_Dashboard\\LTC_Dashboard.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTC_Dashboard\\LTC_Dashboard.csproj",
+        "projectUniqueName": "D:\\Office\\Github\\Dashboard\\LTC_Dashboard\\LTC_Dashboard.csproj",
         "projectName": "LTC_Dashboard",
-        "projectPath": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTC_Dashboard\\LTC_Dashboard.csproj",
+        "projectPath": "D:\\Office\\Github\\Dashboard\\LTC_Dashboard\\LTC_Dashboard.csproj",
         "packagesPath": "C:\\Users\\Yasir\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTC_Dashboard\\obj\\",
+        "outputPath": "D:\\Office\\Github\\Dashboard\\LTC_Dashboard\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -178,11 +178,11 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataManager\\LTCDataManager.csproj": {
-                "projectPath": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataManager\\LTCDataManager.csproj"
+              "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj": {
+                "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj"
               },
-              "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataModel\\LTCDataModel.csproj": {
-                "projectPath": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataModel\\LTCDataModel.csproj"
+              "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {
+                "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj"
               }
             }
           }

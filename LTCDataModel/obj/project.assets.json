@@ -4708,11 +4708,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataModel\\LTCDataModel.csproj",
+      "projectUniqueName": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj",
       "projectName": "LTCDataModel",
-      "projectPath": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataModel\\LTCDataModel.csproj",
+      "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj",
       "packagesPath": "C:\\Users\\Yasir\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Yasir\\source\\repos\\LTCDashboard\\LTCDataModel\\obj\\",
+      "outputPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
