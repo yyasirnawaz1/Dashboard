@@ -8,10 +8,10 @@ namespace LTCDataModel.NewsLetter
 {
     public class gTemplateTypeModel
     {
-        //public int ID { get; set; }
+        public int TypeID { get; set; }
         public int OfficeId { get; set; }
         public int TemplateId { get; set; }
-        public int TemplateTypeId { get; set; }
-        public string TemplateTypeName { get; set; }
+        public string TypeDescription { get; set; }
+        public string TypeName { get; set; }
     }
 }

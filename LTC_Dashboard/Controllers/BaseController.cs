@@ -5,6 +5,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using LTCDataManager.DataAccess;
+using LTCDataManager.Office;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +31,23 @@ namespace LTCDashboard.Controllers
                 return officeSequence;
             }
         }
+        public string OfficeName
+        {
+            get
+            {
+                var office = gOfficeManager.GetOfficeName(OfficeSequence);
+                if (office != null)
+                {
+                   
+                    return office.Business_Name;
+                }
+                else
+                {
+                    return string.Empty;
 
+                }
+            }
+        }
         //TODO: remove this method and get the connection string based on office id
         public string GetUserConnectionString()
         {

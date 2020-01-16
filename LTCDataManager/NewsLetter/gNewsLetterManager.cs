@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using LTCDataManager.DataAccess;
 using LTCDataModel.Configurations;
+using LTCDataModel.Newsletter;
 using Microsoft.Extensions.Options;
+using LTCDataModel.PetaPoco;
 
 namespace LTCDataManager.NewsLetter
 {
@@ -19,66 +21,268 @@ namespace LTCDataManager.NewsLetter
             _configuration = configuration.Value;
             Utility.Config = configuration.Value; ;
         }
-
         #region Get
+
+        public static List<ScheduledNewsletterViewModel> GetDashboard(int category, string day, int OfficeNumber)
+        {
+           
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            return
+                db.Fetch<ScheduledNewsletterViewModel>(
+                    $"Select PatientCallList.ID, PatientCallList.Email, PatientCallList.EmailSentTime as ScheduledDate, PatientCallList.EmailSentTime as SentTime, templates_user.TemplateTitle as Title,PatientCallList.Status from PatientCallList inner join templates_user on PatientCallList.NewsletterID = templates_user.LetterID  where PatientCallList.Office_Number = {OfficeNumber} AND (PatientCallList.Status ='{category}' OR '{category}'='3') "+
+            $" AND((DATE(PatientCallList.EmailSentTime) = CURDATE() and '{day}'='Today') OR(WEEKOFYEAR(PatientCallList.EmailSentTime) = WEEKOFYEAR(CURDATE()) and '{day}'='ThisWeek' ) "+
+            $" OR(WEEKOFYEAR(PatientCallList.EmailSentTime) = WEEKOFYEAR(CURDATE()) - 1 and '{day}' ='LastWeek' ) OR(Month(PatientCallList.EmailSentTime) = Month(CURDATE()) and '{day}'='ThisMonth' )) Order by PatientCallList.EmailSentTime desc");
+        }
+
         public static List<gGetPreDefinedTemplateModel> GetPreDefinedTemplates()
         {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
-            return db.Fetch<gGetPreDefinedTemplateModel>($"SELECT * FROM newsletter_systemtemplate").ToList();
-            //return db.Fetch<gGetPreDefinedTemplateModel>($"SELECT ST.*, SS.Markup as ShellTemplate FROM newsletter_systemtemplate ST Left JOIN newsletter_ShellTemplates SS on ST.ShellTemplateID = SS.ID").ToList();
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            return db.Fetch<gGetPreDefinedTemplateModel>($"SELECT templates.*, templatetypes.TypeName  FROM templates  inner join templatetypes on templates.TypeID = templatetypes.TypeID  order by templates.TemplateTitle").ToList();
+        }
+
+        internal static void UpdatePatientCallList(int Id)
+        {
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            db.Execute($"Update patientcalllist Set EmailSent = 1, Status = 2 where ID = {Id}");
+        }
+
+        public static gGetUserDefinedTemplateModel GetUserDefinedTemplate(int LetterID)
+        {
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.*, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID where templates_user.LetterID=" + LetterID + " order by templates_user.ModificationDate desc ").FirstOrDefault();
         }
         public static List<gGetUserDefinedTemplateModel> GetUserDefinedTemplates(int officeId)
         {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
-            return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT * FROM newsletter_usertemplate where Office_Sequence=" + officeId).ToList();
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.*, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID where templates_user.Office_Number=" + officeId + " order by templates_user.ModificationDate desc ").ToList();
         }
+        public static List<gArticleModel> GetArticles()
+        {
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            return db.Fetch<gArticleModel>($"SELECT * FROM system_articles ").ToList();
+        }
+
+        public static void SaveArticle(gArticleModel model)
+        {
+            using (var db = new Database(DbConfiguration.LtcNewsletter))
+            {
+
+                gArticleModel found = db
+                    .Fetch<gArticleModel>($"select * from system_articles where ArticleID={model.ArticleID}")
+                    .FirstOrDefault();
+
+                if (found != null)
+                    db.Update(model, model.ArticleID);
+                else
+                    db.Save(model);
+            }
+        }
+
         public static List<gIndustryModel> GetIndustries(int officeId)
         {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
-            return db.Fetch<gIndustryModel>($"SELECT * FROM newsletter_industry").ToList();
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            return db.Fetch<gIndustryModel>($"SELECT * FROM Industrytypes").ToList();
         }
         public static List<gSubIndustryModel> GetSubIndustries(int officeId)
         {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
-            return db.Fetch<gSubIndustryModel>($"SELECT * FROM newsletter_subindustry").ToList();
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            return db.Fetch<gSubIndustryModel>($"SELECT * FROM Industrysubtypes").ToList();
         }
         public static List<gTemplateTypeModel> GetTemplateTypes(int officeId)
         {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
-            return db.Fetch<gTemplateTypeModel>($"SELECT * FROM newsletter_templatetype").ToList();
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            return db.Fetch<gTemplateTypeModel>($"SELECT * FROM Templatetypes").ToList();
         }
         public static List<gShellTemplatesModel> GetShellTemplates()
         {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
-            return db.Fetch<gShellTemplatesModel>($"SELECT * FROM newsletter_shelltemplates").ToList();
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            return db.Fetch<gShellTemplatesModel>($"SELECT * FROM templates").ToList();
+        }
+        public static List<gShellTemplatesModel> GetAll()
+        {
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            return db.Fetch<gShellTemplatesModel>($"SELECT * FROM templates").ToList();
         }
         #endregion
 
         #region Save
-        public static void SaveUserNewsTemplate(gSaveUserTemplate model)
+
+        public static bool CreateDefaultParadigmNewsletter(int office_Number, int doctorID)
         {
-            model.Markup = model.Markup ?? "empty";
-            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
+
+            using (var db = new Database(DbConfiguration.LtcNewsletter))
             {
-                gSaveUserTemplate found = db.Fetch<gSaveUserTemplate>($"select * from newsletter_usertemplate where ID={model.ID}").FirstOrDefault();
+
+                var Count = db
+                    .Fetch<gSaveUserTemplate>(
+                        $"select * from templates_user where  Office_Number={office_Number} AND IsParadigmNewsletter = 1  ")
+                    .Count();
+
+                if (Count < 1)
+                {
+                    // Add Paradigm Templates
+                    db.Execute($"INSERT INTO `ltc_newsletter`.`templates_user` (`TemplateTitle`, `TemplateSourceMarkup`, `MainBodymarkup`, `TypeID`, `Office_Number`, `Branch_Number`, `DoctorID`, `IndustryID`, `ThumbnailPath`, `IndustrySubTypeID`,`IndustrySubTitleID`, `EmailType`, `EmbeddedNewsletter`, `IsParadigmNewsletter`, `IsDefault`, `ModificationDate`)\nselect TemplateTitle , TemplateSourceMarkup , MainBodymarkup , TypeID , {office_Number} , Branch_Number , {doctorID} , IndustryID , ThumbnailPath , IndustrySubTypeID , IndustrySubTitleID , EmailType , EmbeddedNewsletter , IsParadigmNewsletter, IsDefault , '{DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd")}'   from ltc_newsletter.templates_user where IsParadigmNewsletter = 1 and Office_Number = -1 ");
+                }
+
+            }
+            return true;
+        }
+
+        public static bool SaveUserNewsTemplate(gSaveUserTemplate model)
+        {
+            //gArticleModel article = new gArticleModel();
+            //article.Content = model.MainBodymarkup;
+            //article.ModificationDate = DateTime.Now;
+            //article.Title = model.TemplateTitle;
+            //using (var db = new Database(DbConfiguration.LtcNewsletter))
+            //{
+            //    db.Insert(article);
+            //}
+            if (model.TypeID == 0)
+                model.TypeID = 1;
+            
+            model.TemplateSourceMarkup = model.TemplateSourceMarkup ?? "empty";
+            using (var db = new Database(DbConfiguration.LtcNewsletter))
+            {
+                gSaveUserTemplate found = db.Fetch<gSaveUserTemplate>($"select * from templates_user where LetterID={model.LetterID}").FirstOrDefault();
+                if (!model.IsParadigmNewsletter)
+                {
+                    var Count = db
+                        .Fetch<gSaveUserTemplate>(
+                            $"select * from templates_user where TypeID={model.TypeID} AND Office_Number={model.Office_Number} AND IsParadigmNewsletter = 1  ")
+                        .Count();
+
+                    if (Count < 1)
+                    {
+                        model.IsParadigmNewsletter = true;
+                    }
+
+                    if (found != null)
+                    {
+                        if ((found.IsParadigmNewsletter && found.IsDefault) && !model.IsParadigmNewsletter)
+                        {
+                            return false;
+                        }
+                    }
+                }
+
+                if (model.IsParadigmNewsletter)
+                {
+                    if (!model.IsDefault)
+                    {
+                        var Count = db.Fetch<gSaveUserTemplate>($"select * from templates_user where TypeID={model.TypeID}  AND Office_Number={model.Office_Number}  AND IsParadigmNewsletter = 1  AND IsDefault = 1").Count();
+                        if (Count < 1)
+                            model.IsDefault = true;
+
+                    }   
+                }
+
+           
+                if (model.IsDefault)
+                    db.Execute($"Update templates_user Set IsDefault = 0   where TypeID = {model.TypeID} AND IsParadigmNewsletter = 1 ");
+
+                model.ModificationDate = DateTime.Now.ToUniversalTime();
+                
                 if (found != null)
-                    db.Update(model, model.ID);
+                    db.Update(model, model.LetterID);
+                else
+                {
+                    model.TemplateSourceMarkup = model.MainBodymarkup; 
+                    db.Save(model);
+                }
+            }
+
+            return true;
+        }
+        public static bool MakeDefault(int TemplateID, bool IsDefault)
+        {
+            using (var db = new Database(DbConfiguration.LtcNewsletter))
+            {
+                gSaveUserTemplate found = db.Fetch<gSaveUserTemplate>($"select * from templates_user where LetterID={TemplateID}").FirstOrDefault();
+                if (found != null)
+                {
+                    if (found.IsDefault && !IsDefault)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        db.Execute($"Update templates_user Set IsDefault = 0 WHERE TypeID = {found.TypeID} ");
+                        db.Execute($"Update templates_user Set IsDefault = {IsDefault}, ModificationDate = '{DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd")}'  Where LetterID={TemplateID} ");
+                        return true;
+                    }
+
+                }
+
+            }
+
+            return true;
+        }
+        public static void CopySystiemTemplate(int TemplateID, string name, int branchNumber, int OfficeNumber, int DocId)
+        {
+            using (var db = new Database(DbConfiguration.LtcNewsletter))
+            {
+                gSavePredefinedTemplate found = db.Fetch<gSavePredefinedTemplate>($"select * from templates where TemplateID={TemplateID}").FirstOrDefault();
+                if (found != null)
+                {
+                    gSaveUserTemplate obj = new gSaveUserTemplate();
+                    obj.TemplateTitle = name;
+                    obj.Branch_number = branchNumber;
+                    obj.Office_Number = OfficeNumber;
+                    obj.DoctorID = DocId;
+                    //obj.IndustryID = found.IndustryID;
+                    obj.MainBodymarkup = found.TemplateSourceMarkup;
+                    obj.TemplateSourceMarkup = found.TemplateSourceMarkup;
+                    obj.TypeID = 8;
+                    obj.ThumbnailPath = found.ThumbnailPath;
+                    obj.ModificationDate = DateTime.Now.ToUniversalTime();
+                    db.Save(obj);
+                }  
+            }
+        }
+        //select *  from ltc_newsletter.templates_user where IsParadigmNewsletter = 1 and Office_Number = -1
+
+
+        public static void SavePreNewsTemplate(gSavePredefinedTemplate model)
+        {
+            model.TemplateSourceMarkup = model.TemplateSourceMarkup ?? "empty";
+          
+
+            using (var db = new Database(DbConfiguration.LtcNewsletter))
+            {
+                gSavePredefinedTemplate found = db.Fetch<gSavePredefinedTemplate>($"select * from templates where TemplateID={model.TemplateID}").FirstOrDefault();
+                if (found != null)
+                    db.Update(model, model.TemplateID);
                 else
                     db.Save(model);
             }
         }
-
-        public static void SavePreNewsTemplate(gSavePredefinedTemplate model)
+        public static List<gPatientCallListView> GetPatientCallListForEmail()
         {
-            model.Markup = model.Markup ?? "empty";
-            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            return db.Fetch<gPatientCallListView>($"Select pl.ID , pl.NewsletterID, tu.TemplateTitle,tu.TemplateSourceMarkup, tu.MainBodymarkup, pl.Account, pl.Status, pl.Email, pl.Office_Number, pl.PatientName from patientcalllist pl inner join templates_user tu on pl.NewsletterID = tu.LetterID where Date(pl.EmailSentTime) = curdate() AND (pl.Status in (1)) AND EmailSent = false; ").ToList();
+        }
+
+        public static List<gPatientCallListView> GetPatientCallList(int doctorId)
+        {
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            return db.Fetch<gPatientCallListView>($"select pl.NewsletterID, tu.TemplateTitle, pl.Account,pl.Status  from patientcalllist pl inner join templates_user tu on pl.NewsletterID = tu.LetterID where pl.Account = " + doctorId).ToList();
+        }
+        public static void SendSubscriber(gPatientCallList patientCall)
+        {
+            try
             {
-                gSavePredefinedTemplate found = db.Fetch<gSavePredefinedTemplate>($"select * from newsletter_systemtemplate where ID={model.ID}").FirstOrDefault();
-                if (found != null)
-                    db.Update(model, model.ID);
-                else
-                    db.Save(model);
+                using (var db = new Database(DbConfiguration.LtcNewsletter))
+                {
+                    db.Save(patientCall);
+                }
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
 
         #endregion
@@ -86,19 +290,99 @@ namespace LTCDataManager.NewsLetter
         #region Delete
         public static void DeletePreDefinedTemplate(int Id)
         {
-            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
+            using (var db = new Database(DbConfiguration.LtcNewsletter))
             {
-                db.Delete("newsletter_systemtemplate", "ID", new gSavePredefinedTemplate { ID = Id });
+                db.Delete("templates", "TemplateID", new gGetPreDefinedTemplateModel { TemplateID = Id });
             }
         }
 
         public static void DeleteUserDefinedTemplate(int Id)
         {
-            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
+            using (var db = new Database(DbConfiguration.LtcNewsletter))
             {
-                db.Delete("newsletter_usertemplate", "ID", new gSaveUserTemplate { ID = Id });
+                db.Delete("templates_user", "LetterID", new gGetUserDefinedTemplateModel { LetterID = Id });
             }
         }
         #endregion
+        //#region Get
+        //public static List<gGetPreDefinedTemplateModel> GetPreDefinedTemplates()
+        //{
+        //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+        //    return db.Fetch<gGetPreDefinedTemplateModel>($"SELECT * FROM newsletter_systemtemplate").ToList();
+        //    //return db.Fetch<gGetPreDefinedTemplateModel>($"SELECT ST.*, SS.Markup as ShellTemplate FROM newsletter_systemtemplate ST Left JOIN newsletter_ShellTemplates SS on ST.ShellTemplateID = SS.ID").ToList();
+        //}
+        //public static List<gGetUserDefinedTemplateModel> GetUserDefinedTemplates(int officeId)
+        //{
+        //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+        //    return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT * FROM newsletter_usertemplate where Office_Sequence=" + officeId).ToList();
+        //}
+        //public static List<gIndustryModel> GetIndustries(int officeId)
+        //{
+        //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+        //    return db.Fetch<gIndustryModel>($"SELECT * FROM newsletter_industry").ToList();
+        //}
+        //public static List<gSubIndustryModel> GetSubIndustries(int officeId)
+        //{
+        //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+        //    return db.Fetch<gSubIndustryModel>($"SELECT * FROM newsletter_subindustry").ToList();
+        //}
+        //public static List<gTemplateTypeModel> GetTemplateTypes(int officeId)
+        //{
+        //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+        //    return db.Fetch<gTemplateTypeModel>($"SELECT * FROM newsletter_templatetype").ToList();
+        //}
+        //public static List<gShellTemplatesModel> GetShellTemplates()
+        //{
+        //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+        //    return db.Fetch<gShellTemplatesModel>($"SELECT * FROM newsletter_shelltemplates").ToList();
+        //}
+        //#endregion
+
+        //#region Save
+        //public static void SaveUserNewsTemplate(gSaveUserTemplate model)
+        //{
+        //    model.Markup = model.Markup ?? "empty";
+        //    using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
+        //    {
+        //        gSaveUserTemplate found = db.Fetch<gSaveUserTemplate>($"select * from newsletter_usertemplate where ID={model.ID}").FirstOrDefault();
+        //        if (found != null)
+        //            db.Update(model, model.ID);
+        //        else
+        //            db.Save(model);
+        //    }
+        //}
+
+        //public static void SavePreNewsTemplate(gSavePredefinedTemplate model)
+        //{
+        //    model.Markup = model.Markup ?? "empty";
+        //    using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
+        //    {
+        //        gSavePredefinedTemplate found = db.Fetch<gSavePredefinedTemplate>($"select * from newsletter_systemtemplate where ID={model.ID}").FirstOrDefault();
+        //        if (found != null)
+        //            db.Update(model, model.ID);
+        //        else
+        //            db.Save(model);
+        //    }
+        //}
+
+        //#endregion
+
+        //#region Delete
+        //public static void DeletePreDefinedTemplate(int Id)
+        //{
+        //    using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
+        //    {
+        //        db.Delete("newsletter_systemtemplate", "ID", new gSavePredefinedTemplate { ID = Id });
+        //    }
+        //}
+
+        //public static void DeleteUserDefinedTemplate(int Id)
+        //{
+        //    using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
+        //    {
+        //        db.Delete("newsletter_usertemplate", "ID", new gSaveUserTemplate { ID = Id });
+        //    }
+        //}
+        //#endregion
     }
 }

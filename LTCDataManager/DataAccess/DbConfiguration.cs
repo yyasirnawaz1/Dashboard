@@ -46,7 +46,17 @@ namespace LTCDataManager.DataAccess
                 return config.GetConnectionString("LTCDashboard");
             }
         }
-
+        public static string LtcNewsletter
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                var config = builder.Build();
+                return config.GetConnectionString("LTCNewsletter");
+            }
+        }
     }
 
     public class PocoDatabase

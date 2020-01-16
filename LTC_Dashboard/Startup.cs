@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LTCDashboard.Data;
+using LTCDashboard.Models;
 using LTCDataModel.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,7 +46,7 @@ namespace LTCDashboard
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.Configure<ConfigSettings>(Configuration.GetSection("Configuration"));
             services.Configure<Mapping>(Configuration.GetSection("Mapping"));
-
+            services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, HostingService>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddIdentity<ApplicationUser, IdentityRole<int>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -85,6 +86,11 @@ namespace LTCDashboard
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name : "NewslettersArea",
+                    template : "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Dashboard}/{action=Index}/{id?}");

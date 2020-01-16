@@ -1,0 +1,101 @@
+﻿.fixedNewsletterBody {
+    min-height: 217px;
+    margin-bottom: 0px !important;
+    padding-bottom: 5px !important;
+}
+
+.fixedNewsletterContent {
+    min-height: 141px;
+}
+#ddlPredefinedNewsLetterAction, #btnGreen {
+    font-size: 14px;
+}
+
+.shadowBox {
+    box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
+}
+
+
+.moveToTopRight {
+    top: 0px;
+    position: absolute;
+    right: 20px;
+}
+
+.forcetext-left {
+    text-align:left !important;
+}
+
+#previewContent {
+    min-height: 800px;
+    width: 100%;
+}
+
+.horizontalScrollOnExpand {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+    .horizontalScrollOnExpand > .tile {
+        display: inline-block;
+        float: none;
+    }
+
+
+.templateEditorWindowClass {
+    background-color: #f1f4f7;
+}
+
+.templateEditorWindowTopArea {
+    margin-bottom: 0px;
+    padding-bottom: 1px;
+}
+.EditorCol{
+    padding-top:5px;
+}
+
+.templateEditorWindowTopArea .thumbnail {
+    width: 75px;
+    height: 75px;
+    float: left;
+    margin-bottom: 0px;
+}
+
+.imageRightSplitter {
+}
+
+#templateList {
+    padding-bottom: 0;
+}
+
+#SystemTemplateList, #userDefineTemplateList {
+    display: inline-flex;
+}
+
+
+.homeNewsLetter
+{
+height:493px;
+}
+
+
+.homeNewsletterTable {
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.homeNewsletterDropdown {
+    width: 100px;
+    display: inline-block;
+}
+
+
+
+.templateDialogWindowRow{
+    margin-top:22px;
+}
+
+iframe {
+    display: block;
+    width: 100%;
+}

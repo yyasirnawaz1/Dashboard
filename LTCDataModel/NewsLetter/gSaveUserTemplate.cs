@@ -7,20 +7,36 @@ using System.Threading.Tasks;
 
 namespace LTCDataModel.NewsLetter
 {
-    [TableName("newsletter_usertemplate")]
-    [PrimaryKey("ID", AutoIncrement = true)]
+    [TableName("templates_user")]
+    [PrimaryKey("LetterID", AutoIncrement = true)]
     public class gSaveUserTemplate
     {
-        public int ID { get; set; }
+        public int LetterID { get; set; }
+        public string TemplateTitle { get; set; }
+        public string TemplateSourceMarkup { get; set; }
+        public string MainBodymarkup { get; set; }
+        public int TypeID { get; set; }
+        public int Office_Number { get; set; }
+        public int Branch_number { get; set; }
+        public int DoctorID { get; set; }
+        public int IndustryID { get; set; }
         public string ThumbnailPath { get; set; }
-        public int IsSystemTemplate { get; set; }
+        public int IndustrySubTypeID { get; set; }
+        public int IndustrySubTitleID { get; set; }
+        public bool IsParadigmNewsletter { get; set; }
+        public bool IsDefault { get; set; }
+        public DateTime ModificationDate { get; set; }
+    }
+
+    public class gMakeDefault
+    {  
+       
+        public int LetterID { get; set; }
+        public bool IsDefault { get; set; }
+    }
+    public class gCopyTemplate
+    {
+        public int TemplateId { get; set; }
         public string Title { get; set; }
-        public string UserId { get; set; }
-        public int ShellTemplateId { get; set; }
-        public string Markup { get; set; }
-        public int Office_Sequence { get; set; }
-        public int BranchId { get; set; }
-        public int IndustryId { get; set; }
-        public int SubIndustryId { get; set; }
     }
 }

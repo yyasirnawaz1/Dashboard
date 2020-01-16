@@ -12,4 +12,5 @@ namespace LTCDataModel.NewsLetter
         public string Title { get; set; }
         public string Markup { get; set; }
     }
+   
 }

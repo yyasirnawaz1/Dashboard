@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 
 namespace LTCDataModel.NewsLetter
 {
-    [TableName("newsletter_systemtemplate")]
+    [TableName("templates")]
     [PrimaryKey("ID", AutoIncrement = true)]
     public class gSavePredefinedTemplate
     {
-        public int ID { get; set; }
+        public int TemplateID { get; set; }
+        public string TemplateSourceMarkup { get; set; }
         public string ThumbnailPath { get; set; }
-        public string Title { get; set; }
-        public int ShellTemplateId { get; set; }
-        public string Markup { get; set; }
-        public int Office_Sequence { get; set; }
-        public int IndustryId { get; set; }
-        public int SubIndustryId { get; set; }
+        public string TemplateTitle { get; set; }
+        public int TypeID { get; set; }
+        public int OfficeNo { get; set; }
+        public int DocID { get; set; }
+        public int IndustryID { get; set; }
+        public bool IsParadigmNewsletter { get; set; }
     }
 }

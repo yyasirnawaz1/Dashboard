@@ -3,19 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LTCDataModel.PetaPoco;
+
 
 namespace LTCDataModel.NewsLetter
 {
     public class gGetPreDefinedTemplateModel
     {
-        public int ID { get; set; }
+        public int TemplateID { get; set; }
+        public string TemplateSourceMarkup { get; set; }
         public string ThumbnailPath { get; set; }
+        public string TemplateTitle { get; set; }
+        public string TypeName { get; set; }
+        public int OfficeNo { get; set; }
+        public int DocID { get; set; }
+        public int IndustryID { get; set; }
+        public DateTime ModificationDate { get; set; }
+    }
+    [TableName("system_articles")]
+    [PrimaryKey("ArticleID", AutoIncrement = true)]
+    public class gArticleModel
+    {
+        public int ArticleID { get; set; }
         public string Title { get; set; }
-        public int ShellTemplateId { get; set; }
-        //public string ShellTemplate { get; set; }
-        public string Markup { get; set; }
-        public int Office_Sequence { get; set; }
-        public int IndustryId { get; set; }
-        public int SubIndustryId { get; set; }
+        public string Content { get; set; }
+        public DateTime ModificationDate { get; set; }
     }
 }

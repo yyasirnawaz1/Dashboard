@@ -19,7 +19,23 @@ namespace LTCDataManager.Office
             _configuration = configuration.Value;
             Utility.Config = configuration.Value; ;
         }
+        public static gOfficeInfo GetOfficeName(int OfficeNumber)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+            return db.Fetch<gOfficeInfo>($"SELECT * FROM authentication_businessinfo where Office_Number = '{OfficeNumber}' ").FirstOrDefault();
+        }
 
+         
+        public static gPatientOfficeInfo GetOffice(string email)
+        {
+            var db = new  LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+            return db.Fetch<gPatientOfficeInfo>($"select Office_Number, DoctorID from authentication where Email  = '{email.Replace("@","@@")}' ").FirstOrDefault();
+        }
+        public static gPatientOfficeInfo GetPatientInfo(string email)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+            return db.Fetch<gPatientOfficeInfo>($"select * from authentication where Email  = '{email.Replace("@","@@")}' ").FirstOrDefault();
+        }
         public static List<gBusinesInfo> GetOfficeDetailByUserId(int userId)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
