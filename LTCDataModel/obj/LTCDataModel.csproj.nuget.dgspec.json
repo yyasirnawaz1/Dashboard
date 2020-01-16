@@ -1,30 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {}
+    "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataModel/LTCDataModel.csproj": {}
   },
   "projects": {
-    "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {
+    "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataModel/LTCDataModel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj",
+        "projectUniqueName": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataModel/LTCDataModel.csproj",
         "projectName": "LTCDataModel",
-        "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj",
-        "packagesPath": "C:\\Users\\Yasir\\.nuget\\packages\\",
-        "outputPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\obj\\",
+        "projectPath": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataModel/LTCDataModel.csproj",
+        "packagesPath": "/Users/myasirnawaz/.nuget/packages/",
+        "outputPath": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataModel/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Yasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/myasirnawaz/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -41,6 +39,10 @@
       "frameworks": {
         "netcoreapp2.2": {
           "dependencies": {
+            "ElasticEmail.WebApiClient": {
+              "target": "Package",
+              "version": "[1.3.106, )"
+            },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
               "target": "Package",
@@ -66,7 +68,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.100/RuntimeIdentifierGraph.json"
         }
       }
     }

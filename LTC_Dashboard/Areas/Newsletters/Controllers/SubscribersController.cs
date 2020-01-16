@@ -43,7 +43,7 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
             List<gSaveSubscriber> objViewModelList = new List<gSaveSubscriber>();
 
             SubscriberFilterParams parameters = new SubscriberFilterParams();
-            parameters.DoctorID = CurrentLoggedInUserId.ToString();
+            parameters.DoctorID = UserId.ToString();
 
             objViewModelList = gSubscriber.GetAll(parameters);
 
@@ -116,7 +116,7 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    subscriptionViewModel.DoctorID = CurrentLoggedInUserId;
+                    subscriptionViewModel.DoctorID = UserId;
                     subscriptionViewModel.AddedOn = DateTime.Now;
                     subscriptionViewModel.LastSubscriptionStatusUpdated = DateTime.Now;
 
@@ -160,7 +160,7 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    subscriptionViewModel.DoctorID = CurrentLoggedInUserId;
+                    subscriptionViewModel.DoctorID = UserId;
                     subscriptionViewModel.LastSubscriptionStatusUpdated = DateTime.Now;
                     gSubscriber.Update(subscriptionViewModel);
                     // return Content("success");
@@ -185,7 +185,7 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
         [HttpPost]
         public ActionResult ToggleStatus(IdModel model)
         {
-            gSubscriber.ToggleStatus(model.Id, CurrentLoggedInUserId.ToString());
+            gSubscriber.ToggleStatus(model.Id, UserId.ToString());
             // return Content("success");
             return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });
 
@@ -212,7 +212,7 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
         [HttpPost]
         public ActionResult DeleteAll()
         {
-            gSubscriber.Delete(CurrentLoggedInUserId, true);
+            gSubscriber.Delete(UserId, true);
             return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });
 
         }

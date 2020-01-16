@@ -370,7 +370,7 @@
 
                                         if (permissionList.IsNewsletterOk == 1)
                                         {
-                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Configuration.GetSection("Configuration")["NewsletterUrl"]')">
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("Home","Newsletters")')">
                                                 <i class="icon-magazine text-success-400 icon-2x"></i>
                                                 <span>Newsletter</span>
                                             </button>

@@ -42,8 +42,8 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
                 var file = Request.Form.Files[0];
                 if (file != null)
                 {
-                    string userId = CurrentLoggedInUserId.ToString();
-                    string officeId = CurrentOfficeId.ToString();
+                    string userId = UserId.ToString();
+                    string officeId = OfficeSequence.ToString();
 
 
                     string path = string.Format(UserImagesPath, officeId, userId);
@@ -84,8 +84,8 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
             if (file != null)
             {
                 string webRootPath = _webHostEnvironment.WebRootPath;
-                string userId = CurrentLoggedInUserId.ToString();
-                string officeId = CurrentOfficeId.ToString();
+                string userId = UserId.ToString();
+                string officeId = OfficeSequence.ToString();
 
 
                 string path = string.Format(UserImagesPath, officeId, userId);
@@ -124,8 +124,8 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
 
                 if (model.file != null)
                 {
-                    string userId = CurrentLoggedInUserId.ToString();
-                    string officeId = CurrentOfficeId.ToString();
+                    string userId = UserId.ToString();
+                    string officeId = OfficeSequence.ToString();
 
 
                     string path = string.Format(UserImagesPath, officeId, userId);
@@ -160,8 +160,8 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
             {
 
             string webRootPath = _webHostEnvironment.WebRootPath;
-            string userId = CurrentLoggedInUserId.ToString();
-            string officeId = CurrentOfficeId.ToString();
+            string userId = UserId.ToString();
+            string officeId = OfficeSequence.ToString();
 
 
             string path = string.Format(UserImagesPath, officeId, userId);
@@ -198,8 +198,8 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
             {
 
                 string webRootPath = _webHostEnvironment.WebRootPath;
-                string userId = CurrentLoggedInUserId.ToString();
-                string officeId = CurrentOfficeId.ToString();
+                string userId = UserId.ToString();
+                string officeId = OfficeSequence.ToString();
 
 
                 string path = string.Format(UserImagesPath, officeId, userId);
@@ -235,8 +235,8 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
             try
             {
 
-            string userId = CurrentLoggedInUserId.ToString();
-            string officeId = CurrentOfficeId.ToString();
+            string userId = UserId.ToString();
+            string officeId = OfficeSequence.ToString();
 
             string webRootPath = _webHostEnvironment.WebRootPath;
 
