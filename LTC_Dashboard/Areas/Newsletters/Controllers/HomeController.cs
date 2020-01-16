@@ -52,7 +52,7 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
                     intCategory = 1;
                 }
 
-                result.ScheduledNewsLetter = gNewsLetterManager.GetDashboard(intCategory, period, CurrentOfficeId);
+                result.ScheduledNewsLetter = gNewsLetterManager.GetDashboard(intCategory, period, OfficeSequence);
                 foreach (var item in result.ScheduledNewsLetter)
                 {
                     item.SentTimeString = item.SentTime.ToString(@"yyyy-MM-dd hh:mm tt", new CultureInfo("en-US"));

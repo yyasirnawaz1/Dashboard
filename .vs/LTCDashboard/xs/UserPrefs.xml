@@ -1,0 +1,50 @@
+﻿<Properties StartupConfiguration="{2BCDCEB4-A61D-46EF-8BF8-D18D7F6B4FE1}|Default">
+  <MonoDevelop.Ide.ItemProperties.LTCOfficePortal PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="LTC_Dashboard/Areas/Newsletters/Controllers/ImageManagementController.cs">
+    <Files>
+      <File FileName="LTC_Dashboard/Controllers/BaseController.cs" Line="17" Column="8" IsPinned="True" />
+      <File FileName="LTC_Dashboard/Areas/Newsletters/Controllers/BaseController.cs" Line="111" Column="12" />
+      <File FileName="LTC_Dashboard/Areas/Newsletters/Controllers/HomeController.cs" Line="55" Column="113" />
+      <File FileName="LTC_Dashboard/Areas/Newsletters/Controllers/NewslettersController.cs" Line="352" Column="126" />
+      <File FileName="LTC_Dashboard/Areas/Newsletters/Controllers/ImageManagementController.cs" Line="238" Column="35" />
+      <File FileName="LTC_Dashboard/Areas/Newsletters/Controllers/ReportsController.cs" Line="51" Column="102" />
+      <File FileName="LTC_Dashboard/Areas/Newsletters/Controllers/SubscribersController.cs" Line="215" Column="38" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="LTCDashboard" expanded="True">
+            <Node name="LTC_Dashboard" expanded="True">
+              <Node name="Areas" expanded="True">
+                <Node name="Newsletters" expanded="True">
+                  <Node name="Controllers" expanded="True">
+                    <Node name="ImageManagementController.cs" selected="True" />
+                  </Node>
+                </Node>
+              </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Shared" expanded="True">
+                  <Node name="Layouts" expanded="True" />
+                  <Node name="Menu" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="SharedJS" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.LTC__Dashboard PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

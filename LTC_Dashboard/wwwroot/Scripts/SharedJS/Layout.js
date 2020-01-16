@@ -83,7 +83,7 @@ var Layout = {
         } else if (name == 'officemanagement') {
             url = '/OfficeManagement/index';
         } else if (name == 'newsletter') {
-            url = '/NewsLetter/index';
+            url = '/NewsLetter/Home';
         }
         window.open(url, '_blank')
     },

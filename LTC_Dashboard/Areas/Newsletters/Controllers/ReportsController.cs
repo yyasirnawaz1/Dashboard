@@ -48,7 +48,7 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
         [HttpGet()]
         public IActionResult Get([DataTablesRequest] DataTablesRequest dataRequest)
         {
-            IEnumerable<gPatientCallListView> products = gNewsLetterManager.GetPatientCallList(CurrentLoggedInUserId).Where(p=>p.Status == 1);
+            IEnumerable<gPatientCallListView> products = gNewsLetterManager.GetPatientCallList(UserId).Where(p=>p.Status == 1);
             int recordsTotal = products.Count();
             int recordsFilterd = recordsTotal;
 
