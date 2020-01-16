@@ -242,7 +242,7 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
 
                         gPatientCallList obj = new gPatientCallList()
                         {
-                            Office_Number = OfficeSequence,
+                            Office_Sequence = OfficeSequence,
                             Branch_Number = 1,
                             Email = subscriber.EmailAddress,
                            // AppointDate = model.ScheduledDateTime.Date,
@@ -299,7 +299,7 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
                     }
                     gPatientCallList obj = new gPatientCallList()
                     {
-                        Office_Number = OfficeSequence,
+                        Office_Sequence = OfficeSequence,
                         Branch_Number = 1,
                         Email = model.Email,
                         //AppointDate = model.ScheduledDateTime.Date,
@@ -364,7 +364,7 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
             {
                 //var user = (CustomMembershipUser)Membership.GetUser(User.Identity.Name, true);
                 model.DoctorID = UserId;
-                model.Office_Number = OfficeSequence;
+                model.Office_Sequence = OfficeSequence;
                 model.Branch_number = CurrentBranchId;
 
 

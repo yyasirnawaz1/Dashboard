@@ -23,13 +23,13 @@ namespace LTCDataManager.NewsLetter
         }
         #region Get
 
-        public static List<ScheduledNewsletterViewModel> GetDashboard(int category, string day, int OfficeNumber)
+        public static List<ScheduledNewsletterViewModel> GetDashboard(int category, string day, int Office_Sequence)
         {
            
             var db = new Database(DbConfiguration.LtcNewsletter);
             return
                 db.Fetch<ScheduledNewsletterViewModel>(
-                    $"Select PatientCallList.ID, PatientCallList.Email, PatientCallList.EmailSentTime as ScheduledDate, PatientCallList.EmailSentTime as SentTime, templates_user.TemplateTitle as Title,PatientCallList.Status from PatientCallList inner join templates_user on PatientCallList.NewsletterID = templates_user.LetterID  where PatientCallList.Office_Number = {OfficeNumber} AND (PatientCallList.Status ='{category}' OR '{category}'='3') "+
+                    $"Select PatientCallList.ID, PatientCallList.Email, PatientCallList.EmailSentTime as ScheduledDate, PatientCallList.EmailSentTime as SentTime, templates_user.TemplateTitle as Title,PatientCallList.Status from PatientCallList inner join templates_user on PatientCallList.NewsletterID = templates_user.LetterID  where PatientCallList.Office_Sequence = {Office_Sequence} AND (PatientCallList.Status ='{category}' OR '{category}'='3') "+
             $" AND((DATE(PatientCallList.EmailSentTime) = CURDATE() and '{day}'='Today') OR(WEEKOFYEAR(PatientCallList.EmailSentTime) = WEEKOFYEAR(CURDATE()) and '{day}'='ThisWeek' ) "+
             $" OR(WEEKOFYEAR(PatientCallList.EmailSentTime) = WEEKOFYEAR(CURDATE()) - 1 and '{day}' ='LastWeek' ) OR(Month(PatientCallList.EmailSentTime) = Month(CURDATE()) and '{day}'='ThisMonth' )) Order by PatientCallList.EmailSentTime desc");
         }
@@ -51,10 +51,10 @@ namespace LTCDataManager.NewsLetter
             var db = new Database(DbConfiguration.LtcNewsletter);
             return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.*, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID where templates_user.LetterID=" + LetterID + " order by templates_user.ModificationDate desc ").FirstOrDefault();
         }
-        public static List<gGetUserDefinedTemplateModel> GetUserDefinedTemplates(int officeId)
+        public static List<gGetUserDefinedTemplateModel> GetUserDefinedTemplates(int officeSequence)
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
-            return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.*, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID where templates_user.Office_Number=" + officeId + " order by templates_user.ModificationDate desc ").ToList();
+            return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.*, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID where templates_user.Office_Sequence=" + officeSequence + " order by templates_user.ModificationDate desc ").ToList();
         }
         public static List<gArticleModel> GetArticles()
         {
@@ -107,7 +107,7 @@ namespace LTCDataManager.NewsLetter
 
         #region Save
 
-        public static bool CreateDefaultParadigmNewsletter(int office_Number, int doctorID)
+        public static bool CreateDefaultParadigmNewsletter(int office_sequence, int doctorID)
         {
 
             using (var db = new Database(DbConfiguration.LtcNewsletter))
@@ -115,13 +115,13 @@ namespace LTCDataManager.NewsLetter
 
                 var Count = db
                     .Fetch<gSaveUserTemplate>(
-                        $"select * from templates_user where  Office_Number={office_Number} AND IsParadigmNewsletter = 1  ")
+                        $"select * from templates_user where  Office_Sequence={office_sequence} AND IsParadigmNewsletter = 1  ")
                     .Count();
 
                 if (Count < 1)
                 {
                     // Add Paradigm Templates
-                    db.Execute($"INSERT INTO `ltc_newsletter`.`templates_user` (`TemplateTitle`, `TemplateSourceMarkup`, `MainBodymarkup`, `TypeID`, `Office_Number`, `Branch_Number`, `DoctorID`, `IndustryID`, `ThumbnailPath`, `IndustrySubTypeID`,`IndustrySubTitleID`, `EmailType`, `EmbeddedNewsletter`, `IsParadigmNewsletter`, `IsDefault`, `ModificationDate`)\nselect TemplateTitle , TemplateSourceMarkup , MainBodymarkup , TypeID , {office_Number} , Branch_Number , {doctorID} , IndustryID , ThumbnailPath , IndustrySubTypeID , IndustrySubTitleID , EmailType , EmbeddedNewsletter , IsParadigmNewsletter, IsDefault , '{DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd")}'   from ltc_newsletter.templates_user where IsParadigmNewsletter = 1 and Office_Number = -1 ");
+                    db.Execute($"INSERT INTO `ltc_newsletter`.`templates_user` (`TemplateTitle`, `TemplateSourceMarkup`, `MainBodymarkup`, `TypeID`, `Office_Sequence`, `Branch_Number`, `DoctorID`, `IndustryID`, `ThumbnailPath`, `IndustrySubTypeID`,`IndustrySubTitleID`, `EmailType`, `EmbeddedNewsletter`, `IsParadigmNewsletter`, `IsDefault`, `ModificationDate`)\nselect TemplateTitle , TemplateSourceMarkup , MainBodymarkup , TypeID , {office_sequence} , Branch_Number , {doctorID} , IndustryID , ThumbnailPath , IndustrySubTypeID , IndustrySubTitleID , EmailType , EmbeddedNewsletter , IsParadigmNewsletter, IsDefault , '{DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd")}'   from ltc_newsletter.templates_user where IsParadigmNewsletter = 1 and Office_Sequence = -1 ");
                 }
 
             }
@@ -149,7 +149,7 @@ namespace LTCDataManager.NewsLetter
                 {
                     var Count = db
                         .Fetch<gSaveUserTemplate>(
-                            $"select * from templates_user where TypeID={model.TypeID} AND Office_Number={model.Office_Number} AND IsParadigmNewsletter = 1  ")
+                            $"select * from templates_user where TypeID={model.TypeID} AND Office_Sequence={model.Office_Sequence} AND IsParadigmNewsletter = 1  ")
                         .Count();
 
                     if (Count < 1)
@@ -170,7 +170,7 @@ namespace LTCDataManager.NewsLetter
                 {
                     if (!model.IsDefault)
                     {
-                        var Count = db.Fetch<gSaveUserTemplate>($"select * from templates_user where TypeID={model.TypeID}  AND Office_Number={model.Office_Number}  AND IsParadigmNewsletter = 1  AND IsDefault = 1").Count();
+                        var Count = db.Fetch<gSaveUserTemplate>($"select * from templates_user where TypeID={model.TypeID}  AND Office_Sequence={model.Office_Sequence}  AND IsParadigmNewsletter = 1  AND IsDefault = 1").Count();
                         if (Count < 1)
                             model.IsDefault = true;
 
@@ -218,7 +218,7 @@ namespace LTCDataManager.NewsLetter
 
             return true;
         }
-        public static void CopySystiemTemplate(int TemplateID, string name, int branchNumber, int OfficeNumber, int DocId)
+        public static void CopySystiemTemplate(int TemplateID, string name, int branchNumber, int Office_Sequence, int DocId)
         {
             using (var db = new Database(DbConfiguration.LtcNewsletter))
             {
@@ -228,7 +228,7 @@ namespace LTCDataManager.NewsLetter
                     gSaveUserTemplate obj = new gSaveUserTemplate();
                     obj.TemplateTitle = name;
                     obj.Branch_number = branchNumber;
-                    obj.Office_Number = OfficeNumber;
+                    obj.Office_Sequence = Office_Sequence;
                     obj.DoctorID = DocId;
                     //obj.IndustryID = found.IndustryID;
                     obj.MainBodymarkup = found.TemplateSourceMarkup;
@@ -240,7 +240,7 @@ namespace LTCDataManager.NewsLetter
                 }  
             }
         }
-        //select *  from ltc_newsletter.templates_user where IsParadigmNewsletter = 1 and Office_Number = -1
+        //select *  from ltc_newsletter.templates_user where IsParadigmNewsletter = 1 and Office_Sequence = -1
 
 
         public static void SavePreNewsTemplate(gSavePredefinedTemplate model)
@@ -260,7 +260,7 @@ namespace LTCDataManager.NewsLetter
         public static List<gPatientCallListView> GetPatientCallListForEmail()
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
-            return db.Fetch<gPatientCallListView>($"Select pl.ID , pl.NewsletterID, tu.TemplateTitle,tu.TemplateSourceMarkup, tu.MainBodymarkup, pl.Account, pl.Status, pl.Email, pl.Office_Number, pl.PatientName from patientcalllist pl inner join templates_user tu on pl.NewsletterID = tu.LetterID where Date(pl.EmailSentTime) = curdate() AND (pl.Status in (1)) AND EmailSent = false; ").ToList();
+            return db.Fetch<gPatientCallListView>($"Select pl.ID , pl.NewsletterID, tu.TemplateTitle,tu.TemplateSourceMarkup, tu.MainBodymarkup, pl.Account, pl.Status, pl.Email, pl.Office_Sequence, pl.PatientName from patientcalllist pl inner join templates_user tu on pl.NewsletterID = tu.LetterID where Date(pl.EmailSentTime) = curdate() AND (pl.Status in (1)) AND EmailSent = false; ").ToList();
         }
 
         public static List<gPatientCallListView> GetPatientCallList(int doctorId)

@@ -119,8 +119,8 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
                     subscriptionViewModel.DoctorID = UserId;
                     subscriptionViewModel.AddedOn = DateTime.Now;
                     subscriptionViewModel.LastSubscriptionStatusUpdated = DateTime.Now;
-
-
+                    subscriptionViewModel.Office_Sequence = OfficeSequence;
+                    
                     gSubscriber.Add(subscriptionViewModel);
                     // return Content("success");
                     return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });

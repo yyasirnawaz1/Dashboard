@@ -28,7 +28,9 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
         public ActionResult Index()
         {
             @ViewBag.OfficeName = OfficeName;
-           
+            gNewsLetterManager.CreateDefaultParadigmNewsletter(OfficeSequence, UserId);
+                    
+  
             return View();
         }
 

@@ -159,7 +159,6 @@ var Subscription = function () {
         },
          
         newSubscription: function (actionURL) {
-            alert(actionURL);
             $.get(actionURL, function (data) {
                 $('#modifySubscriptionContainer').html(data);
                 jQuery.validator.unobtrusive.parse('#modifySubscriptionContainer');
@@ -291,7 +290,7 @@ var Subscription = function () {
 
 
 function createSubscriptionSuccess(data) {
-  
+  debugger;
     var statusCode = data.StatusCode;
     switch (statusCode) {
         case 1:

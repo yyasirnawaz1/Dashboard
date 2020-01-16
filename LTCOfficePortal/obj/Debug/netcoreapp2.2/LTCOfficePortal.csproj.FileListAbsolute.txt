@@ -346,3 +346,11 @@ F:/LTC Git/Dashboard/LTCOfficePortal/obj/Debug/netcoreapp2.2/LTCOfficePortal.pdb
 /Users/myasirnawaz/Documents/Projects/Dashboard/LTCOfficePortal/obj/Debug/netcoreapp2.2/LTCOfficePortal.csproj.CopyComplete
 /Users/myasirnawaz/Documents/Projects/Dashboard/LTCOfficePortal/obj/Debug/netcoreapp2.2/LTCOfficePortal.dll
 /Users/myasirnawaz/Documents/Projects/Dashboard/LTCOfficePortal/obj/Debug/netcoreapp2.2/LTCOfficePortal.pdb
+F:\LTC Git\Dashboard\LTCOfficePortal\obj\Debug\netcoreapp2.2\LTCOfficePortal.csprojAssemblyReference.cache
+F:\LTC Git\Dashboard\LTCOfficePortal\obj\Debug\netcoreapp2.2\LTCOfficePortal.csproj.CoreCompileInputs.cache
+F:\LTC Git\Dashboard\LTCOfficePortal\obj\Debug\netcoreapp2.2\LTCOfficePortal.RazorAssemblyInfo.cache
+F:\LTC Git\Dashboard\LTCOfficePortal\obj\Debug\netcoreapp2.2\LTCOfficePortal.RazorAssemblyInfo.cs
+F:\LTC Git\Dashboard\LTCOfficePortal\obj\Debug\netcoreapp2.2\LTCOfficePortal.AssemblyInfoInputs.cache
+F:\LTC Git\Dashboard\LTCOfficePortal\obj\Debug\netcoreapp2.2\LTCOfficePortal.AssemblyInfo.cs
+F:\LTC Git\Dashboard\LTCOfficePortal\obj\Debug\netcoreapp2.2\LTCOfficePortal.dll
+F:\LTC Git\Dashboard\LTCOfficePortal\obj\Debug\netcoreapp2.2\LTCOfficePortal.pdb

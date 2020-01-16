@@ -13,7 +13,7 @@ namespace LTCDataModel.NewsLetter
     {
         //public string provider;
         public int ID { get; set; }
-        public int Office_Number { get; set; }
+        public int Office_Sequence { get; set; }
         public int Branch_Number { get; set; }
         //public int Counter { get; set; }
         //public string CallType { get; set; }

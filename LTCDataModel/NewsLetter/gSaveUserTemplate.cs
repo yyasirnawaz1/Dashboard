@@ -16,7 +16,7 @@ namespace LTCDataModel.NewsLetter
         public string TemplateSourceMarkup { get; set; }
         public string MainBodymarkup { get; set; }
         public int TypeID { get; set; }
-        public int Office_Number { get; set; }
+        public int Office_Sequence { get; set; }
         public int Branch_number { get; set; }
         public int DoctorID { get; set; }
         public int IndustryID { get; set; }

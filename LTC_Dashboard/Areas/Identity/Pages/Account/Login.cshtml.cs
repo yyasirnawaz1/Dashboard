@@ -79,11 +79,6 @@ namespace LTCDashboard.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-                      var office = gOfficeManager.GetOffice(Input.Email);
-                    if (office != null)
-                    {
-                        gNewsLetterManager.CreateDefaultParadigmNewsletter(office.Office_Number, office.DoctorID);
-                    }
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

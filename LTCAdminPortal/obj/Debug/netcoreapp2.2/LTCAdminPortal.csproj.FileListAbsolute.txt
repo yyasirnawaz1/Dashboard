@@ -210,3 +210,11 @@ F:/LTC Git/Dashboard/LTCAdminPortal/obj/Debug/netcoreapp2.2/LTCAdminPortal.pdb
 /Users/myasirnawaz/Documents/Projects/Dashboard/LTCAdminPortal/obj/Debug/netcoreapp2.2/LTCAdminPortal.csproj.CopyComplete
 /Users/myasirnawaz/Documents/Projects/Dashboard/LTCAdminPortal/obj/Debug/netcoreapp2.2/LTCAdminPortal.dll
 /Users/myasirnawaz/Documents/Projects/Dashboard/LTCAdminPortal/obj/Debug/netcoreapp2.2/LTCAdminPortal.pdb
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.csprojAssemblyReference.cache
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.csproj.CoreCompileInputs.cache
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.RazorAssemblyInfo.cache
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.RazorAssemblyInfo.cs
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.AssemblyInfoInputs.cache
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.AssemblyInfo.cs
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.dll
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.pdb

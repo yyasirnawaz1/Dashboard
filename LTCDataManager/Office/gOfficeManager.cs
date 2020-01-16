@@ -22,7 +22,7 @@ namespace LTCDataManager.Office
         public static gOfficeInfo GetOfficeName(int OfficeNumber)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
-            return db.Fetch<gOfficeInfo>($"SELECT * FROM authentication_businessinfo where Office_Number = '{OfficeNumber}' ").FirstOrDefault();
+            return db.Fetch<gOfficeInfo>($"SELECT * FROM authentication_businessinfo where Office_Sequence = '{OfficeNumber}' ").FirstOrDefault();
         }
 
          

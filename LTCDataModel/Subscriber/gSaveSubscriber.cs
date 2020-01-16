@@ -35,7 +35,7 @@ namespace LTCDataModel.Subscriber
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime AddedOn { get; set; }
 
-        public int Office_Number { get; set; }
+        public int Office_Sequence { get; set; }
         public int Branch_Number { get; set; }
         public int PatientNumber { get; set; }
     }

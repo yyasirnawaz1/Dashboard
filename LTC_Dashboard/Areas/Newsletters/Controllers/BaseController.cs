@@ -40,6 +40,14 @@ namespace LTC_Dashboard.Areas.Newsletters.Controllers
                 return officeSequence;
             }
         }
+        public int OfficeNumber
+        {
+            get
+            {
+                int.TryParse(User.FindFirstValue("OfficeNumber"), out var officeNumber);
+                return officeNumber;
+            }
+        }
         public string OfficeName
         {
             get
