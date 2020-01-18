@@ -1,67 +1,121 @@
-﻿@using Microsoft.Extensions.Configuration
-@inject IConfiguration Configuration
+﻿
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <meta charset="utf-8" />
+
+    <title>LTC - @ViewBag.Title </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>LTC Dental</title>
-    <!-- Global stylesheets -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta content="" name="author" />
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/global_assets/css/icons/icomoon/styles.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap_limitless.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/layout.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/components.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/colors.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Vendor/bootstrap-select-1.13.7/css/bootstrap-select.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
-    <link href="~/Resources/Limitless/global_assets/css/icons/fontawesome/styles.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
-    <link href="~/Resources/Limitless/Site.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
+    <link href="~/Content/Limitless/global_assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+
+    <link href="~/Content/New folder/Vendor/bootstrap-select-1.13.7/css/bootstrap-select.min.css" rel="stylesheet" />
+
+    <link href="~/Content/Limitless/layout_1/LTR/default/full/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/Limitless/layout_1/LTR/default/full/assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/Limitless/layout_1/LTR/default/full/assets/css/layout.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/Limitless/layout_1/LTR/default/full/assets/css/components.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/Limitless/layout_1/LTR/default/full/assets/css/colors.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" />
+
+    <link href="~/Content/Limitless/global_assets/css/icons/fontawesome/styles.min.css" rel="stylesheet" />
+    <link href="~/Content/Limitless/Site.css" rel="stylesheet" />
     <!-- /global stylesheets -->
     <!-- Core JS files -->
-    @*<script src="~/Resources/Limitless/global_assets/js/main/jquery.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>*@
-    <script type="text/javascript" src="~/Resources/theme/js/vendor/jquery/jquery.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script type="text/javascript" src="~/Resources/theme/js/vendor/jquery/jquery-ui.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/main/bootstrap.bundle.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/loaders/blockui.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+
+    <script src="/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+
+
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/Limitless/global_assets/js/main/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/Limitless/global_assets/js/plugins/loaders/blockui.min.js"></script>
     <!-- /core JS files -->
     <!-- Theme JS files -->
-    <script src="~/Resources/Limitless/global_assets/js/plugins/visualization/d3/d3.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/visualization/d3/d3_tooltip.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/forms/styling/switchery.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/forms/selects/bootstrap_multiselect.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/ui/moment/moment.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/pickers/daterangepicker.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/layout_1/LTR/default/full/assets/js/app.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/demo_pages/dashboard.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Vendor/bootstrap-select-1.13.7/js/bootstrap-select.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/theme/js/vendor/ResizePanel/Resize.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Content/Limitless/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script src="~/Content/Limitless/global_assets/js/plugins/pickers/daterangepicker.js"></script>
+
+    <script src="~/Content/New folder/Vendor/bootstrap-select-1.13.7/js/bootstrap-select.min.js"></script>
     <!-- /theme JS files -->
 
 
+
+    <link href="/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Content/Limitless/layout_1/LTR/default/full/assets/js/app.js"></script>
+
+    <script src="~/Content/Limitless/global_assets/js/plugins/notifications/bootbox.min.js"></script>
+    <script src="~/Content/Limitless/global_assets/js/demo_pages/components_modals.js"></script>
+
     @RenderSection("styles", required: false)
-    @RenderSection("headscripts", required: false)
+
+    <link rel="shortcut icon" href="favicon.ico" />
+    <style>
+        .dataTables_paginate .paginate_button.current, .dataTables_paginate .paginate_button.current:focus, .dataTables_paginate .paginate_button.current:hover {
+            color: #fff;
+            background-color: #37474f;
+        }
+
+        .dataTables_paginate .paginate_button:first-child {
+            margin-left: 0;
+        }
+
+        .dataTables_paginate .paginate_button {
+            display: inline-block;
+            padding: .4375rem;
+            min-width: 2.25003rem;
+            margin-left: .125rem;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            color: #333;
+            outline: 0;
+            border: 1px solid transparent;
+            border-radius: .1875rem;
+            transition: all ease-in-out .15s;
+        }
+
+        .nav-sidebar .nav-item:not(.nav-item-header):first-child {
+            padding-top: 0px !important;
+        }
+
+        .table-scrollable .dataTable td > .btn-group, .table-scrollable .dataTable th > .btn-group {
+            position: relative;
+        }
+
+        .dropdown-toggle:after {
+            display: none !important;
+        }
+
+        .btn-group > .dropdown-menu, .dropdown-toggle > .dropdown-menu, .dropdown > .dropdown-menu {
+            margin-top: 0px;
+        }
+
+            .btn-group > .dropdown-menu:after, .dropdown-toggle > .dropdown-menu:after, .dropdown > .dropdown-menu:after {
+                content: none;
+            }
+
+            .btn-group > .dropdown-menu:before, .dropdown-toggle > .dropdown-menu:before, .dropdown > .dropdown-menu:before {
+                content: none;
+            }
+
+        .dataTables_filter > label:after {
+            top: 66%;
+        }
+    </style>
 </head>
-<body>
+<body class="sidebar-xs">
     <div class="navbar navbar-expand-md navbar-dark">
-        @*<div class="navbar-brand">
-                <a href="index.html" class="d-inline-block">
-                    <img src="~/Resources/Limitless/global_assets/images/logo_light.png" alt="">
-                </a>
-            </div>*@
-        <span style="
-                        font-family: 'Open Sans', sans-serif;
-                        text-decoration: none;
-                        text-transform: uppercase;
-                        font-size: 22px;
-                        font-weight: 600;
-                        line-height: 1;
-                        position: relative;
-                        margin-top: 12px;">
-            Logic Tech Corp
-        </span>
+
+        <div class="page-logo">
+            <a href="#" style="color: #e67a7a;font-size: 35px;font-weight: bolder;">
+                @ViewBag.OfficeName
+            </a>
+        </div>
         <div class="d-md-none">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
                 <i class="icon-tree5"></i>
@@ -78,20 +132,53 @@
                     </a>
                 </li>
             </ul>
-            @Html.Partial("~/Views/Shared/Menu/_MenuSelection.cshtml")
+            @*@Html.Partial("~/Views/Shared/Menu/_MenuSelection.cshtml")*@
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form class="app-header-search">
-                        <select class="bs-select form-control" id="ddlNewsLetterOffice" name="ddlNewsLetterOffice" onchange="NewsLetter.newsLetterOfficeDropDownChange()"></select>
-                    </form>
+
+                </li>
+            </ul>
+            &nbsp;
+            <ul class="navbar-nav">
+                <li class="nav-item">
+
                 </li>
             </ul>
 
             <span class="badge ml-md-3 mr-md-auto">&nbsp;</span>
 
-            @Html.Partial("~/Views/Shared/Menu/_TopRightMenu.cshtml")
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <div class="headerDate">
+                        <div class="input-group">
+
+                        </div>
+                    </div>
+                </li>
+
+                @{
+
+
+                    <li class="nav-item dropdown dropdown-user">
+                        <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-user"></i> &nbsp;
+                            <span>@User.Identity.Name</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="#" data-toggle="modal" class="dropdown-item"><i class="icon-wrench3"></i> Preferences</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="@Url.Action("LogOut", "Account")" class="dropdown-item"><i class="icon-key"></i> Logout</a>
+                        </div>
+                    </li>
+
+
+                }
+            </ul>
+
+
         </div>
     </div>
+
     <!-- /main navbar -->
     <!-- Page content -->
     <div class="page-content">
@@ -113,17 +200,49 @@
             <div class="sidebar-content">
                 <!-- Main navigation -->
                 <div class="card card-sidebar-mobile">
-
                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                         <!-- Main -->
-                        <li onclick="NewsLetter.loadMenuItem('newsLetterUserTemplates');" class="nav-item">
-                            <a href="#" class="nav-link active">
+
+                        <li class="nav-item">
+                            <a href="@Url.Action("Home","Newsletter")" id="dashBoard" class="nav-link active">
                                 <i class="icon-home4"></i>
                                 <span>
-                                    User Defined Templates
+                                    Dashboard
                                 </span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Subscribers")" id="subscriber" class="nav-link">
+                                <i class="icon-user"></i>
+                                <span>
+                                    Subscribers
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Newsletter")" id="newsLetter" class="nav-link">
+                                <i class="icon-newspaper"></i>
+                                <span>
+                                    NewsLetters
+                                </span>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item nav-item-submenu">
+                            <a href="javascript:;" class="nav-link"><i class="icon-newspaper2"></i> <span>Reports</span></a>
+                            <ul class="nav nav-group-sub">
+                                <li class="nav-item">
+                                    <a href="@Url.Action("ScheduledNewsLetters","Report")" id="scheduledNewsLetters" class="nav-link">
+                                        <i class="icon-steering-wheel"></i>Scheduled Newsletters
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+
                         <!-- /page kits -->
                     </ul>
                 </div>
@@ -137,7 +256,21 @@
         <div class="content-wrapper">
             @RenderBody()
 
-            @Html.Partial("~/Views/Shared/Footer/_Footer.cshtml")
+            <div class="navbar navbar-expand-lg navbar-light">
+                <div class="text-center d-lg-none w-100">
+                    <button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-footer">
+                        <i class="icon-unfold mr-2"></i>
+                        Footer
+                    </button>
+                </div>
+
+                <div class="navbar-collapse collapse" id="navbar-footer">
+                    <span class="navbar-text">
+                        &copy; Logic Tech Corp. @DateTime.Now.Year. All rights reserved
+                    </span>
+                </div>
+            </div>
+
         </div>
         <!-- /main content -->
     </div>
@@ -158,13 +291,29 @@
         </div>
     </div>
 
-    @Html.Partial("~/Views/Shared/PartialViews/_About.cshtml")
-    @Html.Partial("~/Views/Shared/PartialViews/_ChangePassword.cshtml")
-    @Html.Partial("~/Views/Shared/PartialViews/_Profile.cshtml")
 
 
+
+    <script src="~/Content/Scripts/Common.js?v=1"></script>
+
+
+    <script src="/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+
+    <script src="/assets/global/plugins/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="/assets/global/plugins/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+    <script src="/assets/global/plugins/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js"></script>
+    <script src="~/assets/pages/scripts/ui-sweetalert.min.js"></script>
+
+
+
+    <script type="text/javascript">
+
+
+
+    </script>
     @RenderSection("scripts", required: false)
-    <script src="~/Scripts/NewsLetter/NewsLetterLayout.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Scripts/SharedJS/Layout.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <link href="~/Content/Limitless/Site.css" rel="stylesheet" />
+    <script src="~/Content/Scripts/SharedJS/Layout.js"></script>
 </body>
 </html>

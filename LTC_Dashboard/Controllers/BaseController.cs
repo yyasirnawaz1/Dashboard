@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using LTCDataManager.DataAccess;
 using LTCDataManager.Office;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LTCDashboard.Controllers
@@ -14,6 +15,7 @@ namespace LTCDashboard.Controllers
     [Authorize]
     public class BaseController : Controller
     {
+
         public int UserId
         {
             get

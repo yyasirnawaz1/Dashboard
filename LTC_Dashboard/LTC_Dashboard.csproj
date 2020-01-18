@@ -13,6 +13,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Newsletters\**" />
+    <Content Remove="Areas\Newsletters\**" />
+    <EmbeddedResource Remove="Areas\Newsletters\**" />
+    <None Remove="Areas\Newsletters\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DataTables.AspNet.Core" Version="2.0.0" />
     <PackageReference Include="DataTables.AspNetCore.Mvc" Version="1.4.2" />
     <PackageReference Include="Microsoft.AspNetCore.App">
@@ -38,8 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Newsletters\Data\" />
-    <Folder Include="Areas\Newsletters\Models\" />
     <Folder Include="wwwroot\Settings\" />
   </ItemGroup>
 

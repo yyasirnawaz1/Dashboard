@@ -13,7 +13,7 @@ var HomeView = function () {
             Layout.showLoader(); 
             var category = $('#Status').val();
             var period = $('#Period').val();
-            var actionURL = '/Newsletters/Home/GetScheduledNewsLetterStatistics' + '?category=' + category + '&period=' + period;
+            var actionURL = '/Newsletter/GetScheduledNewsLetterStatistics' + '?category=' + category + '&period=' + period;
             $.get(actionURL, function (data) {
                 
                 $('#scheduledNewsletterContainer').html(data);

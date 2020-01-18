@@ -60,7 +60,7 @@ var Newsletter = function () {
                     TemplateId: SelectedSystemDefinedTemplateId, Title: name
                 };
                 $.ajax({
-                    url: '/Newsletters/Newsletters/CopySystemTemplate',
+                    url: '/Newsletter/CopySystemTemplate',
                     method: 'POST',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
@@ -292,7 +292,7 @@ var Newsletter = function () {
             var data = [];
             $.ajax({
                 type: "GET",
-                url: "/Newsletters/ImageManagement/GetUserImagesLink",
+                url: "/ImageManagement/GetUserImagesLink",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (d) {
@@ -337,7 +337,7 @@ var Newsletter = function () {
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify(input),
-                    url: '/Newsletters/Newsletters/RemoveSelectedUserDefinedTemplate',
+                    url: '/Newsletter/RemoveSelectedUserDefinedTemplate',
                     contentType: 'application/json',
                     success: function (data) {
                         if (!data)
@@ -374,7 +374,7 @@ var Newsletter = function () {
             };
 
             $.ajax({
-                url: '/Newsletters/Newsletters/MakeDefault',
+                url: '/Newsletter/MakeDefault',
                 method: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
@@ -493,7 +493,7 @@ var Newsletter = function () {
                         $.ajax({
                             async: false,
                             cache: false,
-                            url: window.location.protocol + "//" + window.location.host + "/Newsletters/ImageManagement/Index",
+                            url: window.location.protocol + "//" + window.location.host + "/ImageManagement/Index",
                             contentType: 'application/html; charset=utf-8',
                             type: 'GET',
                             dataType: 'html'
@@ -608,7 +608,7 @@ var Newsletter = function () {
         loadTemplateTypes: function () {
             $.ajax({
                 type: "GET",
-                url: '/Newsletters/Newsletters/GetTemplateTypes',
+                url: '/Newsletter/GetTemplateTypes',
                 success: function (data) {
                     if (data != null) {
                         NewsLetter_TemplatesTypes = data;
@@ -724,7 +724,7 @@ var Newsletter = function () {
          
             $.ajax({
                 type: "GET",
-                url: '/Newsletters/Newsletters/GetSystemTemplates',
+                url: '/Newsletter/GetSystemTemplates',
                 success: function (data) {
                     if (data != null) {
                         $("#tblBodySystem").html('');
@@ -826,7 +826,7 @@ var Newsletter = function () {
             var noTemp = '<div class="row" style="padding:10px;margin-left:25px;margin-right:25px">No Article Found! </div>';
             $.ajax({
                 type: "GET",
-                url: '/Newsletters/Newsletters/GetArticles',
+                url: '/Newsletter/GetArticles',
                 success: function (data) {
                     if (data != null) {
                         $("#tblBodyArticle").html('');
@@ -876,7 +876,7 @@ var Newsletter = function () {
             var noTemp = '<tr> <td colspan="3"> No record found! </td></tr>';
             $.ajax({
                 type: "GET",
-                url: '/Newsletters/Newsletters/GetUserDefinedTemplates',
+                url: '/Newsletter/GetUserDefinedTemplates',
                 success: function (data) {
                     if (data != null) {
                         $("#tblBody").empty();
@@ -1225,7 +1225,7 @@ var Newsletter = function () {
         loadServerTime: function () {
             $.ajax({
                 type: "GET",
-                url: '/Newsletters/Newsletters/LoadServerTime',
+                url: '/Newsletter/LoadServerTime',
                 success: function (data) {
                     if (data != null) {
                         $("#lblserverTime").html(data);
@@ -1265,7 +1265,7 @@ var Newsletter = function () {
                  
                 $.ajax({
                     type: "POST",
-                    url: '/Newsletters/ImageManagement/FileUpload',
+                    url: '/ImageManagement/FileUpload',
                     data: formData,
                     dataType: 'json',
                     contentType: false,
@@ -1326,7 +1326,7 @@ var Newsletter = function () {
             };
 
             $.ajax({
-                url: '/Newsletters/Newsletters/SendNewsletterAsync',
+                url: '/Newsletter/SendNewsletterAsync',
                 method: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
@@ -1459,7 +1459,7 @@ var Newsletter = function () {
 
          
             $.ajax({
-                url: '/Newsletters/Newsletters/SaveNewsletterEditor',
+                url: '/Newsletter/SaveNewsletterEditor',
                 method: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
@@ -1517,7 +1517,7 @@ var Newsletter = function () {
         loadIndustries: function () {
             $.ajax({
                 type: "GET",
-                url: '/Newsletters/Newsletters/GetIndustries',
+                url: '/Newsletter/GetIndustries',
                 success: function (data) {
                     if (data != null) {
                         NewsLetter_Industries = data;
@@ -1560,7 +1560,7 @@ var Newsletter = function () {
         loadSubIndustries: function () {
             $.ajax({
                 type: "GET",
-                url: '/Newsletters/Newsletters/GetSubIndustries',
+                url: '/Newsletter/GetSubIndustries',
                 success: function (data) {
                     if (data != null) {
                         NewsLetter_SubIndustries = data;
@@ -1584,7 +1584,7 @@ var Newsletter = function () {
             $.ajax({
                 async: false,
                 cache: false,
-                url: "/Newsletters/ImageManagement/GetUserImages",
+                url: "/ImageManagement/GetUserImages",
                 contentType: 'application/json; charset=utf-8',
                 type: 'GET',
                 dataType: 'json'
@@ -1602,7 +1602,7 @@ var Newsletter = function () {
             $.ajax({
                 async: false,
                 cache: false,
-                url: "/Newsletters/ImageManagement/GetUserImagesLink",
+                url: "/ImageManagement/GetUserImagesLink",
                 contentType: 'application/json; charset=utf-8',
                 type: 'GET',
                 dataType: 'json'
@@ -1627,7 +1627,7 @@ var Newsletter = function () {
             $.ajax({
                 async: false,
                 cache: false,
-                url: "/Newsletters/ImageManagement/GetUserImagesLink",
+                url: "/ImageManagement/GetUserImagesLink",
                 contentType: 'application/json; charset=utf-8',
                 type: 'GET',
                 dataType: 'json'
@@ -1647,7 +1647,7 @@ var Newsletter = function () {
             $.ajax({
                 async: false,
                 cache: false,
-                url: "/Newsletters/ImageManagement/GetUserImages",
+                url: "/ImageManagement/GetUserImages",
                 contentType: 'application/json; charset=utf-8',
                 type: 'GET',
                 dataType: 'json'

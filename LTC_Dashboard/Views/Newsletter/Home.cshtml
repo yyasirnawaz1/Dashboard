@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layouts/_NewsletterLayout.cshtml";
+
+}
+
+
+
+
+
+<style>
+    .number-stats .stat-number .number {
+        font-size: 27px;
+        line-height: 27px;
+        color: #7D8C9D;
+    }
+
+    .number-stats .stat-left, .number-stats .stat-left .stat-chart {
+        float: right;
+    }
+
+    .number-stats .stat-number .title {
+        font-size: 13px;
+        margin-bottom: 3px;
+        color: #B8C3C7;
+    }
+
+    .number-stats .stat-left, .number-stats .stat-left .stat-chart {
+        float: right;
+    }
+
+    .number-stats .stat-chart {
+        display: inline-block;
+        margin: 0 5px;
+        float: left;
+    }
+
+    .table.table-light > thead > tr > th {
+        font-weight: 600;
+        font-size: 13px;
+        color: #93a2a9;
+        border: 0;
+        border-bottom: 1px solid #F2F5F8;
+    }
+</style>
+
+
+
+
+<div class="content">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-white header-elements-inline">
+                    <h6 class="card-title font-variant-smallCaps"></h6>
+                    <div class="header-elements">
+                        <div class="list-icons">
+                            <a class="list-icons-item" data-action="collapse"></a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+
+                                <div class="col-md-6 col-sm6">
+                                    Category  @Html.DropDownList("Status", new List<SelectListItem>{
+new SelectListItem{ Text="All", Value="All"},
+new SelectListItem{ Text="Scheduled", Value="Scheduled"},
+new SelectListItem{ Text="Sent", Value="Sent"}
+}, new { @class = "form-control input-sm homeNewsletterDropdown" }
+)
+                                </div>
+
+                                <div class="col-md-6 col-sm6">
+
+                                    Period @Html.DropDownList("Period", new List<SelectListItem>{
+new SelectListItem{ Text="Today", Value="Today"},
+new SelectListItem{ Text="This Week", Value="ThisWeek"},
+new SelectListItem{ Text="Last Week", Value="LastWeek"},
+new SelectListItem{ Text="This Month", Value="ThisMonth"}
+}, new { @class = "form-control input-sm homeNewsletterDropdown" }
+)
+                                </div>
+
+                            </div>
+                            <div id="scheduledNewsletterContainer"  >
+                                 
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+</div>
+
+@section scripts{
+    <script>
+        $('#dashBoard').removeClass("active");
+        $('#subscriber').removeClass("active");
+        $('#newsLetter').removeClass("active");
+        $('#scheduledNewsLetters').removeClass("active");
+        $('#dashBoard').addClass("active");
+    </script>
+
+
+    <script src="~/Content/ScriptsView/Home.js?version=9"></script>
+
+}

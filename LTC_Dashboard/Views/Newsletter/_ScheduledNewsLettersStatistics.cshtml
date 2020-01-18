@@ -1,0 +1,56 @@
+﻿@model LTCDataModel.Newsletter.ScheduledNewsLetterStatisticsViewModel
+
+<div class="row number-stats margin-bottom-30">
+    <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="stat-left">
+            <div class="stat-chart">
+                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                <div id="sparkline_bar"></div>
+            </div>
+            <div class="stat-number">
+                <div class="title"> Scheduled </div>
+                <div class="number"> @Model.Scheduled </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="stat-right">
+            <div class="stat-chart">
+                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                <div id="sparkline_bar2"></div>
+            </div>
+            <div class="stat-number">
+                <div class="title"> Sent </div>
+                <div class="number"> @Model.Sent </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-scrollable table-scrollable-borderless homeNewsletterTable" style="max-height: 650px !important ">
+    <table class="table table-hover table-light">
+        <thead>
+            <tr class="uppercase">
+
+                <th> Title </th>
+                <th> Date </th>
+                <th> Email </th>
+                <th> Status </th>
+            </tr>
+        </thead>
+     @if (Model.ScheduledNewsLetter != null)
+        {
+            foreach (var item in Model.ScheduledNewsLetter)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.SentTimeString</td>
+                    <td>@item.Email</td>
+                    <td>@item.Status</td>
+                </tr>
+            }
+        } 
+
+
+
+    </table>
+</div>

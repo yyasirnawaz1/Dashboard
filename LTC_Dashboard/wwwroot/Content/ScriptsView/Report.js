@@ -15,7 +15,7 @@ var ScheduledNewsletters = function () {
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "/Newsletters/Reports/Get"
+                "url": "/Report/Get"
             },
             "columns": [
                 {
@@ -62,22 +62,7 @@ var ScheduledNewsletters = function () {
                     }
                 }
                 ,
-                //{
-                //    "title": "EmailSent",
-                //    "data": "EmailSent",
-                //    "searchable": true,
-                //    "render": function (data, type, full, meta) {
-                //        var mailsent = data;
-                //        if (data ) {
-                //            mailsent = '<span class="label label-sm label-success"> Yes </span>';
-                //        } else {
-                //            mailsent = ' <span class="label label-sm label-warning"> No </span>';
-                //        }
-                //        return mailsent;
-                //    }
-                //}
-
-
+              
             ],
             "language": {
                 "aria": {

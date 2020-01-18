@@ -6,7 +6,10 @@ using LTCDashboard.Models;
 using LTCDataManager.Review;
 using LTCDataModel.Configurations;
 using Microsoft.AspNetCore.Mvc;
+using DataTables.AspNetCore.Mvc.Binder;
 using Microsoft.Extensions.Options;
+using LTCDataModel.NewsLetter;
+using LTCDataManager.NewsLetter;
 
 namespace LTCDashboard.Controllers
 {
@@ -122,5 +125,59 @@ namespace LTCDashboard.Controllers
                 allDates.Add(date);
             return allDates;
         }
+
+
+        #region Newsletter report
+         // GET: Reports
+        public ActionResult Home()
+        {
+            @ViewBag.OfficeName = OfficeName;
+
+            return View();
+        }
+
+        // GET: Reports
+        public ActionResult ScheduledNewsLetters()
+        {
+              @ViewBag.OfficeName = OfficeName;
+            return View();
+        }
+       
+        [HttpGet()]
+        public IActionResult Get([DataTablesRequest] DataTablesRequest dataRequest)
+        {
+            IEnumerable<gPatientCallListView> products = gNewsLetterManager.GetPatientCallList(UserId).Where(p=>p.Status == 1);
+            int recordsTotal = products.Count();
+            int recordsFilterd = recordsTotal;
+
+            if (!string.IsNullOrEmpty(dataRequest.Search?.Value))
+            {
+                products = products.Where(e => e.TemplateTitle.Contains(dataRequest.Search.Value));
+                recordsFilterd = products.Count();
+            }
+            products = products.Skip(dataRequest.Start).Take(dataRequest.Length);
+
+
+             
+
+            products = products.Skip(dataRequest.Start).Take(dataRequest.Length).ToList();
+
+
+            return Json(products
+                .Select(e => new
+                {
+                    NewsletterId = e.NewsletterId,
+                    Account = e.Account,
+                    AppointDate = e.AppointDate,
+                    TemplateBodymarkup = e.TemplateBodymarkup,
+                    TemplateSourceMarkup = e.TemplateSourceMarkup,
+                    TemplateTitle = e.TemplateTitle,
+                    Status = e.Status
+
+                })
+                .ToDataTablesResponse(dataRequest, recordsTotal, recordsFilterd));
+        }
+
+        #endregion
     }
 }

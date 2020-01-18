@@ -15,7 +15,7 @@ var Subscription = function () {
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "/Newsletters/Subscribers/Get"
+                "url": "/Subscribers/Get"
             }
             ,drawCallback: function () {
               
@@ -290,7 +290,7 @@ var Subscription = function () {
 
 
 function createSubscriptionSuccess(data) {
-  debugger;
+  
     var statusCode = data.StatusCode;
     switch (statusCode) {
         case 1:
