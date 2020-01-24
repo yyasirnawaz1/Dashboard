@@ -36,7 +36,7 @@ namespace LTCDataModel.Subscriber
         public DateTime AddedOn { get; set; }
 
         public int Office_Sequence { get; set; }
-        public int Branch_Number { get; set; }
+        
         public int PatientNumber { get; set; }
     }
     public class IdModel

@@ -218,7 +218,7 @@ namespace LTC_Dashboard.Controllers
                         gPatientCallList obj = new gPatientCallList()
                         {
                             Office_Sequence = OfficeSequence,
-                            Branch_Number = 1,
+                         
                             Email = subscriber.EmailAddress,
                            // AppointDate = model.ScheduledDateTime.Date,
                             PatientName = SubScriberName,
@@ -275,7 +275,7 @@ namespace LTC_Dashboard.Controllers
                     gPatientCallList obj = new gPatientCallList()
                     {
                         Office_Sequence = OfficeSequence,
-                        Branch_Number = 1,
+                        
                         Email = model.Email,
                         //AppointDate = model.ScheduledDateTime.Date,
                         PatientName = model.Email,
@@ -324,7 +324,7 @@ namespace LTC_Dashboard.Controllers
             try
             {
              //   var user = (CustomMembershipUser)Membership.GetUser(User.Identity00-.Name, true);
-                gNewsLetterManager.CopySystiemTemplate(model.TemplateId, model.Title, 1, OfficeSequence, UserId);
+                gNewsLetterManager.CopySystiemTemplate(model.TemplateId, model.Title, OfficeSequence, UserId);
                 return Json(true);
             }
             catch (Exception ex)
@@ -340,8 +340,7 @@ namespace LTC_Dashboard.Controllers
                 //var user = (CustomMembershipUser)Membership.GetUser(User.Identity.Name, true);
                 model.DoctorID = UserId;
                 model.Office_Sequence = OfficeSequence;
-                model.Branch_number = 1;
-
+             
 
                 return Json(gNewsLetterManager.SaveUserNewsTemplate(model));
             }

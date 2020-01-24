@@ -68,15 +68,7 @@ namespace LTCDashboard.Controllers
 
 
         
-        public int CurrentBranchId
-        {
-            get
-            {
-                //return (User.Identity.IsAuthenticated) ? User.Identity.GetUserId() : string.Empty;
-                return 1; //pending
-
-            }
-        }
+        
 
 
 

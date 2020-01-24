@@ -121,7 +121,7 @@ namespace LTCDataManager.NewsLetter
                 if (Count < 1)
                 {
                     // Add Paradigm Templates
-                    db.Execute($"INSERT INTO `ltc_newsletter`.`templates_user` (`TemplateTitle`, `TemplateSourceMarkup`, `MainBodymarkup`, `TypeID`, `Office_Sequence`, `Branch_Number`, `DoctorID`, `IndustryID`, `ThumbnailPath`, `IndustrySubTypeID`,`IndustrySubTitleID`, `EmailType`, `EmbeddedNewsletter`, `IsParadigmNewsletter`, `IsDefault`, `ModificationDate`)\nselect TemplateTitle , TemplateSourceMarkup , MainBodymarkup , TypeID , {office_sequence} , Branch_Number , {doctorID} , IndustryID , ThumbnailPath , IndustrySubTypeID , IndustrySubTitleID , EmailType , EmbeddedNewsletter , IsParadigmNewsletter, IsDefault , '{DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd")}'   from ltc_newsletter.templates_user where IsParadigmNewsletter = 1 and Office_Sequence = -1 ");
+                    db.Execute($"INSERT INTO `ltc_newsletter`.`templates_user` (`TemplateTitle`, `TemplateSourceMarkup`, `MainBodymarkup`, `TypeID`, `Office_Sequence`,  `DoctorID`, `IndustryID`, `ThumbnailPath`, `IndustrySubTypeID`,`IndustrySubTitleID`, `EmailType`, `EmbeddedNewsletter`, `IsParadigmNewsletter`, `IsDefault`, `ModificationDate`)\nselect TemplateTitle , TemplateSourceMarkup , MainBodymarkup , TypeID , {office_sequence}  , {doctorID} , IndustryID , ThumbnailPath , IndustrySubTypeID , IndustrySubTitleID , EmailType , EmbeddedNewsletter , IsParadigmNewsletter, IsDefault , '{DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd")}'   from ltc_newsletter.templates_user where IsParadigmNewsletter = 1 and Office_Sequence = -1 ");
                 }
 
             }
@@ -218,7 +218,7 @@ namespace LTCDataManager.NewsLetter
 
             return true;
         }
-        public static void CopySystiemTemplate(int TemplateID, string name, int branchNumber, int Office_Sequence, int DocId)
+        public static void CopySystiemTemplate(int TemplateID, string name , int Office_Sequence, int DocId)
         {
             using (var db = new Database(DbConfiguration.LtcNewsletter))
             {
@@ -227,7 +227,7 @@ namespace LTCDataManager.NewsLetter
                 {
                     gSaveUserTemplate obj = new gSaveUserTemplate();
                     obj.TemplateTitle = name;
-                    obj.Branch_number = branchNumber;
+                  
                     obj.Office_Sequence = Office_Sequence;
                     obj.DoctorID = DocId;
                     //obj.IndustryID = found.IndustryID;
