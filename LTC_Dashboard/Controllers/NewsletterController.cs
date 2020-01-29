@@ -42,7 +42,7 @@ namespace LTC_Dashboard.Controllers
             _accessor = accessor;
             _email = email;
 
-          
+
         }
         public JsonResult GetTemplateTypes()
         {
@@ -72,7 +72,7 @@ namespace LTC_Dashboard.Controllers
                 return Json(null);
             }
         }
-         
+
 
         public JsonResult GetShellTemplates()
         {
@@ -95,7 +95,7 @@ namespace LTC_Dashboard.Controllers
 
             try
             {
-               //CurrentOfficeId
+                //CurrentOfficeId
                 objResult = gNewsLetterManager.GetPreDefinedTemplates();
                 return Json(objResult);
             }
@@ -104,14 +104,14 @@ namespace LTC_Dashboard.Controllers
                 return Json(null);
             }
         }
-        
+
         public JsonResult GetUserDefinedTemplates()
         {
             var objResult = new List<gGetUserDefinedTemplateModel>();
 
             try
             {
-               
+
                 objResult = gNewsLetterManager.GetUserDefinedTemplates(OfficeSequence);
                 return Json(objResult);
             }
@@ -168,7 +168,7 @@ namespace LTC_Dashboard.Controllers
                     status = 2;
 
                 }
-                else if (model.ScheduledDateTime.ToUniversalTime().Date> DateTime.Now.ToUniversalTime().Date)
+                else if (model.ScheduledDateTime.ToUniversalTime().Date > DateTime.Now.ToUniversalTime().Date)
                 {
                     status = 1;
                 }
@@ -186,20 +186,20 @@ namespace LTC_Dashboard.Controllers
                 }
 
                 var office = gOfficeManager.GetOfficeName(OfficeSequence);
-                var patient = new gPatientOfficeInfo(); 
+                var patient = new gPatientOfficeInfo();
                 patient.AppointmentDate = model.ScheduledDateTime.ToUniversalTime().Date.ToString("yyyy-MM-dd");
                 patient.AppointmentTime = model.ScheduledDateTime.ToUniversalTime().ToString("HH:mm");
                 var emailSent = false;
                 if (model.SendToSubscribers)
                 {
-                    SubscriberFilterParams parm = new SubscriberFilterParams() { DoctorID = UserId.ToString() };
+                    SubscriberFilterParams parm = new SubscriberFilterParams() { Office_Sequence = OfficeSequence.ToString() };
                     var subscribers = gSubscriber.GetSubscribers(parm);
-                    var pl = gNewsLetterManager.GetPatientCallList(UserId);
+                    var pl = gNewsLetterManager.GetPatientCallList(OfficeSequence);
                     int counter = pl.Count();
                     foreach (var subscriber in subscribers)
                     {
                         String SubScriberName = subscriber.FirstName + " " + subscriber.LastName;
-                      
+
                         patient.FirstName = subscriber.FirstName;
                         patient.LastName = subscriber.LastName;
                         patient.Name = SubScriberName;
@@ -211,16 +211,16 @@ namespace LTC_Dashboard.Controllers
                                 new[]
                                 {
                                     subscriber.EmailAddress
-                                }, template, new EmailManager.ElasticEmail{ Email = _email.Value.Email, FromName = _email.Value.FromName, APIKey = _email.Value.APIKey});
-                        emailSent = true;
+                                }, template, new EmailManager.ElasticEmail { Email = _email.Value.Email, FromName = _email.Value.FromName, APIKey = _email.Value.APIKey });
+                            emailSent = true;
                         }
 
                         gPatientCallList obj = new gPatientCallList()
                         {
                             Office_Sequence = OfficeSequence,
-                         
+
                             Email = subscriber.EmailAddress,
-                           // AppointDate = model.ScheduledDateTime.Date,
+                            // AppointDate = model.ScheduledDateTime.Date,
                             PatientName = SubScriberName,
                             NewsletterID = model.TemplateId,
                             SubscriberID = subscriber.Id,
@@ -236,9 +236,9 @@ namespace LTC_Dashboard.Controllers
                         };
                         gNewsLetterManager.SendSubscriber(obj);
 
-                       
 
-                        
+
+
                         counter++;
                     }
 
@@ -248,11 +248,11 @@ namespace LTC_Dashboard.Controllers
                     patient = gOfficeManager.GetPatientInfo(model.Email);
                     if (patient == null)
                     {
-                        patient  = new gPatientOfficeInfo();
+                        patient = new gPatientOfficeInfo();
                         patient.FirstName = model.Email;
                         patient.LastName = model.Email;
                         patient.Name = model.Email;
-                        
+
                     }
                     patient.AppointmentDate = model.ScheduledDateTime.ToUniversalTime().Date.ToString("yyyy-MM-dd");
                     patient.AppointmentTime = model.ScheduledDateTime.ToString("HH:mm");
@@ -267,15 +267,16 @@ namespace LTC_Dashboard.Controllers
                             }, template,
                             new EmailManager.ElasticEmail
                             {
-                                Email = _email.Value.Email, FromName = _email.Value.FromName,
+                                Email = _email.Value.Email,
+                                FromName = _email.Value.FromName,
                                 APIKey = _email.Value.APIKey
                             });
-                         emailSent = true;
+                        emailSent = true;
                     }
                     gPatientCallList obj = new gPatientCallList()
                     {
                         Office_Sequence = OfficeSequence,
-                        
+
                         Email = model.Email,
                         //AppointDate = model.ScheduledDateTime.Date,
                         PatientName = model.Email,
@@ -283,19 +284,19 @@ namespace LTC_Dashboard.Controllers
                         SubscriberID = 0,
                         ErrorCode = 0,
                         PublicNewsletter = false,
-                        EmailSentTime =  model.ScheduledDateTime.ToUniversalTime(),
+                        EmailSentTime = model.ScheduledDateTime.ToUniversalTime(),
                         EmailReceiveTime = DateTime.Now,
-                        Account =  UserId,
+                        Account = UserId,
                         Status = status,
                         EmailSent = emailSent
 
 
                     };
                     gNewsLetterManager.SendSubscriber(obj);
-                   
+
                 }
 
-                 
+
                 return Json(true);
             }
             catch (Exception ex)
@@ -310,8 +311,8 @@ namespace LTC_Dashboard.Controllers
             try
             {
                 //   var user = (CustomMembershipUser)Membership.GetUser(User.Identity00-.Name, true);
-                gNewsLetterManager.MakeDefault(model.LetterID,model.IsDefault);
-                return Json(gNewsLetterManager.MakeDefault(model.LetterID,model.IsDefault));
+                gNewsLetterManager.MakeDefault(model.LetterID, model.IsDefault);
+                return Json(gNewsLetterManager.MakeDefault(model.LetterID, model.IsDefault));
             }
             catch (Exception ex)
             {
@@ -323,8 +324,8 @@ namespace LTC_Dashboard.Controllers
         {
             try
             {
-             //   var user = (CustomMembershipUser)Membership.GetUser(User.Identity00-.Name, true);
-                gNewsLetterManager.CopySystiemTemplate(model.TemplateId, model.Title, OfficeSequence, UserId);
+                //   var user = (CustomMembershipUser)Membership.GetUser(User.Identity00-.Name, true);
+                gNewsLetterManager.CopySystemTemplate(model.TemplateId, model.Title, OfficeSequence);
                 return Json(true);
             }
             catch (Exception ex)
@@ -337,11 +338,7 @@ namespace LTC_Dashboard.Controllers
         {
             try
             {
-                //var user = (CustomMembershipUser)Membership.GetUser(User.Identity.Name, true);
-                model.DoctorID = UserId;
                 model.Office_Sequence = OfficeSequence;
-             
-
                 return Json(gNewsLetterManager.SaveUserNewsTemplate(model));
             }
             catch (Exception ex)
@@ -351,12 +348,12 @@ namespace LTC_Dashboard.Controllers
         }
 
         #region Home
-         public ActionResult Home()
+        public ActionResult Home()
         {
             @ViewBag.OfficeName = OfficeName;
-            gNewsLetterManager.CreateDefaultParadigmNewsletter(OfficeSequence, UserId);
-                    
-  
+            gNewsLetterManager.CreateDefaultParadigmNewsletter(OfficeSequence);
+
+
             return View();
         }
         public ActionResult GetScheduledNewsLetterStatistics(string category, string period)
@@ -368,7 +365,8 @@ namespace LTC_Dashboard.Controllers
                 if (category == "Sent")
                 {
                     intCategory = 2;
-                } else if (category == "Scheduled")
+                }
+                else if (category == "Scheduled")
                 {
                     intCategory = 1;
                 }

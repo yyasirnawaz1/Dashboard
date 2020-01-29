@@ -18,7 +18,7 @@ namespace LTCDataModel.NewsLetter
         public int TypeID { get; set; }
         public int Office_Sequence { get; set; }
          
-        public int DoctorID { get; set; }
+        
         public int IndustryID { get; set; }
         public string ThumbnailPath { get; set; }
         public int IndustrySubTypeID { get; set; }

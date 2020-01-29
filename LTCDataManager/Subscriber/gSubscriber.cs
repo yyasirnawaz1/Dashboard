@@ -15,7 +15,7 @@ namespace LTCDataManager.Subscriber
 {
     public static class gSubscriber
     {
-       
+
         public static void Add(gSaveSubscriber objSubscribers)
         {
             try
@@ -64,8 +64,8 @@ namespace LTCDataManager.Subscriber
             try
             {
                 var db = new Database(DbConfiguration.LtcNewsletter);
-                var res = db.Fetch<gSaveSubscriber>($"SELECT * FROM subscribers where DoctorID = " + parameters.DoctorID).ToList();
-               
+                var res = db.Fetch<gSaveSubscriber>($"SELECT * FROM subscribers where Office_Sequence = " + parameters.Office_Sequence).ToList();
+
                 return res;
             }
             catch (Exception ex)
@@ -79,8 +79,8 @@ namespace LTCDataManager.Subscriber
             try
             {
                 var db = new Database(DbConfiguration.LtcNewsletter);
-                var res = db.Fetch<gSaveSubscriber>($"SELECT * FROM subscribers where SubscriptionStatus = 1 AND DoctorID = " + parameters.DoctorID).ToList();
-               
+                var res = db.Fetch<gSaveSubscriber>($"SELECT * FROM subscribers where SubscriptionStatus = 1 AND Office_Sequence = " + parameters.Office_Sequence).ToList();
+
                 return res;
             }
             catch (Exception ex)
@@ -107,7 +107,19 @@ namespace LTCDataManager.Subscriber
 
             return objTempViewModel;
         }
+        public static SubscriptionViewModel GetByEmail(string email)
+        {
+            try
+            {
+                var db = new Database(DbConfiguration.LtcNewsletter);
+                return db.Fetch<SubscriptionViewModel>($"SELECT * FROM subscribers where EmailAddress = '{email.Replace("@", "@@")}' ").FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+        }
         public static SubscriptionViewModel GetById(int Id)
         {
             try
@@ -129,7 +141,7 @@ namespace LTCDataManager.Subscriber
                 using (var db = new Database(DbConfiguration.LtcNewsletter))
                 {
                     if (deleteAll)
-                        db.Execute($"Delete FROM subscribers where DoctorID = " + Id);
+                        db.Execute($"Delete FROM subscribers where Office_Sequence = " + Id);
                     else
                         db.Delete("subscribers", "Id", new gSaveSubscriber { Id = Id });
 
@@ -146,7 +158,7 @@ namespace LTCDataManager.Subscriber
 
 
 
-        public static int ToggleStatus(int Id, string doctorID)
+        public static int ToggleStatus(int Id)
         {
             try
             {

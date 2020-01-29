@@ -15,7 +15,7 @@ namespace LTCDataModel.Subscriber
     }
     public class SubscriberFilterParams
     {
-        public string DoctorID { get; set; }
+        public string Office_Sequence { get; set; }
     }
     public class ResponseViewModel
     {
@@ -27,7 +27,7 @@ namespace LTCDataModel.Subscriber
         //public List<Subscription> Subscriptions { get; set; }
 
         public int Id { get; set; }
-
+        public int Office_Sequence{ get; set; }
         public string DoctorId { get; set; }
 
         [Required(ErrorMessage = "Name Required")]

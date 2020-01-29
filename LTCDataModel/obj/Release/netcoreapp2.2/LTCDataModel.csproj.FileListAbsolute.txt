@@ -6,3 +6,12 @@ C:\Users\Yasir\source\repos\LTCDashboard\LTCDataModel\obj\Release\netcoreapp2.2\
 C:\Users\Yasir\source\repos\LTCDashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.AssemblyInfo.cs
 C:\Users\Yasir\source\repos\LTCDashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.dll
 C:\Users\Yasir\source\repos\LTCDashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.pdb
+F:\LTC Git\Dashboard\LTCDataModel\bin\Release\netcoreapp2.2\LTCDataModel.deps.json
+F:\LTC Git\Dashboard\LTCDataModel\bin\Release\netcoreapp2.2\LTCDataModel.dll
+F:\LTC Git\Dashboard\LTCDataModel\bin\Release\netcoreapp2.2\LTCDataModel.pdb
+F:\LTC Git\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.csprojAssemblyReference.cache
+F:\LTC Git\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.csproj.CoreCompileInputs.cache
+F:\LTC Git\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.AssemblyInfoInputs.cache
+F:\LTC Git\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.AssemblyInfo.cs
+F:\LTC Git\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.dll
+F:\LTC Git\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.pdb

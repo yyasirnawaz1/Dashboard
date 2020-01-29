@@ -14,17 +14,17 @@ namespace LTC_Dashboard.Controllers
 {
 
     [Authorize]
-     
+
 
     public class SubscribersController : NewsletterBaseController
     {
         private IHttpContextAccessor _accessor;
 
- 
+
         public SubscribersController(IHostingEnvironment hostingEnvironment, IHttpContextAccessor accessor) : base(hostingEnvironment)
         {
             _accessor = accessor;
-        
+
         }
         // GET: Subscribers
         public ActionResult Index()
@@ -38,13 +38,13 @@ namespace LTC_Dashboard.Controllers
         {
             return View("_ModifySubscription");
         }
-       
+
         public ActionResult Get([DataTablesRequest] DataTablesRequest requestModel)
         {
             List<gSaveSubscriber> objViewModelList = new List<gSaveSubscriber>();
 
             SubscriberFilterParams parameters = new SubscriberFilterParams();
-            parameters.DoctorID = UserId.ToString();
+            parameters.Office_Sequence = OfficeSequence.ToString();
 
             objViewModelList = gSubscriber.GetAll(parameters);
 
@@ -74,7 +74,7 @@ namespace LTC_Dashboard.Controllers
 
             #endregion Filtering
 
-             
+
 
             objViewModelList = query.Skip(requestModel.Start).Take(requestModel.Length).ToList();
 
@@ -86,10 +86,10 @@ namespace LTC_Dashboard.Controllers
                .Select(e => new
                {
                    Id = e.Id,
-                   FirstName = e.FirstName + " " + e.LastName ,
+                   FirstName = e.FirstName + " " + e.LastName,
                    EmailAddress = e.EmailAddress,
                    SubscriptionStatus = e.SubscriptionStatus,
-                   
+
 
                })
                .ToDataTablesResponse(requestModel, totalCount, filteredCount));
@@ -102,7 +102,7 @@ namespace LTC_Dashboard.Controllers
         public ActionResult Create()
         {
             SubscriptionViewModel objModel = new SubscriptionViewModel();
-
+            objModel.Office_Sequence = OfficeSequence;
 
             return PartialView("_CreatePartial", objModel);
 
@@ -117,14 +117,22 @@ namespace LTC_Dashboard.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    subscriptionViewModel.DoctorID = UserId;
+                    //subscriptionViewModel.DoctorID = UserId;
                     subscriptionViewModel.AddedOn = DateTime.Now;
                     subscriptionViewModel.LastSubscriptionStatusUpdated = DateTime.Now;
                     subscriptionViewModel.Office_Sequence = OfficeSequence;
-                    
-                    gSubscriber.Add(subscriptionViewModel);
-                    // return Content("success");
-                    return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });
+                    var sub = gSubscriber.GetByEmail(subscriptionViewModel.EmailAddress);
+                    if (sub != null)
+                    {
+                        return Json(new ResponseViewModel() { StatusCode = 0, StatusMessage = "Subscriber email already exists!" });
+                    }
+                    else
+                    {
+                        gSubscriber.Add(subscriptionViewModel);
+                        // return Content("success");
+                        return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });
+
+                    }
                 }
                 else
                 {
@@ -134,7 +142,7 @@ namespace LTC_Dashboard.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new ResponseViewModel() { StatusCode = -1, StatusMessage = "Error occured" });
+                return Json(new ResponseViewModel() { StatusCode = 0, StatusMessage = "Error occured" });
             }
 
 
@@ -161,11 +169,21 @@ namespace LTC_Dashboard.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    subscriptionViewModel.DoctorID = UserId;
+                    //subscriptionViewModel.DoctorID = UserId;
                     subscriptionViewModel.LastSubscriptionStatusUpdated = DateTime.Now;
-                    gSubscriber.Update(subscriptionViewModel);
-                    // return Content("success");
-                    return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });
+                    subscriptionViewModel.Office_Sequence = OfficeSequence;
+                    var sub = gSubscriber.GetByEmail(subscriptionViewModel.EmailAddress);
+                    if (sub != null && sub.Id != subscriptionViewModel.Id)
+                    {
+                        return Json(new ResponseViewModel() { StatusCode = 0, StatusMessage = "Subscriber email already exists!" });
+                    }
+                    else
+                    {
+                        gSubscriber.Update(subscriptionViewModel);
+                        return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Updated Successfully" });
+
+                    }
+
                 }
                 else
                 {
@@ -175,7 +193,7 @@ namespace LTC_Dashboard.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new ResponseViewModel() { StatusCode = -1, StatusMessage = "Error occured" });
+                return Json(new ResponseViewModel() { StatusCode = 0, StatusMessage = "Error occured" });
             }
 
 
@@ -186,7 +204,7 @@ namespace LTC_Dashboard.Controllers
         [HttpPost]
         public ActionResult ToggleStatus(IdModel model)
         {
-            gSubscriber.ToggleStatus(model.Id, UserId.ToString());
+            gSubscriber.ToggleStatus(model.Id);
             // return Content("success");
             return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });
 
@@ -213,7 +231,7 @@ namespace LTC_Dashboard.Controllers
         [HttpPost]
         public ActionResult DeleteAll()
         {
-            gSubscriber.Delete(UserId, true);
+            gSubscriber.Delete(OfficeSequence, true);
             return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });
 
         }
