@@ -370,7 +370,7 @@
 
                                         if (permissionList.IsNewsletterOk == 1)
                                         {
-                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("Home","Newsletters")')">
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("Home","Newsletter")')">
                                                 <i class="icon-magazine text-success-400 icon-2x"></i>
                                                 <span>Newsletter</span>
                                             </button>
@@ -486,7 +486,7 @@
     <partial name="~/views/survey/LoginPage/_PublicTagPartial.cshtml" />
     <partial name="~/views/form/LoginPage/_PublicFormPartial.cshtml" />
     <partial name="~/views/form/LoginPage/_PublicFormTagPartial.cshtml" />
-    <partial name="~/Views/NewsLetter/_PreDefinedNewsLetterPartialLogin.cshtml" />
+    @*<partial name="~/Views/NewsLetter/_PreDefinedNewsLetterPartialLogin.cshtml" />*@
 
     <div id="newsletterPreviewModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
@@ -529,9 +529,9 @@
     <script src="~/Scripts/Survey/PublicTag.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
     <script src="~/Scripts/Form/PublicForm.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
     <script src="~/Scripts/Form/PublicFormTag.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Scripts/NewsLetter/PreDefinedNewsLetter.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    @*<script src="~/Scripts/NewsLetter/PreDefinedNewsLetter.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>*@
     <script src="~/Resources/kendo/js/kendo.all.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Scripts/NewsLetter/NewsLetter.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    @*<script src="~/Scripts/NewsLetter/NewsLetter.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>*@
 }
 
 @section scripts
