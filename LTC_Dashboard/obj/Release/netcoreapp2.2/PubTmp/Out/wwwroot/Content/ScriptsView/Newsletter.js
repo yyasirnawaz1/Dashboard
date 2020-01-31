@@ -44,7 +44,7 @@ var Newsletter = function () {
 
             swal({
                 title: "Copy Template!",
-                text: "Enter the name of new template (newly created template will show under user defined tab):",
+                text: "Enter the name of new template (newly created template will show under My Marketing Templates):" ,
                 type: "input",
                 showCancelButton: true,
                 closeOnConfirm: true,
