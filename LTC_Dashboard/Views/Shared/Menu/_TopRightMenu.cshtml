@@ -29,7 +29,9 @@
                     <a href="#" data-toggle="modal" data-target="#userpreferenceModal" class="dropdown-item"><i class="icon-user-plus"></i> User Preference</a>
                     <a href="#" data-toggle="modal" data-target="#changePasswordHashModal" class="dropdown-item"><i class="icon-envelope"></i> Change PasswordHash</a>
                     <div class="dropdown-divider"></div>
-                    <a href="@Url.Action("Logout", "Account")" class="dropdown-item"><i class="icon-users"></i> Logout</a>
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/Identity/Account/Login">
+                        <button type="submit" class="dropdown-item"><i class="icon-users"></i> Logout</button>
+                    </form>
                     <div class="dropdown-divider"></div>
                     <a href="#" data-toggle="modal" data-target="#aboutModal" class="dropdown-item"><i class="fa fa-tv"></i> About</a>
                 </div>

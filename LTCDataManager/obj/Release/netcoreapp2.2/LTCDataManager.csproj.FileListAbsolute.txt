@@ -23,3 +23,15 @@ F:\LTC Git\Dashboard\LTCDataManager\obj\Release\netcoreapp2.2\LTCDataManager.Ass
 F:\LTC Git\Dashboard\LTCDataManager\obj\Release\netcoreapp2.2\LTCDataManager.csproj.CopyComplete
 F:\LTC Git\Dashboard\LTCDataManager\obj\Release\netcoreapp2.2\LTCDataManager.dll
 F:\LTC Git\Dashboard\LTCDataManager\obj\Release\netcoreapp2.2\LTCDataManager.pdb
+D:\Office\Github\Dashboard\LTCDataManager\bin\Release\netcoreapp2.2\Select.Html.dep
+D:\Office\Github\Dashboard\LTCDataManager\bin\Release\netcoreapp2.2\LTCDataManager.deps.json
+D:\Office\Github\Dashboard\LTCDataManager\bin\Release\netcoreapp2.2\LTCDataManager.dll
+D:\Office\Github\Dashboard\LTCDataManager\bin\Release\netcoreapp2.2\LTCDataManager.pdb
+D:\Office\Github\Dashboard\LTCDataManager\bin\Release\netcoreapp2.2\LTCDataModel.dll
+D:\Office\Github\Dashboard\LTCDataManager\bin\Release\netcoreapp2.2\LTCDataModel.pdb
+D:\Office\Github\Dashboard\LTCDataManager\obj\Release\netcoreapp2.2\LTCDataManager.csprojAssemblyReference.cache
+D:\Office\Github\Dashboard\LTCDataManager\obj\Release\netcoreapp2.2\LTCDataManager.AssemblyInfoInputs.cache
+D:\Office\Github\Dashboard\LTCDataManager\obj\Release\netcoreapp2.2\LTCDataManager.AssemblyInfo.cs
+D:\Office\Github\Dashboard\LTCDataManager\obj\Release\netcoreapp2.2\LTCDataManager.csproj.CopyComplete
+D:\Office\Github\Dashboard\LTCDataManager\obj\Release\netcoreapp2.2\LTCDataManager.dll
+D:\Office\Github\Dashboard\LTCDataManager\obj\Release\netcoreapp2.2\LTCDataManager.pdb

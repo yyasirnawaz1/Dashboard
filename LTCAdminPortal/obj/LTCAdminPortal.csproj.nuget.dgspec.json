@@ -1,38 +1,40 @@
 {
   "format": 1,
   "restore": {
-    "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCAdminPortal/LTCAdminPortal.csproj": {}
+    "D:\\Office\\Github\\Dashboard\\LTCAdminPortal\\LTCAdminPortal.csproj": {}
   },
   "projects": {
-    "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCAdminPortal/LTCAdminPortal.csproj": {
+    "D:\\Office\\Github\\Dashboard\\LTCAdminPortal\\LTCAdminPortal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCAdminPortal/LTCAdminPortal.csproj",
+        "projectUniqueName": "D:\\Office\\Github\\Dashboard\\LTCAdminPortal\\LTCAdminPortal.csproj",
         "projectName": "LTCAdminPortal",
-        "projectPath": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCAdminPortal/LTCAdminPortal.csproj",
-        "packagesPath": "/Users/myasirnawaz/.nuget/packages/",
-        "outputPath": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCAdminPortal/obj/",
+        "projectPath": "D:\\Office\\Github\\Dashboard\\LTCAdminPortal\\LTCAdminPortal.csproj",
+        "packagesPath": "C:\\Users\\Yasir\\.nuget\\packages\\",
+        "outputPath": "D:\\Office\\Github\\Dashboard\\LTCAdminPortal\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/myasirnawaz/.config/NuGet/NuGet.Config"
+          "C:\\Users\\Yasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataManager/LTCDataManager.csproj": {
-                "projectPath": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataManager/LTCDataManager.csproj"
+              "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj": {
+                "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj"
               },
-              "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataModel/LTCDataModel.csproj": {
-                "projectPath": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataModel/LTCDataModel.csproj"
+              "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {
+                "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj"
               }
             }
           }
@@ -92,36 +94,38 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.100/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataManager/LTCDataManager.csproj": {
+    "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataManager/LTCDataManager.csproj",
+        "projectUniqueName": "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj",
         "projectName": "LTCDataManager",
-        "projectPath": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataManager/LTCDataManager.csproj",
-        "packagesPath": "/Users/myasirnawaz/.nuget/packages/",
-        "outputPath": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataManager/obj/",
+        "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj",
+        "packagesPath": "C:\\Users\\Yasir\\.nuget\\packages\\",
+        "outputPath": "D:\\Office\\Github\\Dashboard\\LTCDataManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/myasirnawaz/.config/NuGet/NuGet.Config"
+          "C:\\Users\\Yasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataModel/LTCDataModel.csproj": {
-                "projectPath": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataModel/LTCDataModel.csproj"
+              "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {
+                "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj"
               }
             }
           }
@@ -176,29 +180,31 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.100/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataModel/LTCDataModel.csproj": {
+    "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataModel/LTCDataModel.csproj",
+        "projectUniqueName": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj",
         "projectName": "LTCDataModel",
-        "projectPath": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataModel/LTCDataModel.csproj",
-        "packagesPath": "/Users/myasirnawaz/.nuget/packages/",
-        "outputPath": "/Users/myasirnawaz/Documents/Projects/Dashboard/LTCDataModel/obj/",
+        "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj",
+        "packagesPath": "C:\\Users\\Yasir\\.nuget\\packages\\",
+        "outputPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/myasirnawaz/.config/NuGet/NuGet.Config"
+          "C:\\Users\\Yasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -244,7 +250,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.100/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
