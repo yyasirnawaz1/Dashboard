@@ -384,13 +384,6 @@ F:/LTCDashboard/LTCDashboard/LTC_Dashboard/obj/Debug/netcoreapp2.2/LTC_Dashboard
 /Users/myasirnawaz/Documents/Projects/Dashboard/LTC_Dashboard/obj/Debug/netcoreapp2.2/LTC_Dashboard.csproj.CopyComplete
 /Users/myasirnawaz/Documents/Projects/Dashboard/LTC_Dashboard/obj/Debug/netcoreapp2.2/LTC_Dashboard.dll
 /Users/myasirnawaz/Documents/Projects/Dashboard/LTC_Dashboard/obj/Debug/netcoreapp2.2/LTC_Dashboard.pdb
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.csproj.CoreCompileInputs.cache
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.RazorAssemblyInfo.cache
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.RazorAssemblyInfo.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.AssemblyInfoInputs.cache
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.AssemblyInfo.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.dll
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.pdb
 F:\LTC Git\Dashboard\LTC_Dashboard\bin\Debug\netcoreapp2.2\Select.Html.dep
 F:\LTC Git\Dashboard\LTC_Dashboard\bin\Debug\netcoreapp2.2\LTC_Dashboard.deps.json
 F:\LTC Git\Dashboard\LTC_Dashboard\bin\Debug\netcoreapp2.2\LTC_Dashboard.runtimeconfig.json
@@ -403,6 +396,12 @@ F:\LTC Git\Dashboard\LTC_Dashboard\bin\Debug\netcoreapp2.2\LTCDataManager.dll
 F:\LTC Git\Dashboard\LTC_Dashboard\bin\Debug\netcoreapp2.2\LTCDataModel.dll
 F:\LTC Git\Dashboard\LTC_Dashboard\bin\Debug\netcoreapp2.2\LTCDataManager.pdb
 F:\LTC Git\Dashboard\LTC_Dashboard\bin\Debug\netcoreapp2.2\LTCDataModel.pdb
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.csprojAssemblyReference.cache
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.csproj.CoreCompileInputs.cache
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.RazorAssemblyInfo.cache
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.RazorAssemblyInfo.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.AssemblyInfoInputs.cache
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.AssemblyInfo.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.TagHelpers.input.cache
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.TagHelpers.output.cache
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.RazorCoreGenerate.cache
@@ -457,8 +456,17 @@ F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Form\_For
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Form\_PrivateFormPartial.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Home\Privacy.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\ImageManagement\Index.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Newsletter\Home.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Newsletter\Index.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Newsletter\_EditNewsletter.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Newsletter\_PreDefinedNewsLetterPartialLogin.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Newsletter\_ScheduledNewsLettersStatistics.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Newsletter\_SendNewsletter.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\OfficeManagement\Index.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Report\Home.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Report\Index.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Report\ScheduledNewsLetters.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Footer\_Footer.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Layouts\_DashboardLayout.g.cshtml.cs
@@ -474,6 +482,7 @@ F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\La
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Layouts\_SurveyLayout.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Menu\_MenuSelection.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Menu\_TopRightMenu.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\ModalDialog.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\PartialViews\sms\_SmsLoad.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\PartialViews\_About.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\PartialViews\_ChangePassword.g.cshtml.cs
@@ -484,6 +493,10 @@ F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_L
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_LoginPartial.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Sms\Index.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Subscribers\Index.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Subscribers\_CreatePartial.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Subscribers\_EditPartial.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Subscribers\_ModifySubscription.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Survey\Index.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Survey\LoginPage\_PublicSurveyPartial.g.cshtml.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Survey\LoginPage\_PublicTagPartial.g.cshtml.cs
@@ -500,18 +513,5 @@ F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.RazorTa
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.RazorTargetAssemblyInfo.cs
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.Views.pdb
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.csproj.CopyComplete
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.csprojAssemblyReference.cache
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\ImageManagement\Index.g.cshtml.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Report\Home.g.cshtml.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Report\ScheduledNewsLetters.g.cshtml.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\ModalDialog.g.cshtml.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Subscribers\Index.g.cshtml.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Subscribers\_CreatePartial.g.cshtml.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Subscribers\_EditPartial.g.cshtml.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Subscribers\_ModifySubscription.g.cshtml.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Newsletter\Home.g.cshtml.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Newsletter\Index.g.cshtml.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Newsletter\_EditNewsletter.g.cshtml.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Newsletter\_ScheduledNewsLettersStatistics.g.cshtml.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Newsletter\_SendNewsletter.g.cshtml.cs
-F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Newsletter\_PreDefinedNewsLetterPartialLogin.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.dll
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.pdb

@@ -25,12 +25,12 @@ namespace LTCDataManager.NewsLetter
 
         public static List<ScheduledNewsletterViewModel> GetDashboard(int category, string day, int Office_Sequence)
         {
-           
+
             var db = new Database(DbConfiguration.LtcNewsletter);
             return
                 db.Fetch<ScheduledNewsletterViewModel>(
-                    $"Select PatientCallList.ID, PatientCallList.Email, PatientCallList.EmailSentTime as ScheduledDate, PatientCallList.EmailSentTime as SentTime, templates_user.TemplateTitle as Title,PatientCallList.Status from PatientCallList inner join templates_user on PatientCallList.NewsletterID = templates_user.LetterID  where PatientCallList.Office_Sequence = {Office_Sequence} AND (PatientCallList.Status ='{category}' OR '{category}'='3') "+
-            $" AND((DATE(PatientCallList.EmailSentTime) = CURDATE() and '{day}'='Today') OR(WEEKOFYEAR(PatientCallList.EmailSentTime) = WEEKOFYEAR(CURDATE()) and '{day}'='ThisWeek' ) "+
+                    $"Select PatientCallList.ID, PatientCallList.Email, PatientCallList.EmailSentTime as ScheduledDate, PatientCallList.EmailSentTime as SentTime, templates_user.TemplateTitle as Title,PatientCallList.Status from PatientCallList inner join templates_user on PatientCallList.NewsletterID = templates_user.LetterID  where PatientCallList.Office_Sequence = {Office_Sequence} AND (PatientCallList.Status ='{category}' OR '{category}'='3') " +
+            $" AND((DATE(PatientCallList.EmailSentTime) = CURDATE() and '{day}'='Today') OR(WEEKOFYEAR(PatientCallList.EmailSentTime) = WEEKOFYEAR(CURDATE()) and '{day}'='ThisWeek' ) " +
             $" OR(WEEKOFYEAR(PatientCallList.EmailSentTime) = WEEKOFYEAR(CURDATE()) - 1 and '{day}' ='LastWeek' ) OR(Month(PatientCallList.EmailSentTime) = Month(CURDATE()) and '{day}'='ThisMonth' )) Order by PatientCallList.EmailSentTime desc");
         }
 
@@ -140,7 +140,7 @@ namespace LTCDataManager.NewsLetter
             //}
             if (model.TypeID == 0)
                 model.TypeID = 1;
-            
+
             model.TemplateSourceMarkup = model.TemplateSourceMarkup ?? "empty";
             using (var db = new Database(DbConfiguration.LtcNewsletter))
             {
@@ -174,20 +174,20 @@ namespace LTCDataManager.NewsLetter
                         if (Count < 1)
                             model.IsDefault = true;
 
-                    }   
+                    }
                 }
 
-           
+
                 if (model.IsDefault)
                     db.Execute($"Update templates_user Set IsDefault = 0   where TypeID = {model.TypeID} AND IsParadigmNewsletter = 1 ");
 
                 model.ModificationDate = DateTime.Now.ToUniversalTime();
-                
+
                 if (found != null)
                     db.Update(model, model.LetterID);
                 else
                 {
-                    model.TemplateSourceMarkup = model.MainBodymarkup; 
+                    model.TemplateSourceMarkup = model.MainBodymarkup;
                     db.Save(model);
                 }
             }
@@ -218,7 +218,32 @@ namespace LTCDataManager.NewsLetter
 
             return true;
         }
-        public static void CopySystemTemplate(int TemplateID, string name , int Office_Sequence)
+
+        public static void CopyArticle(int TemplateID, int ArticleId, string name, int Office_Sequence, string Content)
+        {
+            using (var db = new Database(DbConfiguration.LtcNewsletter))
+            {
+                gArticleModel art = db.Fetch<gArticleModel>($"select * from system_articles where ArticleID={ArticleId}").FirstOrDefault();
+
+                gSavePredefinedTemplate found = db.Fetch<gSavePredefinedTemplate>($"select * from templates where TemplateID={TemplateID}").FirstOrDefault();
+                if (found != null)
+                {
+                    
+                    gSaveUserTemplate obj = new gSaveUserTemplate();
+                    obj.TemplateTitle = name;
+                    obj.Office_Sequence = Office_Sequence;
+                    obj.EmbeddedNewsletter = string.Empty;
+                    obj.MainBodymarkup = Content;
+                    obj.TemplateSourceMarkup = found.TemplateSourceMarkup;
+                    obj.TypeID = 8;
+                    obj.ThumbnailPath = found.ThumbnailPath;
+                    obj.ModificationDate = DateTime.Now.ToUniversalTime();
+                    db.Save(obj);
+                }
+            }
+        }
+
+        public static void CopySystemTemplate(int TemplateID, string name, int Office_Sequence)
         {
             using (var db = new Database(DbConfiguration.LtcNewsletter))
             {
@@ -227,9 +252,9 @@ namespace LTCDataManager.NewsLetter
                 {
                     gSaveUserTemplate obj = new gSaveUserTemplate();
                     obj.TemplateTitle = name;
-                  
+
                     obj.Office_Sequence = Office_Sequence;
-                    
+
                     //obj.IndustryID = found.IndustryID;
                     obj.MainBodymarkup = found.TemplateSourceMarkup;
                     obj.TemplateSourceMarkup = found.TemplateSourceMarkup;
@@ -237,7 +262,7 @@ namespace LTCDataManager.NewsLetter
                     obj.ThumbnailPath = found.ThumbnailPath;
                     obj.ModificationDate = DateTime.Now.ToUniversalTime();
                     db.Save(obj);
-                }  
+                }
             }
         }
         //select *  from ltc_newsletter.templates_user where IsParadigmNewsletter = 1 and Office_Sequence = -1
@@ -246,7 +271,7 @@ namespace LTCDataManager.NewsLetter
         public static void SavePreNewsTemplate(gSavePredefinedTemplate model)
         {
             model.TemplateSourceMarkup = model.TemplateSourceMarkup ?? "empty";
-          
+
 
             using (var db = new Database(DbConfiguration.LtcNewsletter))
             {
@@ -304,6 +329,6 @@ namespace LTCDataManager.NewsLetter
             }
         }
         #endregion
-         
+
     }
 }

@@ -17,12 +17,10 @@ namespace LTCDataModel.NewsLetter
         public string MainBodymarkup { get; set; }
         public int TypeID { get; set; }
         public int Office_Sequence { get; set; }
-         
-        
-        public int IndustryID { get; set; }
+        public string EmbeddedNewsletter { get; set; }
+       
         public string ThumbnailPath { get; set; }
-        public int IndustrySubTypeID { get; set; }
-        public int IndustrySubTitleID { get; set; }
+        
         public bool IsParadigmNewsletter { get; set; }
         public bool IsDefault { get; set; }
         public DateTime ModificationDate { get; set; }
@@ -33,6 +31,14 @@ namespace LTCDataModel.NewsLetter
        
         public int LetterID { get; set; }
         public bool IsDefault { get; set; }
+    }
+     public class gArticleTemplate
+    {
+        public int ArticleId { get; set; }
+        public int TemplateId { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+
     }
     public class gCopyTemplate
     {

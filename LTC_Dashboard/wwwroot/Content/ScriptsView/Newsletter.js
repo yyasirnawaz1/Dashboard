@@ -1,11 +1,11 @@
 ﻿
 var Newsletter = function () {
     return {
-        
+
         init: function () {
-               
-         
-            Layout.showLoader(); 
+
+
+            Layout.showLoader();
             this.loadUserDefinedTemplates();
             this.loadSystemTemplates();
             this.loadTemplateTypes();
@@ -26,15 +26,70 @@ var Newsletter = function () {
             this.loadTemplateActionView(loadOnlyImages);
 
             $('#templateEditorWindow').on('shown',
-                function() {
+                function () {
                     Newsletter.IframeSizing();
                 });
         },
 
         initKendoWindow: function () {
-         
-        },
 
+        },
+        saveArticleTemplate: function () {
+
+            var tempId = $("#ddlTemplatesTypes2").val();
+            if (tempId == "-1") {
+                ltcApp.warningMessage(null, "No article Selected!");
+            }
+            if ($("#txtArticleTitle").val() == "") {
+                ltcApp.warningMessage(null, "Please provide article name!");
+            }
+            var content = '';
+            var template = NewsLetter_SystemTemplates.find(x => x.TemplateID == tempId);
+            var article = articles.find(x => x.ArticleID == SelectedArticleId);
+            $("#dvHidden").html('');
+            if (template != null && article != null) {
+
+                //content = template.TemplateSourceMarkup;
+                $('#dvHidden').html(template.TemplateSourceMarkup);
+                $("#content").html('');
+                $("#content2").html('');
+                $("#content").html(article.Content);
+                content = $("#dvHidden").html();
+            }
+            var data = {
+                TemplateId: $("#ddlTemplatesTypes2").val(),
+                ArticleId: SelectedArticleId,
+                Title: $("#txtArticleTitle").val(),
+                Content: content,
+            };
+            $.ajax({
+                url: '/Newsletter/CopyArticle',
+                method: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (d) {
+                      $('#useArticle').modal('hide');
+                    ltcApp.successMessage(null, "Template created!");
+                    Newsletter.init();
+                }
+            });
+
+
+
+
+        },
+        useArticleTempalte: function () {
+
+            if (SelectedArticleId == null || SelectedArticleId <= 0) {
+                ltcApp.warningMessage(null, "No article Selected");
+                return;
+            }
+
+            $('#useArticle').modal('show');
+            var article = articles.find(x => x.ArticleID == SelectedArticleId);
+            $("#txtArticleTitle").val(article.Title)
+        },
         useTempalte: function () {
 
             if (SelectedSystemDefinedTemplateId == null || SelectedSystemDefinedTemplateId <= 0) {
@@ -44,11 +99,11 @@ var Newsletter = function () {
 
             swal({
                 title: "Copy Template!",
-                text: "Enter the name of new template (newly created template will show under My Marketing Templates):" ,
+                text: "Template will save My Marketing Templates",
                 type: "input",
                 showCancelButton: true,
                 closeOnConfirm: true,
-                inputPlaceholder: "Template Name"
+                inputPlaceholder: "Enter the name of new template"
             }, function (name) {
                 if (name === false) return false;
                 if (name === "") {
@@ -66,16 +121,19 @@ var Newsletter = function () {
                     contentType: 'application/json',
                     dataType: 'json',
                     success: function (d) {
+                      
                         ltcApp.successMessage(null, "Template created!");
-
                         Newsletter.init();
-                    }
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        ltcApp.errorMessage("Error", 'Please try again later!');
+                    },
                 });
 
 
-              
+
             });
- 
+
         },
 
         userDefinedOptionChanged: function (val) {
@@ -99,12 +157,12 @@ var Newsletter = function () {
                 this.MakeDefaultTemplate(false);
             }
 
-            setTimeout(function() {
-                    $(document).off("focusin");
-                    $(document).off("focus");
-                },
+            setTimeout(function () {
+                $(document).off("focusin");
+                $(document).off("focus");
+            },
                 3000);
-            
+
         },
 
         sendTemplate: function () {
@@ -140,7 +198,7 @@ var Newsletter = function () {
             $('#templateEditorWindow').modal('show');
             $("#btnTemplateReset").hide();
             $("#btnHardReset").hide();
-            
+
             this.loadTemplateDetailInEditor(false);
         },
 
@@ -150,7 +208,7 @@ var Newsletter = function () {
                 ltcApp.warningMessage(null, "No template Selected");
                 return;
             }
-            
+
 
             $('#templateEditorWindow').modal('show');
             $("#btnHardReset").show();
@@ -159,46 +217,46 @@ var Newsletter = function () {
 
         },
         HardReset: function () {
-           
-              
-            
-                var item = NewsLetter_UserDefinedTemplates.find(x => x.LetterID === SelectedUserDefinedTemplateId);
-              
-                $("#templateEditor").data("kendoEditor").value(item.TemplateSourceMarkup);
-
-                
-                var currTemplateType = NewsLetter_TemplatesTypes.find(x => x.TypeID == item.TypeID);
-                if (currTemplateType != null && currTemplateType != undefined) {
-                    $("#ddlTemplatesTypes").val(currTemplateType.TypeID);
-                }
-                else {
-                    $("#ddlTemplatesTypes").val('-1');
-                }
-                
-                $("#txtTemplateTitle").val(item.TemplateTitle);
-              
-               
 
 
-                this.setIframeHtml('editorPreview', item.TemplateSourceMarkup);
 
-            
+            var item = NewsLetter_UserDefinedTemplates.find(x => x.LetterID === SelectedUserDefinedTemplateId);
+
+            $("#templateEditor").data("kendoEditor").value(item.TemplateSourceMarkup);
+
+
+            var currTemplateType = NewsLetter_TemplatesTypes.find(x => x.TypeID == item.TypeID);
+            if (currTemplateType != null && currTemplateType != undefined) {
+                $("#ddlTemplatesTypes").val(currTemplateType.TypeID);
+            }
+            else {
+                $("#ddlTemplatesTypes").val('-1');
+            }
+
+            $("#txtTemplateTitle").val(item.TemplateTitle);
+
+
+
+
+            this.setIframeHtml('editorPreview', item.TemplateSourceMarkup);
+
+
             $(document).off("focusin");
             $(document).off("focus");
         },
         loadTemplateDetailInEditor: function (isModified) {
-           
+
             if (isModified) {
-              
+
                 $("#btnModify").show();
                 $("#btnSave").hide();
-               
+
                 var item = NewsLetter_UserDefinedTemplates.find(x => x.LetterID === SelectedUserDefinedTemplateId);
-                
-                
+
+
                 $("#templateEditor").data("kendoEditor").value(item.MainBodymarkup);
 
-                
+
                 var currTemplateType = NewsLetter_TemplatesTypes.find(x => x.TypeID == item.TypeID);
                 if (currTemplateType != null && currTemplateType != undefined) {
                     $("#ddlTemplatesTypes").val(currTemplateType.TypeID);
@@ -206,10 +264,10 @@ var Newsletter = function () {
                 else {
                     $("#ddlTemplatesTypes").val('-1');
                 }
-                
+
                 $("#txtTemplateTitle").val(item.TemplateTitle);
-              
-                
+
+
 
 
                 this.setIframeHtml('editorPreview', item.MainBodymarkup);
@@ -224,9 +282,9 @@ var Newsletter = function () {
 
 
                 $("#ddlTemplatesTypes").val('-1');
-              
+
                 $("#txtTemplateTitle").val('');
-              
+
             }
             $(document).off("focusin");
             $(document).off("focus");
@@ -244,7 +302,7 @@ var Newsletter = function () {
             },
 
                 function () {
-                   
+
 
                     var input = {
                         file: fileName
@@ -265,16 +323,16 @@ var Newsletter = function () {
                         },
                         complete: function () {
 
-                            setTimeout(function() {
-                                    Newsletter.initActionPage(true);
-                                },
+                            setTimeout(function () {
+                                Newsletter.initActionPage(true);
+                            },
                                 3000);
 
                             $("#modal-window").modal("hide");
                             ltcApp.successMessage(null, "Image removed!");
                             $("#ImageUploadButton").click();
 
-                           
+
 
                         }
                     });
@@ -284,10 +342,10 @@ var Newsletter = function () {
 
 
         },
-        refreshList: function() {
-           
-          
-                
+        refreshList: function () {
+
+
+
             var editorWrapper = $("#editorWrapper");
             var data = [];
             $.ajax({
@@ -296,12 +354,12 @@ var Newsletter = function () {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (d) {
-                         
+
                     d = JSON.parse(d);
                     $(d).each(function (i, val) {
                         data.push({ text: val.name, value: "<img src='" + val.path + "'>" });
                     });
-                    
+
                     $("#OfficeImageTreeview").kendoTreeView({
                         dragAndDrop: true,
                         //dragstart: onDragStart,
@@ -313,12 +371,12 @@ var Newsletter = function () {
             });
         },
         removeTemplate: function () {
-           
+
             if (SelectedUserDefinedTemplateId == null || SelectedUserDefinedTemplateId <= 0) {
                 ltcApp.warningMessage(null, "No template Selected");
                 return;
             }
-            
+
 
             swal({
                 title: "Are you sure?",
@@ -334,29 +392,29 @@ var Newsletter = function () {
                     var input = {
                         tempId: SelectedUserDefinedTemplateId
                     };
-                $.ajax({
-                    type: "POST",
-                    data: JSON.stringify(input),
-                    url: '/Newsletter/RemoveSelectedUserDefinedTemplate',
-                    contentType: 'application/json',
-                    success: function (data) {
-                        if (!data)
+                    $.ajax({
+                        type: "POST",
+                        data: JSON.stringify(input),
+                        url: '/Newsletter/RemoveSelectedUserDefinedTemplate',
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (!data)
+                                ltcApp.errorMessage("Error", 'error removing template');
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
                             ltcApp.errorMessage("Error", 'error removing template');
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        ltcApp.errorMessage("Error", 'error removing template');
-                    },
-                    complete: function () {
+                        },
+                        complete: function () {
 
-                        ltcApp.successMessage(null, "Template removed!");
+                            ltcApp.successMessage(null, "Template removed!");
 
-                        Newsletter.loadUserDefinedTemplates();
-                        Newsletter.loadTemplateTypes(); //reload selected template types and repopulate the dropdown
-                    }
+                            Newsletter.loadUserDefinedTemplates();
+                            Newsletter.loadTemplateTypes(); //reload selected template types and repopulate the dropdown
+                        }
+                    });
+
+
                 });
-
-       
-            });
 
 
         },
@@ -424,7 +482,7 @@ var Newsletter = function () {
                     }
                     kendo.ui.progress(editorWrapper, false);
                 }
-                
+
                 var editorWrapper = $("#editorWrapper");
                 if (loadOnlyImages) {
                     $("#OfficeImageTreeview").kendoTreeView({
@@ -466,145 +524,145 @@ var Newsletter = function () {
                         drag: onDrag,
                         drop: onDrop
                     });
-                
-              var dt =   $("#OfficeImageTreeview").kendoTreeView({
-                   
-                    dataSource: {
-                        data: [
-                            {
-                                text: "Images", value: null, expanded: false,
-                                items: Newsletter.GetOfficeImages()
-                            }
-                        ]
-                    },
-                    dataTextField: "text",
-                    dataValueField: "value",
-                    dragAndDrop: true,
-                    dragstart: onDragStart,
-                    drag: onDrag,
-                    drop: onDrop
-                }).data("kendoTreeView");
 
+                    var dt = $("#OfficeImageTreeview").kendoTreeView({
 
-                
-
-                $("#ImageUploadButton").kendoButton({
-                    click: function (e) {
-                        $.ajax({
-                            async: false,
-                            cache: false,
-                            url: window.location.protocol + "//" + window.location.host + "/ImageManagement/Index",
-                            contentType: 'application/html; charset=utf-8',
-                            type: 'GET',
-                            dataType: 'html'
-                        }).success(function (data) {
-                            $("#modal-window .modal-title").text("Image Management");
-                            $("#modal-window .modal-body").html(data);
-                            $("#modal-window .modal-body #UserImageTreeview").kendoTreeView({
-                                template : kendo.template($("#treeview-template").html()),
-                                dataSource: {
-                                    data: [
-                                        {
-                                            text: "Images", value: null, expanded: false, 
-                                            items: Newsletter.GetOfficeImages(),
-                                           
-   
-                                        }
-                                    ],
-                                    select: function(e) {
-                                        alert('a');
-                                    }
-                                },
-                                dataTextField: "text",
-                                dataValueField: "value",
-                                dragAndDrop: false
-                            });
-                            $("#modal-window").on("click", "#btn-close", function () {
-                                $("#modal-window").modal("hide");
-                            });
-                             
-                            $("#modal-window").modal("show");
-                            }).error(function (data) {
-                                alert(data.responseText);
-                        });
-                    }
-                });
-                function onChange(e) {
-                    somethingChanged = true; 
-                }
-                
-                function onPaste(e) {
-                    somethingChanged = true; 
-                }
-                $("#templateEditor").kendoEditor({
-                    change: onChange,
-                    paste: onPaste,
-                    tools: [
-                        "bold",
-                        "italic",
-                        "underline",
-                        {
-                            name: "fontName",
-                            items: [
-                                { text: "Andale Mono", value: "Andale Mono" },
-                                { text: "Arial", value: "Arial" },
-                                { text: "Arial Black", value: "Arial Black" },
-                                { text: "Book Antiqua", value: "Book Antiqua" },
-                                { text: "Comic Sans MS", value: "Comic Sans MS" },
-                                { text: "Courier New", value: "Courier New" },
-                                { text: "Georgia", value: "Georgia" },
-                                { text: "Helvetica", value: "Helvetica" },
-                                { text: "Impact", value: "Impact" },
-                                { text: "Symbol", value: "Symbol" },
-                                { text: "Tahoma", value: "Tahoma" },
-                                { text: "Terminal", value: "Terminal" },
-                                { text: "Times New Roman", value: "Times New Roman" },
-                                { text: "Trebuchet MS", value: "Trebuchet MS" },
-                                { text: "Verdana", value: "Verdana" },
-                                { text: "Webdings", value: "Webdings" },
-                                { text: "Wingdings", value: "Wingdings" }
+                        dataSource: {
+                            data: [
+                                {
+                                    text: "Images", value: null, expanded: false,
+                                    items: Newsletter.GetOfficeImages()
+                                }
                             ]
                         },
-                        "strikethrough",
-                        "justifyLeft",
-                        "justifyCenter",
-                        "justifyRight",
-                        "justifyFull",
-                        "insertUnorderedList",
-                        "insertOrderedList",
-                        "indent",
-                        "outdent",
-                        "createLink",
-                        "unlink",
-                        "insertImage",
-                        "insertFile",
-                        "subscript",
-                        "superscript",
-                        "tableWizard",
-                        "createTable",
-                        "addRowAbove",
-                        "addRowBelow",
-                        "addColumnLeft",
-                        "addColumnRight",
-                        "deleteRow",
-                        "deleteColumn",
-                        "viewHtml",
-                        "formatting",
-                        "cleanFormatting",
-                        "fontName",
-                        "fontSize",
-                        "foreColor",
-                        "backColor",
-                         "print" 
-                    ]
+                        dataTextField: "text",
+                        dataValueField: "value",
+                        dragAndDrop: true,
+                        dragstart: onDragStart,
+                        drag: onDrag,
+                        drop: onDrop
+                    }).data("kendoTreeView");
 
 
-                    
-                });
+
+
+                    $("#ImageUploadButton").kendoButton({
+                        click: function (e) {
+                            $.ajax({
+                                async: false,
+                                cache: false,
+                                url: window.location.protocol + "//" + window.location.host + "/ImageManagement/Index",
+                                contentType: 'application/html; charset=utf-8',
+                                type: 'GET',
+                                dataType: 'html'
+                            }).success(function (data) {
+                                $("#modal-window .modal-title").text("Image Management");
+                                $("#modal-window .modal-body").html(data);
+                                $("#modal-window .modal-body #UserImageTreeview").kendoTreeView({
+                                    template: kendo.template($("#treeview-template").html()),
+                                    dataSource: {
+                                        data: [
+                                            {
+                                                text: "Images", value: null, expanded: false,
+                                                items: Newsletter.GetOfficeImages(),
+
+
+                                            }
+                                        ],
+                                        select: function (e) {
+                                            alert('a');
+                                        }
+                                    },
+                                    dataTextField: "text",
+                                    dataValueField: "value",
+                                    dragAndDrop: false
+                                });
+                                $("#modal-window").on("click", "#btn-close", function () {
+                                    $("#modal-window").modal("hide");
+                                });
+
+                                $("#modal-window").modal("show");
+                            }).error(function (data) {
+                                alert(data.responseText);
+                            });
+                        }
+                    });
+                    function onChange(e) {
+                        somethingChanged = true;
+                    }
+
+                    function onPaste(e) {
+                        somethingChanged = true;
+                    }
+                    $("#templateEditor").kendoEditor({
+                        change: onChange,
+                        paste: onPaste,
+                        tools: [
+                            "bold",
+                            "italic",
+                            "underline",
+                            {
+                                name: "fontName",
+                                items: [
+                                    { text: "Andale Mono", value: "Andale Mono" },
+                                    { text: "Arial", value: "Arial" },
+                                    { text: "Arial Black", value: "Arial Black" },
+                                    { text: "Book Antiqua", value: "Book Antiqua" },
+                                    { text: "Comic Sans MS", value: "Comic Sans MS" },
+                                    { text: "Courier New", value: "Courier New" },
+                                    { text: "Georgia", value: "Georgia" },
+                                    { text: "Helvetica", value: "Helvetica" },
+                                    { text: "Impact", value: "Impact" },
+                                    { text: "Symbol", value: "Symbol" },
+                                    { text: "Tahoma", value: "Tahoma" },
+                                    { text: "Terminal", value: "Terminal" },
+                                    { text: "Times New Roman", value: "Times New Roman" },
+                                    { text: "Trebuchet MS", value: "Trebuchet MS" },
+                                    { text: "Verdana", value: "Verdana" },
+                                    { text: "Webdings", value: "Webdings" },
+                                    { text: "Wingdings", value: "Wingdings" }
+                                ]
+                            },
+                            "strikethrough",
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "insertUnorderedList",
+                            "insertOrderedList",
+                            "indent",
+                            "outdent",
+                            "createLink",
+                            "unlink",
+                            "insertImage",
+                            "insertFile",
+                            "subscript",
+                            "superscript",
+                            "tableWizard",
+                            "createTable",
+                            "addRowAbove",
+                            "addRowBelow",
+                            "addColumnLeft",
+                            "addColumnRight",
+                            "deleteRow",
+                            "deleteColumn",
+                            "viewHtml",
+                            "formatting",
+                            "cleanFormatting",
+                            "fontName",
+                            "fontSize",
+                            "foreColor",
+                            "backColor",
+                            "print"
+                        ]
+
+
+
+                    });
                 }
             });
         },
-         
+
         loadTemplateTypes: function () {
             $.ajax({
                 type: "GET",
@@ -620,7 +678,7 @@ var Newsletter = function () {
                             if (item.TypeID != 8) {
                                 $("#ddlTemplatesTypes1").append('<option value="' + item.TypeID + '">' + item.TypeName + '</option>');
                             }
-                         
+
 
                         });
                     }
@@ -633,95 +691,95 @@ var Newsletter = function () {
             });
         },
         ddlTemplatesTypes1_OnChange: function () {
-            
-            var selectedType = $("#ddlTemplatesTypes1").val();
-            
-                 if (NewsLetter_UserDefinedTemplates != null) {
-                        $("#tblBody").empty();
-                        if (NewsLetter_UserDefinedTemplates.length < 1) {
-                            $("#userDefineTemplateList").html('<tr> <td colspan="3"> No record found! </td></tr>');
-                        } 
-                        else {
-                            var strParadigm = '';
-                            
-                            var newArray = [];
-                             
-                            if (selectedType != -1) {
-                                $.each(NewsLetter_UserDefinedTemplates,
-                                    function(index, value) {
-                                       
-                                        if (value.TypeID != 8 && value.TypeID == selectedType) {
-                                            newArray.push(value);
-                                        }
-                                    });
-                            } else {
-                                newArray = NewsLetter_UserDefinedTemplates;
-                            }
-                            
-                            $.each(newArray, function (index, item) {
-                                var st = item.ModificationDate;
-                                var modificationDate = new Date(st);
 
-                                if (item.TypeID != 8) {
-                                    
-                                    strParadigm += "<tr><td>" +
-                                        item.TemplateTitle +
-                                        "</td >" +
-                                        "<td>" +
-                                        item.TypeName +
-                                        "</td>" +
-                                        "<td>";
-                                    if (item.IsDefault) {
-                                        strParadigm += "<span class=\"badge badge-success\">Yes</span>";
-                                    } else {
-                                        strParadigm += "<span class=\"badge badge-secondary\">No</span>";
-                                    }
-                                    strParadigm += "</td><td>" +
-                                        modificationDate.toISOString().split('T')[0] +
-                                        "</td>" +
-                                        "<td  class=\"text-center\"><div class=\"list-icons\"  onclick=\"Newsletter.loadSelectedUserdefinedTemplate(" +
-                                        item.LetterID +
-                                        ",this)\"> " +
-                                        "<div class=\"dropdown\">" +
-                                        "<a href=\"#\" class=\"list-icons-item\" data-toggle=\"dropdown\">" +
-                                        "<i class=\"icon-menu9\"></i></a>" +
-                                        "<div class=\"dropdown-menu dropdown-menu-right\">" +
-                                        "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'send\');\"><i class=\"icon-envelop2\"></i> Send Newsletter</a>" +
-                                        "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'modify\');\"><i class=\"icon-pencil\"></i> Modify</a>" +
-                                      "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadPreview();\"><i class=\"icon-file-eye\"></i> Preview</a><div class=\"dropdown-divider\"></div>";
-                                    if (!item.IsParadigmNewsletter) {
-                                        strParadigm +=
-                                            "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'remove\');\"><i class=\"icon-trash\"></i> Delete</a>";
-                                    }
-                                    if (item.IsDefault) {
-                                        strParadigm +=
-                                            "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'removeDefault\');\"><i class=\"icon-minus3\"></i> Remove Default</a>";
-                                    } else {
-                                        strParadigm +=
-                                            "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'makeDefault\');\"><i class=\"icon-checkmark4\"></i> Make Default</a>;";
-                                    }
-                                        strParadigm +="</div></div></div></td></tr>";
-                                }  
+            var selectedType = $("#ddlTemplatesTypes1").val();
+
+            if (NewsLetter_UserDefinedTemplates != null) {
+                $("#tblBody").empty();
+                if (NewsLetter_UserDefinedTemplates.length < 1) {
+                    $("#userDefineTemplateList").html('<tr> <td colspan="3"> No record found! </td></tr>');
+                }
+                else {
+                    var strParadigm = '';
+
+                    var newArray = [];
+
+                    if (selectedType != -1) {
+                        $.each(NewsLetter_UserDefinedTemplates,
+                            function (index, value) {
+
+                                if (value.TypeID != 8 && value.TypeID == selectedType) {
+                                    newArray.push(value);
+                                }
                             });
-                            
-                            
-                             $("#tblBody").append(strParadigm);
-                             
-                        }
+                    } else {
+                        newArray = NewsLetter_UserDefinedTemplates;
                     }
-             
+
+                    $.each(newArray, function (index, item) {
+                        var st = item.ModificationDate;
+                        var modificationDate = new Date(st);
+
+                        if (item.TypeID != 8) {
+
+                            strParadigm += "<tr><td>" +
+                                item.TemplateTitle +
+                                "</td >" +
+                                "<td>" +
+                                item.TypeName +
+                                "</td>" +
+                                "<td>";
+                            if (item.IsDefault) {
+                                strParadigm += "<span class=\"badge badge-success\">Yes</span>";
+                            } else {
+                                strParadigm += "<span class=\"badge badge-secondary\">No</span>";
+                            }
+                            strParadigm += "</td><td>" +
+                                modificationDate.toISOString().split('T')[0] +
+                                "</td>" +
+                                "<td  class=\"text-center\"><div class=\"list-icons\"  onclick=\"Newsletter.loadSelectedUserdefinedTemplate(" +
+                                item.LetterID +
+                                ",this)\"> " +
+                                "<div class=\"dropdown\">" +
+                                "<a href=\"#\" class=\"list-icons-item\" data-toggle=\"dropdown\">" +
+                                "<i class=\"icon-menu9\"></i></a>" +
+                                "<div class=\"dropdown-menu dropdown-menu-right\">" +
+                                "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'send\');\"><i class=\"icon-envelop2\"></i> Send Newsletter</a>" +
+                                "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'modify\');\"><i class=\"icon-pencil\"></i> Modify</a>" +
+                                "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadPreview();\"><i class=\"icon-file-eye\"></i> Preview</a><div class=\"dropdown-divider\"></div>";
+                            if (!item.IsParadigmNewsletter) {
+                                strParadigm +=
+                                    "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'remove\');\"><i class=\"icon-trash\"></i> Delete</a>";
+                            }
+                            if (item.IsDefault) {
+                                strParadigm +=
+                                    "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'removeDefault\');\"><i class=\"icon-minus3\"></i> Remove Default</a>";
+                            } else {
+                                strParadigm +=
+                                    "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'makeDefault\');\"><i class=\"icon-checkmark4\"></i> Make Default</a>;";
+                            }
+                            strParadigm += "</div></div></div></td></tr>";
+                        }
+                    });
+
+
+                    $("#tblBody").append(strParadigm);
+
+                }
+            }
+
         },
 
         ddlTemplatesTypes_OnChange: function () {
 
         },
-    
-     
- 
-      
+
+
+
+
 
         loadSystemTemplates: function () {
-         
+
             $.ajax({
                 type: "GET",
                 url: '/Newsletter/GetSystemTemplates',
@@ -729,8 +787,13 @@ var Newsletter = function () {
                     if (data != null) {
                         $("#tblBodySystem").html('');
                         NewsLetter_SystemTemplates = data;
-                        
-                        if (NewsLetter_SystemTemplates.length < 1  ) {
+                        $("#ddlTemplatesTypes2").html('<option value="-1"> --Select All--</option>');
+                        $.each(NewsLetter_SystemTemplates, function (index, value) {
+                            var item = NewsLetter_SystemTemplates[index];
+                            $("#ddlTemplatesTypes2").append('<option value="' + item.TemplateID + '">' + item.TemplateTitle + '</option>');
+                        });
+
+                        if (NewsLetter_SystemTemplates.length < 1) {
                             $("#tblBodySystem").html('<tr> <td colspan="3"> No record found! </td></tr>');
                         } else {
 
@@ -755,34 +818,34 @@ var Newsletter = function () {
                                     "<div class=\"dropdown-menu dropdown-menu-right\">" +
                                     "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.useTempalte();\"><i class=\"icon-pencil\"></i> Use</a>" +
                                     "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadPreview();\"><i class=\"icon-file-eye\"></i> Preview</a>";
-                                   
-                                    });
-                         
+
+                            });
+
                             $("#tblBodySystem").append(strSystem);
-                            
+
                         }
-                    
+
                     }
-                   
+
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error loading system templates');
-                 
+
                 },
                 complete: function () {
-                  
+
                 }
             });
         },
 
         loadSelectedSystemTemplate: function (tempId, obj) {
-            
+
             var imgs = $('.imageUserCard').length;
             for (var i = 0; i < imgs; i++) {
                 $('.imageUserCard')[i].style.backgroundColor = 'transparent';
                 //= '../Content/Limitless/global_assets/images/placeholders/placeholder.jpg';
             }
-          
+
 
             SelectedUserDefinedTemplateId = null;
             SelectedSystemDefinedTemplateId = tempId;
@@ -815,11 +878,11 @@ var Newsletter = function () {
             }
         },
         loadPreview: function () {
-          
+
             $('#previewNewsletterModel').modal('show'); //show model
         },
         loadArticlePreview: function () {
-          
+
             $('#previewArticleModel').modal('show'); //show model
         },
         loadArticles: function () {
@@ -835,8 +898,8 @@ var Newsletter = function () {
                             $("#tblBodyArticle").html(noTemp);
                         } else {
                             var str = '';
-                           
-                           
+
+
                             $.each(articles, function (index, item) {
                                 var st = item.ModificationDate;
                                 var modificationDate = new Date(st);
@@ -851,22 +914,22 @@ var Newsletter = function () {
                                     "<a href=\"#\" class=\"list-icons-item\" data-toggle=\"dropdown\">" +
                                     "<i class=\"icon-menu9\"></i></a>" +
                                     "<div class=\"dropdown-menu dropdown-menu-right\">" +
-                                    "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadArticlePreview();\"><i class=\"icon-file-eye\"></i> Preview</a></div></div></td></tr>";
-                                   
-                            });                                 
+                                    "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.useArticleTempalte();\"><i class=\"icon-pencil\"></i> Use</a><a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadArticlePreview();\"><i class=\"icon-file-eye\"></i> Preview</a></div></div></td></tr>";
+
+                            });
 
                             $("#tblBodyArticle").append(str);
 
                         }
                     }
-                     
+
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    
+
                     ltcApp.errorMessage("Error", 'Error loading Articles');
                 },
                 complete: function () {
- 
+
 
                 }
             });
@@ -882,21 +945,21 @@ var Newsletter = function () {
                         $("#tblBody").empty();
                         $("#tblBodyMarketing").empty();
                         NewsLetter_UserDefinedTemplates = data;
-                       
+
                         if (NewsLetter_UserDefinedTemplates.length < 1) {
                             $("#tblBody").html('<tr> <td colspan="3"> No record found! </td></tr>');
                             $("#tblBodyMarketing").html(noTemp);
-                        } 
+                        }
                         else {
                             var strParadigm = '';
                             var strMarketing = '';
-                            
-                         
+
+
                             $.each(NewsLetter_UserDefinedTemplates, function (index, item) {
                                 var st = item.ModificationDate;
                                 var modificationDate = new Date(st);
                                 if (item.TypeID != 8) {
-                                   
+
                                     strParadigm += "<tr><td>" +
                                         item.TemplateTitle +
                                         "</td >" +
@@ -921,7 +984,7 @@ var Newsletter = function () {
                                         "<div class=\"dropdown-menu dropdown-menu-right\">" +
                                         "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'send\');\"><i class=\"icon-envelop2\"></i> Send Newsletter</a>" +
                                         "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'modify\');\"><i class=\"icon-pencil\"></i> Modify</a>" +
-                                      "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadPreview();\"><i class=\"icon-file-eye\"></i> Preview</a><div class=\"dropdown-divider\"></div>";
+                                        "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadPreview();\"><i class=\"icon-file-eye\"></i> Preview</a><div class=\"dropdown-divider\"></div>";
                                     if (!item.IsParadigmNewsletter) {
                                         strParadigm +=
                                             "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'remove\');\"><i class=\"icon-trash\"></i> Delete</a>";
@@ -933,7 +996,7 @@ var Newsletter = function () {
                                         strParadigm +=
                                             "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'makeDefault\');\"><i class=\"icon-checkmark4\"></i> Make Default</a>;";
                                     }
-                                        strParadigm +="</div></div></div></td></tr>";
+                                    strParadigm += "</div></div></div></td></tr>";
                                 } else {
 
                                     strMarketing += "<tr><td>" +
@@ -952,34 +1015,34 @@ var Newsletter = function () {
                                         "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'modify\');\"><i class=\"icon-pencil\"></i> Modify</a>" +
                                         "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'remove\');\"><i class=\"icon-trash\"></i> Delete</a>" +
                                         "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadPreview();\"><i class=\"icon-file-eye\"></i> Preview</a>";
-                                   
-                                    strMarketing +="</div></div></div></td></tr>";
+
+                                    strMarketing += "</div></div></div></td></tr>";
                                 }
                             });
-                             
-                            
-                             $("#tblBody").append(strParadigm);
-                             $("#tblBodyMarketing").append(strMarketing);
-                            
+
+
+                            $("#tblBody").append(strParadigm);
+                            $("#tblBodyMarketing").append(strMarketing);
+
                         }
                     }
-                     
+
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    
+
                     ltcApp.errorMessage("Error", 'Error loading user defined templates');
                 },
                 complete: function () {
                     if (SelectedUserDefinedTemplateId != null)
                         Newsletter.loadSelectedUserdefinedTemplate(SelectedUserDefinedTemplateId, null);
-                   
+
 
 
                 }
             });
         },
         Search: function () {
-             
+
             var searchText = $('#txtSearch').val().toLowerCase();
             var noTemp = '<tr> <td colspan="3"> No record found! </td></tr>';
             if (searchText == "") {
@@ -988,7 +1051,7 @@ var Newsletter = function () {
                 this.loadArticles();
             } else {
                 if (NewsLetter_UserDefinedTemplates != null) {
-                  
+
                     var resFound1 = false;
                     var resFound2 = false;
                     $("#tblBody").html('');
@@ -1002,12 +1065,12 @@ var Newsletter = function () {
                         $.each(NewsLetter_UserDefinedTemplates, function (index, item) {
                             var st = item.ModificationDate;
                             var modificationDate = new Date(st);
-                            
+
                             var ind = item.TemplateTitle.toLowerCase().indexOf(searchText);
                             if (ind != -1) {
                                 if (item.TypeID != 8) {
                                     resFound1 = true;
-                    strParadigm += "<tr><td>" +
+                                    strParadigm += "<tr><td>" +
                                         item.TemplateTitle +
                                         "</td >" +
                                         "<td>" +
@@ -1022,7 +1085,7 @@ var Newsletter = function () {
                                     }
                                     strParadigm += "</td><td>" +
                                         modificationDate.toISOString().split('T')[0] +
-                                     "</td>" +
+                                        "</td>" +
                                         "<td  class=\"text-center\"><div class=\"list-icons\"  onclick=\"Newsletter.loadSelectedUserdefinedTemplate(" +
                                         item.LetterID +
                                         ",this)\"> " +
@@ -1032,24 +1095,24 @@ var Newsletter = function () {
                                         "<div class=\"dropdown-menu dropdown-menu-right\">" +
                                         "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'send\');\"><i class=\"icon-envelop2\"></i> Send Newsletter</a>" +
                                         "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'modify\');\"><i class=\"icon-pencil\"></i> Modify</a>" +
-                                      "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadPreview();\"><i class=\"icon-file-eye\"></i> Preview</a><div class=\"dropdown-divider\"></div>";
+                                        "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadPreview();\"><i class=\"icon-file-eye\"></i> Preview</a><div class=\"dropdown-divider\"></div>";
                                     if (!item.IsParadigmNewsletter) {
                                         strParadigm +=
                                             "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'remove\');\"><i class=\"icon-trash\"></i> Delete</a>";
-                                    }if (item.IsDefault) {
+                                    } if (item.IsDefault) {
                                         strParadigm +=
                                             "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'removeDefault\');\"><i class=\"icon-minus3\"></i> Remove Default</a>";
                                     } else {
                                         strParadigm +=
                                             "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'makeDefault\');\"><i class=\"icon-checkmark4\"></i> Make Default</a>;";
                                     }
-                                        strParadigm +="</div></div></div></td></tr>";
+                                    strParadigm += "</div></div></div></td></tr>";
                                 } else {
                                     resFound2 = true;
                                     strMarketing += "<tr><td>" +
                                         item.TemplateTitle +
-                                        "</td >" ;
-                                        strMarketing += "<td>" +
+                                        "</td >";
+                                    strMarketing += "<td>" +
                                         modificationDate.toISOString().split('T')[0] +
                                         "</td><td class=\"text-center\"><div class=\"list-icons\"  onclick=\"Newsletter.loadSelectedUserdefinedTemplate(" +
                                         item.LetterID +
@@ -1062,13 +1125,13 @@ var Newsletter = function () {
                                         "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'modify\');\"><i class=\"icon-pencil\"></i> Modify</a>" +
                                         "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'remove\');\"><i class=\"icon-trash\"></i> Delete</a>" +
                                         "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadPreview();\"><i class=\"icon-file-eye\"></i> Preview</a>";
-                                   
-                                    strMarketing +="</div></div></div></td></tr>";
+
+                                    strMarketing += "</div></div></div></td></tr>";
                                 }
                             }
                         });
-                       
-                            
+
+
                         $("#tblBody").append(strParadigm);
                         $("#tblBodyMarketing").append(strMarketing);
 
@@ -1089,7 +1152,7 @@ var Newsletter = function () {
                         $("#tblBodySystem").html('<tr> <td colspan="3"> No record found! </td></tr>');
                     } else {
                         var strSystem = '';
-                        
+
                         $.each(NewsLetter_SystemTemplates, function (index, item) {
                             var st = item.ModificationDate;
                             var modificationDate = new Date(st);
@@ -1112,7 +1175,7 @@ var Newsletter = function () {
                                     "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadPreview();\"><i class=\"icon-file-eye\"></i> Preview</a>";
                             }
                         });
-                         
+
                         if (!resultFound) {
                             $("#tblBodySystem").html('<tr> <td colspan="3"> No record found! </td></tr>');
                         }
@@ -1131,7 +1194,7 @@ var Newsletter = function () {
                         $.each(articles, function (index, item) {
                             var st = item.ModificationDate;
                             var modificationDate = new Date(st);
-                            if (item.Title.toLowerCase().includes(searchText) || item.Content.toLowerCase().includes(searchText) ) {
+                            if (item.Title.toLowerCase().includes(searchText) || item.Content.toLowerCase().includes(searchText)) {
                                 resultFound = true;
                                 str += "<tr><td>" +
                                     item.Title +
@@ -1148,7 +1211,7 @@ var Newsletter = function () {
                                     "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadArticlePreview();\"><i class=\"icon-file-eye\"></i> Preview</a></div></div></td></tr>";
                             }
                         });
-                         
+
                         if (!resultFound) {
                             $("#tblBodyArticle").html('<tr> <td colspan="3"> No record found! </td></tr>');
                         }
@@ -1161,23 +1224,23 @@ var Newsletter = function () {
 
         },
         loadSelectedUserdefinedTemplate: function (tempId, obj) {
-            
+
             var imgs = $('.imageCard').length;
             for (var i = 0; i < imgs; i++) {
                 $('.imageCard')[i].style.backgroundColor = 'transparent';
                 //= '../Content/Limitless/global_assets/images/placeholders/placeholder.jpg';
             }
-           
+
             SelectedUserDefinedTemplateId = tempId;
             SelectedSystemDefinedTemplateId = null;
             var item = NewsLetter_UserDefinedTemplates.find(x => x.LetterID === tempId);
-          
+
             if (item != null) {
                 $("#previewContentEmpty").addClass('hide');
                 $("#previewContent").removeClass('hide');
                 this.setIframeHtml('previewContent', item.MainBodymarkup);
-          
-               
+
+
             } else {
                 $("#previewContentEmpty").removeClass('hide');
                 $("#previewContent").addClass('hide');
@@ -1201,24 +1264,24 @@ var Newsletter = function () {
                 $("#btnSelectOptions").hide();
                 SelectedUserDefinedTemplateId = null;
                 $("#SystemTemplateList .image:first").click();
-            }else 
-            if (tab == 'user') {
-                $("#btnSelectedTemplate").hide();
-                $("#btnSelectOptions").show();
-                $("#userDefineTemplateList .image:first").click();
-                $("#deleteTemplate").hide();
-            } 
-            else if (tab == 'marketing') {
-                $("#deleteTemplate").show();
-                $("#btnSelectedTemplate").hide();
-                $("#btnSelectOptions").show();
-                $("#userDefineTemplateList .image:first").click();
-            }
-            else if (tab == 'article') {
-                $("#deleteTemplate").hide();
-                $("#btnSelectedTemplate").hide();
-                $("#btnSelectOptions").hide();
-            }
+            } else
+                if (tab == 'user') {
+                    $("#btnSelectedTemplate").hide();
+                    $("#btnSelectOptions").show();
+                    $("#userDefineTemplateList .image:first").click();
+                    $("#deleteTemplate").hide();
+                }
+                else if (tab == 'marketing') {
+                    $("#deleteTemplate").show();
+                    $("#btnSelectedTemplate").hide();
+                    $("#btnSelectOptions").show();
+                    $("#userDefineTemplateList .image:first").click();
+                }
+                else if (tab == 'article') {
+                    $("#deleteTemplate").hide();
+                    $("#btnSelectedTemplate").hide();
+                    $("#btnSelectOptions").hide();
+                }
         },
         //send newsletter secion start
 
@@ -1255,14 +1318,14 @@ var Newsletter = function () {
             }
         },
         uploadPicture: function () {
-           
+
             var formData = new FormData();
             var totalFiles = document.getElementById("file").files.length;
             if (totalFiles > 0) {
 
                 var file = document.getElementById("file").files[0];
                 formData.append("file", file);
-                 
+
                 $.ajax({
                     type: "POST",
                     url: '/ImageManagement/FileUpload',
@@ -1274,9 +1337,9 @@ var Newsletter = function () {
                         if (data.Success) {
                             //Newsletter.refreshList();
                             Newsletter.initActionPage(true);
-                            setTimeout(function() {
-                                    Newsletter.initActionPage(true);
-                                },
+                            setTimeout(function () {
+                                Newsletter.initActionPage(true);
+                            },
                                 3000);
                             ltcApp.successMessage(null, "Uploaded successfully!");
                             $("#modal-window").modal("hide");
@@ -1294,7 +1357,7 @@ var Newsletter = function () {
         },
         sendNewsletter: function () {
             Layout.showLoader();
-           
+
             var sendToSubcribers = true;
 
             if (SelectedUserDefinedTemplateId == null || SelectedUserDefinedTemplateId < 0) {
@@ -1303,7 +1366,7 @@ var Newsletter = function () {
             }
             var sendDate = new Date();
             if ($("input[name='rbSchedule']:checked").val() == 'future') {
-                
+
                 sendDate = $("#sendNewsletterDTP").val();
             }
 
@@ -1315,7 +1378,7 @@ var Newsletter = function () {
                     return;
                 }
             }
-           
+
 
 
             var data = {
@@ -1381,36 +1444,36 @@ var Newsletter = function () {
 
         LoadEmailTree: function () {
             var data = [
-                	{ text: 'Patient Name', value: '[PatientName]' },
-	                { text: 'Patient Salutation', value: '[PatientSalutation]' },
-	                { text: 'Patient FirstName', value: '[PatientFirstName]' },
-	                { text: 'Patient LastName', value: '[PatientLastName]' },
-	                { text: 'Patient Email', value: '[PatientEmail]' },
-	                { text: 'Family Member List', value: '[FamilyList]' },
-	                { text: 'Appoint Date', value: '[AppointDate]' },
-	                { text: 'Appoint Time', value: '[AppointTime]' },
-	                { text: 'Provider Name', value: '[ProviderName]' },
-	                { text: 'Job Description', value: '[JobDescription]' },
-	                { text: 'Office Name', value: '[OfficeName]' },
-	                { text: 'Office Email', value: '[OfficeEmail]' },
-	                { text: 'Address Block', value: '[AddressBlock]' },
-	                { text: 'Office Street1', value: '[OfficeStreet]' },
-	                { text: 'Office Street2', value: '[OfficeStreet2]' },
-	                { text: 'Office Street3', value: '[OfficeStreet3]' },
-	                { text: 'Province', value: '[OfficeProvince]' },
-	                { text: 'City', value: '[City]' },
-	                { text: 'Country', value: '[Country]' },
-	                { text: 'PostalCode', value: '[PostalCode]' },
-	                { text: 'Office Phone Number', value: '[OfficePhone]' },
-	                { text: 'Fax', value: '[Fax]' },
-	                //{ text: 'Confirmation Button', value: '[clickhere]' },
+                { text: 'Patient Name', value: '[PatientName]' },
+                { text: 'Patient Salutation', value: '[PatientSalutation]' },
+                { text: 'Patient FirstName', value: '[PatientFirstName]' },
+                { text: 'Patient LastName', value: '[PatientLastName]' },
+                { text: 'Patient Email', value: '[PatientEmail]' },
+                { text: 'Family Member List', value: '[FamilyList]' },
+                { text: 'Appoint Date', value: '[AppointDate]' },
+                { text: 'Appoint Time', value: '[AppointTime]' },
+                { text: 'Provider Name', value: '[ProviderName]' },
+                { text: 'Job Description', value: '[JobDescription]' },
+                { text: 'Office Name', value: '[OfficeName]' },
+                { text: 'Office Email', value: '[OfficeEmail]' },
+                { text: 'Address Block', value: '[AddressBlock]' },
+                { text: 'Office Street1', value: '[OfficeStreet]' },
+                { text: 'Office Street2', value: '[OfficeStreet2]' },
+                { text: 'Office Street3', value: '[OfficeStreet3]' },
+                { text: 'Province', value: '[OfficeProvince]' },
+                { text: 'City', value: '[City]' },
+                { text: 'Country', value: '[Country]' },
+                { text: 'PostalCode', value: '[PostalCode]' },
+                { text: 'Office Phone Number', value: '[OfficePhone]' },
+                { text: 'Fax', value: '[Fax]' },
+                //{ text: 'Confirmation Button', value: '[clickhere]' },
             ];
             return data;
-        }, 
-      
+        },
+
 
         saveNewsletterEditor: function (isSave) {
-          
+
             if ($("#txtTemplateTitle").val().trim() == '') {
                 ltcApp.warningMessage(null, "Title cannot be empty.");
                 return;
@@ -1428,11 +1491,11 @@ var Newsletter = function () {
             }
 
             var currTemplateId = 0;
-           
+
             if (!isSave) {
-                
+
                 var item = NewsLetter_UserDefinedTemplates.find(x => x.LetterID === SelectedUserDefinedTemplateId);
-              
+
                 isParadigm = item.IsParadigmNewsletter;
                 currTemplateId = SelectedUserDefinedTemplateId;
                 var data = {
@@ -1443,7 +1506,7 @@ var Newsletter = function () {
                     MainBodymarkup: $("#templateEditor").data("kendoEditor").value(),
                     IsParadigmNewsletter: isParadigm,
                     IsDefault: item.IsDefault
-            };
+                };
 
             } else {
                 var data = {
@@ -1457,7 +1520,7 @@ var Newsletter = function () {
                 };
             }
 
-         
+
             $.ajax({
                 url: '/Newsletter/SaveNewsletterEditor',
                 method: 'POST',
@@ -1465,7 +1528,7 @@ var Newsletter = function () {
                 contentType: 'application/json',
                 dataType: 'json',
                 success: function (d) {
-              
+
                     if (d) {
                         Newsletter.loadUserDefinedTemplates();
                         Newsletter.loadTemplateTypes(); //reload selected template types and repopulate the dropdown
@@ -1475,7 +1538,7 @@ var Newsletter = function () {
                         ltcApp.errorMessage("Error", "Move Action cannot be done");
 
                         $('#templateEditorWindow').modal('hide');
-                            
+
                     }
                 },
                 error: function (xhr, textStatus, errorThrown) {
@@ -1493,7 +1556,7 @@ var Newsletter = function () {
         },
 
         previewNewsletterEditor: function () {
-             
+
             var currentContent = $("#templateEditor").data("kendoEditor").value();
             //if (SelectedUserDefinedTemplateId != null) {
             //    this.setIframeHtml('editorPreview', currentContent);
@@ -1501,11 +1564,11 @@ var Newsletter = function () {
             //}
             this.setIframeHtml('editorPreview', currentContent);
             $('#previewNewsletterModel1').modal('show');
-            
+
         },
 
         cancelNewsletterEditor: function () {
-          
+
             if (somethingChanged) {
                 ltcApp.promptConfirmation("Warning", "Are you sure want to close without saving?");
             } else {
@@ -1550,7 +1613,7 @@ var Newsletter = function () {
             }
 
             $.each(NewsLetter_SubIndustries, function (index, value) {
-               
+
                 var item = NewsLetter_SubIndustries[index];
                 if (item.IndustryTypeId == currIndustry)
                     $("#ddlSubIndustries").append('<option value="' + item.Id + '">' + item.SubTypeTitle + '</option>');
@@ -1565,7 +1628,7 @@ var Newsletter = function () {
                     if (data != null) {
                         NewsLetter_SubIndustries = data;
                         $("#ddlSubIndustries").html('<option value="-1"> --select Sub-Industry--</option>');
-                     }
+                    }
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error loading sub industries');
@@ -1576,9 +1639,9 @@ var Newsletter = function () {
         },
 
         IframeSizing: function () {
-          
+
         },
-        
+
         GetUserImages: function () {
             var data;
             $.ajax({
@@ -1609,16 +1672,16 @@ var Newsletter = function () {
             }).success(function (d) {
                 d = JSON.parse(d);
                 $(d).each(function (i, val) {
-                    data.push({ text: val.name, value: "<img src='" +window.location.origin+"/"+ val.path + "'>" });
+                    data.push({ text: val.name, value: "<img src='" + window.location.origin + "/" + val.path + "'>" });
                 });
             }).error(function (data) {
                 console.log(data.responseText);
             });
-           
-           
 
 
-           
+
+
+
 
             return data;
         },
@@ -1634,12 +1697,12 @@ var Newsletter = function () {
             }).success(function (d) {
                 d = JSON.parse(d);
                 $(d).each(function (i, val) {
-                    data.push({ text: val.name, value: "<img src='" +window.location.origin+"/"+ val.path + "'>" });
+                    data.push({ text: val.name, value: "<img src='" + window.location.origin + "/" + val.path + "'>" });
                 });
             }).error(function (data) {
                 console.log(data.responseText);
             });
-           
+
             return data;
         },
         GetOfficeImagesOld: function () {
@@ -1654,7 +1717,7 @@ var Newsletter = function () {
             }).success(function (d) {
                 d = JSON.parse(d);
                 $(d).each(function (i, val) {
-                    data.push({ text: val.name, value: "<img src='" +window.location.origin+"/"+ val.path + "'>" });
+                    data.push({ text: val.name, value: "<img src='" + window.location.origin + "/" + val.path + "'>" });
                 });
             }).error(function (data) {
                 console.log(data.responseText);
@@ -1665,7 +1728,7 @@ var Newsletter = function () {
     };
 }();
 $(document).ready(function () {
-    
+
     Newsletter.init();
     Newsletter.initActionPage(false);
     $(document).off("focusin");
@@ -1673,10 +1736,10 @@ $(document).ready(function () {
 
 });
 
- 
+
 
 var enumNewsletterUserDefinedOptions = {
-    "send": "send", "assign": "assign", "create": "create", "modify": "modify", "remove": "remove", "makeDefault" : "makeDefault","removeDefault" : "removeDefault" 
+    "send": "send", "assign": "assign", "create": "create", "modify": "modify", "remove": "remove", "makeDefault": "makeDefault", "removeDefault": "removeDefault"
 };
 
 $(window).resize(function () {
@@ -1685,9 +1748,9 @@ $(window).resize(function () {
 
 //global variables
 var somethingChanged = false;
-  
-     
- 
+
+
+
 var NewsLetter_TemplatesTypes;
 var NewsLetter_SystemTemplates;
 var NewsLetter_ShellTemplates;
@@ -1699,4 +1762,3 @@ var SelectedUserDefinedTemplateId;
 var SelectedSystemDefinedTemplateId;
 var SelectedArticleId;
 var isKendoWindowLoaded = false;
- 

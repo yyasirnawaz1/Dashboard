@@ -1,15 +1,17 @@
-﻿
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Layouts/_NewsletterLayout.cshtml";
 
 }
 
- 
+
 <style>
     #tblParadigm_filter, #tblParadigm_info, #tblMarketing_filter, #tblMarketing_info {
         display: none;
     }
+
     .dotted, .k-in {
         white-space: nowrap;
         width: 180px;
@@ -142,7 +144,7 @@
                                                 </div>
 
                                             </div>
-                                             
+
                                             <table class="table datatable-basic" id="tblParadigm">
                                                 <thead>
                                                     <tr>
@@ -164,7 +166,7 @@
                                     </div>
                                     <div id="SystemTemplateList">
                                         <div class="card-body" style="margin-left: 50px;margin-right: 50px;">
-                                            <table class="table datatable"  id="tblSystem">
+                                            <table class="table datatable" id="tblSystem">
                                                 <thead>
                                                     <tr>
                                                         <th>Name</th>
@@ -187,7 +189,7 @@
                                     <div id="marketingTemplateList">
                                         <div class="card-body" style="margin-left: 50px;margin-right: 50px;">
 
-                                            <table class="table datatable-basic"  id="tblMarketing">
+                                            <table class="table datatable-basic" id="tblMarketing">
                                                 <thead>
                                                     <tr>
                                                         <th>Name</th>
@@ -211,7 +213,7 @@
                                     </div>
                                     <div id="SystemArticlesTabList">
                                         <div class="card-body" style="margin-left: 50px;margin-right: 50px;">
-                                            <table class="table datatable-basic"  id="tblArticle">
+                                            <table class="table datatable-basic" id="tblArticle">
                                                 <thead>
                                                     <tr>
                                                         <th>Name</th>
@@ -284,6 +286,54 @@
             </div>
         </div>
     </div>
+    <div id="useArticle" class="modal" tabindex="-1" data-width="400" data-keyboard="false" role="dialog" aria-labelledby="useArticle" aria-hidden="true" data-backdrop="static">
+        <div id="useArticleContainer">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Copy Template</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-horizontal" role="form">
+                                    <div>
+                                        <div class="form-body" style="margin-top: 15px;">
+                                            <div class="form-group">
+                                                <div class="col-md-9">
+                                                    <input id="txtArticleTitle" class="form-control lead text-muted" placeholder="Enter the name of the new template" />
+                                                    <label class="text-muted"style="margin-top: 5px;margin-left: 15px;">Template will save My Marketing Templates</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-body">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label"></label>
+                                                <div class="col-md-9">
+                                                    <select id="ddlTemplatesTypes2" class="form-control lead text-muted" onchange="Newsletter.ddlTemplatesTypes_OnChange()"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="margin-top:20px">
+                        <button type="button" data-dismiss="modal" class="cancel btn btn-lg btn-default">Cancel</button>
+                        <button type="button" class="confirm btn btn-lg btn-primary" onclick="Newsletter.saveArticleTemplate()">Save</button>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
     @Html.Partial("~/Views/Newsletter/_EditNewsletter.cshtml")
     <div id="sendNewsletterModel" class="modal fade" tabindex="-1" data-width="400" data-keyboard="false" role="dialog" aria-labelledby="sendNewsletterModel" aria-hidden="true" data-backdrop="static">
         @Html.Partial("~/Views/Newsletter/_SendNewsletter.cshtml")
@@ -313,13 +363,14 @@
         </div>
     </div>
 </div>
-
+<div id="dvHidden" style="display:none">
+</div>
 
 @section styles{
 
-    <link href="~/Content/kendo/styles/kendo.common.min.css" rel="stylesheet" />
-    <link href="~/Content/kendo/styles/kendo.default.min.css" rel="stylesheet" />
-    <link href="~/Content/kendo/styles/kendo.default.mobile.min.css" rel="stylesheet" />
+    <link href="~/Content/kendo/styles/kendo.common.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
+    <link href="~/Content/kendo/styles/kendo.default.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
+    <link href="~/Content/kendo/styles/kendo.default.mobile.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
 
 }
 
@@ -334,29 +385,29 @@
         $('#scheduledNewsLetters').removeClass("active");
         $('#newsLetter').addClass("active");
 
-        
-       
-        $(window).bind("load", function() {
+
+
+        $(window).bind("load", function () {
             $('#tblParadigm').DataTable({
                 "order": [[3, "desc"]],
-                "paging":   false,
+                "paging": false,
             });
 
-            
+
 
             $('#tblMarketing').DataTable({
                 "order": [[1, "desc"]],
-                "paging":   false,
+                "paging": false,
             });
 
 
-           
+
 
         });
     </script>
 
-    <script src="~/Content/ScriptsView/Newsletter.js?version=10"></script>
-    <script src="~/Content/kendo/js/kendo.all.min.js"></script>
+    <script src="~/Content/ScriptsView/Newsletter.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Content/kendo/js/kendo.all.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
     <script id="treeview-template" type="text/kendo-ui-template">
         # if (!item.items) { #
         <a class='k-icon k-i-close-outline' onclick="Newsletter.DeleteImage('#= item.text #');" href='\#'></a>

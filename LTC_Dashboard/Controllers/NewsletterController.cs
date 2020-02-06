@@ -333,7 +333,19 @@ namespace LTC_Dashboard.Controllers
                 return Json(null);
             }
         }
-
+        [HttpPost]
+        public JsonResult CopyArticle([FromBody]gArticleTemplate model)
+        {
+            try
+            {
+                gNewsLetterManager.CopyArticle(model.TemplateId, model.ArticleId, model.Title, OfficeSequence, model.Content);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
+        }
         public JsonResult SaveNewsletterEditor([FromBody] gSaveUserTemplate model)
         {
             try
