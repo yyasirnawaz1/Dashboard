@@ -38,7 +38,8 @@ namespace LTC_Dashboard.Controllers
         private IHttpContextAccessor _accessor;
 
         public NewsletterController(IHostingEnvironment hostingEnvironment, IHttpContextAccessor accessor, IOptions<EmailManager.ElasticEmail> email) : base(hostingEnvironment)
-        {
+        
+            {
             _accessor = accessor;
             _email = email;
 
@@ -339,6 +340,20 @@ namespace LTC_Dashboard.Controllers
             try
             {
                 gNewsLetterManager.CopyArticle(model.TemplateId, model.ArticleId, model.Title, OfficeSequence, model.Content);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
+        }
+
+         [HttpPost]
+        public JsonResult DeleteSelected([FromBody]gSelectedIds model)
+        {
+            try
+            {
+                 gNewsLetterManager.DeleteMultiple(model.SelectedIds);
                 return Json(true);
             }
             catch (Exception ex)

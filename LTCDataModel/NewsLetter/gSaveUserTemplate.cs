@@ -32,6 +32,11 @@ namespace LTCDataModel.NewsLetter
         public int LetterID { get; set; }
         public bool IsDefault { get; set; }
     }
+     public class gSelectedIds
+    {
+        public int[] SelectedIds { get; set; }
+
+    }
      public class gArticleTemplate
     {
         public int ArticleId { get; set; }

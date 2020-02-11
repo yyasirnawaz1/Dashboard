@@ -59,7 +59,7 @@ namespace LTCDataManager.NewsLetter
         public static List<gArticleModel> GetArticles()
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
-            return db.Fetch<gArticleModel>($"SELECT * FROM system_articles ").ToList();
+            return db.Fetch<gArticleModel>($"SELECT * FROM system_articles where Content is not null ").ToList();
         }
 
         public static void SaveArticle(gArticleModel model)
@@ -228,7 +228,12 @@ namespace LTCDataManager.NewsLetter
                 gSavePredefinedTemplate found = db.Fetch<gSavePredefinedTemplate>($"select * from templates where TemplateID={TemplateID}").FirstOrDefault();
                 if (found != null)
                 {
-                    
+                    //gArticleModel obj = new gArticleModel();
+                    //obj.Title = name;
+                    //obj.ModificationDate= DateTime.Now.ToUniversalTime();
+                    //obj.Content = null;
+                    //obj.ContentWithDefaultStyle = Content;
+
                     gSaveUserTemplate obj = new gSaveUserTemplate();
                     obj.TemplateTitle = name;
                     obj.Office_Sequence = Office_Sequence;
@@ -326,6 +331,18 @@ namespace LTCDataManager.NewsLetter
             using (var db = new Database(DbConfiguration.LtcNewsletter))
             {
                 db.Delete("templates_user", "LetterID", new gGetUserDefinedTemplateModel { LetterID = Id });
+            }
+        }
+
+        public static void DeleteMultiple(int[] Ids)
+        {
+
+            using (var db = new Database(DbConfiguration.LtcNewsletter))
+            {
+                foreach (var Id in Ids)
+                {
+                    db.Delete("templates_user", "LetterID", new gGetUserDefinedTemplateModel { LetterID = Id });
+                }
             }
         }
         #endregion

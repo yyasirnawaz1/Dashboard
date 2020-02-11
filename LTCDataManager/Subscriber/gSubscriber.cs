@@ -163,7 +163,7 @@ namespace LTCDataManager.Subscriber
             try
             {
                 SubscriptionViewModel objSubscription = GetById(Id);
-                int nextStatus = objSubscription.SubscriptionStatus == SubscriptionStatus.Subscribed ? 0 : 1;
+                int nextStatus = objSubscription.SubscriptionStatus == true ? 0 : 1;
                 var db = new Database(DbConfiguration.LtcNewsletter);
                 return db.Execute($"UPDATE subscribers  SET SubscriptionStatus = {nextStatus} , LastSubscriptionStatusUpdated = '{DateTime.Now.ToString("yyyy-MM-dd H:mm:ss")}' WHERE Id= {Id}; ");
 

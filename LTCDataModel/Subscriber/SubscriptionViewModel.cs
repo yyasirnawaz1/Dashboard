@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+ 
 namespace LTCDataModel.Subscriber
 {
     public enum SubscriptionStatus
@@ -41,7 +41,7 @@ namespace LTCDataModel.Subscriber
         [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email address")]
         public string EmailAddress { get; set; }
 
-        public SubscriptionStatus SubscriptionStatus { get; set; }
+        public bool SubscriptionStatus { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dddd, mmmm dd, yyyy hh:mm:ss tt}")]
         public DateTime LastSubscriptionStatusUpdated { get; set; }

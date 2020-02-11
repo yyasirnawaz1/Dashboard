@@ -113,6 +113,7 @@
                     <div class="list-icons">
                         <input id="txtSearch" onkeyup="Newsletter.Search();" class="form-control" placeholder="Search ..." />
                         <button type="button" id="btnSelectOptions" class="btn btn-primary" onclick="Newsletter.userDefinedOptionChanged('create');">Create New Template</button>
+                        
                     </div>
                 </div>
             </div>
@@ -123,7 +124,7 @@
 
                             <ul class="nav nav-tabs nav-tabs-top">
                                 <li class="nav-item"><a href="#userDefinedTemplatesTab" onclick="javascript:Newsletter.clearTabSelection('user');" class="nav-link active" data-toggle="tab">System Templates</a></li>
-                                <li class="nav-item"><a href="#marketingTemplatesTab" onclick="javascript:Newsletter.clearTabSelection('marketing');" class="nav-link" data-toggle="tab">My Marketing Templates</a></li>
+                                <li class="nav-item"><a href="#marketingTemplatesTab" onclick="javascript:Newsletter.clearTabSelection('marketing');" class="nav-link" data-toggle="tab">Marketing Templates</a></li>
                                 <li class="nav-item"><a href="#SystemTemplatesTab" onclick="javascript:Newsletter.clearTabSelection('system');" class="nav-link" data-toggle="tab">Design</a></li>
                                 <li class="nav-item"><a href="#SystemArticlesTab" onclick="javascript:Newsletter.clearTabSelection('article');" class="nav-link" data-toggle="tab">Articles</a></li>
 
@@ -187,11 +188,12 @@
 
                                     </div>
                                     <div id="marketingTemplateList">
+                                        <button type="button" id="btnDeleteSelectOptions" class="btn btn-primary" style="float: right; margin-top: 15px; margin-right: 15px; margin-bottom: 15px; " disabled onclick="Newsletter.deleteSelectedNewsletters();">Delete</button>
                                         <div class="card-body" style="margin-left: 50px;margin-right: 50px;">
-
                                             <table class="table datatable-basic" id="tblMarketing">
                                                 <thead>
                                                     <tr>
+                                                        <th></th>
                                                         <th>Name</th>
                                                         <th>Modification Date</th>
 
@@ -305,7 +307,7 @@
                                             <div class="form-group">
                                                 <div class="col-md-9">
                                                     <input id="txtArticleTitle" class="form-control lead text-muted" placeholder="Enter the name of the new template" />
-                                                    <label class="text-muted"style="margin-top: 5px;margin-left: 15px;">Template will save My Marketing Templates</label>
+                                                    <label class="text-muted"style="margin-top: 5px;margin-left: 15px;">Template will save under Marketing Templates</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -325,7 +327,7 @@
                     </div>
                     <div class="modal-footer" style="margin-top:20px">
                         <button type="button" data-dismiss="modal" class="cancel btn btn-lg btn-default">Cancel</button>
-                        <button type="button" class="confirm btn btn-lg btn-primary" onclick="Newsletter.saveArticleTemplate()">Save</button>
+                        <button type="button" class="confirm btn btn-lg btn-primary" id="btnSaveArticle" onclick="Newsletter.saveArticleTemplate()">Save</button>
                     </div>
 
 

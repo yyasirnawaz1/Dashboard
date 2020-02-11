@@ -30,11 +30,27 @@ var Newsletter = function () {
                     Newsletter.IframeSizing();
                 });
         },
+        ItemSelected: function (id) {
+            var post_arr = [];
+            $('#marketingTemplateList input[type=checkbox]').each(function () {
+                if (jQuery(this).is(":checked")) {
+                    var id = this.id;
+                    post_arr.push(id);
+                }
+            });
+
+            if (post_arr.length > 0) {
+                $('#btnDeleteSelectOptions').removeAttr('disabled');
+            } else {
+                $("#btnDeleteSelectOptions").attr("disabled", true);
+            }
+        },
 
         initKendoWindow: function () {
 
         },
         saveArticleTemplate: function () {
+
 
             var tempId = $("#ddlTemplatesTypes2").val();
             if (tempId == "-1") {
@@ -43,6 +59,14 @@ var Newsletter = function () {
             if ($("#txtArticleTitle").val() == "") {
                 ltcApp.warningMessage(null, "Please provide article name!");
             }
+
+            var name = $("#txtArticleTitle").val();
+            var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == name);
+            if (articleWithSameName != null) {
+                ltcApp.warningMessage(null, "Newsletter with same name already exists.");
+                return;
+            }
+
             var content = '';
             var template = NewsLetter_SystemTemplates.find(x => x.TemplateID == tempId);
             var article = articles.find(x => x.ArticleID == SelectedArticleId);
@@ -62,6 +86,7 @@ var Newsletter = function () {
                 Title: $("#txtArticleTitle").val(),
                 Content: content,
             };
+            $("#btnSaveArticle").attr("disabled", true);
             $.ajax({
                 url: '/Newsletter/CopyArticle',
                 method: 'POST',
@@ -69,9 +94,11 @@ var Newsletter = function () {
                 contentType: 'application/json',
                 dataType: 'json',
                 success: function (d) {
-                      $('#useArticle').modal('hide');
+                    $('#useArticle').modal('hide');
                     ltcApp.successMessage(null, "Template created!");
                     Newsletter.init();
+                    $('#btnSaveArticle').removeAttr('disabled');
+
                 }
             });
 
@@ -92,6 +119,7 @@ var Newsletter = function () {
         },
         useTempalte: function () {
 
+
             if (SelectedSystemDefinedTemplateId == null || SelectedSystemDefinedTemplateId <= 0) {
                 ltcApp.warningMessage(null, "No template Selected");
                 return;
@@ -99,7 +127,7 @@ var Newsletter = function () {
 
             swal({
                 title: "Copy Template!",
-                text: "Template will save My Marketing Templates",
+                text: "Template will save under Marketing Templates",
                 type: "input",
                 showCancelButton: true,
                 closeOnConfirm: true,
@@ -111,6 +139,11 @@ var Newsletter = function () {
                     return false;
                 }
 
+                var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == name);
+                if (articleWithSameName != null) {
+                    ltcApp.warningMessage(null, "Newsletter with same name already exists.");
+                }
+                $('.confirm').attr("disabled", true);
                 var data = {
                     TemplateId: SelectedSystemDefinedTemplateId, Title: name
                 };
@@ -121,9 +154,11 @@ var Newsletter = function () {
                     contentType: 'application/json',
                     dataType: 'json',
                     success: function (d) {
-                      
+
                         ltcApp.successMessage(null, "Template created!");
                         Newsletter.init();
+                        $('.confirm').removeAttr('disabled');
+
                     },
                     error: function (xhr, textStatus, errorThrown) {
                         ltcApp.errorMessage("Error", 'Please try again later!');
@@ -787,7 +822,7 @@ var Newsletter = function () {
                     if (data != null) {
                         $("#tblBodySystem").html('');
                         NewsLetter_SystemTemplates = data;
-                        $("#ddlTemplatesTypes2").html('<option value="-1"> --Select All--</option>');
+                        $("#ddlTemplatesTypes2").html('<option value="-1">Select a design</option>');
                         $.each(NewsLetter_SystemTemplates, function (index, value) {
                             var item = NewsLetter_SystemTemplates[index];
                             $("#ddlTemplatesTypes2").append('<option value="' + item.TemplateID + '">' + item.TemplateTitle + '</option>');
@@ -934,7 +969,64 @@ var Newsletter = function () {
                 }
             });
         },
+        deleteSelectedNewsletters: function () {
+            var post_arr = [];
+            Layout.showLoader();
+            // Get checked checkboxes
+            $('#marketingTemplateList input[type=checkbox]').each(function () {
+                if (jQuery(this).is(":checked")) {
+                    var id = this.id;
 
+
+                    post_arr.push(id);
+
+                }
+            });
+
+            if (post_arr.length > 0) {
+                swal({
+                    title: "Are you sure?",
+                    text: "Do you want to permanently delete selected template(s)?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes",
+                    closeOnConfirm: true
+                },
+
+                    function () {
+                        var input = {
+                            SelectedIds: post_arr
+                        };
+                        $.ajax({
+                            type: "POST",
+                            data: JSON.stringify(input),
+                            url: '/Newsletter/DeleteSelected',
+                            contentType: 'application/json',
+                            success: function (data) {
+                                if (!data)
+                                    ltcApp.errorMessage("Error", 'error removing template');
+                            },
+                            error: function (xhr, textStatus, errorThrown) {
+                                ltcApp.errorMessage("Error", 'error removing template');
+                            },
+                            complete: function () {
+                                $("#btnDeleteSelectOptions").attr("disabled", true);
+                                ltcApp.successMessage(null, "Templates removed!");
+                                Newsletter.loadUserDefinedTemplates();
+                            }
+                        });
+                        $.each(post_arr, function (i, l) {
+                            $("#tr_" + l).remove();
+
+                        });
+                        $("#btnDeleteSelectOptions").attr("disabled", true);
+
+
+                    });
+
+            }
+        },
         loadUserDefinedTemplates: function (selectedTypeId) {
             var noTemp = '<tr> <td colspan="3"> No record found! </td></tr>';
             $.ajax({
@@ -999,7 +1091,7 @@ var Newsletter = function () {
                                     strParadigm += "</div></div></div></td></tr>";
                                 } else {
 
-                                    strMarketing += "<tr><td>" +
+                                    strMarketing += "<tr id=\"tr_" + item.LetterID + "\"><td><input type=\"checkbox\" id=\"" + item.LetterID + "\" value=\"" + item.LetterID + "\" onClick=\"Newsletter.ItemSelected(" + item.LetterID + ")\" class=\"form-input-styled\"></td><td>" +
                                         item.TemplateTitle +
                                         "</td >";
                                     strMarketing += "<td>" +
@@ -1109,7 +1201,7 @@ var Newsletter = function () {
                                     strParadigm += "</div></div></div></td></tr>";
                                 } else {
                                     resFound2 = true;
-                                    strMarketing += "<tr><td>" +
+                                    strMarketing += "<tr id=\"tr_" + item.LetterID + "\"><td><input type=\"checkbox\" id=\"" + item.LetterID + "\" value=\"" + item.LetterID + "\" onClick=\"Newsletter.ItemSelected(" + item.LetterID + ")\" class=\"form-input-styled\"></td><td>" +
                                         item.TemplateTitle +
                                         "</td >";
                                     strMarketing += "<td>" +
@@ -1318,7 +1410,7 @@ var Newsletter = function () {
             }
         },
         uploadPicture: function () {
-
+            $("#btnUploadImage").attr("disabled", true);
             var formData = new FormData();
             var totalFiles = document.getElementById("file").files.length;
             if (totalFiles > 0) {
@@ -1335,6 +1427,8 @@ var Newsletter = function () {
                     processData: false,
                     success: function (data) {
                         if (data.Success) {
+                            $('#btnUploadImage').removeAttr('disabled');
+                            $("#modal-window").modal("hide");
                             //Newsletter.refreshList();
                             Newsletter.initActionPage(true);
                             setTimeout(function () {
@@ -1342,7 +1436,7 @@ var Newsletter = function () {
                             },
                                 3000);
                             ltcApp.successMessage(null, "Uploaded successfully!");
-                            $("#modal-window").modal("hide");
+
                         }
                         else {
                             ltcApp.warningMessage(null, "Please try later.");
@@ -1356,6 +1450,7 @@ var Newsletter = function () {
             }
         },
         sendNewsletter: function () {
+            $("#btnSend").attr("disabled", true);
             Layout.showLoader();
 
             var sendToSubcribers = true;
@@ -1403,11 +1498,13 @@ var Newsletter = function () {
                         ltcApp.successMessage(null, "Newsletter sent successfully!");
                     }
 
+                    $('#btnSend').removeAttr('disabled');
 
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     $('#sendNewsletterModel').modal('hide');
                     ltcApp.warningMessage(null, "There is an error, please try later.");
+                    $('#btnSend').removeAttr('disabled');
                     return;
 
 
@@ -1473,7 +1570,6 @@ var Newsletter = function () {
 
 
         saveNewsletterEditor: function (isSave) {
-
             if ($("#txtTemplateTitle").val().trim() == '') {
                 ltcApp.warningMessage(null, "Title cannot be empty.");
                 return;
@@ -1494,6 +1590,11 @@ var Newsletter = function () {
 
             if (!isSave) {
 
+                var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == $("#txtTemplateTitle").val() && x.LetterID != SelectedUserDefinedTemplateId);
+                if (articleWithSameName != null) {
+                    ltcApp.warningMessage(null, "Newsletter with same name already exists.");
+                    return;
+                }
                 var item = NewsLetter_UserDefinedTemplates.find(x => x.LetterID === SelectedUserDefinedTemplateId);
 
                 isParadigm = item.IsParadigmNewsletter;
@@ -1509,6 +1610,13 @@ var Newsletter = function () {
                 };
 
             } else {
+
+                var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == $("#txtTemplateTitle").val());
+                if (articleWithSameName != null) {
+                    ltcApp.warningMessage(null, "Newsletter with same name already exists.");
+                    return;
+                }
+
                 var data = {
                     TemplateTitle: $("#txtTemplateTitle").val(),
                     LetterID: currTemplateId,
@@ -1520,6 +1628,7 @@ var Newsletter = function () {
                 };
             }
 
+            $("#btnSave").attr("disabled", true);
 
             $.ajax({
                 url: '/Newsletter/SaveNewsletterEditor',
@@ -1547,6 +1656,7 @@ var Newsletter = function () {
                 },
                 complete: function () {
                     somethingChanged = false;
+                    $('#btnSave').removeAttr("disabled");
                 }
             });
         },

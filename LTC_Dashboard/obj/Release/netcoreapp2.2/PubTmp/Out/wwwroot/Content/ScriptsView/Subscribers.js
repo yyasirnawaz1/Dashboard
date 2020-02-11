@@ -11,15 +11,15 @@ var Subscription = function () {
         }
         // begin first table
         dt = table.DataTable({
-          
+
             "serverSide": true,
             "processing": true,
             "ajax": {
                 "url": "/Subscribers/Get"
             }
-            ,drawCallback: function () {
-              
-                
+            , drawCallback: function () {
+
+
             },
             "columns": [
                 {
@@ -39,9 +39,9 @@ var Subscription = function () {
                     "render": function (data, type, full, meta) {
                         var strstatus = data;
                         if (data == 1) {
-                            strstatus = '<span class="badge badge-success"> Subscribed </span>' ;
+                            strstatus = '<span class="badge badge-success"> Subscribed </span>';
                         } else {
-                            strstatus = ' <span class="badge badge-danger"> Unsubscribed </span>' ;
+                            strstatus = ' <span class="badge badge-danger"> Unsubscribed </span>';
                         }
                         return strstatus;
                     }
@@ -71,10 +71,10 @@ var Subscription = function () {
                 "lengthMenu": "Show _MENU_",
                 "search": "Search:",
                 "zeroRecords": "No matching records found",
-              
+
             },
 
-       
+
 
             "bStateSave": false, // save datatable state(pagination, sort, etc) in cookie.
 
@@ -106,11 +106,11 @@ var Subscription = function () {
             ], // set first column as a default sort by asc
 
             initComplete: function () {
-               
+
             }
         });
 
-     
+
     }
 
 
@@ -129,6 +129,10 @@ var Subscription = function () {
 
             initSubscriptionTable();
         },
+        disableButton: function () {
+             Layout.showLoader();
+        },
+
 
         toggleSubscription: function (actionURL) {
             Layout.showLoader();
@@ -144,12 +148,12 @@ var Subscription = function () {
                 success: function (data) {
 
                     Subscription.refresh();
-                    
+
 
                 },
 
                 error: function (xhr) {
-                    ltcApp.errorMessage("Error",'error');
+                    ltcApp.errorMessage("Error", 'error');
 
                 }
 
@@ -157,7 +161,7 @@ var Subscription = function () {
             });
 
         },
-         
+
         newSubscription: function (actionURL) {
             $.get(actionURL, function (data) {
                 $('#modifySubscriptionContainer').html(data);
@@ -183,7 +187,7 @@ var Subscription = function () {
         },
 
         deleteSubscription: function (actionURL) {
-          
+
             //
             swal({
                 title: "Are you sure you want to delete?",
@@ -211,7 +215,7 @@ var Subscription = function () {
                                 Subscription.refresh();
 
                                 ltcApp.successMessage("Deleted!", "Record has been deleted.", "success");
-                              
+
 
                             },
 
@@ -232,7 +236,7 @@ var Subscription = function () {
 
         removeAllSubscription: function (actionURL) {
 
-          
+
             swal({
                 title: "Are you sure you want to delete all data?",
                 text: "Records will be deleted permanently",
@@ -259,7 +263,7 @@ var Subscription = function () {
                                 Subscription.refresh();
 
                                 ltcApp.successMessage("Deleted!", "Records have been deleted.", "success");
-                            
+
 
                             },
 
@@ -273,16 +277,16 @@ var Subscription = function () {
 
                     }
                 });
-        
 
 
-           
+
+
         },
 
         saveSubscription: function () {
-            
-           
-          
+
+
+
         }
     };
 
@@ -290,11 +294,13 @@ var Subscription = function () {
 
 
 function createSubscriptionSuccess(data) {
-  
+
     var statusCode = data.StatusCode;
     switch (statusCode) {
         case 1:
             {
+                $('#btnSubmitAdd').removeAttr('disabled');
+
                 Subscription.refresh();
                 $('#modifySubscription').modal('hide');
                 ltcApp.successMessage(null, data.StatusMessage);
@@ -303,6 +309,7 @@ function createSubscriptionSuccess(data) {
             }
         case 0:
             {
+                $('#btnSubmitAdd').removeAttr('disabled');
                 ltcApp.errorMessage(data.StatusMessage);
                 break;
             }

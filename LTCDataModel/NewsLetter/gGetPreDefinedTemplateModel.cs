@@ -27,6 +27,8 @@ namespace LTCDataModel.NewsLetter
         public int ArticleID { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        public string ContentWithDefaultStyle { get; set; }
+        
         public DateTime ModificationDate { get; set; }
     }
 }
