@@ -179,7 +179,7 @@ namespace LTCDataManager.NewsLetter
 
 
                 if (model.IsDefault)
-                    db.Execute($"Update templates_user Set IsDefault = 0   where TypeID = {model.TypeID} AND IsParadigmNewsletter = 1 ");
+                    db.Execute($"Update templates_user Set IsDefault = 0   where TypeID = {model.TypeID} AND IsParadigmNewsletter = 1  AND Office_Sequence = {found.Office_Sequence} ");
 
                 model.ModificationDate = DateTime.Now.ToUniversalTime();
 
@@ -207,7 +207,7 @@ namespace LTCDataManager.NewsLetter
                     }
                     else
                     {
-                        db.Execute($"Update templates_user Set IsDefault = 0 WHERE TypeID = {found.TypeID} ");
+                        db.Execute($"Update templates_user Set IsDefault = 0 WHERE TypeID = {found.TypeID}  AND Office_Sequence = {found.Office_Sequence} ");
                         db.Execute($"Update templates_user Set IsDefault = {IsDefault}, ModificationDate = '{DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd")}'  Where LetterID={TemplateID} ");
                         return true;
                     }
@@ -228,11 +228,8 @@ namespace LTCDataManager.NewsLetter
                 gSavePredefinedTemplate found = db.Fetch<gSavePredefinedTemplate>($"select * from templates where TemplateID={TemplateID}").FirstOrDefault();
                 if (found != null)
                 {
-                    //gArticleModel obj = new gArticleModel();
-                    //obj.Title = name;
-                    //obj.ModificationDate= DateTime.Now.ToUniversalTime();
-                    //obj.Content = null;
-                    //obj.ContentWithDefaultStyle = Content;
+                    //art.ContentWithDefaultStyle = Content;
+                    //db.Update(art);
 
                     gSaveUserTemplate obj = new gSaveUserTemplate();
                     obj.TemplateTitle = name;
@@ -290,13 +287,13 @@ namespace LTCDataManager.NewsLetter
         public static List<gPatientCallListView> GetPatientCallListForEmail()
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
-            return db.Fetch<gPatientCallListView>($"Select pl.ID , pl.NewsletterID, tu.TemplateTitle,tu.TemplateSourceMarkup, tu.MainBodymarkup, pl.Account, pl.Status, pl.Email, pl.Office_Sequence, pl.PatientName from patientcalllist pl inner join templates_user tu on pl.NewsletterID = tu.LetterID where Date(pl.EmailSentTime) = curdate() AND (pl.Status in (1)) AND EmailSent = false; ").ToList();
+            return db.Fetch<gPatientCallListView>($"Select pl.ID , pl.NewsletterID, tu.TemplateTitle,tu.TemplateSourceMarkup, tu.MainBodymarkup, pl.Account, pl.Status, pl.Email, pl.Office_Sequence, pl.PatientName, pl.EmailSentTime from patientcalllist pl inner join templates_user tu on pl.NewsletterID = tu.LetterID where Date(pl.EmailSentTime) = curdate() AND (pl.Status in (1)) AND EmailSent = false; ").ToList();
         }
 
         public static List<gPatientCallListView> GetPatientCallList(int officeId)
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
-            return db.Fetch<gPatientCallListView>($"select pl.NewsletterID, tu.TemplateTitle, pl.Account,pl.Status, pl.EmailSentTime as AppointDate  from patientcalllist pl inner join templates_user tu on pl.NewsletterID = tu.LetterID where pl.Office_Sequence = " + officeId).ToList();
+            return db.Fetch<gPatientCallListView>($"select pl.NewsletterID, tu.TemplateTitle, pl.Account,pl.Status, pl.EmailSentTime as AppointDate , pl.EmailSentTime from patientcalllist pl inner join templates_user tu on pl.NewsletterID = tu.LetterID where pl.Office_Sequence = " + officeId).ToList();
         }
         public static void SendSubscriber(gPatientCallList patientCall)
         {
@@ -330,6 +327,19 @@ namespace LTCDataManager.NewsLetter
         {
             using (var db = new Database(DbConfiguration.LtcNewsletter))
             {
+                gSaveUserTemplate found = db.Fetch<gSaveUserTemplate>($"select * from templates_user where LetterID={Id}").FirstOrDefault();
+                if (found != null)
+                {
+                    if (found.IsDefault)
+                    {
+                        gSaveUserTemplate firstSystemTemplate = db.Fetch<gSaveUserTemplate>($"select * from templates_user where  TypeID ={found.TypeID} AND Office_Sequence = {found.Office_Sequence}   AND IsParadigmNewsletter = 1  limit 1").FirstOrDefault();
+                        if (firstSystemTemplate != null)
+                        {
+                            db.Execute($"Update templates_user Set IsDefault = 1 WHERE LetterID = {firstSystemTemplate.LetterID}  AND Office_Sequence = {found.Office_Sequence} ");
+                        }
+
+                    }
+                }
                 db.Delete("templates_user", "LetterID", new gGetUserDefinedTemplateModel { LetterID = Id });
             }
         }

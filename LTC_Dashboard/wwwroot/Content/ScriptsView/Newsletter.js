@@ -5,12 +5,12 @@ var Newsletter = function () {
         init: function () {
 
 
-
+            this.loadTemplateTypes();
             this.loadUserDefinedTemplates();
             Layout.showLoader();
-            this.loadTemplateTypes();
-            // this.loadArticles();
-            //this.loadSystemTemplates();
+
+            //this.loadArticles();
+            this.loadSystemTemplates();
 
         },
 
@@ -202,10 +202,12 @@ var Newsletter = function () {
         },
 
         sendTemplate: function () {
+
             if (SelectedUserDefinedTemplateId == null || SelectedUserDefinedTemplateId <= 0) {
                 ltcApp.warningMessage(null, "No template Selected");
                 return;
             }
+            this.loadServerTime();//load server time
 
             // move to default selection of dropdown
             $('#sendNewsletterModel').modal('show'); //show model
@@ -214,17 +216,12 @@ var Newsletter = function () {
             $("#lblserverTime").html('');
             $("#rbNew").click();
 
-            var now = new Date();
-            var utc = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
 
-            $("#sendNewsletterDTP").data("kendoDateTimePicker").value(utc);
-            $("#sendNewsletterDTP").data("kendoDateTimePicker").enable(false);
 
             $("#rbSubscribers").click();
             $("#txtSendNewsletterEmail").val('');
             $("#txtSendNewsletterEmail").hide();
 
-            this.loadServerTime();//load server time
         },
 
         createTemplate: function () {
@@ -443,9 +440,9 @@ var Newsletter = function () {
                         complete: function () {
 
                             ltcApp.successMessage(null, "Template removed!");
-
+                            $('#ddlTemplatesTypes1').prop('selectedIndex',0);
                             Newsletter.loadUserDefinedTemplates();
-                            Newsletter.loadTemplateTypes(); //reload selected template types and repopulate the dropdown
+                           // Newsletter.loadTemplateTypes(); //reload selected template types and repopulate the dropdown
                         }
                     });
 
@@ -457,7 +454,7 @@ var Newsletter = function () {
         MakeDefaultTemplate: function (isDefaultCheck) {
             var item = NewsLetter_UserDefinedTemplates.find(x => x.LetterID === SelectedUserDefinedTemplateId);
             if (item.IsDefault) {
-                ltcApp.errorMessage("Warning!", "Please other template as Default");
+                ltcApp.errorMessage("Warning!", "Please select other template as Default");
                 return;
             }
             Layout.showLoader();
@@ -477,6 +474,7 @@ var Newsletter = function () {
                     if (d) {
                         ltcApp.successMessage(null, "Updated");
                         Newsletter.loadUserDefinedTemplates();
+                        $('#ddlTemplatesTypes1').prop('selectedIndex',0);
 
                     } else {
                         ltcApp.errorMessage("Warning!", "Please other template as Default");
@@ -788,8 +786,8 @@ var Newsletter = function () {
                                     "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'remove\');\"><i class=\"icon-trash\"></i> Delete</a>";
                             }
                             if (item.IsDefault) {
-                                strParadigm +=
-                                    "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'removeDefault\');\"><i class=\"icon-minus3\"></i> Remove Default</a>";
+                                //strParadigm +=
+                                //    "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'removeDefault\');\"><i class=\"icon-minus3\"></i> Remove Default</a>";
                             } else {
                                 strParadigm +=
                                     "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'makeDefault\');\"><i class=\"icon-checkmark4\"></i> Make Default</a>;";
@@ -1015,6 +1013,7 @@ var Newsletter = function () {
                                 $("#btnDeleteSelectOptions").attr("disabled", true);
                                 ltcApp.successMessage(null, "Templates removed!");
                                 Newsletter.loadUserDefinedTemplates();
+                                $('#ddlTemplatesTypes1').prop('selectedIndex',0);
                             }
                         });
                         $.each(post_arr, function (i, l) {
@@ -1029,6 +1028,7 @@ var Newsletter = function () {
             }
         },
         loadUserDefinedTemplates: function (selectedTypeId) {
+            $('#ddlTemplatesTypes1').prop('selectedIndex',0);
             var noTemp = '<tr> <td colspan="3"> No record found! </td></tr>';
             $.ajax({
                 type: "GET",
@@ -1083,8 +1083,8 @@ var Newsletter = function () {
                                             "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'remove\');\"><i class=\"icon-trash\"></i> Delete</a>";
                                     }
                                     if (item.IsDefault) {
-                                        strParadigm +=
-                                            "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'removeDefault\');\"><i class=\"icon-minus3\"></i> Remove Default</a>";
+                                        //strParadigm +=
+                                        //    "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'removeDefault\');\"><i class=\"icon-minus3\"></i> Remove Default</a>";
                                     } else {
                                         strParadigm +=
                                             "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'makeDefault\');\"><i class=\"icon-checkmark4\"></i> Make Default</a>;";
@@ -1135,7 +1135,7 @@ var Newsletter = function () {
             });
         },
         Search: function () {
-
+            $('#ddlTemplatesTypes1').prop('selectedIndex',0);
             var searchText = $('#txtSearch').val().toLowerCase();
             var noTemp = '<tr> <td colspan="3"> No record found! </td></tr>';
             if (searchText == "") {
@@ -1193,8 +1193,8 @@ var Newsletter = function () {
                                         strParadigm +=
                                             "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'remove\');\"><i class=\"icon-trash\"></i> Delete</a>";
                                     } if (item.IsDefault) {
-                                        strParadigm +=
-                                            "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'removeDefault\');\"><i class=\"icon-minus3\"></i> Remove Default</a>";
+                                        //strParadigm +=
+                                        //    "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'removeDefault\');\"><i class=\"icon-minus3\"></i> Remove Default</a>";
                                     } else {
                                         strParadigm +=
                                             "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.userDefinedOptionChanged(\'makeDefault\');\"><i class=\"icon-checkmark4\"></i> Make Default</a>;";
@@ -1353,7 +1353,7 @@ var Newsletter = function () {
 
         clearTabSelection: function (tab) {
             if (tab == 'system') {
-                debugger;
+
                 if (NewsLetter_SystemTemplates == null) {
                     this.loadSystemTemplates();
                     Layout.showLoader();
@@ -1377,7 +1377,7 @@ var Newsletter = function () {
                     $("#userDefineTemplateList .image:first").click();
                 }
                 else if (tab == 'article') {
-                    
+
                     if (articles == null) {
                         this.loadArticles();
                         Layout.showLoader();
@@ -1396,13 +1396,22 @@ var Newsletter = function () {
                 url: '/Newsletter/LoadServerTime',
                 success: function (data) {
                     if (data != null) {
+
                         $("#lblserverTime").html(data);
+                        var res = new Date(data);
+                        $("#sendNewsletterDTP").data("kendoDateTimePicker").value(res);
+
                     }
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error loading server time');
+                    var now = new Date();
+
+                    $("#sendNewsletterDTP").data("kendoDateTimePicker").value(now);
+
                 },
                 complete: function () {
+                    $("#sendNewsletterDTP").data("kendoDateTimePicker").enable(false);
                 }
             });
         },
@@ -1463,8 +1472,7 @@ var Newsletter = function () {
             }
         },
         sendNewsletter: function () {
-            $("#btnSend").attr("disabled", true);
-            Layout.showLoader();
+
 
             var sendToSubcribers = true;
 
@@ -1472,13 +1480,12 @@ var Newsletter = function () {
                 ltcApp.warningMessage(null, "No template selected!");
                 return;
             }
-            var sendDate = new Date();
+            var sendDate = new $("#sendNewsletterDTP").val();
             if ($("input[name='rbSchedule']:checked").val() == 'future') {
-
                 sendDate = $("#sendNewsletterDTP").val();
             }
 
-
+           
             if ($("input[name='rbSendAs']:checked").val() == 'singleemail') {
                 sendToSubcribers = false;
                 if ($("#txtSendNewsletterEmail").val().trim() == '' || !ltcApp.validateEmail($("#txtSendNewsletterEmail").val().trim())) {
@@ -1487,13 +1494,15 @@ var Newsletter = function () {
                 }
             }
 
-
+            $("#btnSend").attr("disabled", true);
+            Layout.showLoader();
 
             var data = {
                 ScheduledDateTime: sendDate,
                 SendToSubscribers: sendToSubcribers,
                 Email: $("#txtSendNewsletterEmail").val().trim(),
-                TemplateId: SelectedUserDefinedTemplateId
+                TemplateId: SelectedUserDefinedTemplateId,
+                Offset: moment().format("Z")
             };
 
             $.ajax({
@@ -1652,13 +1661,13 @@ var Newsletter = function () {
                 success: function (d) {
 
                     if (d) {
-                        Newsletter.loadUserDefinedTemplates();
-                        Newsletter.loadTemplateTypes(); //reload selected template types and repopulate the dropdown
-                        ltcApp.successMessage(null, "Template Saved!");
                         $('#templateEditorWindow').modal('hide');
+                        Newsletter.loadUserDefinedTemplates();
+                        $('#ddlTemplatesTypes1').prop('selectedIndex',0);
+                        // Newsletter.loadTemplateTypes(); //reload selected template types and repopulate the dropdown
+                        ltcApp.successMessage(null, "Template Saved!");
                     } else {
                         ltcApp.errorMessage("Error", "Move Action cannot be done");
-
                         $('#templateEditorWindow').modal('hide');
 
                     }

@@ -10,6 +10,7 @@ using DataTables.AspNetCore.Mvc.Binder;
 using Microsoft.Extensions.Options;
 using LTCDataModel.NewsLetter;
 using LTCDataManager.NewsLetter;
+using System.Globalization;
 
 namespace LTCDashboard.Controllers
 {
@@ -162,13 +163,13 @@ namespace LTCDashboard.Controllers
 
             products = products.Skip(dataRequest.Start).Take(dataRequest.Length).ToList();
 
-
+            
             return Json(products
                 .Select(e => new
                 {
                     NewsletterId = e.NewsletterId,
                     Account = e.Account,
-                    AppointDate = e.AppointDate,
+                    AppointDate = e.EmailSentTime.ToString(@"yyyy-MM-dd hh:mm tt", new CultureInfo("en-US")),
                     TemplateBodymarkup = e.TemplateBodymarkup,
                     TemplateSourceMarkup = e.TemplateSourceMarkup,
                     TemplateTitle = e.TemplateTitle,

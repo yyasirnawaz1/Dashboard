@@ -38,8 +38,8 @@ namespace LTC_Dashboard.Controllers
         private IHttpContextAccessor _accessor;
 
         public NewsletterController(IHostingEnvironment hostingEnvironment, IHttpContextAccessor accessor, IOptions<EmailManager.ElasticEmail> email) : base(hostingEnvironment)
-        
-            {
+
+        {
             _accessor = accessor;
             _email = email;
 
@@ -66,6 +66,7 @@ namespace LTC_Dashboard.Controllers
             try
             {
                 objResult = gNewsLetterManager.GetArticles();
+                
                 return Json(objResult);
             }
             catch (Exception ex)
@@ -140,7 +141,10 @@ namespace LTC_Dashboard.Controllers
         {
             try
             {
-                return Json(DateTime.Now.ToUniversalTime().ToString());
+                var timeUtc = DateTime.UtcNow;
+                TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
+                return Json(easternTime.ToString());
             }
             catch (Exception ex)
             {
@@ -162,19 +166,21 @@ namespace LTC_Dashboard.Controllers
         {
             try
             {
+                TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                DateTime now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
                 int status = 2;
-                if (model.ScheduledDateTime.ToUniversalTime().Date < DateTime.Now.ToUniversalTime().Date)
+                if ((model.ScheduledDateTime.Date <= now.Date) && (model.ScheduledDateTime.TimeOfDay <= now.TimeOfDay))
                 {
-                    model.ScheduledDateTime = DateTime.Now.ToUniversalTime();
+                    model.ScheduledDateTime = now;
                     status = 2;
 
                 }
-                else if (model.ScheduledDateTime.ToUniversalTime().Date > DateTime.Now.ToUniversalTime().Date)
+                else if (model.ScheduledDateTime > now)
                 {
                     status = 1;
                 }
 
-                int Hour = model.ScheduledDateTime.ToUniversalTime().Hour;
+                int Hour = model.ScheduledDateTime.Hour;
                 if (Hour <= 0)
                 {
                     Hour = 12;
@@ -188,8 +194,11 @@ namespace LTC_Dashboard.Controllers
 
                 var office = gOfficeManager.GetOfficeName(OfficeSequence);
                 var patient = new gPatientOfficeInfo();
-                patient.AppointmentDate = model.ScheduledDateTime.ToUniversalTime().Date.ToString("yyyy-MM-dd");
-                patient.AppointmentTime = model.ScheduledDateTime.ToUniversalTime().ToString("HH:mm");
+                patient.AppointmentDate = model.ScheduledDateTime.Date.ToString("yyyy-MM-dd");
+                patient.AppointmentTime = model.ScheduledDateTime.ToString("HH:mm");
+                //var test = model.ScheduledDateTime.ToUniversalTime();
+                //TimeSpan startTime = model.ScheduledDateTime.TimeOfDay - TimeSpan.Parse(model.Offset.Replace('+',' '));
+                //var time = model.ScheduledDateTime + startTime;
                 var emailSent = false;
                 if (model.SendToSubscribers)
                 {
@@ -229,7 +238,7 @@ namespace LTC_Dashboard.Controllers
                             ErrorCode = 0,
                             EmailResult = "N",
                             PublicNewsletter = false,
-                            EmailSentTime = model.ScheduledDateTime.ToUniversalTime(),
+                            EmailSentTime = model.ScheduledDateTime,
                             EmailReceiveTime = DateSetting.ValidDate,
                             Account = UserId,
                             Status = status,
@@ -255,7 +264,7 @@ namespace LTC_Dashboard.Controllers
                         patient.Name = model.Email;
 
                     }
-                    patient.AppointmentDate = model.ScheduledDateTime.ToUniversalTime().Date.ToString("yyyy-MM-dd");
+                    patient.AppointmentDate = model.ScheduledDateTime.Date.ToString("yyyy-MM-dd");
                     patient.AppointmentTime = model.ScheduledDateTime.ToString("HH:mm");
                     if (status == 2)
                     {
@@ -285,7 +294,7 @@ namespace LTC_Dashboard.Controllers
                         SubscriberID = 0,
                         ErrorCode = 0,
                         PublicNewsletter = false,
-                        EmailSentTime = model.ScheduledDateTime.ToUniversalTime(),
+                        EmailSentTime = model.ScheduledDateTime,
                         EmailReceiveTime = DateTime.Now,
                         Account = UserId,
                         Status = status,
@@ -348,12 +357,12 @@ namespace LTC_Dashboard.Controllers
             }
         }
 
-         [HttpPost]
+        [HttpPost]
         public JsonResult DeleteSelected([FromBody]gSelectedIds model)
         {
             try
             {
-                 gNewsLetterManager.DeleteMultiple(model.SelectedIds);
+                gNewsLetterManager.DeleteMultiple(model.SelectedIds);
                 return Json(true);
             }
             catch (Exception ex)
