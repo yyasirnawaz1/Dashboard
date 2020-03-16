@@ -54,12 +54,12 @@ namespace LTCDataManager.NewsLetter
         public static List<gGetUserDefinedTemplateModel> GetUserDefinedTemplates(int officeSequence)
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
-            return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.*, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID where templates_user.Office_Sequence=" + officeSequence + " order by templates_user.ModificationDate desc ").ToList();
+            return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.LetterID, templates_user.TemplateTitle, templates_user.TemplateSourceMarkup, templates_user.MainBodymarkup, templates_user.TypeID, templates_user.IsParadigmNewsletter, templates_user.IsDefault, templates_user.ModificationDate, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID  where templates_user.Office_Sequence=" + officeSequence + " order by templates_user.ModificationDate desc ").ToList(); // 
         }
         public static List<gArticleModel> GetArticles()
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
-            return db.Fetch<gArticleModel>($"SELECT * FROM system_articles where Content is not null ").ToList();
+            return db.Fetch<gArticleModel>($"SELECT ArticleID, Title, Content, ContentWithDefaultStyle, ModificationDate FROM system_articles where Content is not null ").ToList();
         }
 
         public static void SaveArticle(gArticleModel model)
@@ -73,11 +73,43 @@ namespace LTCDataManager.NewsLetter
 
                 if (found != null)
                     db.Update(model, model.ArticleID);
-                else
-                    db.Save(model);
+                //else
+                // db.Save(model);
             }
         }
+        public static void UpdateArticle(gArticleModelTest model)
+        {
+            using (var db = new Database(DbConfiguration.LtcNewsletter))
+            {
 
+                gArticleModel found = db
+                    .Fetch<gArticleModel>($"select * from system_articles where ArticleID={model.ArticleID}")
+                    .FirstOrDefault();
+                byte[] byteArray = Convert.FromBase64String(model.ContentImage);
+
+                found.ContentImage = byteArray;
+                if (found != null)
+                    db.Update(found, model.ArticleID);
+                //else
+                // db.Save(model);
+            }
+        }
+        public static void UpdateLetter(gLetterModelTest model)
+        {
+            using (var db = new Database(DbConfiguration.LtcNewsletter))
+            {
+
+                gSaveUserTemplate found = db
+                    .Fetch<gSaveUserTemplate>($"select * from templates_user where LetterID={model.LetterID}")
+                    .FirstOrDefault();
+                byte[] byteArray = Convert.FromBase64String(model.ContentImage);
+                found.ContentImage = byteArray;
+                if (found != null)
+                    db.Update(found, model.LetterID);
+                //else
+                // db.Save(model);
+            }
+        }
         public static List<gIndustryModel> GetIndustries(int officeId)
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
@@ -138,6 +170,7 @@ namespace LTCDataManager.NewsLetter
             //{
             //    db.Insert(article);
             //}
+            
             if (model.TypeID == 0)
                 model.TypeID = 1;
 
@@ -149,7 +182,7 @@ namespace LTCDataManager.NewsLetter
                 {
                     var Count = db
                         .Fetch<gSaveUserTemplate>(
-                            $"select * from templates_user where TypeID={model.TypeID} AND Office_Sequence={model.Office_Sequence} AND IsParadigmNewsletter = 1  ")
+                            $"select LetterID from templates_user where TypeID={model.TypeID} AND Office_Sequence={model.Office_Sequence} AND IsParadigmNewsletter = 1  ")
                         .Count();
 
                     if (Count < 1)
@@ -170,7 +203,7 @@ namespace LTCDataManager.NewsLetter
                 {
                     if (!model.IsDefault)
                     {
-                        var Count = db.Fetch<gSaveUserTemplate>($"select * from templates_user where TypeID={model.TypeID}  AND Office_Sequence={model.Office_Sequence}  AND IsParadigmNewsletter = 1  AND IsDefault = 1").Count();
+                        var Count = db.Fetch<gSaveUserTemplate>($"select LetterID from templates_user where TypeID={model.TypeID}  AND Office_Sequence={model.Office_Sequence}  AND IsParadigmNewsletter = 1  AND IsDefault = 1").Count();
                         if (Count < 1)
                             model.IsDefault = true;
 
@@ -219,7 +252,7 @@ namespace LTCDataManager.NewsLetter
             return true;
         }
 
-        public static void CopyArticle(int TemplateID, int ArticleId, string name, int Office_Sequence, string Content)
+        public static void CopyArticle(int TemplateID, int ArticleId, string name, int Office_Sequence, string Content, byte[] ContentImage)
         {
             using (var db = new Database(DbConfiguration.LtcNewsletter))
             {
@@ -239,6 +272,7 @@ namespace LTCDataManager.NewsLetter
                     obj.TemplateSourceMarkup = found.TemplateSourceMarkup;
                     obj.TypeID = 8;
                     obj.ThumbnailPath = found.ThumbnailPath;
+                    obj.ContentImage = ContentImage;
                     obj.ModificationDate = DateTime.Now.ToUniversalTime();
                     db.Save(obj);
                 }
@@ -256,7 +290,7 @@ namespace LTCDataManager.NewsLetter
                     obj.TemplateTitle = name;
 
                     obj.Office_Sequence = Office_Sequence;
-
+                    //obj.ContentImage = found
                     //obj.IndustryID = found.IndustryID;
                     obj.MainBodymarkup = found.TemplateSourceMarkup;
                     obj.TemplateSourceMarkup = found.TemplateSourceMarkup;

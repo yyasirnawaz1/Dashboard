@@ -28,7 +28,23 @@ namespace LTCDataModel.NewsLetter
         public string Title { get; set; }
         public string Content { get; set; }
         public string ContentWithDefaultStyle { get; set; }
-        
+
         public DateTime ModificationDate { get; set; }
+
+
+        public byte[] ContentImage { get; set; }
+    }
+
+    public class gArticleModelTest
+    {
+        public int ArticleID { get; set; }
+        public string ContentImage { get; set; }
+
+    }
+    public class gLetterModelTest
+    {
+        public int LetterID { get; set; }
+        public string ContentImage { get; set; }
+
     }
 }

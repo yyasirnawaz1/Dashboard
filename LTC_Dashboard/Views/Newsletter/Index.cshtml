@@ -113,7 +113,7 @@
                     <div class="list-icons">
                         <input id="txtSearch" onkeyup="Newsletter.Search();" class="form-control" placeholder="Search ..." />
                         <button type="button" id="btnSelectOptions" class="btn btn-primary" onclick="Newsletter.userDefinedOptionChanged('create');">Create New Template</button>
-                        
+
                     </div>
                 </div>
             </div>
@@ -307,7 +307,7 @@
                                             <div class="form-group">
                                                 <div class="col-md-9">
                                                     <input id="txtArticleTitle" class="form-control lead text-muted" placeholder="Enter the name of the new template" />
-                                                    <label class="text-muted"style="margin-top: 5px;margin-left: 15px;">Template will save under Marketing Templates</label>
+                                                    <label class="text-muted" style="margin-top: 5px;margin-left: 15px;">Template will save under Marketing Templates</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -407,9 +407,13 @@
 
         });
     </script>
-
+    <div >
+        <div id="previewImage"></div>
+        <div id="html-content-holder"></div>
+    </div>
     <script src="~/Content/ScriptsView/Newsletter.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
     <script src="~/Content/kendo/js/kendo.all.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
     <script id="treeview-template" type="text/kendo-ui-template">
         # if (!item.items) { #
         <a class='k-icon k-i-close-outline' onclick="Newsletter.DeleteImage('#= item.text #');" href='\#'></a>

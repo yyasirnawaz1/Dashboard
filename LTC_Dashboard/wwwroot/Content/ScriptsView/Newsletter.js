@@ -81,27 +81,51 @@ var Newsletter = function () {
                 $("#content").html(article.Content);
                 content = $("#dvHidden").html();
             }
-            var data = {
-                TemplateId: $("#ddlTemplatesTypes2").val(),
-                ArticleId: SelectedArticleId,
-                Title: $("#txtArticleTitle").val(),
-                Content: content,
-            };
+
             $("#btnSaveArticle").attr("disabled", true);
-            $.ajax({
-                url: '/Newsletter/CopyArticle',
-                method: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                dataType: 'json',
-                success: function (d) {
-                    $('#useArticle').modal('hide');
-                    ltcApp.successMessage(null, "Template created!");
-                    Newsletter.init();
-                    $('#btnSaveArticle').removeAttr('disabled');
+
+            $("#html-content-holder").html("<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='IE=edge'></head><body>" + content + "</body></html>");
+            var element = $("#html-content-holder"); // global variable
+            html2canvas(element, {
+                useCORS: true,
+                imageTimeout: 15000,
+                onrendered: function (canvas) {
+                    $("#previewImage").append(canvas);
+
+                    getCanvas = canvas;
+                    var imageData = getCanvas.toDataURL("image/png");
+
+                    var data = {
+                        TemplateId: $("#ddlTemplatesTypes2").val(),
+                        ArticleId: SelectedArticleId,
+                        Title: $("#txtArticleTitle").val(),
+                        Content: content,
+                        ContentImageString : imageData
+                    };
+                    console.log(imageData);
+
+                    $.ajax({
+                        url: '/Newsletter/CopyArticle',
+                        method: 'POST',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        success: function (d) {
+                            $('#useArticle').modal('hide');
+                            ltcApp.successMessage(null, "Template created!");
+                            Newsletter.init();
+                            $('#btnSaveArticle').removeAttr('disabled');
+
+                        }
+                    });
+
+
 
                 }
             });
+
+
+
 
 
 
@@ -440,9 +464,9 @@ var Newsletter = function () {
                         complete: function () {
 
                             ltcApp.successMessage(null, "Template removed!");
-                            $('#ddlTemplatesTypes1').prop('selectedIndex',0);
+                            $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
                             Newsletter.loadUserDefinedTemplates();
-                           // Newsletter.loadTemplateTypes(); //reload selected template types and repopulate the dropdown
+                            // Newsletter.loadTemplateTypes(); //reload selected template types and repopulate the dropdown
                         }
                     });
 
@@ -474,7 +498,7 @@ var Newsletter = function () {
                     if (d) {
                         ltcApp.successMessage(null, "Updated");
                         Newsletter.loadUserDefinedTemplates();
-                        $('#ddlTemplatesTypes1').prop('selectedIndex',0);
+                        $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
 
                     } else {
                         ltcApp.errorMessage("Warning!", "Please other template as Default");
@@ -935,6 +959,10 @@ var Newsletter = function () {
 
 
                             $.each(articles, function (index, item) {
+
+
+
+
                                 var st = item.ModificationDate;
                                 var modificationDate = new Date(st);
                                 str += "<tr><td>" +
@@ -1013,7 +1041,7 @@ var Newsletter = function () {
                                 $("#btnDeleteSelectOptions").attr("disabled", true);
                                 ltcApp.successMessage(null, "Templates removed!");
                                 Newsletter.loadUserDefinedTemplates();
-                                $('#ddlTemplatesTypes1').prop('selectedIndex',0);
+                                $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
                             }
                         });
                         $.each(post_arr, function (i, l) {
@@ -1028,7 +1056,7 @@ var Newsletter = function () {
             }
         },
         loadUserDefinedTemplates: function (selectedTypeId) {
-            $('#ddlTemplatesTypes1').prop('selectedIndex',0);
+            $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
             var noTemp = '<tr> <td colspan="3"> No record found! </td></tr>';
             $.ajax({
                 type: "GET",
@@ -1048,7 +1076,10 @@ var Newsletter = function () {
                             var strMarketing = '';
 
 
+
                             $.each(NewsLetter_UserDefinedTemplates, function (index, item) {
+
+
                                 var st = item.ModificationDate;
                                 var modificationDate = new Date(st);
                                 if (item.TypeID != 8) {
@@ -1135,7 +1166,7 @@ var Newsletter = function () {
             });
         },
         Search: function () {
-            $('#ddlTemplatesTypes1').prop('selectedIndex',0);
+            $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
             var searchText = $('#txtSearch').val().toLowerCase();
             var noTemp = '<tr> <td colspan="3"> No record found! </td></tr>';
             if (searchText == "") {
@@ -1485,7 +1516,7 @@ var Newsletter = function () {
                 sendDate = $("#sendNewsletterDTP").val();
             }
 
-           
+
             if ($("input[name='rbSendAs']:checked").val() == 'singleemail') {
                 sendToSubcribers = false;
                 if ($("#txtSendNewsletterEmail").val().trim() == '' || !ltcApp.validateEmail($("#txtSendNewsletterEmail").val().trim())) {
@@ -1609,78 +1640,142 @@ var Newsletter = function () {
             }
 
             var currTemplateId = 0;
+            var htmlMain = '';
 
-            if (!isSave) {
+            $("#html-content-holder").html("<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='IE=edge'></head><body>" + $("#templateEditor").data("kendoEditor").value() + "</body></html>");
+            var element = $("#html-content-holder"); // global variable
+            html2canvas(element, {
+                useCORS: true,
+                imageTimeout: 15000,
+                onrendered: function (canvas) {
+                    $("#previewImage").append(canvas);
 
-                var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == $("#txtTemplateTitle").val() && x.LetterID != SelectedUserDefinedTemplateId);
-                if (articleWithSameName != null) {
-                    ltcApp.warningMessage(null, "Newsletter with same name already exists.");
-                    return;
-                }
-                var item = NewsLetter_UserDefinedTemplates.find(x => x.LetterID === SelectedUserDefinedTemplateId);
+                    getCanvas = canvas;
+                    var imgageData = getCanvas.toDataURL("image/png");
+                    htmlMain = imgageData;//.replace(/^data[:]image\/(png|jpg|jpeg)[;]/i, "data:application/octet-stream;");
+                    //htmlBody.replace("[HtmlBody]", htmlMain);
+                    //console.log(htmlBody);
 
-                isParadigm = item.IsParadigmNewsletter;
-                currTemplateId = SelectedUserDefinedTemplateId;
-                var data = {
-                    TemplateTitle: $("#txtTemplateTitle").val(),
-                    LetterID: currTemplateId,
-                    TypeID: currTemplateTypeId,
-                    TemplateSourceMarkup: item.TemplateSourceMarkup,
-                    MainBodymarkup: $("#templateEditor").data("kendoEditor").value(),
-                    IsParadigmNewsletter: isParadigm,
-                    IsDefault: item.IsDefault
-                };
 
-            } else {
+                    if (!isSave) {
 
-                var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == $("#txtTemplateTitle").val());
-                if (articleWithSameName != null) {
-                    ltcApp.warningMessage(null, "Newsletter with same name already exists.");
-                    return;
-                }
+                        var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == $("#txtTemplateTitle").val() && x.LetterID != SelectedUserDefinedTemplateId);
+                        if (articleWithSameName != null) {
+                            ltcApp.warningMessage(null, "Newsletter with same name already exists.");
+                            return;
+                        }
+                        var item = NewsLetter_UserDefinedTemplates.find(x => x.LetterID === SelectedUserDefinedTemplateId);
+                        isParadigm = item.IsParadigmNewsletter;
+                        currTemplateId = SelectedUserDefinedTemplateId;
+                        var data = {
+                            TemplateTitle: $("#txtTemplateTitle").val(),
+                            LetterID: currTemplateId,
+                            TypeID: currTemplateTypeId,
+                            TemplateSourceMarkup: item.TemplateSourceMarkup,
+                            MainBodymarkup: $("#templateEditor").data("kendoEditor").value(),
+                            IsParadigmNewsletter: isParadigm,
+                            IsDefault: item.IsDefault,
+                            ContentImageString: htmlMain
+                        };
 
-                var data = {
-                    TemplateTitle: $("#txtTemplateTitle").val(),
-                    LetterID: currTemplateId,
-                    TypeID: currTemplateTypeId,
-                    TemplateSourceMarkup: '',
-                    MainBodymarkup: $("#templateEditor").data("kendoEditor").value(),
-                    IsParadigmNewsletter: isParadigm,
-                    IsDefault: false
-                };
-            }
-
-            $("#btnSave").attr("disabled", true);
-
-            $.ajax({
-                url: '/Newsletter/SaveNewsletterEditor',
-                method: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                dataType: 'json',
-                success: function (d) {
-
-                    if (d) {
-                        $('#templateEditorWindow').modal('hide');
-                        Newsletter.loadUserDefinedTemplates();
-                        $('#ddlTemplatesTypes1').prop('selectedIndex',0);
-                        // Newsletter.loadTemplateTypes(); //reload selected template types and repopulate the dropdown
-                        ltcApp.successMessage(null, "Template Saved!");
                     } else {
-                        ltcApp.errorMessage("Error", "Move Action cannot be done");
-                        $('#templateEditorWindow').modal('hide');
 
+                        var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == $("#txtTemplateTitle").val());
+                        if (articleWithSameName != null) {
+                            ltcApp.warningMessage(null, "Newsletter with same name already exists.");
+                            return;
+                        }
+
+                        var data = {
+                            TemplateTitle: $("#txtTemplateTitle").val(),
+                            LetterID: currTemplateId,
+                            TypeID: currTemplateTypeId,
+                            TemplateSourceMarkup: '',
+                            MainBodymarkup: $("#templateEditor").data("kendoEditor").value(),
+                            IsParadigmNewsletter: isParadigm,
+                            IsDefault: false,
+                            ContentImageString: htmlMain
+
+                        };
                     }
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    ltcApp.successMessage(null, "This action cannot be done");
-                    $('#templateEditorWindow').modal('hide');
-                },
-                complete: function () {
-                    somethingChanged = false;
-                    $('#btnSave').removeAttr("disabled");
+
+                    $("#btnSave").attr("disabled", true);
+
+                    $.ajax({
+                        url: '/Newsletter/SaveNewsletterEditor',
+                        method: 'POST',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        success: function (d) {
+
+                            if (d) {
+                                Newsletter.loadUserDefinedTemplates();
+                                //$("#html-content-holder").html(data.MainBodymarkup);
+                                //var element = $("#html-content-holder"); // global variable
+                                //html2canvas(element, {
+                                //    useCORS: true,
+                                //    imageTimeout: 15000,
+                                //    onrendered: function (canvas) {
+                                //        $("#previewImage").append(canvas);
+
+                                //        getCanvas = canvas;
+                                //        var imgageData = getCanvas.toDataURL("image/png");
+
+                                //        data.ContentImage = imgageData;//.replace(/^data[:]image\/(png|jpg|jpeg)[;]/i, "data:application/octet-stream;");
+                                //        console.log(data.ContentImage);
+
+                                //        $.ajax({
+                                //            type: "POST",
+                                //            data: JSON.stringify(data),
+                                //            url: '/Newsletter/UpdateNewsletter',
+                                //            contentType: 'application/json',
+                                //            success: function (data) {
+                                //                console.log('works');
+                                //            },
+                                //            error: function (xhr, textStatus, errorThrown) {
+                                //                console.log('not works');
+                                //            },
+                                //            complete: function () {
+
+                                //            }
+                                //        })
+
+                                //        //$("#btn-Convert-Html2Image").attr("download", "your_pic_name.png").attr("href", newData);
+                                //    }
+                                //});
+
+                                $('#templateEditorWindow').modal('hide');
+
+                                $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
+                                // Newsletter.loadTemplateTypes(); //reload selected template types and repopulate the dropdown
+                                ltcApp.successMessage(null, "Template Saved!");
+
+
+
+                            } else {
+                                ltcApp.errorMessage("Error", "Move Action cannot be done");
+                                $('#templateEditorWindow').modal('hide');
+
+                            }
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+                            ltcApp.successMessage(null, "This action cannot be done");
+                            $('#templateEditorWindow').modal('hide');
+                        },
+                        complete: function () {
+                            somethingChanged = false;
+                            $('#btnSave').removeAttr("disabled");
+                        }
+                    });
+                    //$("#btn-Convert-Html2Image").attr("download", "your_pic_name.png").attr("href", newData);
                 }
             });
+
+
+
+
+
         },
 
         resetNewsletterEditor: function () {
@@ -1894,3 +1989,41 @@ var SelectedUserDefinedTemplateId;
 var SelectedSystemDefinedTemplateId;
 var SelectedArticleId;
 var isKendoWindowLoaded = false;
+var getCanvas; // global variable
+
+
+
+
+ //$("#html-content-holder").html(data.MainBodymarkup);
+ //                       var element = $("#html-content-holder"); // global variable
+ //                       html2canvas(element, {
+ //                           useCORS: true,
+ //                           imageTimeout: 15000,
+ //                           onrendered: function (canvas) {
+ //                               $("#previewImage").append(canvas);
+
+ //                               getCanvas = canvas;
+ //                               var imgageData = getCanvas.toDataURL("image/png");
+
+ //                               data.ContentImage = imgageData;//.replace(/^data[:]image\/(png|jpg|jpeg)[;]/i, "data:application/octet-stream;");
+ //                               console.log(data.ContentImage);
+
+ //                               $.ajax({
+ //                                   type: "POST",
+ //                                   data: JSON.stringify(data),
+ //                                   url: '/Newsletter/UpdateNewsletter',
+ //                                   contentType: 'application/json',
+ //                                   success: function (data) {
+ //                                       console.log('works');
+ //                                   },
+ //                                   error: function (xhr, textStatus, errorThrown) {
+ //                                       console.log('not works');
+ //                                   },
+ //                                   complete: function () {
+
+ //                                   }
+ //                               })
+
+ //                               //$("#btn-Convert-Html2Image").attr("download", "your_pic_name.png").attr("href", newData);
+ //                           }
+ //                       });

@@ -515,3 +515,6 @@ F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.Views.p
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.csproj.CopyComplete
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.dll
 F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.pdb
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Layouts\_ReviewLayout.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Review\Index.g.cshtml.cs
+F:\LTC Git\Dashboard\LTC_Dashboard\bin\Debug\netcoreapp2.2\CoreHtmlToImage.dll

@@ -26,12 +26,23 @@ namespace LTCDashboard
         {
             Configuration = configuration;
         }
-
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+        //    services.AddCors(options =>
+        //{
+        //    options.AddPolicy(MyAllowSpecificOrigins,
+        //    builder =>
+        //    {
+        //        builder.WithOrigins("http://ltcdashboard.azurewebsites.net/", "https://localhost:44380/");
+        //    });
+        //});
+
+
+           
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -43,7 +54,7 @@ namespace LTCDashboard
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
                     Configuration.GetConnectionString("DefaultConnection")));
-             services.Configure<EmailManager.ElasticEmail>(Configuration.GetSection("ElasticEmail"));
+            services.Configure<EmailManager.ElasticEmail>(Configuration.GetSection("ElasticEmail"));
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.Configure<ConfigSettings>(Configuration.GetSection("Configuration"));
             services.Configure<Mapping>(Configuration.GetSection("Mapping"));
@@ -85,12 +96,12 @@ namespace LTCDashboard
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
-
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name : "NewslettersArea",
-                    template : "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    name: "NewslettersArea",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
 
                 routes.MapRoute(

@@ -26,9 +26,9 @@ F:/LTCDashboard/LTCDashboard/LTCDataModel/obj/Debug/netcoreapp2.2/LTCDataModel.p
 F:\LTC Git\Dashboard\LTCDataModel\bin\Debug\netcoreapp2.2\LTCDataModel.deps.json
 F:\LTC Git\Dashboard\LTCDataModel\bin\Debug\netcoreapp2.2\LTCDataModel.dll
 F:\LTC Git\Dashboard\LTCDataModel\bin\Debug\netcoreapp2.2\LTCDataModel.pdb
-F:\LTC Git\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.csprojAssemblyReference.cache
 F:\LTC Git\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.csproj.CoreCompileInputs.cache
 F:\LTC Git\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.AssemblyInfoInputs.cache
 F:\LTC Git\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.AssemblyInfo.cs
 F:\LTC Git\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.dll
 F:\LTC Git\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.pdb
+F:\LTC Git\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.csprojAssemblyReference.cache
