@@ -140,14 +140,6 @@ F:/LTCDashboard/LTCDashboard/LTCAdminPortal/obj/Debug/netcoreapp2.2/LTCAdminPort
 /Users/myasirnawaz/Documents/Projects/Dashboard/LTCAdminPortal/obj/Debug/netcoreapp2.2/LTCAdminPortal.csproj.CopyComplete
 /Users/myasirnawaz/Documents/Projects/Dashboard/LTCAdminPortal/obj/Debug/netcoreapp2.2/LTCAdminPortal.dll
 /Users/myasirnawaz/Documents/Projects/Dashboard/LTCAdminPortal/obj/Debug/netcoreapp2.2/LTCAdminPortal.pdb
-F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.csprojAssemblyReference.cache
-F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.csproj.CoreCompileInputs.cache
-F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.RazorAssemblyInfo.cache
-F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.RazorAssemblyInfo.cs
-F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.AssemblyInfoInputs.cache
-F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.AssemblyInfo.cs
-F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.dll
-F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.pdb
 F:\LTC Git\Dashboard\LTCAdminPortal\bin\Debug\netcoreapp2.2\Select.Html.dep
 F:\LTC Git\Dashboard\LTCAdminPortal\bin\Debug\netcoreapp2.2\LTCAdminPortal.deps.json
 F:\LTC Git\Dashboard\LTCAdminPortal\bin\Debug\netcoreapp2.2\LTCAdminPortal.runtimeconfig.json
@@ -160,6 +152,12 @@ F:\LTC Git\Dashboard\LTCAdminPortal\bin\Debug\netcoreapp2.2\LTCDataManager.dll
 F:\LTC Git\Dashboard\LTCAdminPortal\bin\Debug\netcoreapp2.2\LTCDataModel.dll
 F:\LTC Git\Dashboard\LTCAdminPortal\bin\Debug\netcoreapp2.2\LTCDataManager.pdb
 F:\LTC Git\Dashboard\LTCAdminPortal\bin\Debug\netcoreapp2.2\LTCDataModel.pdb
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.csprojAssemblyReference.cache
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.csproj.CoreCompileInputs.cache
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.RazorAssemblyInfo.cache
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.RazorAssemblyInfo.cs
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.AssemblyInfoInputs.cache
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.AssemblyInfo.cs
 F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.TagHelpers.input.cache
 F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.TagHelpers.output.cache
 F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.RazorCoreGenerate.cache
@@ -210,3 +208,5 @@ F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.Razor
 F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.RazorTargetAssemblyInfo.cs
 F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.Views.pdb
 F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.csproj.CopyComplete
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.dll
+F:\LTC Git\Dashboard\LTCAdminPortal\obj\Debug\netcoreapp2.2\LTCAdminPortal.pdb

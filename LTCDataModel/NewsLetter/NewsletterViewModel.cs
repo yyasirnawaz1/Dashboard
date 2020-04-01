@@ -35,5 +35,7 @@ namespace LTCDataModel.Newsletter
         public int IndustryId { get; set; }
 
         public int SubIndustryId { get; set; }
+       // public string Offset { get; set; }
+
     }
 }

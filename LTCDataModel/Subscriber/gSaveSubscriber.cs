@@ -27,7 +27,7 @@ namespace LTCDataModel.Subscriber
         [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email address")]
         public string EmailAddress { get; set; }
 
-        public SubscriptionStatus SubscriptionStatus { get; set; }
+        public bool SubscriptionStatus { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dddd, mmmm dd, yyyy hh:mm:ss tt}")]
         public DateTime LastSubscriptionStatusUpdated { get; set; }

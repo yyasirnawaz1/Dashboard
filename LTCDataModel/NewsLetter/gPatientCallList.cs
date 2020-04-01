@@ -55,5 +55,6 @@ namespace LTCDataModel.NewsLetter
         public string Email { get; set; }
         public string PatientName{ get; set; }
         public int Office_Number { get; set; }
+         public DateTime EmailSentTime { get; set; }
     }
 }

@@ -20,7 +20,7 @@ using Microsoft.Extensions.Options;
 using LTCDashboard.Controllers;
 using LTCDataModel.Newsletter;
 using LTCDataModel.Enums;
-
+using CoreHtmlToImage;
 namespace LTC_Dashboard.Controllers
 {
     [Authorize]
@@ -31,6 +31,8 @@ namespace LTC_Dashboard.Controllers
         // GET: Newsletters
         public ActionResult Index()
         {
+
+
             @ViewBag.OfficeName = OfficeName;
             return View();
         }
@@ -38,6 +40,7 @@ namespace LTC_Dashboard.Controllers
         private IHttpContextAccessor _accessor;
 
         public NewsletterController(IHostingEnvironment hostingEnvironment, IHttpContextAccessor accessor, IOptions<EmailManager.ElasticEmail> email) : base(hostingEnvironment)
+
         {
             _accessor = accessor;
             _email = email;
@@ -58,6 +61,36 @@ namespace LTC_Dashboard.Controllers
                 return Json(null);
             }
         }
+        [HttpPost]
+        public JsonResult UpdateArticle([FromBody]gArticleModelTest model)
+        {
+            try
+            {
+
+                model.ContentImage = model.ContentImage.Replace("data:image/png;base64,", "");
+                gNewsLetterManager.UpdateArticle(model);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
+        }
+        [HttpPost]
+        public JsonResult UpdateNewsletter([FromBody]gLetterModelTest model)
+        {
+            try
+            {
+
+                model.ContentImage = model.ContentImage.Replace("data:image/png;base64,", "");
+                gNewsLetterManager.UpdateLetter(model);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
+        }
         public JsonResult GetArticles()
         {
             var objResult = new List<gArticleModel>();
@@ -65,6 +98,11 @@ namespace LTC_Dashboard.Controllers
             try
             {
                 objResult = gNewsLetterManager.GetArticles();
+                foreach (var item in objResult)
+                {
+                    item.ContentWithDefaultStyle = item.ContentWithDefaultStyle.Replace("http://ltcdashboard.azurewebsites.net/", "https://localhost:44380/");
+                }
+
                 return Json(objResult);
             }
             catch (Exception ex)
@@ -113,6 +151,10 @@ namespace LTC_Dashboard.Controllers
             {
 
                 objResult = gNewsLetterManager.GetUserDefinedTemplates(OfficeSequence);
+                //foreach (var item in objResult)
+                //{
+                //    item.MainBodymarkup = item.MainBodymarkup.Replace("http://ltcdashboard.azurewebsites.net/", "https://localhost:44380/");
+                //}
                 return Json(objResult);
             }
             catch (Exception ex)
@@ -139,7 +181,10 @@ namespace LTC_Dashboard.Controllers
         {
             try
             {
-                return Json(DateTime.Now.ToUniversalTime().ToString());
+                var timeUtc = DateTime.UtcNow;
+                TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
+                return Json(easternTime.ToString());
             }
             catch (Exception ex)
             {
@@ -161,19 +206,21 @@ namespace LTC_Dashboard.Controllers
         {
             try
             {
+                TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                DateTime now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
                 int status = 2;
-                if (model.ScheduledDateTime.ToUniversalTime().Date < DateTime.Now.ToUniversalTime().Date)
+                if ((model.ScheduledDateTime.Date <= now.Date) && (model.ScheduledDateTime.TimeOfDay <= now.TimeOfDay))
                 {
-                    model.ScheduledDateTime = DateTime.Now.ToUniversalTime();
+                    model.ScheduledDateTime = now;
                     status = 2;
 
                 }
-                else if (model.ScheduledDateTime.ToUniversalTime().Date > DateTime.Now.ToUniversalTime().Date)
+                else if (model.ScheduledDateTime > now)
                 {
                     status = 1;
                 }
 
-                int Hour = model.ScheduledDateTime.ToUniversalTime().Hour;
+                int Hour = model.ScheduledDateTime.Hour;
                 if (Hour <= 0)
                 {
                     Hour = 12;
@@ -187,8 +234,11 @@ namespace LTC_Dashboard.Controllers
 
                 var office = gOfficeManager.GetOfficeName(OfficeSequence);
                 var patient = new gPatientOfficeInfo();
-                patient.AppointmentDate = model.ScheduledDateTime.ToUniversalTime().Date.ToString("yyyy-MM-dd");
-                patient.AppointmentTime = model.ScheduledDateTime.ToUniversalTime().ToString("HH:mm");
+                patient.AppointmentDate = model.ScheduledDateTime.Date.ToString("yyyy-MM-dd");
+                patient.AppointmentTime = model.ScheduledDateTime.ToString("HH:mm");
+                //var test = model.ScheduledDateTime.ToUniversalTime();
+                //TimeSpan startTime = model.ScheduledDateTime.TimeOfDay - TimeSpan.Parse(model.Offset.Replace('+',' '));
+                //var time = model.ScheduledDateTime + startTime;
                 var emailSent = false;
                 if (model.SendToSubscribers)
                 {
@@ -228,7 +278,7 @@ namespace LTC_Dashboard.Controllers
                             ErrorCode = 0,
                             EmailResult = "N",
                             PublicNewsletter = false,
-                            EmailSentTime = model.ScheduledDateTime.ToUniversalTime(),
+                            EmailSentTime = model.ScheduledDateTime,
                             EmailReceiveTime = DateSetting.ValidDate,
                             Account = UserId,
                             Status = status,
@@ -254,7 +304,7 @@ namespace LTC_Dashboard.Controllers
                         patient.Name = model.Email;
 
                     }
-                    patient.AppointmentDate = model.ScheduledDateTime.ToUniversalTime().Date.ToString("yyyy-MM-dd");
+                    patient.AppointmentDate = model.ScheduledDateTime.Date.ToString("yyyy-MM-dd");
                     patient.AppointmentTime = model.ScheduledDateTime.ToString("HH:mm");
                     if (status == 2)
                     {
@@ -284,7 +334,7 @@ namespace LTC_Dashboard.Controllers
                         SubscriberID = 0,
                         ErrorCode = 0,
                         PublicNewsletter = false,
-                        EmailSentTime = model.ScheduledDateTime.ToUniversalTime(),
+                        EmailSentTime = model.ScheduledDateTime,
                         EmailReceiveTime = DateTime.Now,
                         Account = UserId,
                         Status = status,
@@ -333,13 +383,68 @@ namespace LTC_Dashboard.Controllers
                 return Json(null);
             }
         }
-
-        public JsonResult SaveNewsletterEditor([FromBody] gSaveUserTemplate model)
+        [HttpPost]
+        public JsonResult CopyArticle([FromBody]gArticleTemplate model)
         {
             try
             {
+                byte[] contentImage = null;
+                 if (model.ContentImageString != "data:,")
+                {
+                    model.ContentImageString = model.ContentImageString.Replace("data:image/png;base64,", "");
+                    contentImage = Convert.FromBase64String(model.ContentImageString);
+                }
+                gNewsLetterManager.CopyArticle(model.TemplateId, model.ArticleId, model.Title, OfficeSequence, model.Content, contentImage);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult DeleteSelected([FromBody]gSelectedIds model)
+        {
+            try
+            {
+                gNewsLetterManager.DeleteMultiple(model.SelectedIds);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
+        }
+        public JsonResult SaveNewsletterEditor([FromBody] gSaveUserTemplateModel model)
+        {
+            try
+            {
+                if (model.ContentImageString != "data:,")
+                {
+                    model.ContentImageString = model.ContentImageString.Replace("data:image/png;base64,", "");
+                    byte[] byteArray = Convert.FromBase64String(model.ContentImageString);
+                    model.ContentImage = byteArray;
+                }
                 model.Office_Sequence = OfficeSequence;
-                return Json(gNewsLetterManager.SaveUserNewsTemplate(model));
+                gSaveUserTemplate obj = new gSaveUserTemplate()
+                {
+                    ContentImage = model.ContentImage,
+                    EmbeddedNewsletter = model.EmbeddedNewsletter,
+                    IsDefault = model.IsDefault,
+                    IsParadigmNewsletter = model.IsParadigmNewsletter,
+                    LetterID = model.LetterID,
+                    MainBodymarkup = model.MainBodymarkup,
+                    ModificationDate = model.ModificationDate,
+                    Office_Sequence = model.Office_Sequence,
+                    TemplateSourceMarkup = model.TemplateSourceMarkup,
+                    TemplateTitle = model.TemplateTitle,
+                    ThumbnailPath = model.ThumbnailPath,
+                    TypeID = model.TypeID,
+
+                };
+
+                return Json(gNewsLetterManager.SaveUserNewsTemplate(obj));
             }
             catch (Exception ex)
             {

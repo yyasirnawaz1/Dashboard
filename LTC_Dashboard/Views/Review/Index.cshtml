@@ -1,0 +1,273 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layouts/_ReviewLayout.cshtml";
+}
+<meta name="google-signin-scope" content="profile email https://www.googleapis.com/auth/business.manage">
+<meta name="google-signin-client_id" content="966773188225-fqno0mhoqklv6fi6r8qhursree0hu7i8.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+ 
+<div class="content">
+    <div class="row">
+        <div class="card" style="width:100%">
+            <div class="card-header bg-white header-elements-inline">
+                <h6 class="card-title font-variant-smallCaps">Google Reviews</h6>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+                        <button id="signinButton">Sign in with Google</button><br>
+                        <a class="list-icons-item" data-action="collapse"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="subscriberTable" class="table table-striped table-hover table-checkable order-column" style="width:100%;"></table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="modifyReview" class="modal" tabindex="-1" data-width="400" data-keyboard="false" role="dialog" aria-labelledby="modifyReview" aria-hidden="true" data-backdrop="static">
+        <div id="modifyReviewContainer">
+
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    var gmb_api_version = 'https://mybusiness.googleapis.com/v4';
+    function onSignIn(googleUser) {
+
+        var access_token = googleUser.getAuthResponse().access_token;
+        $('#accessToken').val(access_token)
+        retrieveGoogleMyBusinessAccounts(access_token)
+
+    }
+</script>
+<script>
+    //Will be populated after sign in.
+    var authCode;
+   
+    $('#signinButton').click(function () {
+        // signInCallback
+        $('.g-signin2').click();
+        ///auth2.grantOfflineAccess().then(signInCallback);
+    });
+    
+    
+
+   
+
+
+
+
+    function signInCallback(authResult) {
+
+        //the 'code' field from the response, used to retrieve access token and bearer token
+        if (authResult['code']) {
+            // Hide the sign-in button now that the user is authorized, for example:            
+            authCode = authResult['code'];
+
+            $("#accessTokenButton").attr("disabled", false);
+
+            //Pretty print response
+            var e = document.createElement("pre")
+            e.innerHTML = JSON.stringify(authResult, undefined, 2);
+            document.body.appendChild(e);
+
+            //autofill authorization code input
+            console.log(authResult['code']);
+            retrieveAccessTokenAndRefreshToken(authResult['code']);
+
+        } else {
+            // There was an error.
+        }
+    }
+
+    //WARNING: THIS FUNCTION IS DISPLAYED FOR DEMONSTRATION PURPOSES ONLY. YOUR CLIENT_SECRET SHOULD NEVER BE EXPOSED ON THE CLIENT SIDE!!!!
+    function retrieveAccessTokenAndRefreshToken(code) {
+        $.post('https://www.googleapis.com/oauth2/v4/token',
+            { //the headers passed in the request
+                'code': code,
+                'client_id': '966773188225-fqno0mhoqklv6fi6r8qhursree0hu7i8.apps.googleusercontent.com',//'review-247507.apps.googleusercontent.com',
+                'client_secret': 'tcADOIuCj9mdckd1Sf8NtlqR',
+                'grant_type': 'authorization_code'
+            },
+            function (returnedData) {
+
+
+                //pretty print JSON response
+                var e = document.createElement("pre")
+                e.innerHTML = JSON.stringify(returnedData, undefined, 2);
+                document.body.appendChild(e);
+                console.log(returnedData['refresh_token'])
+            });
+    }
+
+   
+    function getLocations(accountInfo, accessToken) {
+        //Using the sign in data to make a Google My Business API call
+        var noTemp = '<tr> <td colspan="1"> No record found! </td></tr>';
+        var req = gmb_api_version + '/' + accountInfo + '/locations';
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', req);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+
+
+        //Displaying the API response
+        xhr.onload = function () {
+            $("#tblBody").html('');
+            var res = jQuery.parseJSON(xhr.responseText);
+            if (res.locations!= null && res.locations.length > 0) {
+
+                // getReviews(res.locations[0].name);
+                var strLocations = '';
+                $.each(res.locations, function (index, location) {
+
+                    strLocations += "<tr><td><a href=\"#\" onclick =\"getReviews(\'" + location.name + "\',\'" + accessToken+"\')\">" + location.locationName + "</a ></td></tr>";
+                });
+                $("#tblBody").append(strLocations);
+            } else {
+                $("#tblBody").append(noTemp);
+            }
+            $('#useLocation').modal('show');
+        }
+        xhr.send();
+
+
+    }
+    function getReviews(locationInfo, accessToken) {
+        var req = gmb_api_version + '/' + locationInfo + '/reviews';
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', req);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+
+        //Displaying the API response
+        xhr.onload = function () {
+            $("#tblBodyReview").html('');
+
+            $('#useLocation').modal('hide');
+            var res = jQuery.parseJSON(xhr.responseText);
+
+            if (res.reviews != null && res.reviews.length > 0) {
+                $('#useReviews').modal('show');
+                var strReviews = '';
+                $.each(res.reviews, function (index, review) {
+
+                    strReviews += "<tr><td>" + review.createTime + "</td><td>" + review.reviewer.displayName + "</td><td>" + review.comment + "</td><td>" + review.starRating + "</td></tr>";
+                });
+                $("#tblBodyReview").append(strReviews);
+            } else {
+                $("#tblBodyReview").append(noTemp);
+            }
+            $('#useReviews').modal('show');
+
+        }
+        xhr.send();
+
+
+    }
+    function retrieveGoogleMyBusinessAccounts(accessToken) {
+        //Using the sign in data to make a Google My Business API call
+        var req = gmb_api_version + '/accounts';
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', req);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+
+        //Displaying the API response
+        xhr.onload = function () {
+            var result = jQuery.parseJSON(xhr.responseText);
+            getLocations(result.accounts[0].name, accessToken);
+        }
+        xhr.send();
+
+    }
+</script>
+<div id="useLocation" class="modal" tabindex="-1" data-width="400" data-keyboard="false" role="dialog" aria-labelledby="useLocation" aria-hidden="true" data-backdrop="static">
+    <div id="useArticleContainer">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Select Location to Retrieve Reviews</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="userDefineTemplateList">
+                                <div class="card-body" style="margin-left: 50px;margin-right: 50px;">
+                                    <table class="table datatable-basic" id="tblParadigm">
+                                        <thead>
+                                            <tr>
+                                                <th>Location</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tblBody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="margin-top:20px">
+                    <button type="button" data-dismiss="modal" class="cancel btn btn-lg btn-default">Cancel</button>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="useReviews" class="modal" tabindex="-1" data-keyboard="false" role="dialog" aria-labelledby="useReviews" aria-hidden="true" data-backdrop="static">
+    <div id="useArticleContainer">
+
+        <div class="modal-dialog" style="max-width: 950px !important">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Reviews And Ratings</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="userDefineTemplateList">
+                                <div class="card-body" style="margin-left: 50px;margin-right: 50px;">
+                                    <table class="table datatable-basic" id="tblParadigm">
+                                        <thead>
+                                            <tr>
+                                                <th>Create Time</th>
+                                                <th>Reviewed By</th>
+                                                <th>Comment</th>
+                                                <th>Rating</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tblBodyReview"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="margin-top:20px">
+                    <button type="button" data-dismiss="modal" class="cancel btn btn-lg btn-default">Cancel</button>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

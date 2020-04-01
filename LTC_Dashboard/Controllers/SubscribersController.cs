@@ -115,9 +115,9 @@ namespace LTC_Dashboard.Controllers
 
             try
             {
-                if (ModelState.IsValid)
-                {
-                    //subscriptionViewModel.DoctorID = UserId;
+                //if (ModelState.IsValid)
+                //{
+                      
                     subscriptionViewModel.AddedOn = DateTime.Now;
                     subscriptionViewModel.LastSubscriptionStatusUpdated = DateTime.Now;
                     subscriptionViewModel.Office_Sequence = OfficeSequence;
@@ -133,12 +133,12 @@ namespace LTC_Dashboard.Controllers
                         return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });
 
                     }
-                }
-                else
-                {
+                //}
+                //else
+                //{
 
-                    return PartialView("_CreatePartial", subscriptionViewModel);
-                }
+                //    return PartialView("_CreatePartial", subscriptionViewModel);
+                //}
             }
             catch (Exception ex)
             {
