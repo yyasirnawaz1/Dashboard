@@ -1,0 +1,88 @@
+﻿<div id="PublicFormTagloginModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Public Tag</h5>
+
+                <button type="button" class="btn btn-success margin-right-5 pull-right titleButtonsDefault publicFormTagList" onclick="PublicFormTag.createNewPublicFormTag();">Create New Tag</button>
+                <button type="button" class="btn btn-success margin-right-5 pull-right publicFormTagCreate" onclick="PublicFormTag.savePublicFormTag()">Save</button>
+                <button type="button" class="btn btn-primary margin-right-5 pull-right publicFormTagCreate" onclick="PublicFormTag.showList();">Cancel</button>
+
+                <button type="button" class="close" data-dismiss="modal" onclick="PublicFormTag.showList();">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row publicFormTagList">
+                    <div class="col-md-12">
+                        <div class="block-content">
+                            <table id="tblPublicFormTag" class="table datatable-basic table-striped datatable-extended" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Description</th>
+                                        <th>Category</th>
+                                        @*<th>Action</th>*@
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row publicFormTagCreate" style="display:none;">
+                    <div class="col-md-12">
+                        <input type="hidden" id="hdnPublicFormTagId" value="" />
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Category</label>
+                            <div class="col-md-10">
+                                <select id="ddlPublicFormTagCategories" class="form-control" onchange="PublicFormTag.onChangeddlPublicFormTagCategories()">
+                                    <option value="-1">---select category---</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Description</label>
+                            <div class="col-md-10">
+                                <input id="txtPublicFormTagDescription" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Tag Type</label>
+                            <div class="col-md-10">
+                                <select id="ddlPublicFormTagTypes" class="form-control">
+                                    <option value="-1">---select Tag Type---</option>
+                                    <option value="0">String</option>
+                                    <option value="1">Integer</option>
+                                    <option value="2">Date</option>
+                                    <option value="3">Time</option>
+                                    <option value="4">Date Stamp</option>
+                                    <option value="5">Signature</option>
+                                    <option value="6">Calculated field</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Caption</label>
+                            <div class="col-md-10">
+                                <input id="txtPublicFormTagCaption" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Data Field</label>
+                            <div class="col-md-10">
+                                <input id="txtPublicFormTagDataField" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Max Size</label>
+                            <div class="col-md-10">
+                                <input id="txtPublicFormTagMaxSize" type="number" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
