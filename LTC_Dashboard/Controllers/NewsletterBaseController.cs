@@ -56,7 +56,7 @@ namespace LTCDashboard.Controllers
                 if (office != null)
                 {
 
-                    return office.Business_Name;
+                    return office.ClinicName;
                 }
                 else
                 {

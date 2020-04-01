@@ -169,7 +169,7 @@ namespace LTCDashboard.Controllers
                 {
                     NewsletterId = e.NewsletterId,
                     Account = e.Account,
-                    AppointDate = e.EmailSentTime.ToString(@"yyyy-MM-dd hh:mm tt", new CultureInfo("en-US")),
+                    AppointDate = e.DateToSendEmail.ToString(@"yyyy-MM-dd hh:mm tt", new CultureInfo("en-US")),
                     TemplateBodymarkup = e.TemplateBodymarkup,
                     TemplateSourceMarkup = e.TemplateSourceMarkup,
                     TemplateTitle = e.TemplateTitle,

@@ -21,11 +21,15 @@ namespace LTCDataManager.Office
         }
         public static gOfficeInfo GetOfficeName(int OfficeNumber)
         {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
-            return db.Fetch<gOfficeInfo>($"SELECT * FROM authentication_businessinfo where Office_Sequence = '{OfficeNumber}' ").FirstOrDefault();
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
+            return db.Fetch<gOfficeInfo>($"SELECT * FROM businessinfo where Office_Sequence = '{OfficeNumber}' ").FirstOrDefault();
+        }
+        public static gOfficeInfo GetOfficeNames(int OfficeNumber)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
+            return db.Fetch<gOfficeInfo>($"SELECT * FROM businessInfo where Office_Sequence = '{OfficeNumber}' ").FirstOrDefault();
         }
 
-         
         public static gPatientOfficeInfo GetOffice(string email)
         {
             var db = new  LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);

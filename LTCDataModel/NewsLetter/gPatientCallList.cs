@@ -14,33 +14,23 @@ namespace LTCDataModel.NewsLetter
         //public string provider;
         public int ID { get; set; }
         public int Office_Sequence { get; set; }
-       
-        //public int Counter { get; set; }
-        //public string CallType { get; set; }
-        //public DateTime DateToCall { get; set; }
-        //public int HourToCall { get; set; }
-        //public string CallSubType { get; set; }
+
         public string Email { get; set; }
-        //public DateTime AppointDate { get; set; }
+        public string EmailContent { get; set; }
+        public string EmailSubject { get; set; }
+
         public string PatientName { get; set; }
         public int NewsletterID { get; set; }
         public int SubscriberID { get; set; }
-        public int ScheduledID { get; set; }
-        //public string CallListType { get; set; }
-        public int ErrorCode { get; set; }
-        public string EmailResult { get; set; }
-        public bool PublicNewsletter { get; set; }
-        //public int UpdateCounter { get; set; }
-        //public int DownloadedToClient { get; set; }
-       // public string JobCode { get; set; }
-        // public string Time { get; set; }
-        public DateTime EmailSentTime { get; set; }
-        public DateTime EmailReceiveTime { get; set; }
-        //public DateTime DialTime { get; set; }
-        //public DateTime SMSReceiveTime { get; set; }
+
+
+        public DateTime DateToSendEmail { get; set; }
+        public DateTime EmailSentOnDate { get; set; }
+
         public int Account { get; set; }
         public int Status { get; set; }
         public bool EmailSent { get; set; }
+        public string MessageID { get; set; }
     }
     public class gPatientCallListView
     {
@@ -53,8 +43,13 @@ namespace LTCDataModel.NewsLetter
         public string TemplateSourceMarkup { get; set; }
         public string TemplateBodymarkup { get; set; }
         public string Email { get; set; }
-        public string PatientName{ get; set; }
-        public int Office_Number { get; set; }
-         public DateTime EmailSentTime { get; set; }
+        public string PatientName { get; set; }
+        public int office_Sequence { get; set; }
+        public DateTime DateToSendEmail { get; set; }
+        public string EmailContent { get; set; }
+        public string EmailSubject { get; set; }
+        public bool PublicNewsletter { get; set; }
+        public int NoOfRetry { get; set; }
+         
     }
 }

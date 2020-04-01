@@ -9,6 +9,7 @@ namespace LTCDataModel.NewsLetter
     public class gGetUserDefinedTemplateModel
     {
         public int LetterID { get; set; }
+        public int CategoryID { get; set; }
 
         public string TemplateTitle { get; set; }
         public string TemplateSourceMarkup { get; set; }
@@ -30,6 +31,11 @@ namespace LTCDataModel.NewsLetter
     public class DeleteModel
     {
         public string file { get; set; }
+    }
+    public class MoveArticleModel
+    {
+        public int CategoryId { get; set; }
+        public int ArticleId { get; set; }
     }
     public class NewsletterViewDeleteModel
     {

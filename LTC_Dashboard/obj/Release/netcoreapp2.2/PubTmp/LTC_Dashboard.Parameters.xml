@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="IIS Web Application Name" description="" value="LTCDashboard" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^F:\\LTC\ Git\\Dashboard\\LTC_Dashboard\\obj\\Release\\netcoreapp2\.2\\PubTmp\\Out\\$" />
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\LTC\ Git\\Dashboard\\LTC_Dashboard\\obj\\Release\\netcoreapp2\.2\\PubTmp\\Out\\$" />
   </parameter>
 </parameters>

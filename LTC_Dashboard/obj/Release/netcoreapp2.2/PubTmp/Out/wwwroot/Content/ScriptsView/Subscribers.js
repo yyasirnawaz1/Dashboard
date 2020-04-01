@@ -234,54 +234,7 @@ var Subscription = function () {
 
         },
 
-        removeAllSubscription: function (actionURL) {
-
-
-            swal({
-                title: "Are you sure you want to delete all data?",
-                text: "Records will be deleted permanently",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes",
-                cancelButtonText: "No",
-                closeOnConfirm: false,
-                closeOnCancel: true
-            },
-                function (isConfirm) {
-                    if (isConfirm) {
-                        Layout.showLoader();
-
-                        $.ajax({
-                            url: actionURL,
-                            type: 'Post',
-                            async: false,
-                            cache: false,
-                            contentType: 'application/json',
-                            success: function (data) {
-
-                                Subscription.refresh();
-
-                                ltcApp.successMessage("Deleted!", "Records have been deleted.", "success");
-
-
-                            },
-
-                            error: function (xhr) {
-
-                                ltcApp.errorMessage("Error!", "Error", "error");
-                            }
-
-
-                        });
-
-                    }
-                });
-
-
-
-
-        },
+     
 
         saveSubscription: function () {
 

@@ -97,57 +97,57 @@ namespace LTC_Dashboard.Controllers
 
 
 
-        #region NewSubscription
-        [HttpGet]
-        public ActionResult Create()
-        {
-            SubscriptionViewModel objModel = new SubscriptionViewModel();
-            objModel.Office_Sequence = OfficeSequence;
+        //#region NewSubscription
+        //[HttpGet]
+        //public ActionResult Create()
+        //{
+        //    SubscriptionViewModel objModel = new SubscriptionViewModel();
+        //    objModel.Office_Sequence = OfficeSequence;
 
-            return PartialView("_CreatePartial", objModel);
+        //    return PartialView("_CreatePartial", objModel);
 
-        }
+        //}
 
 
-        [HttpPost]
-        public ActionResult Create(gSaveSubscriber subscriptionViewModel)
-        {
+        //[HttpPost]
+        //public ActionResult Create(gSaveSubscriber subscriptionViewModel)
+        //{
 
-            try
-            {
-                //if (ModelState.IsValid)
-                //{
+        //    try
+        //    {
+        //        //if (ModelState.IsValid)
+        //        //{
                       
-                    subscriptionViewModel.AddedOn = DateTime.Now;
-                    subscriptionViewModel.LastSubscriptionStatusUpdated = DateTime.Now;
-                    subscriptionViewModel.Office_Sequence = OfficeSequence;
-                    var sub = gSubscriber.GetByEmail(subscriptionViewModel.EmailAddress);
-                    if (sub != null)
-                    {
-                        return Json(new ResponseViewModel() { StatusCode = 0, StatusMessage = "Subscriber email already exists!" });
-                    }
-                    else
-                    {
-                        gSubscriber.Add(subscriptionViewModel);
-                        // return Content("success");
-                        return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });
+        //            subscriptionViewModel.AddedOn = DateTime.Now;
+        //            subscriptionViewModel.LastSubscriptionStatusUpdated = DateTime.Now;
+        //            subscriptionViewModel.Office_Sequence = OfficeSequence;
+        //            var sub = gSubscriber.GetByEmail(subscriptionViewModel.EmailAddress);
+        //            if (sub != null)
+        //            {
+        //                return Json(new ResponseViewModel() { StatusCode = 0, StatusMessage = "Subscriber email already exists!" });
+        //            }
+        //            else
+        //            {
+        //                gSubscriber.Add(subscriptionViewModel);
+        //                // return Content("success");
+        //                return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });
 
-                    }
-                //}
-                //else
-                //{
+        //            }
+        //        //}
+        //        //else
+        //        //{
 
-                //    return PartialView("_CreatePartial", subscriptionViewModel);
-                //}
-            }
-            catch (Exception ex)
-            {
-                return Json(new ResponseViewModel() { StatusCode = 0, StatusMessage = "Error occured" });
-            }
+        //        //    return PartialView("_CreatePartial", subscriptionViewModel);
+        //        //}
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new ResponseViewModel() { StatusCode = 0, StatusMessage = "Error occured" });
+        //    }
 
 
-        }
-        #endregion
+        //}
+        //#endregion
 
         #region NewSubscription
         [HttpGet]

@@ -48,3 +48,15 @@ F:\LTC Git\Dashboard\LTCDataManager\obj\Debug\netcoreapp2.2\LTCDataManager.Assem
 F:\LTC Git\Dashboard\LTCDataManager\obj\Debug\netcoreapp2.2\LTCDataManager.csproj.CopyComplete
 F:\LTC Git\Dashboard\LTCDataManager\obj\Debug\netcoreapp2.2\LTCDataManager.dll
 F:\LTC Git\Dashboard\LTCDataManager\obj\Debug\netcoreapp2.2\LTCDataManager.pdb
+D:\LTC Git\Dashboard\LTCDataManager\bin\Debug\netcoreapp2.2\Select.Html.dep
+D:\LTC Git\Dashboard\LTCDataManager\bin\Debug\netcoreapp2.2\LTCDataManager.deps.json
+D:\LTC Git\Dashboard\LTCDataManager\bin\Debug\netcoreapp2.2\LTCDataManager.dll
+D:\LTC Git\Dashboard\LTCDataManager\bin\Debug\netcoreapp2.2\LTCDataManager.pdb
+D:\LTC Git\Dashboard\LTCDataManager\bin\Debug\netcoreapp2.2\LTCDataModel.dll
+D:\LTC Git\Dashboard\LTCDataManager\bin\Debug\netcoreapp2.2\LTCDataModel.pdb
+D:\LTC Git\Dashboard\LTCDataManager\obj\Debug\netcoreapp2.2\LTCDataManager.csprojAssemblyReference.cache
+D:\LTC Git\Dashboard\LTCDataManager\obj\Debug\netcoreapp2.2\LTCDataManager.AssemblyInfoInputs.cache
+D:\LTC Git\Dashboard\LTCDataManager\obj\Debug\netcoreapp2.2\LTCDataManager.AssemblyInfo.cs
+D:\LTC Git\Dashboard\LTCDataManager\obj\Debug\netcoreapp2.2\LTCDataManager.csproj.CopyComplete
+D:\LTC Git\Dashboard\LTCDataManager\obj\Debug\netcoreapp2.2\LTCDataManager.dll
+D:\LTC Git\Dashboard\LTCDataManager\obj\Debug\netcoreapp2.2\LTCDataManager.pdb

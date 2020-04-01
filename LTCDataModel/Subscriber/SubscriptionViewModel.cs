@@ -17,6 +17,11 @@ namespace LTCDataModel.Subscriber
     {
         public string Office_Sequence { get; set; }
     }
+    public class SubscriberFilterParamUpdated
+    {
+        public string Office_Sequence { get; set; }
+        public string Email { get; set; }
+    }
     public class ResponseViewModel
     {
         public int StatusCode { get; set; }
@@ -29,7 +34,8 @@ namespace LTCDataModel.Subscriber
         public int Id { get; set; }
         public int Office_Sequence{ get; set; }
         public string DoctorId { get; set; }
-
+        public string Salutation { get; set; }
+        
         [Required(ErrorMessage = "Name Required")]
         public string FirstName { get; set; }
 

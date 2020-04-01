@@ -48,4 +48,10 @@
     <Folder Include="wwwroot\Settings\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="CoreHtmlToImage">
+      <HintPath>..\..\corehtmltoimage\1.0.5\lib\netstandard2.0\CoreHtmlToImage.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

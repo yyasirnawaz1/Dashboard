@@ -14,4 +14,9 @@ namespace LTCDataModel.NewsLetter
         public string TypeDescription { get; set; }
         public string TypeName { get; set; }
     }
+    public class gArticleCategories
+    {
+        public int CategoryID { get; set; }
+        public string CategoryName { get; set; }
+    }
 }

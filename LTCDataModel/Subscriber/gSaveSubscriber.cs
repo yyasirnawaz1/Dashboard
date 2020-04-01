@@ -14,7 +14,7 @@ namespace LTCDataModel.Subscriber
     {
         public int Id { get; set; }
 
-        
+        public string Salutation { get; set; }
 
         [Required(ErrorMessage = "Name Required")]
         public string FirstName { get; set; }

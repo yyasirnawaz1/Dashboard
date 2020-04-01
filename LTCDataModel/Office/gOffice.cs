@@ -15,7 +15,8 @@ namespace LTCDataModel.Office
     {
         public int DoctorID { get; set; }
         public int Office_Number { get; set; }
-        public string Business_Name { get; set; }
+        
+        public string ClinicName { get; set; }
         public string Phone{ get; set; }
         public string Fax{ get; set; }
         public string AddressLine1{ get; set; }
@@ -26,6 +27,7 @@ namespace LTCDataModel.Office
         public string Country{ get; set; }
         public string PostalCode{ get; set; }
         public string Contact{ get; set; }
+        public string WebSite { get; set; }
         public string OfficeEmailAddress { get; set; }
     }
     public class gPatientOfficeInfo

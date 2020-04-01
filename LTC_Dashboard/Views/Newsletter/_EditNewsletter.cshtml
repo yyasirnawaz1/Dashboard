@@ -10,14 +10,16 @@
 @*https://docs.telerik.com/kendo-ui/controls/editors/editor/how-to/integration/inline-editor-inside-window*@
 
 
- <style>
+<style>
     .nav-tabs .nav-item {
-    font-size:15px;
+        font-size: 15px;
     }
+
     .form-control {
         font-size: 13px !important;
     }
-   .newslettertreeview,
+
+    .newslettertreeview,
     #editorWrapper {
         float: left;
     }
@@ -42,38 +44,32 @@
 
     .editorWindowLeftGrid {
         box-sizing: border-box;
-         
-       
     }
 
     .editorWindowMiddleGrid {
         box-sizing: border-box;
-       
     }
 
     .editorMainWindow {
         overflow-x: hidden;
     }
 
-    .editorTreeViewDiv{
-        
+    .editorTreeViewDiv {
         overflow-x: hidden;
         overflow-y: auto;
     }
-
-    
-</style> 
+</style>
 <link href="~/Content/Limitless/layout_1/LTR/default/full/assets/css/colors.min.css" rel="stylesheet" />
 
- 
+
 <div id="templateEditorWindow" class="modal fade" tabindex="-1" data-keyboard="false" role="dialog" aria-labelledby="templateEditorWindow" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog  modal-full" >
-        <div class="modal-content"   style="height:auto">
-            <div class="modal-header bg-primary" >
+    <div class="modal-dialog  modal-full">
+        <div class="modal-content" style="height:auto">
+            <div class="modal-header bg-primary">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
                 <h4 class="modal-title"></h4>
             </div>
-            <div class="modal-body" style="height: calc(100vh - 200px);">
+            <div class="modal-body">
                 <div class="row">
                     <div class="card" style="width:100%">
                         <div class="card-header header-elements-inline">
@@ -96,73 +92,72 @@
                             <div class="row">
                                 <div class="col-lg-12 templateDialogWindowRow" style="display:flex; margin: 10px">
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label>Template Type: </label>
                                         <select id="ddlTemplatesTypes" class="form-control" onchange="Newsletter.ddlTemplatesTypes_OnChange()"></select>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label>Title: </label>
                                         <input id="txtTemplateTitle" class="form-control" placeholder="Template Tile" />
                                     </div>
-                                    
-                                   
+                                    <div class="col-md-3" id="dvCategory" style="display:none">
+                                        <label>Category: </label>
+                                        <select id="ddlCategoryArticle3" class="form-control">
+                                        </select>
+                                    </div>
                                 </div>
-                              
-                            </div>
-                        </div>
-                         
-                    </div>
-                     
-                        <div class="progress-info">
-                            <div class="progress">
-                                <span style="width: 100%;" class="progress-bar progress-bar-success green-sharp">
-                                    <span class="sr-only"></span>
-                                </span>
-                            </div>
-                        </div>
-                  
-                </div>
-                <div class="row EditorRow">
-                    <div class="col-lg-2 col-md-2 editorWindowLeftGrid">
-                        <div class="card" style="width: 100%;overflow: auto;height: 600px;">
-                            <div class="nav nav-sidebar">
-                                <div class="nav-item-header btn-primary">
-                                    <div class="text-uppercase">Placeholders</div>
-                                </div>
-                                <div id="NewsletterTreeview">
 
-                                </div>
-                                <div  id="EmailTreeview">
-
-                                </div>
-                                <div  id="OfficeImageTreeview">
-
-                                </div>
-                                <div id="ImageUploadButton" class="btn btn-primary">
-                                    Image Management
-                                  
-                                </div>
                             </div>
-                        </div>
-                        
-                    </div>
-                    <div class="col-lg-10 col-md-10 editorWindowMiddleGrid">
-                        <div id="editorWrapper">
-                            <textarea id="templateEditor" cols="30" rows="40"></textarea>
+
                         </div>
                     </div>
-                  
 
                 </div>
+
+
+
             </div>
-            <div class="modal-footer" style="padding-top: 15px;">
-                
-                
-            </div>
+            <div class="row EditorRow">
+                <div class="col-lg-2 col-md-2 editorWindowLeftGrid">
+                    <div class="card" style="width: 100%;overflow: auto;height: 600px;">
+                        <div class="nav nav-sidebar">
+                            <div class="nav-item-header btn-primary">
+                                <div class="text-uppercase">Placeholders</div>
+                            </div>
+                            <div id="NewsletterTreeview">
+
+                            </div>
+                            <div id="EmailTreeview">
+
+                            </div>
+                            <div id="OfficeImageTreeview">
+
+                            </div>
+                            <div id="ImageUploadButton" class="btn btn-primary">
+                                Image Management
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-10 col-md-10 editorWindowMiddleGrid">
+                    <div id="editorWrapper">
+                        <textarea id="templateEditor" cols="30" rows="40"></textarea>
+                    </div>
+                </div>
+
+
             </div>
         </div>
+        <div class="modal-footer" style="padding-top: 15px;">
+
+
+        </div>
+    </div>
 </div>
- 
+
+
 @Html.Partial("ModalDialog")
 
 

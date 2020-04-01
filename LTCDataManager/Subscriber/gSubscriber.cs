@@ -74,6 +74,21 @@ namespace LTCDataManager.Subscriber
                 throw ex;
             }
         }
+        public static gSaveSubscriber GetSubscriber(SubscriberFilterParamUpdated parameters)
+        {
+            try
+            {
+                var db = new Database(DbConfiguration.LtcNewsletter);
+                var res = db.Fetch<gSaveSubscriber>($"SELECT * FROM subscribers where SubscriptionStatus = 1 AND Email = '" + parameters.Email + "' Office_Sequence = " + parameters.Office_Sequence).FirstOrDefault();
+
+                return res;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         public static List<gSaveSubscriber> GetSubscribers(SubscriberFilterParams parameters)
         {
             try
