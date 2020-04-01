@@ -16,6 +16,12 @@
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
         }
       },
+      "BuildBundlerMinifier/3.2.435": {
+        "type": "package",
+        "build": {
+          "build/BuildBundlerMinifier.targets": {}
+        }
+      },
       "DataTables.AspNet.Core/2.0.0": {
         "type": "package",
         "dependencies": {
@@ -5216,6 +5222,31 @@
         "lib/netstandard2.0/BouncyCastle.Crypto.xml",
         "lib/xamarinios/BouncyCastle.Crypto.dll",
         "lib/xamarinios/BouncyCastle.Crypto.xml"
+      ]
+    },
+    "BuildBundlerMinifier/3.2.435": {
+      "sha512": "6i5tLEU9c1o8+y01Ie9J+y8CY8x4P0R1G56KNDtgJmPI3Vd/GzqMqnTxoe8wpg/MAl15jk0KuIzerY1Kxu/WAg==",
+      "type": "package",
+      "path": "buildbundlerminifier/3.2.435",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/BuildBundlerMinifier.targets",
+        "buildbundlerminifier.3.2.435.nupkg.sha512",
+        "buildbundlerminifier.nuspec",
+        "tools/net46/BundlerMinifier.dll",
+        "tools/net46/NUglify.dll",
+        "tools/net46/Newtonsoft.Json.dll",
+        "tools/netcoreapp2.0/BundlerMinifier.dll",
+        "tools/netcoreapp2.0/NUglify.dll",
+        "tools/netcoreapp2.0/Newtonsoft.Json.dll",
+        "tools/netcoreapp3.0/BundlerMinifier.dll",
+        "tools/netcoreapp3.0/NUglify.dll",
+        "tools/netcoreapp3.0/Newtonsoft.Json.dll",
+        "tools/netstandard1.3/BundlerMinifier.dll",
+        "tools/netstandard1.3/NUglify.dll",
+        "tools/netstandard1.3/Newtonsoft.Json.dll"
       ]
     },
     "DataTables.AspNet.Core/2.0.0": {
@@ -14150,6 +14181,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
+      "BuildBundlerMinifier >= 3.2.435",
       "DataTables.AspNet.Core >= 2.0.0",
       "DataTables.AspNetCore.Mvc >= 1.4.2",
       "LTCDataManager >= 1.0.0",
@@ -14214,6 +14246,10 @@
     "frameworks": {
       "netcoreapp2.2": {
         "dependencies": {
+          "BuildBundlerMinifier": {
+            "target": "Package",
+            "version": "[3.2.435, )"
+          },
           "DataTables.AspNet.Core": {
             "target": "Package",
             "version": "[2.0.0, )"

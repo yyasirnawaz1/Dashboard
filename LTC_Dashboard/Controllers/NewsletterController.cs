@@ -20,7 +20,7 @@ using Microsoft.Extensions.Options;
 using LTCDashboard.Controllers;
 using LTCDataModel.Newsletter;
 using LTCDataModel.Enums;
-using CoreHtmlToImage;
+//using CoreHtmlToImage;
 namespace LTC_Dashboard.Controllers
 {
     [Authorize]

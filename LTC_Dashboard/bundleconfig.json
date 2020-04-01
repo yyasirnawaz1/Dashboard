@@ -1,0 +1,136 @@
+﻿[
+  // common files
+  {
+    "outputFileName": "wwwroot/css/commonStyle.min.css",
+    "inputFiles": [
+      ""
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/commonScripts.min.js",
+    "inputFiles": [
+      ""
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+
+  // login layout
+  {
+    "outputFileName": "wwwroot/css/loginLayoutCombined.min.css",
+    "inputFiles": [
+      ""
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/loginLayoutCombined.min.js",
+    "inputFiles": [
+      ""
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+
+  // login page
+  {
+    "outputFileName": "wwwroot/css/loginPageCombined.min.css",
+    "inputFiles": [
+      ""
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/loginPageCombined.min.js",
+    "inputFiles": [
+      ""
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+
+  // Dashboard Layout
+  {
+    "outputFileName": "wwwroot/css/dashboardLayoutCombined.min.css",
+    "inputFiles": [
+      ""
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/dashboardLayoutCombined.min.js",
+    "inputFiles": [
+      ""
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+
+
+  // Dashboard page
+  {
+    "outputFileName": "wwwroot/css/dashboardPageCombined.min.css",
+    "inputFiles": [
+      ""
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/dashboardPageCombined.min.js",
+    "inputFiles": [
+      ""
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+
+  // Newsletter layout
+  {
+    "outputFileName": "wwwroot/css/newsletterLayoutCombined.min.css",
+    "inputFiles": [
+      ""
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/newsletterLayoutCombined.min.js",
+    "inputFiles": [
+      ""
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+
+  // Newsletter page
+  {
+    "outputFileName": "wwwroot/css/newsletterPageCombined.min.css",
+    "inputFiles": [
+      ""
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/newsletterPageCombined.min.js",
+    "inputFiles": [
+      ""
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+
+]
