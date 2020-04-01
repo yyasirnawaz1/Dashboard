@@ -189,7 +189,6 @@ namespace LTCDataManager.NewsLetter
             //{
             //    db.Insert(article);
             //}
-
             if (model.TypeID == 0)
                 model.TypeID = 1;
 
