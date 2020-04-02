@@ -1,0 +1,543 @@
+﻿@page
+@model LoginModel
+
+@using System.Collections.Specialized
+@using System.Security.Claims
+@using LTCDataManager.User
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/Layouts/_loginLayout.cshtml"; 
+
+    int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId);
+
+    var permissionList = gUserModuleManager.GetAllAuthenticationModule(userId);
+}
+
+@section styles
+{
+    <script src="~/Resources/Limitless/global_assets/js/plugins/forms/styling/uniform.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Resources/Vendor/bootstrap-select-1.13.7/js/bootstrap-select.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Resources/theme/js/vendor/datatables.net/js/datatables.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Resources/theme/js/vendor/datatables.net/js/Select-1.2.6/js/select.bootstrap.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Resources/theme/js/vendor/ResizePanel/Resize.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Resources/FormDesigner/assets/js/form-builder.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Resources/FormDesigner/assets/js/form-render.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+}
+
+<div class="navbar navbar-expand-md navbar-dark">
+    <div class="navbar-brand">
+        <a href="javascript:;" class="d-inline-block">
+            @*<img src="~/Resources/Limitless/global_assets/images/logo_light.png" alt="">*@
+            <span style="color: white;
+                        font-family: 'Open Sans', sans-serif;
+                        text-decoration: none;
+                        text-transform: uppercase;
+                        font-size: 22px;
+                        font-weight: 600;
+                        line-height: 1;
+                        position: relative;
+                        margin-top: 12px;">
+                Logic Tech Corp
+            </span>
+        </a>
+    </div>
+
+    <div class="d-md-none">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
+            <i class="icon-tree5"></i>
+        </button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbar-mobile">
+        <span class="badge ml-md-3 mr-md-auto">&nbsp;</span>
+        <ul class="navbar-nav">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <li class="nav-item dropdown dropdown-user">
+                    <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-user"></i>
+                        <span class="login-userName">
+                            @User.Identity.Name
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        @if (permissionList.IsSurveyOk == 1)
+                        {
+                            <a href="javascript:void(0)" onclick="PublicSurveyControls.openSurveyModal();" class="dropdown-item">
+                                <i class="icon-stack"></i>
+                                Public Surveys
+                            </a>
+                            <a href="javascript:void(0)" onclick="PublicTag.openPublicTagModal();" class="dropdown-item">
+                                <i class="icon-stack2"></i>
+                                Public Survey Tags
+                            </a>
+                        }
+
+                        @if (permissionList.IsFormOk == 1)
+                        {
+                            <a href="javascript:void(0)" onclick="PublicFormControls.openFormModal();" class="dropdown-item">
+                                <i class="icon-pencil3"></i>
+                                Public Forms
+                            </a>
+                            <a href="javascript:void(0)" onclick="PublicFormTag.openPublicTagModal();" class="dropdown-item">
+                                <i class="icon-pencil4"></i>
+                                Public Forms Tags
+                            </a>
+                        }
+
+                        @if (permissionList.IsNewsletterOk == 1)
+                        {
+                            <a href="javascript:void(0)" onclick="PreNewsLetterControls.loadFromHomePage();" class="dropdown-item">
+                                <i class="icon-newspaper"></i>
+                                Public Newsletters
+                            </a>
+                        }
+                        <div class="dropdown-divider"></div>
+                        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/Identity/Account/Login">
+                            <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">
+                                <i class="icon-switch"></i>
+                                Logout
+                            </a>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <a href="#aboutModal" data-toggle="modal" data-target="#aboutModal" class="dropdown-item">
+                            <i class="icon-question3"></i>
+                            About
+                        </a>
+                    </div>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item dropdown">
+                    <a href="#" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown" onclick="Login.showLogin();">
+                        <i class="icon-user"></i> Login
+                        <span class="d-md-none ml-2"></span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<div class="page-content login-coverFix">
+    <!-- Main content -->
+    <div class="content-wrapper">
+        &nbsp;
+        <div id="scoreCards" class="row" style="display:none;">
+            <div class="col-sm-6 col-xl-3">
+                <div class="card card-body bg-blue-400 has-bg-image">
+                    <div class="media">
+                        <div class="media-body">
+                            <h3 class="mb-0">54,390</h3>
+                            <span class="text-uppercase font-size-xs">Today's Appointments</span>
+                        </div>
+
+                        <div class="ml-3 align-self-center">
+                            <i class="icon-bubbles4 icon-3x opacity-75"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card card-body bg-danger-400 has-bg-image">
+                    <div class="media">
+                        <div class="media-body">
+                            <h3 class="mb-0">389,438</h3>
+                            <span class="text-uppercase font-size-xs">total orders</span>
+                        </div>
+
+                        <div class="ml-3 align-self-center">
+                            <i class="icon-bag icon-3x opacity-75"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card card-body bg-success-400 has-bg-image">
+                    <div class="media">
+                        <div class="mr-3 align-self-center">
+                            <i class="icon-pointer icon-3x opacity-75"></i>
+                        </div>
+
+                        <div class="media-body text-right">
+                            <h3 class="mb-0">652,549</h3>
+                            <span class="text-uppercase font-size-xs">total clicks</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Content area -->
+        <div class="content d-flex justify-content-center align-items-center">
+            <div id="loginDiv" class="login-form wmin-sm-400" style="display:none;">
+                <div class="card mb-0">
+                    <div class="tab-content card-body">
+                        <form id="loginform" method="post">
+                            <input type="hidden" name="returnurl" id="returnurl" value="" />
+                            <div class="tab-pane fade show active">
+                                <div class="text-center mb-3">
+                                    <i class="icon-reading icon-2x text-slate-300 border-slate-300 border-3 rounded-round p-3 mb-3 mt-1"></i>
+                                    <h5 class="mb-0">Login to your account</h5>
+                                    <span class="d-block text-muted">Your credentials</span>
+                                </div>
+                                <div class="form-group form-group-feedback form-group-feedback-left">
+
+                                    <input asp-for="Input.Email" class="form-control" placeholder="Username/Email" />
+                                    <div class="form-control-feedback">
+                                        <i class="icon-user text-muted"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                    <input asp-for="Input.Password" class="form-control" placeholder="Password" />
+                                    <div class="form-control-feedback">
+                                        <i class="icon-lock2 text-muted"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group d-flex align-items-center">
+                                    @*<div class="form-check mb-0">
+                                        <label class="form-check-label">
+                                            <div class="uniform-checker"><span class="checked"><input type="checkbox" name="remember" class="form-input-styled" checked="" data-fouc=""></span></div>
+                                            Remember
+                                        </label>
+                                    </div>*@
+                                    <a asp-page="./ForgotPassword" class="ml-auto">Forgot password?</a>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                    <button class="btn btn-danger btn-block" type="button" onclick="Login.hideLogin();">Cancel</button>
+                                </div>
+                                <div class="form-group">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                </div>
+                                <span class="form-text text-center text-muted">&copy; Logic Tech Corp. 2018. All rights reserved.</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="mainMenu" class="login-form wmin-sm-400">
+                <div class="row">
+                    <div class="col-md-12 col-xl-12">
+                        <div class="mb-12">
+                            <div class="row row-tile no-gutters">
+                                <div class="col-4">
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+
+                                        if (permissionList.IsReportsOk == 1)
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("index","survey")')">
+                                                <i class="icon-users2 text-pink-400 icon-2x"></i>
+                                                <span>My Contact</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="alert('Selected option not subscribed');">
+                                                <i class="icon-users2 text-pink-400 icon-2x"></i>
+                                                <span>My Contact</span>
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.showLogin('report');">
+                                            <i class="icon-users2 text-pink-400 icon-2x"></i>
+                                            <span>My Contact</span>
+                                        </button>
+                                    }
+
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+
+                                        if (permissionList.IsSurveyOk == 1)
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("index","survey")')">
+                                                <i class="icon-stack text-blue-400 icon-2x"></i>
+                                                <span>Survey</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="alert('Selected option not subscribed');">
+                                                <i class="icon-stack text-blue-400 icon-2x"></i>
+                                                <span>Survey</span>
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.showLogin('survey');">
+                                            <i class="icon-stack text-blue-400 icon-2x"></i>
+                                            <span>Survey</span>
+                                        </button>
+                                    }
+
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+
+
+                                        if (permissionList.IsReportsOk == 1)
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("index","report")')">
+                                                <i class="icon-mail5 text-success-400 icon-2x"></i>
+                                                <span>Review</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="alert('Selected option not subscribed');">
+                                                <i class="icon-mail5 text-success-400 icon-2x"></i>
+                                                <span>Review</span>
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.showLogin('report');">
+                                            <i class="icon-mail5 text-success-400 icon-2x"></i>
+                                            <span>Review</span>
+                                        </button>
+                                    }
+                                </div>
+                                <div class="col-4">
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+
+                                        if (permissionList.IsDashboardOk == 1)
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("index", "dashboard")')">
+                                                <i class="icon-meter2 text-pink-400 icon-2x"></i>
+                                                <span>Dashboard</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="alert('Selected option not subscribed');">
+                                                <i class="icon-meter2 text-pink-400 icon-2x"></i>
+                                                <span>Dashboard</span>
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.showLogin('dashboard');">
+                                            <i class="icon-meter2 text-pink-400 icon-2x"></i>
+                                            <span>Dashboard</span>
+                                        </button>
+                                    }
+
+                                    @*<button type="button" class="btn btn-pureWhite btn-block btn-float m-0 crossButton">
+                                            <i class="icon-cross2 icon-2x"></i>
+                                        </button>*@
+
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+
+                                        if (permissionList.IsSmsOk == 1)
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("LoadSMS","sms")')">
+                                                <i class="icon-mail-read text-success-400 icon-2x"></i>
+                                                <span>SMS/Email</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="alert('Selected option not subscribed');">
+                                                <i class="icon-mail-read text-success-400 icon-2x"></i>
+                                                <span>SMS/Email</span>
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.showLogin('sms');">
+                                            <i class="icon-mail-read text-success-400 icon-2x"></i>
+                                            <span>SMS/Email</span>
+                                        </button>
+                                    }
+
+
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+
+                                        if (permissionList.IsNewsletterOk == 1)
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("index","newsletter")')">
+                                                <i class="icon-magazine text-success-400 icon-2x"></i>
+                                                <span>Newsletter</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="alert('Selected option not subscribed');">
+                                                <i class="icon-magazine text-success-400 icon-2x"></i>
+                                                <span>Newsletter</span>
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.showLogin('newsletter');">
+                                            <i class="icon-magazine text-success-400 icon-2x"></i>
+                                            <span>Newsletter</span>
+                                        </button>
+                                    }
+                                </div>
+                                <div class="col-4">
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+
+                                        if (permissionList.IsOfficeManagementOk == 1)
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("index","officemanagement")')">
+                                                <i class="icon-atom text-pink-400 icon-2x"></i>
+                                                <span>Paradigm Mobile</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="alert('Selected option not subscribed');">
+                                                <i class="icon-atom text-pink-400 icon-2x"></i>
+                                                <span>Paradigm Mobile</span>
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.showLogin('officemanagement');">
+                                            <i class="icon-atom text-pink-400 icon-2x"></i>
+                                            <span>Paradigm Mobile</span>
+                                        </button>
+                                    }
+
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+
+                                        if (permissionList.IsReportsOk == 1)
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Configuration.GetSection("Configuration")["formentryurl"]',true)">
+                                                <i class="icon-printer text-blue-400 icon-2x"></i>
+                                                <span>Office Portal</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Configuration.GetSection("Configuration")["formentryurl"]',true)">
+                                                <i class="icon-printer text-blue-400 icon-2x"></i>
+                                                <span>Office Portal</span>
+                                            </button>
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Configuration.GetSection("Configuration")["formentryurl"]',true)">
+                                            <i class="icon-printer text-blue-400 icon-2x"></i>
+                                            <span>Office Portal</span>
+                                        </button>
+                                    }
+
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+
+                                        if (permissionList.IsFormOk == 1)
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("index","form")')">
+                                                <i class="icon-pencil3 text-success-400 icon-2x"></i>
+                                                <span>Designer</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="alert('Selected option not subscribed');">
+                                                <i class="icon-pencil3 text-success-400 icon-2x"></i>
+                                                <span>Designer</span>
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.showLogin('form');">
+                                            <i class="icon-pencil3 text-success-400 icon-2x"></i>
+                                            <span>Designer</span>
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <partial name="~/views/survey/LoginPage/_PublicSurveyPartial.cshtml" />
+    <partial name="~/views/survey/LoginPage/_PublicTagPartial.cshtml" />
+    <partial name="~/views/form/LoginPage/_PublicFormPartial.cshtml" />
+    <partial name="~/views/form/LoginPage/_PublicFormTagPartial.cshtml" />
+    <partial name="~/Views/NewsLetter/_PreDefinedNewsLetterPartialLogin.cshtml" />
+
+    <div id="newsletterPreviewModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Preview</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body iframeParent">
+                    <iframe id="editorPreview" class="" style="min-height:400px; width:100%;"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnNewsletterPreviewModal" type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="thePreviewPanel" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">About</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="iframeThePreview" allowfullscreen style="min-height:400px; width:100%;"></iframe>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="~/Views/Shared/PartialViews/_About.cshtml" />
+
+    <script src="~/Scripts/SharedJS/LoginLayout.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Scripts/Survey/PublicSurvey.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Scripts/Survey/PublicTag.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Scripts/Form/PublicForm.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Scripts/Form/PublicFormTag.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Scripts/NewsLetter/PreDefinedNewsLetter.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Resources/kendo/js/kendo.all.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Scripts/NewsLetter/NewsLetter.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+}
+
+@section scripts
+{
+    <script src="~/Scripts/Login/Login.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Scripts/SharedJS/Layout.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+
+    <partial name="_ValidationScriptsPartial" />
+}

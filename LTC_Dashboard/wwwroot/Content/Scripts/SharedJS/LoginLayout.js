@@ -27,7 +27,7 @@
         }
     },
 
-    renderFormDesignerInIframe(content, id) {
+    renderFormDesignerInIframe: function(content, id) {
         var iframe = document.getElementById(id),
             iframeWin = iframe.contentWindow || iframe,
             iframeDoc = iframe.contentDocument || iframeWin.document;
@@ -44,7 +44,7 @@
         iframeDoc.close();
     },
 
-    renderContentInIframe(content, id) {
+    renderContentInIframe: function(content, id) {
         var iframe = document.getElementById(id);
         iframe = iframe.contentWindow || (iframe.contentDocument.document || iframe.contentDocument);
 

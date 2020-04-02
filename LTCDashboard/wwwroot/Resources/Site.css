@@ -1,0 +1,322 @@
+﻿input, textarea {
+    -webkit-user-select: text !important;
+    -khtml-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+}
+
+
+.usernameHeight {
+    line-height: 38px !important;
+}
+
+.dragDropPanelStyle {
+    min-height: 663px;
+    height: 100%;
+}
+
+.noBorder {
+    border: none !important;
+}
+
+
+.app-sidebar-leftZero {
+    padding-left: 0 !important;
+}
+
+    .app-sidebar-leftZero .container-boxed {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+
+.app .app-footer.app-footer-light {
+    z-index: 20;
+}
+
+
+.stickToBottom {
+    position: absolute !important;
+    bottom: 0;
+}
+
+.stage-wrap {
+    width: 80% !important;
+}
+
+.cb-wrap {
+    width: 19% !important;
+}
+
+
+.form-wrap.form-builder .frmb {
+    border: 3px dashed #ccc;
+}
+
+.form-actions button {
+    color: white !important;
+}
+
+.marginRight-5 {
+    margin-right: 5px;
+}
+
+.app-sidebar {
+    min-height: 100% !important;
+}
+
+.titleWithButtons {
+    width: 100%;
+}
+
+.titleButtons {
+    /*margin-top: -28px;*/
+    margin-right: 7px;
+}
+
+
+.noWhite {
+    background: none !important;
+}
+
+.datatableLeftInfoDiv {
+    float: left;
+    margin-left: 15px;
+}
+
+.app-navigation nav > ul > li a {
+    text-transform: none !important;
+}
+
+.buttonDiv {
+    margin: 10px 0;
+    display: flex;
+    float: right;
+}
+
+tr.selected {
+    background-color: lightblue !important;
+}
+
+
+.desginerbuttonsRow {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.renderingSurveyStyling {
+    width: 60%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+
+[disabled] {
+    color: grey !important;
+}
+
+
+
+/*News lettere css copied from Views*/
+ul li, ol li {
+    /*width: auto !important;*/
+}
+
+
+/*News lettere css copied from Views*/
+
+
+
+
+/**/
+
+/**/
+
+/*form builder fields*/
+
+
+label  {
+    margin-bottom: 0px !important;
+}
+
+/*form builder fields*/
+
+.modal-dialog.modal-lg {
+    width: 90% !important;
+    margin: 100px auto 0;
+}
+
+.modal-dialog.modal-minlg {
+    width: 60% !important;
+    margin: 100px auto 0;
+}
+
+
+
+
+
+/* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+.accordionMainDiv * {
+    box-sizing: border-box;
+    /*   border: 1px solid black; */
+}
+
+.accordionMainDiv body {
+    /*font-family: 'Lato';*/
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizelegibility;
+}
+
+.accordionMainDiv ul {
+    display: flex;
+    /*min-height: 100vh;*/
+    /*max-height: 100vh;*/
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style-type: none;
+    min-height: 300px !important;
+    max-height: 525px !important;
+}
+
+.accordionMainDiv li {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    /*padding: 20px;
+        padding-left: 0px;*/
+    /*background: #6aa9f6;*/
+    cursor: pointer;
+    transition: all .5s ease;
+    min-height: 300px;
+    max-height: 525px;
+}
+
+    .accordionMainDiv li:hover {
+        background: #87baf7;
+    }
+
+    .accordionMainDiv li.active {
+        flex: 5;
+        background: #fff;
+        border: 1px solid;
+        cursor: default;
+    }
+
+        /*.accordionMainDiv  li.active h2 {
+                color: #6aa9f6;
+            }*/
+
+        .accordionMainDiv li.active .section-content {
+            flex: 4;
+            opacity: 1;
+            transform: scaleX(1);
+            color: #6aa9f6;
+        }
+
+            .accordionMainDiv li.active .section-content > div {
+                /*max-height: 525px;*/
+                overflow-y: auto;
+                width: 100%;
+                height: 100%;
+            }
+
+    .accordionMainDiv li .section-title {
+        flex: 0;
+        display: flex;
+        align-items: center;
+        /*width: 50%;*/
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        color: white;
+        background-color: #6aa9f6;
+        max-width: 30px;
+        border: 1px solid;
+    }
+
+    .accordionMainDiv li.active .section-title {
+        border: none;
+    }
+
+    .accordionMainDiv li .section-title h2 {
+        margin: 0;
+        transform: rotate(-90deg);
+        white-space: nowrap;
+    }
+
+    .accordionMainDiv li .section-content {
+        flex: 0;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        opacity: 0;
+        transition: all .25s .1s ease-out;
+    }
+
+/*#templateEditordiv {
+    display: flex;
+}*/
+/*modal-dialog.modal-lg  {
+    margin: 10px !important;
+}*/
+/*Iframe {
+        min-height: 500px;
+    }*/
+
+
+
+
+/*.modal-dialog {
+    position: relative !important;
+    display: table !important; 
+    overflow-y: auto !important;
+    overflow-x: auto !important;
+    width: auto !important;
+    min-width: 300px !important;
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    already fixed this in new theme
+    .tabCrossButton {
+    width: 1px;
+    margin-top: -31px;
+    margin-right: -3px;
+}*/
+
+.loaderText {
+    color: white;
+    display: block;
+    position: relative;
+    left: 46%;
+    top: 3%;
+    z-index: 1001;
+}
+

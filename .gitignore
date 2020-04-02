@@ -1,24 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@yyasirnawaz1 
-dotnet
-/
-core
-1.4k
-13.3k3.2k
- Code Issues 220 Pull requests 14 Projects 0 Security Insights
-core/.gitignore
-@pavinthan pavinthan Add jetbrains folder to .gitignore (#2320)
-718ec99 on Feb 27, 2019
-@richlander@geek@Petermarcu@pavinthan@terrajobst
-37 lines (32 sloc)  341 Bytes
-  
 *.swp
 *.*~
 project.lock.json
@@ -56,15 +35,3 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
-© 2020 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About

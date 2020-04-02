@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" />
     <PackageReference Include="DataTables.AspNet.Core" Version="2.0.0" />
     <PackageReference Include="DataTables.AspNetCore.Mvc" Version="1.4.2" />
     <PackageReference Include="Microsoft.AspNetCore.App">
@@ -45,6 +46,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\bundling\css\" />
+    <Folder Include="wwwroot\bundling\js\" />
     <Folder Include="wwwroot\Settings\" />
   </ItemGroup>
 

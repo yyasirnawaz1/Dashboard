@@ -40,3 +40,11 @@ D:\LTC Git\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.AssemblyI
 D:\LTC Git\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.AssemblyInfo.cs
 D:\LTC Git\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.dll
 D:\LTC Git\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.pdb
+D:\Office\Github\Dashboard\LTCDataModel\bin\Debug\netcoreapp2.2\LTCDataModel.deps.json
+D:\Office\Github\Dashboard\LTCDataModel\bin\Debug\netcoreapp2.2\LTCDataModel.dll
+D:\Office\Github\Dashboard\LTCDataModel\bin\Debug\netcoreapp2.2\LTCDataModel.pdb
+D:\Office\Github\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.csprojAssemblyReference.cache
+D:\Office\Github\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.AssemblyInfoInputs.cache
+D:\Office\Github\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.AssemblyInfo.cs
+D:\Office\Github\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.dll
+D:\Office\Github\Dashboard\LTCDataModel\obj\Debug\netcoreapp2.2\LTCDataModel.pdb
