@@ -14,14 +14,14 @@ namespace LTCDataManager.Email
         public static class StringExtention
         {
 
-            public static string ClearTemplate( gOfficeInfo office, gGetUserDefinedTemplateModel template, gPatientOfficeInfo patient, string familyList)
+            public static string ClearTemplate(gOfficeInfo office, gGetUserDefinedTemplateModel template, gPatientOfficeInfo patient, string familyList)
             {
                 StringBuilder sb = new StringBuilder(template.MainBodymarkup);
                 // &amp;
                 sb.Replace("&OfficeName&", office?.ClinicName);
                 sb.Replace("[officename]", office?.ClinicName);
-                sb.Replace("&Subscriber&",patient.Email);
-               sb.Replace("&PatientName&", patient.FirstName);
+                sb.Replace("&Subscriber&", patient.Email);
+                sb.Replace("&PatientName&", patient.FirstName);
                 sb.Replace("&PatientSalutation&", patient.Salutation);
                 sb.Replace("&PatientFirstName&", patient.FirstName);
                 sb.Replace("&PatientLastName&", patient.LastName);
@@ -41,7 +41,7 @@ namespace LTCDataManager.Email
                 sb.Replace("&OfficeWebAddress&", office?.WebSite);
                 sb.Replace("&OfficePhone&", office?.Phone);
                 sb.Replace("&Fax&", office?.Fax);
-                sb.Replace("&FamilyList&", familyList);  
+                sb.Replace("&FamilyList&", familyList);
                 return sb.ToString();
             }
             public static string ClearArticleTemplate(gOfficeInfo office, gArticleModel template, gPatientOfficeInfo patient, string familyList)
@@ -85,8 +85,8 @@ namespace LTCDataManager.Email
 
         }
 
-        
-        public static string Send(string subject, string[] msgTo, string html , ElasticEmail email)
+
+        public static string Send(string subject, string[] msgTo, string html, ElasticEmail email)
         {
 
             ApiKey = email.APIKey;

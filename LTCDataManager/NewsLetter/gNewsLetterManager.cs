@@ -172,7 +172,7 @@ namespace LTCDataManager.NewsLetter
                 if (Count < 1)
                 {
                     // Add Paradigm Templates
-                    db.Execute($"INSERT INTO `ltc_newsletter`.`templates_user` (`TemplateTitle`, `TemplateSourceMarkup`, `MainBodymarkup`, `TypeID`, `Office_Sequence`,   `IndustryID`, `ThumbnailPath`, `IndustrySubTypeID`,`IndustrySubTitleID`, `EmailType`, `EmbeddedNewsletter`, `IsParadigmNewsletter`, `IsDefault`, `ModificationDate`)\nselect TemplateTitle , TemplateSourceMarkup , MainBodymarkup , TypeID , {office_sequence}   , IndustryID , ThumbnailPath , IndustrySubTypeID , IndustrySubTitleID , EmailType , EmbeddedNewsletter , IsParadigmNewsletter, IsDefault , '{DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd")}'   from ltc_newsletter.templates_user where IsParadigmNewsletter = 1 and Office_Sequence = -1 ");
+                    db.Execute($" INSERT INTO `ltc_newsletter`.`templates_user` (`TemplateTitle`, `TemplateSourceMarkup`, `MainBodymarkup`, `TypeID`, `Office_Sequence`,  `ThumbnailPath`, `EmbeddedNewsletter`,  `IsParadigmNewsletter`, `IsDefault`, `ModificationDate`, `ContentImage`, `CategoryID`)\nselect TemplateTitle , TemplateSourceMarkup , MainBodymarkup ,TypeID , {office_sequence} , ThumbnailPath , EmbeddedNewsletter , IsParadigmNewsletter, IsDefault , '{DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd")}', ContentImage, CategoryID   from ltc_newsletter.templates_user where IsParadigmNewsletter = 1 and Office_Sequence = -1  ");
                 }
 
             }
@@ -189,6 +189,7 @@ namespace LTCDataManager.NewsLetter
             //{
             //    db.Insert(article);
             //}
+
             if (model.TypeID == 0)
                 model.TypeID = 1;
 
@@ -229,11 +230,15 @@ namespace LTCDataManager.NewsLetter
                 }
 
 
-                if (model.IsDefault)
+                if (model.IsDefault && found != null)
                     db.Execute($"Update templates_user Set IsDefault = 0   where TypeID = {model.TypeID} AND IsParadigmNewsletter = 1  AND Office_Sequence = {found.Office_Sequence} ");
 
                 model.ModificationDate = DateTime.Now.ToUniversalTime();
-
+                if (model.TypeID == 8)
+                {
+                    model.IsDefault = false;
+                    model.IsParadigmNewsletter = false;
+                }
                 if (found != null)
                     db.Update(model, model.LetterID);
                 else
@@ -283,7 +288,7 @@ namespace LTCDataManager.NewsLetter
                 gSavePredefinedTemplate found = db.Fetch<gSavePredefinedTemplate>($"select * from templates where TemplateID={TemplateID}").FirstOrDefault();
                 if (found != null)
                 {
-                    
+
                     gSaveUserTemplate obj = new gSaveUserTemplate();
                     obj.TemplateTitle = name;
                     obj.Office_Sequence = Office_Sequence;

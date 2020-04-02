@@ -74,7 +74,7 @@ namespace LTCDataManager.DataAccess
     {
         public static Database DbConnection(string conn)
         {
-            var db = new Database(conn, "MySql") {CommandTimeout = 900};
+            var db = new Database(conn, "MySql") { CommandTimeout = 900 };
 
             return db;
         }

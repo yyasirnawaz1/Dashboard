@@ -41,11 +41,11 @@ namespace LTCDataModel.NewsLetter
     {
         public int tempId { get; set; }
     }
-        public class NewsletterViewModel
+    public class NewsletterViewModel
     {
-       
-        
-        
+
+
+
         //scheduling section
         public DateTime ScheduledDateTime { get; set; }
         public bool SendToSubscribers { get; set; }

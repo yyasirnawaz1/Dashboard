@@ -143,11 +143,11 @@ namespace LTCDashboard.Controllers
               @ViewBag.OfficeName = OfficeName;
             return View();
         }
-       
+
         [HttpGet()]
         public IActionResult Get([DataTablesRequest] DataTablesRequest dataRequest)
         {
-            IEnumerable<gPatientCallListView> products = gNewsLetterManager.GetPatientCallList(OfficeSequence).Where(p=>p.Status == 1);
+            IEnumerable<gPatientCallListView> products = gNewsLetterManager.GetPatientCallList(OfficeSequence).Where(p => p.Status == 1);
             int recordsTotal = products.Count();
             int recordsFilterd = recordsTotal;
 
@@ -159,11 +159,11 @@ namespace LTCDashboard.Controllers
             products = products.Skip(dataRequest.Start).Take(dataRequest.Length);
 
 
-             
+
 
             products = products.Skip(dataRequest.Start).Take(dataRequest.Length).ToList();
 
-            
+
             return Json(products
                 .Select(e => new
                 {

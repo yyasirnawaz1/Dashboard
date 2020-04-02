@@ -204,10 +204,6 @@
       "frameworks": {
         "netcoreapp2.2": {
           "dependencies": {
-            "BuildBundlerMinifier": {
-              "target": "Package",
-              "version": "[3.2.435, )"
-            },
             "DataTables.AspNet.Core": {
               "target": "Package",
               "version": "[2.0.0, )"

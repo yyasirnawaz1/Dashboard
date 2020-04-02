@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
- 
+
 namespace LTCDataModel.Subscriber
 {
     public enum SubscriptionStatus
@@ -32,10 +32,10 @@ namespace LTCDataModel.Subscriber
         //public List<Subscription> Subscriptions { get; set; }
 
         public int Id { get; set; }
-        public int Office_Sequence{ get; set; }
+        public int Office_Sequence { get; set; }
         public string DoctorId { get; set; }
         public string Salutation { get; set; }
-        
+
         [Required(ErrorMessage = "Name Required")]
         public string FirstName { get; set; }
 
@@ -57,7 +57,7 @@ namespace LTCDataModel.Subscriber
 
         public int PatientId { get; set; }
 
-        
+
 
     }
 }

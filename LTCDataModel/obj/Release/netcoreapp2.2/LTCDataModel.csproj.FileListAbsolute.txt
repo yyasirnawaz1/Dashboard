@@ -23,11 +23,3 @@ D:\Office\Github\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.A
 D:\Office\Github\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.AssemblyInfo.cs
 D:\Office\Github\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.dll
 D:\Office\Github\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.pdb
-D:\LTC Git\Dashboard\LTCDataModel\bin\Release\netcoreapp2.2\LTCDataModel.deps.json
-D:\LTC Git\Dashboard\LTCDataModel\bin\Release\netcoreapp2.2\LTCDataModel.dll
-D:\LTC Git\Dashboard\LTCDataModel\bin\Release\netcoreapp2.2\LTCDataModel.pdb
-D:\LTC Git\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.csprojAssemblyReference.cache
-D:\LTC Git\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.AssemblyInfoInputs.cache
-D:\LTC Git\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.AssemblyInfo.cs
-D:\LTC Git\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.dll
-D:\LTC Git\Dashboard\LTCDataModel\obj\Release\netcoreapp2.2\LTCDataModel.pdb

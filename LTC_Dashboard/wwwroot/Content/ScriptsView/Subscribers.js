@@ -84,7 +84,7 @@ var Subscription = function () {
             ],
 
             // set the initial value
-            "pageLength": 100,
+            "pageLength": 20,
             "pagingType": "numbers",
             "columnDefs": [
                 {  // set default column settings
@@ -130,7 +130,7 @@ var Subscription = function () {
             initSubscriptionTable();
         },
         disableButton: function () {
-             Layout.showLoader();
+            Layout.showLoader();
         },
 
 
@@ -234,7 +234,7 @@ var Subscription = function () {
 
         },
 
-     
+
 
         saveSubscription: function () {
 

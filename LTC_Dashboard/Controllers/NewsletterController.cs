@@ -20,7 +20,7 @@ using Microsoft.Extensions.Options;
 using LTCDashboard.Controllers;
 using LTCDataModel.Newsletter;
 using LTCDataModel.Enums;
-//using CoreHtmlToImage;
+ 
 namespace LTC_Dashboard.Controllers
 {
     [Authorize]
@@ -34,6 +34,7 @@ namespace LTC_Dashboard.Controllers
 
 
             @ViewBag.OfficeName = OfficeName;
+            gNewsLetterManager.CreateDefaultParadigmNewsletter(OfficeSequence);
             return View();
         }
 
@@ -165,10 +166,7 @@ namespace LTC_Dashboard.Controllers
             {
 
                 objResult = gNewsLetterManager.GetUserDefinedTemplates(OfficeSequence);
-                //foreach (var item in objResult)
-                //{
-                //    item.MainBodymarkup = item.MainBodymarkup.Replace("http://ltcdashboard.azurewebsites.net/", "https://localhost:44380/");
-                //}
+              
                 return Json(objResult);
             }
             catch (Exception ex)
@@ -458,6 +456,7 @@ namespace LTC_Dashboard.Controllers
         {
             try
             {
+              
                 if (model.ContentImageString != "data:,")
                 {
                     model.ContentImageString = model.ContentImageString.Replace("data:image/png;base64,", "");

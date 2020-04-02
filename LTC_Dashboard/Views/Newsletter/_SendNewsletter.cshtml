@@ -6,79 +6,81 @@
     .k-content {
         min-height: 0px !important;
     }
+
     .col-lg-9 {
         margin-top: 8px;
     }
-    .col-lg-3{
-        text-align:right;
+
+    .col-lg-3 {
+        text-align: right;
     }
 </style>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Send Newsletter</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Send Newsletter</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
 
-            </div>
-            <div class="modal-body">
+        </div>
+        <div class="modal-body">
 
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <fieldset class="mb-3">
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-3"> Server Time</label>
-                        <div class="col-lg-9">
-                            <label id="lblserverTime" class="col-md-9 control-label forcetext-left">
-                                Server Time
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <fieldset class="mb-3">
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-3"> Server Time</label>
+                    <div class="col-lg-9">
+                        <label id="lblserverTime" class="col-md-9 control-label forcetext-left">
+                            Server Time
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-3">Schedule for</label>
+                    <div class="col-lg-9">
+                        <div class="mt-radio-inline">
+                            <label class="mt-radio" onclick="Newsletter.scheduleFor('now')">
+                                <input type="radio" name="rbSchedule" id="rbNew" value="now" checked> Now
+                                <span></span>
+                            </label>
+                            <label class="mt-radio" onclick="Newsletter.scheduleFor('future')">
+                                <input type="radio" name="rbSchedule" id="rbFuture" value="future"> Future
+                                <span></span>
                             </label>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-3">Schedule for</label>
-                        <div class="col-lg-9">
-                            <div class="mt-radio-inline">
-                                <label class="mt-radio" onclick="Newsletter.scheduleFor('now')">
-                                    <input type="radio" name="rbSchedule" id="rbNew" value="now" checked> Now
-                                    <span></span>
-                                </label>
-                                <label class="mt-radio" onclick="Newsletter.scheduleFor('future')">
-                                    <input type="radio" name="rbSchedule" id="rbFuture" value="future"> Future
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-3">Schedule</label>
+                    <div class="col-lg-9">
+                        <input id="sendNewsletterDTP" title="datetimepicker" class="form-control" />
                     </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-3">Schedule</label>
-                        <div class="col-lg-9">
-                            <input id="sendNewsletterDTP" title="datetimepicker" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-3">Send as</label>
-                        <div class="col-lg-9">
-                            <div class="mt-radio-inline">
-                                <label class="mt-radio" onclick="Newsletter.sendAs('subscriber')">
-                                    <input type="radio" name="rbSendAs" id="rbSubscribers" value="subscribers" checked> Send to subscribers
-                                    <span></span>
-                                </label>
-                                <label class="mt-radio" onclick="Newsletter.sendAs('email')">
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-3">Send as</label>
+                    <div class="col-lg-9">
+                        <div class="mt-radio-inline">
+                            <label class="mt-radio" onclick="Newsletter.sendAs('subscriber')">
+                                <input type="radio" name="rbSendAs" id="rbSubscribers" value="subscribers" checked> Send to subscribers
+                                <span></span>
+                            </label>
+                            @*<label class="mt-radio" onclick="Newsletter.sendAs('email')">
                                     <input type="radio" name="rbSendAs" id="rbSingleEmail" value="singleemail"> Send to email
                                     <span></span>
-                                </label>
-                                @Html.TextBox("txtSendNewsletterEmail", null, new { @class = "form-control", @placeholder = "Email" })
-                            </div>
+                                </label>*@
+                            @*@Html.TextBox("txtSendNewsletterEmail", null, new { @class = "form-control", @placeholder = "Email" })*@
                         </div>
                     </div>
-                    
-                </fieldset>
-                 
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="btnSend" onclick="Newsletter.sendNewsletter()">Send</button>
                 </div>
-                @*}*@
-            </div>
 
+            </fieldset>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnSend" onclick="Newsletter.sendNewsletter()">Send</button>
+            </div>
+            @*}*@
         </div>
+
     </div>
+</div>

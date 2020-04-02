@@ -50,6 +50,6 @@ namespace LTCDataModel.NewsLetter
         public string EmailSubject { get; set; }
         public bool PublicNewsletter { get; set; }
         public int NoOfRetry { get; set; }
-         
+
     }
 }

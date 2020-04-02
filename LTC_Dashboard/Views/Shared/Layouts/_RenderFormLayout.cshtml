@@ -15,9 +15,9 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- END META SECTION -->
     <!-- CSS INCLUDE -->
-    <link href="~/Resources/loadermain.css" rel="stylesheet" />
-    <link href="~/Resources/loadernormalize.css" rel="stylesheet" />
-    <script src="~/Resources/theme/js/modernizr-2.8.3.js"></script>
+    <link href="~/Resources/loadermain.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
+    <link href="~/Resources/loadernormalize.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
+    <script src="~/Resources/theme/js/modernizr-2.8.3.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
     <style type="text/css">
 
         .back-link a {
@@ -56,14 +56,14 @@
             padding-top: 100px;
         }
     </style>
-    <link rel="stylesheet" href="~/Resources/theme/css/styles.css">
+    <link rel="stylesheet" href="~/Resources/theme/css/styles.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]">
 
     @RenderSection("pagelevelstyles", required: false)
     <!-- EOF CSS INCLUDE -->
 
     @RenderSection("headscripts", required: false)
-    <link href="~/Resources/Site.css" rel="stylesheet" />
-    @*<link href="~/Resources/CornerMenu.css" rel="stylesheet" />*@
+    <link href="~/Resources/Site.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
+    @*<link href="~/Resources/CornerMenu.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />*@
 </head>
 <body class="demo">
     <div id="loader-wrapper">
@@ -98,7 +98,7 @@
     </div>
     @Html.Partial("_AppScripts")
 
-    <script src="~/Scripts/SharedJS/Layout.js"></script>
+    <script src="~/Scripts/SharedJS/Layout.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
 
     @RenderSection("scripts", required: false)
 
