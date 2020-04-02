@@ -3,6 +3,12 @@ var isUserLoggedIn = null;
 
 var Layout = {
     currentModel: '',
+    loadCornerMenuControl: function () {
+        $(".trigger").click(function () {
+            $(".rotationMenu").toggleClass("active");
+        });
+    },
+
     ProfileSave: function () {
         $("#changeuserprofileform").submit(function (e) {
             //$("#btnUpdateProfile").html('<div class="app-spinner loading"></div>');
@@ -62,13 +68,7 @@ var Layout = {
             });
         });
     },
-
-    loadCornerMenuControl: function () {
-        $(".trigger").click(function () {
-            $(".rotationMenu").toggleClass("active");
-        });
-    },
-
+    
     openMenu: function (name) {
         $(".trigger").click();
         var url = '';
@@ -114,7 +114,7 @@ var Layout = {
         }
     },
 
-    renderFormDesignerInIframe(content, id) {
+    renderFormDesignerInIframe: function(content, id) {
         var iframe = document.getElementById(id),
             iframeWin = iframe.contentWindow || iframe,
             iframeDoc = iframe.contentDocument || iframeWin.document;
@@ -131,7 +131,7 @@ var Layout = {
         iframeDoc.close();
     },
 
-    renderContentInIframe(content, id) {
+    renderContentInIframe: function(content, id) {
         var iframe = document.getElementById(id);
         iframe = iframe.contentWindow || (iframe.contentDocument.document || iframe.contentDocument);
 
@@ -238,29 +238,6 @@ var Layout = {
             });
         }
     },
-
-    //loadAboutText: function () {
-    //    var DATAURL = window.location.origin + "/Home/GetAboutText";
-    //    $.ajax({
-    //        type: "GET",
-    //        url: DATAURL,
-    //        contentType: "application/json; charset=utf-8",
-    //        dataType: "json",
-    //        success: function (response) {
-    //            if (response !== null) {
-    //                $('#aboutModal .modal-body').html(response.Text);
-    //            } else {
-
-    //            }
-    //        },
-    //        failure: function (response) {
-
-    //        },
-    //        error: function (response) {
-
-    //        }
-    //    });
-    //},
 
     closeTab: function (id) {
         var tabContentId = $('#tab-' + id + '> a').attr("href");

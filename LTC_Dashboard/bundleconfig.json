@@ -3,13 +3,13 @@
   {
     "outputFileName": "wwwroot/css/commonStyle.min.css",
     "inputFiles": [
-      ""
+
     ]
   },
   {
     "outputFileName": "wwwroot/js/commonScripts.min.js",
     "inputFiles": [
-      ""
+
     ],
     "minify": {
       "enabled": true,
@@ -20,15 +20,32 @@
 
   // login layout
   {
-    "outputFileName": "wwwroot/css/loginLayoutCombined.min.css",
+    "outputFileName": "wwwroot/bundling/css/loginLayoutCombined.min.css",
     "inputFiles": [
-      ""
+      "wwwroot/Resources/Limitless/global_assets/css/icons/icomoon/styles.css",
+      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap.min.css",
+      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap_limitless.min.css",
+      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/layout.min.css",
+      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/components.min.css",
+      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/colors.min.css",
+      "wwwroot/Resources/Vendor/bootstrap-select-1.13.7/css/bootstrap-select.min.css",
+      "wwwroot/Resources/Limitless/global_assets/css/icons/fontawesome/styles.min.css",
+      "wwwroot/Resources/Limitless/Site.css"
     ]
   },
   {
-    "outputFileName": "wwwroot/js/loginLayoutCombined.min.js",
+    "outputFileName": "wwwroot/bundling/js/loginLayoutCombined.min.js",
     "inputFiles": [
-      ""
+      "wwwroot/Resources/theme/js/vendor/jquery/jquery.min.js",
+      "wwwroot/Resources/theme/js/vendor/jquery/jquery-ui.min.js",
+      "wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+      "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "wwwroot/Resources/Limitless/global_assets/js/main/bootstrap.bundle.min.js",
+      "wwwroot/Resources/Limitless/global_assets/js/plugins/loaders/blockui.min.js",
+      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/js/app.js",
+      "wwwroot/Resources/Limitless/global_assets/js/demo_pages/login.js",
+      "wwwroot/Scripts/Login/Login.js",
+      "wwwroot/Scripts/SharedJS/Layout.js"
     ],
     "minify": {
       "enabled": true,
@@ -39,15 +56,28 @@
 
   // login page
   {
-    "outputFileName": "wwwroot/css/loginPageCombined.min.css",
+    "outputFileName": "wwwroot/bundling/css/loginPageCombined.min.css",
     "inputFiles": [
-      ""
+
     ]
   },
   {
-    "outputFileName": "wwwroot/js/loginPageCombined.min.js",
+    "outputFileName": "wwwroot/bundling/js/loginPageCombined.min.js",
     "inputFiles": [
-      ""
+      "wwwroot/Resources/Limitless/global_assets/js/plugins/forms/styling/uniform.min.js",
+      "wwwroot/Resources/Vendor/bootstrap-select-1.13.7/js/bootstrap-select.min.js",
+      "wwwroot/Resources/theme/js/vendor/datatables.net/js/datatables.min.js",
+      "wwwroot/Resources/theme/js/vendor/datatables.net/js/Select-1.2.6/js/select.bootstrap.min.js",
+      "wwwroot/Resources/theme/js/vendor/ResizePanel/Resize.js",
+      "wwwroot/Resources/FormDesigner/assets/js/form-builder.min.js",
+      "wwwroot/Resources/FormDesigner/assets/js/form-render.min.js",
+      
+      "wwwroot/Scripts/SharedJS/LoginLayout.js",
+      "wwwroot/Scripts/Survey/PublicSurvey.js",
+      "wwwroot/Scripts/Survey/PublicTag.js",
+      "wwwroot/Scripts/Form/PublicForm.js",
+      "wwwroot/Scripts/Form/PublicFormTag.js",
+      "wwwroot/Resources/kendo/js/kendo.all.min.js"
     ],
     "minify": {
       "enabled": true,
@@ -58,13 +88,13 @@
 
   // Dashboard Layout
   {
-    "outputFileName": "wwwroot/css/dashboardLayoutCombined.min.css",
+    "outputFileName": "wwwroot/bundling/css/dashboardLayoutCombined.min.css",
     "inputFiles": [
       ""
     ]
   },
   {
-    "outputFileName": "wwwroot/js/dashboardLayoutCombined.min.js",
+    "outputFileName": "wwwroot/bundling/js/dashboardLayoutCombined.min.js",
     "inputFiles": [
       ""
     ],
@@ -78,13 +108,13 @@
 
   // Dashboard page
   {
-    "outputFileName": "wwwroot/css/dashboardPageCombined.min.css",
+    "outputFileName": "wwwroot/bundling/css/dashboardPageCombined.min.css",
     "inputFiles": [
       ""
     ]
   },
   {
-    "outputFileName": "wwwroot/js/dashboardPageCombined.min.js",
+    "outputFileName": "wwwroot/bundling/js/dashboardPageCombined.min.js",
     "inputFiles": [
       ""
     ],
@@ -97,13 +127,13 @@
 
   // Newsletter layout
   {
-    "outputFileName": "wwwroot/css/newsletterLayoutCombined.min.css",
+    "outputFileName": "wwwroot/bundling/css/newsletterLayoutCombined.min.css",
     "inputFiles": [
       ""
     ]
   },
   {
-    "outputFileName": "wwwroot/js/newsletterLayoutCombined.min.js",
+    "outputFileName": "wwwroot/bundling/js/newsletterLayoutCombined.min.js",
     "inputFiles": [
       ""
     ],
@@ -116,13 +146,13 @@
 
   // Newsletter page
   {
-    "outputFileName": "wwwroot/css/newsletterPageCombined.min.css",
+    "outputFileName": "wwwroot/bundling/css/newsletterPageCombined.min.css",
     "inputFiles": [
       ""
     ]
   },
   {
-    "outputFileName": "wwwroot/js/newsletterPageCombined.min.js",
+    "outputFileName": "wwwroot/bundling/js/newsletterPageCombined.min.js",
     "inputFiles": [
       ""
     ],
