@@ -1432,7 +1432,7 @@ var Newsletter = function () {
 
                                     $('#tblMarketing').on('click', 'thead th', function (event) {
                                         var clickedHeader = $(this).closest('th').index();
-                                      
+
                                         if (clickedHeader > -1) {
                                             $('#ddlCategoryArticle2').prop('selectedIndex', 0);
                                         }
@@ -1440,9 +1440,9 @@ var Newsletter = function () {
 
 
                                     $('#tblParadigm').on('click', 'thead th', function (event) {
-                                       
+
                                         var clickedHeader = $(this).closest('th').index();
-                                        
+
                                         if (clickedHeader > -1) {
                                             $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
 

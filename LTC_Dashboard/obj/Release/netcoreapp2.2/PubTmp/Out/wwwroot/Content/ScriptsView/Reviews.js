@@ -1,10 +1,10 @@
 ﻿$.ajaxSetup({ cache: false });
 var Reviews = function () {
-   
+
     var initReviewTable = function () {
         Layout.showLoader();
 
-         var table = $('#reviewTable');
+        var table = $('#reviewTable');
         if (dt != null) {
             dt.destroy();
         }
@@ -108,7 +108,7 @@ var Reviews = function () {
 
             }
         });
-      
+
 
 
     }
@@ -125,11 +125,11 @@ var Reviews = function () {
             initReviewTable();
 
         },
-     
+
     };
 
 }();
- 
+
 
 
 
