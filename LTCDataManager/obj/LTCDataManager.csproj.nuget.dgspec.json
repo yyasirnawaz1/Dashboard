@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Latest LTC GIT\\Dashboard\\LTCDataManager\\LTCDataManager.csproj": {}
+    "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj": {}
   },
   "projects": {
-    "F:\\Latest LTC GIT\\Dashboard\\LTCDataManager\\LTCDataManager.csproj": {
+    "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Latest LTC GIT\\Dashboard\\LTCDataManager\\LTCDataManager.csproj",
+        "projectUniqueName": "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj",
         "projectName": "LTCDataManager",
-        "projectPath": "F:\\Latest LTC GIT\\Dashboard\\LTCDataManager\\LTCDataManager.csproj",
-        "packagesPath": "C:\\Users\\adsh\\.nuget\\packages\\",
-        "outputPath": "F:\\Latest LTC GIT\\Dashboard\\LTCDataManager\\obj\\",
+        "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj",
+        "packagesPath": "C:\\Users\\Yasir\\.nuget\\packages\\",
+        "outputPath": "D:\\Office\\Github\\Dashboard\\LTCDataManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\adsh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Yasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "F:\\Latest LTC GIT\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {
-                "projectPath": "F:\\Latest LTC GIT\\Dashboard\\LTCDataModel\\LTCDataModel.csproj"
+              "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {
+                "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj"
               }
             }
           }
@@ -90,20 +90,20 @@
         }
       }
     },
-    "F:\\Latest LTC GIT\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {
+    "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Latest LTC GIT\\Dashboard\\LTCDataModel\\LTCDataModel.csproj",
+        "projectUniqueName": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj",
         "projectName": "LTCDataModel",
-        "projectPath": "F:\\Latest LTC GIT\\Dashboard\\LTCDataModel\\LTCDataModel.csproj",
-        "packagesPath": "C:\\Users\\adsh\\.nuget\\packages\\",
-        "outputPath": "F:\\Latest LTC GIT\\Dashboard\\LTCDataModel\\obj\\",
+        "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj",
+        "packagesPath": "C:\\Users\\Yasir\\.nuget\\packages\\",
+        "outputPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\adsh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Yasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
