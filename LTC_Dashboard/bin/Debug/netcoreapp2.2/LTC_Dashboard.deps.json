@@ -24,7 +24,6 @@
     ".NETCoreApp,Version=v2.2": {
       "LTC_Dashboard/1.0.0": {
         "dependencies": {
-          "BuildBundlerMinifier": "3.2.435",
           "DataTables.AspNet.Core": "2.0.0",
           "DataTables.AspNetCore.Mvc": "1.4.2",
           "LTCDataManager": "1.0.0",
@@ -63,7 +62,6 @@
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
         }
       },
-      "BuildBundlerMinifier/3.2.435": {},
       "DataTables.AspNet.Core/2.0.0": {
         "dependencies": {
           "NETStandard.Library": "2.0.3"
@@ -4037,13 +4035,6 @@
       "sha512": "sha512-jAy3uHN1U9DpoT/TgLqDTEhlccn/4doOVxhSmmNsnoSsGfHT9Lwr634ac9D0YFujAhNw61nWF4UIpHyzv0aQww==",
       "path": "bouncycastle.netcore/1.8.3",
       "hashPath": "bouncycastle.netcore.1.8.3.nupkg.sha512"
-    },
-    "BuildBundlerMinifier/3.2.435": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-6i5tLEU9c1o8+y01Ie9J+y8CY8x4P0R1G56KNDtgJmPI3Vd/GzqMqnTxoe8wpg/MAl15jk0KuIzerY1Kxu/WAg==",
-      "path": "buildbundlerminifier/3.2.435",
-      "hashPath": "buildbundlerminifier.3.2.435.nupkg.sha512"
     },
     "DataTables.AspNet.Core/2.0.0": {
       "type": "package",

@@ -124,12 +124,25 @@ namespace LTCDataManager.User
             return result;
         }
 
-        public static gUserModule GetAllAuthenticationModule(int userid)
+        //[Obsolete]
+        //public static gUserModule GetAllAuthenticationModule(int userid)
+        //{
+        //    gUserModule model;
+        //    using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
+        //    {
+        //        string qry = $"select a.Office_Sequence,a.IsDashboardOk,a.IsOfficeManagementOk, a.IsSurveyOk,a.IsFormOk,a.IsReviewOk,a.IsNewsletterOk,a.IsReportsOk, IsSmsOk from authentication_module as a INNER JOIN authentication as b ON a.Office_Sequence = b.Office_Sequence AND b.Id = {userid}";
+        //        model = db.Fetch<gUserModule>(qry).FirstOrDefault();
+        //    }
+
+        //    return model;
+        //}
+
+        public static gUserModule GetAllAuthenticationModuleByOfficeSequence(int officeSequence)
         {
             gUserModule model;
-            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
+            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
             {
-                string qry = $"select a.Office_Sequence,a.IsDashboardOk,a.IsOfficeManagementOk, a.IsSurveyOk,a.IsFormOk,a.IsReviewOk,a.IsNewsletterOk,a.IsReportsOk, IsSmsOk from authentication_module as a INNER JOIN authentication as b ON a.Office_Sequence = b.Office_Sequence AND b.Id = {userid}";
+                string qry = $"select Office_Sequence,IsDashboardOk,IsOfficeManagementOk, IsSurveyOk,IsFormOk, IsReviewOk,IsNewsletterOk,IsReportsOk, IsSmsOk from businessinfo WHERE Office_Sequence  = {officeSequence}";
                 model = db.Fetch<gUserModule>(qry).FirstOrDefault();
             }
 

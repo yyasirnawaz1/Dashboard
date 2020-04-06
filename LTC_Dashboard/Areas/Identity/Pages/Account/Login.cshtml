@@ -12,11 +12,12 @@
 
 @{
     ViewData["Title"] = "Log in";
-    Layout = "~/Views/Shared/Layouts/_loginLayout.cshtml"; 
+    Layout = "~/Views/Shared/Layouts/_loginLayout.cshtml";
 
-    int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId);
+    //int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId);
+    int.TryParse(User.FindFirstValue("OfficeSequence"), out int officeSequence);
 
-    var permissionList = gUserModuleManager.GetAllAuthenticationModule(userId);
+    var permissionList = gUserModuleManager.GetAllAuthenticationModuleByOfficeSequence(officeSequence);
 }
 
 @section styles
