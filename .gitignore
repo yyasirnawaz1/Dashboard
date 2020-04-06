@@ -37,3 +37,7 @@ msbuild.wrn
 .vs/
 *.pdb
 *.dll
+.vs/LTCDashboard/v16/Server/sqlite3/storage.ide
+.vs/LTCDashboard/v16/.suo
+.vs/LTCDashboard/v16/Server/sqlite3/storage.ide
+LTC_Dashboard/obj/Debug/netcoreapp2.2/LTC_Dashboard.csprojAssemblyReference.cache

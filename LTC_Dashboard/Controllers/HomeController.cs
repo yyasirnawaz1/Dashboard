@@ -36,7 +36,8 @@ namespace LTCDashboard.Controllers
         [HttpGet]
         public ActionResult GetBusinessNames()
         {
-            return Json(gOfficeManager.GetOfficeDetailByUserId(UserId));
+            //return Json(gOfficeManager.GetOfficeDetailByUserId(UserId));
+            return Json(gOfficeManager.GetOfficeDetailByOfficeSequence(OfficeSequence));
         }
 
         [HttpGet]

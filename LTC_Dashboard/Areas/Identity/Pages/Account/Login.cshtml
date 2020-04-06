@@ -22,13 +22,14 @@
 
 @section styles
 {
-    <script src="~/Resources/Limitless/global_assets/js/plugins/forms/styling/uniform.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Vendor/bootstrap-select-1.13.7/js/bootstrap-select.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/theme/js/vendor/datatables.net/js/datatables.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/theme/js/vendor/datatables.net/js/Select-1.2.6/js/select.bootstrap.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/theme/js/vendor/ResizePanel/Resize.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/FormDesigner/assets/js/form-builder.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/FormDesigner/assets/js/form-render.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    @*<script src="~/Resources/Limitless/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+        <script src="~/Resources/Vendor/bootstrap-select-1.13.7/js/bootstrap-select.min.js"></script>
+        <script src="~/Resources/theme/js/vendor/datatables.net/js/datatables.min.js"></script>
+        <script src="~/Resources/theme/js/vendor/datatables.net/js/Select-1.2.6/js/select.bootstrap.min.js"></script>
+        <script src="~/Resources/theme/js/vendor/ResizePanel/Resize.js"></script>
+        <script src="~/Resources/FormDesigner/assets/js/form-builder.min.js"></script>
+        <script src="~/Resources/FormDesigner/assets/js/form-render.min.js"></script>*@
+
 }
 
 <div class="navbar navbar-expand-md navbar-dark">
@@ -93,12 +94,12 @@
                         }
 
                         @*@if (permissionList.IsNewsletterOk == 1)
-                        {
-                            <a href="javascript:void(0)" onclick="PreNewsLetterControls.loadFromHomePage();" class="dropdown-item">
-                                <i class="icon-newspaper"></i>
-                                Public Newsletters
-                            </a>
-                        }*@
+                            {
+                                <a href="javascript:void(0)" onclick="PreNewsLetterControls.loadFromHomePage();" class="dropdown-item">
+                                    <i class="icon-newspaper"></i>
+                                    Public Newsletters
+                                </a>
+                            }*@
                         <div class="dropdown-divider"></div>
                         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/Identity/Account/Login">
                             <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">
@@ -203,11 +204,11 @@
                                 </div>
                                 <div class="form-group d-flex align-items-center">
                                     @*<div class="form-check mb-0">
-                                        <label class="form-check-label">
-                                            <div class="uniform-checker"><span class="checked"><input type="checkbox" name="remember" class="form-input-styled" checked="" data-fouc=""></span></div>
-                                            Remember
-                                        </label>
-                                    </div>*@
+                                            <label class="form-check-label">
+                                                <div class="uniform-checker"><span class="checked"><input type="checkbox" name="remember" class="form-input-styled" checked="" data-fouc=""></span></div>
+                                                Remember
+                                            </label>
+                                        </div>*@
                                     <a asp-page="./ForgotPassword" class="ml-auto">Forgot password?</a>
                                 </div>
                                 <div class="form-group">
@@ -424,14 +425,14 @@
 
                                         if (permissionList.IsReportsOk == 1)
                                         {
-                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Configuration.GetSection("Configuration")["OfficePortalUrl"]',true)">
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Configuration.GetSection("Configuration")["OfficePortalUrl"]', true)">
                                                 <i class="icon-printer text-blue-400 icon-2x"></i>
                                                 <span>Office Portal</span>
                                             </button>
                                         }
                                         else
                                         {
-                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Configuration.GetSection("Configuration")["OfficePortalUrl"]',true)">
+                                            <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="alert('Selected option not subscribed');">
                                                 <i class="icon-printer text-blue-400 icon-2x"></i>
                                                 <span>Office Portal</span>
                                             </button>
@@ -525,20 +526,21 @@
 
     <partial name="~/Views/Shared/PartialViews/_About.cshtml" />
 
-    <script src="~/Scripts/SharedJS/LoginLayout.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Scripts/Survey/PublicSurvey.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Scripts/Survey/PublicTag.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Scripts/Form/PublicForm.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Scripts/Form/PublicFormTag.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    @*<script src="~/Scripts/NewsLetter/PreDefinedNewsLetter.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>*@
-    <script src="~/Resources/kendo/js/kendo.all.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    @*<script src="~/Scripts/NewsLetter/NewsLetter.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>*@
+    @*<script src="~/Scripts/SharedJS/LoginLayout.js"></script>
+        <script src="~/Scripts/Survey/PublicSurvey.js"></script>
+        <script src="~/Scripts/Survey/PublicTag.js"></script>
+        <script src="~/Scripts/Form/PublicForm.js"></script>
+        <script src="~/Scripts/Form/PublicFormTag.js"></script>
+        <script src="~/Resources/kendo/js/kendo.all.min.js"></script>*@
+
+    @*<script src="~/Scripts/NewsLetter/PreDefinedNewsLetter.js"></script>*@
+    @*<script src="~/Scripts/NewsLetter/NewsLetter.js"></script>*@
 }
 
 @section scripts
 {
-    <script src="~/Scripts/Login/Login.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Scripts/SharedJS/Layout.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-
-    <partial name="_ValidationScriptsPartial" />
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <script src="~/bundling/js/loginPageCombined.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    }
 }
