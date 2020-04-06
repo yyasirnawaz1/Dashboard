@@ -75,7 +75,7 @@ namespace LTCDataManager.Office
         public static List<gBusinesInfo> GetOffices(int userId)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
-            var dbSystem = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+            var dbSystem = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
             List<gBusinesInfo> offices = new List<gBusinesInfo>();
 
             var allowedOfficeList = db.Fetch<string>($"SELECT Office_Sequence FROM authentication_office_list where UserId = " + userId).ToList();
