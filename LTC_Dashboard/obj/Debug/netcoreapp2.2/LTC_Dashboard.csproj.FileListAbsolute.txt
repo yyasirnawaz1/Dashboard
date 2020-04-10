@@ -790,3 +790,5 @@ D:\Office\Github\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.c
 D:\Office\Github\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.dll
 D:\Office\Github\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.pdb
 D:\Office\Github\Dashboard\LTC_Dashboard\bin\Debug\netcoreapp2.2\bundleconfig.json
+D:\Office\Github\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.csproj.CoreCompileInputs.cache
+D:\Office\Github\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.genruntimeconfig.cache

@@ -14,7 +14,7 @@ var Dashboard = {
 
     breakdownGrid: null,
     chartsDetailData: null,
-    mapping:null,
+    mapping: null,
 
 
     breakdownTable: null,
@@ -702,7 +702,7 @@ var Dashboard = {
         for (let i = 0; i < allowedFilterTypes.length; i++) {
             var curHtml = Dashboard.filterTypeHTML.replace(/{value}/g, allowedFilterTypes[i]);
             var description = Dashboard.mapping.find(x => x.Type == allowedFilterTypes[i]);
-            
+
             if (description == undefined || description == null) {
                 curHtml = curHtml.replace(/{name}/g, allowedFilterTypes[i]);
             } else if (description.Description == '') {
@@ -838,102 +838,130 @@ var Dashboard = {
         }
 
     },
-
     BarChart: function (id, data) {
-        // Main variables
         $("#" + id).html('');
         var element = document.getElementById(id);
-        var model = [];
 
-
+        var model = JSON.parse(data);
+        uModel = model;
         if (id === 'CancellationAndNoShows-chart') {
-            //$('.form-check-input-switch').bootstrapSwitch();
-
-            //$('#cancellationAndNoShowMonthYear').on('switchChange.bootstrapSwitch',
-            //    function (event, state) {
-            //        if ($("#cancellationAndNoShowMonthYear").is(':checked')) {
-
-            //        } else {
-
-            //        }
-            //    });
-
-            for (var i = 0; i < data.length; i++) {
-                model.push({ "Date": data[i].xLabel, "Count": data[i].yValue, "order": i });
+            for (var i = 0; i < model.length; i++) {
+                model[i].order = i;
             }
+            var svg = dimple.newSvg(element, "100%");
+            svg.attr("width", "100%").attr("height", "100%");
 
+            var myChart = new dimple.chart(svg, model);
+            myChart.setBounds("10%", 0, "90%", "100%");
+            myChart.setMargins(55, 5, 0, 50);
+            var x = myChart.addCategoryAxis("x", ["contactDate"]);
+            x.addOrderRule("order");
+            myChart.addMeasureAxis("y", "count");
+            myChart.addSeries("status", dimple.plot.bar);
+            myChart.draw();
         } else {
             for (var i = 0; i < data.length; i++) {
                 model.push({ "Date": data[i].xLabel, "Count": data[i].yValue });
             }
-        }
-
-
-
-        if (element) {
-
-            // Construct chart
             var svg = dimple.newSvg(element, "100%");
-
             svg.attr("width", "100%")
                 .attr("height", "100%");
-
-            // Define chart
             var myChart = new dimple.chart(svg, model);
-
-            // Set bounds
             myChart.setBounds("10%", 0, "90%", "100%");
-
-            // Set margins
             myChart.setMargins(55, 5, 0, 50);
-
-            // Create axes
-            // ------------------------------
-
-            // Horizontal
             var x = myChart.addCategoryAxis("x", "Date");
             x.addOrderRule("order");
-
-            // Vertical
             var y = myChart.addMeasureAxis("y", "Count");
-            // Add bars
             myChart.addSeries(null, dimple.plot.bar);
-
-            // Font size
             x.fontSize = "12";
             y.fontSize = "12";
-
-            // Font family
             x.fontFamily = "Roboto";
             y.fontFamily = "Roboto";
-
-            // Draw
             myChart.draw();
-
-            // Remove axis titles
-            //x.titleShape.remove();
-
-            // Add a method to draw the chart on resize of the window
             $(window).on('resize', resize);
             $('.sidebar-control').on('click', resize);
-
-            // Resize function
-            function resize() {
-
-                // Redraw chart
-                myChart.draw(0, true);
-
-                // Remove axis titles
-                // x.titleShape.remove();
-            }
         }
 
-
+        function resize() {
+            myChart.draw(0, true);
+        }
         // Resize chart on sidebar width change
         $('.sidebar-control').on('click', function () {
             bar_chart.resize();
         });
     },
+
+    //BarChart: function (id, data) {
+    //    $("#" + id).html('');
+    //    var element = document.getElementById(id);
+    //    var model = [];
+    //    var jsonData = JSON.parse(data);
+
+    //    if (id === 'CancellationAndNoShows-chart') {
+
+    //        for (var i = 0; i < data.length; i++) {
+    //            model.push({ "Date": data[i].xLabel, "Count": data[i].yValue, "order": i });
+    //        }
+
+    //    } else {
+    //        for (var i = 0; i < data.length; i++) {
+    //            model.push({ "Date": data[i].xLabel, "Count": data[i].yValue });
+    //        }
+    //    }
+
+
+
+    //    if (element) {
+
+    //        var svg = dimple.newSvg(element, "100%");
+
+    //        svg.attr("width", "100%")
+    //            .attr("height", "100%");
+
+    //        var myChart = new dimple.chart(svg, model);
+
+    //        myChart.setBounds("10%", 0, "90%", "100%");
+
+    //        myChart.setMargins(55, 5, 0, 50);
+
+    //        var x = myChart.addCategoryAxis("x", "Date");
+    //        x.addOrderRule("order");
+
+    //        var y = myChart.addMeasureAxis("y", "Count");
+    //        // Add bars
+    //        myChart.addSeries(null, dimple.plot.bar);
+
+    //        x.fontSize = "12";
+    //        y.fontSize = "12";
+
+    //        x.fontFamily = "Roboto";
+    //        y.fontFamily = "Roboto";
+
+    //        myChart.draw();
+
+    //        // Remove axis titles
+    //        //x.titleShape.remove();
+
+    //        $(window).on('resize', resize);
+    //        $('.sidebar-control').on('click', resize);
+
+    //        // Resize function
+    //        function resize() {
+
+    //            // Redraw chart
+    //            myChart.draw(0, true);
+
+    //            // Remove axis titles
+    //            // x.titleShape.remove();
+    //        }
+    //    }
+
+
+    //    // Resize chart on sidebar width change
+    //    $('.sidebar-control').on('click', function () {
+    //        bar_chart.resize();
+    //    });
+    //},
 
     removeCard: function (e) {
 
@@ -1227,7 +1255,7 @@ var Dashboard = {
             },
             success: function (data) {
                 if (data.Success) {
-                    Dashboard.mapping = data.Data; 
+                    Dashboard.mapping = data.Data;
                 }
             },
             error: function (errorData) {

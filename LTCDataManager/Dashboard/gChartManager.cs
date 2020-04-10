@@ -9,6 +9,7 @@ using LTCDataModel.Configurations;
 using LTCDataModel.Dashboard;
 using LTCDataModel.Patient;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace LTCDataManager.Dashboard
 {
@@ -141,7 +142,7 @@ namespace LTCDataManager.Dashboard
         public decimal GetTotalNetProduction(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.TotalNetProductionInvoiceTypes);
-           
+
             decimal result = 0;
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -176,7 +177,7 @@ namespace LTCDataManager.Dashboard
         public List<gBreakdown> GetTotalNetProductionBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.TotalNetProductionInvoiceTypes);
-          
+
             List<gBreakdown> result = new List<gBreakdown>();
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -205,7 +206,7 @@ namespace LTCDataManager.Dashboard
         public decimal GetTotalPaymentReceipt(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.TotalPaymentReceiptInvoiceTypes);
-            
+
             decimal result = 0;
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -240,7 +241,7 @@ namespace LTCDataManager.Dashboard
         public List<gBreakdown> GetTotalPaymentReceiptBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.TotalPaymentReceiptInvoiceTypes);
-           
+
             List<gBreakdown> result = new List<gBreakdown>();
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -269,7 +270,7 @@ namespace LTCDataManager.Dashboard
         public decimal GetTotalNetPaymentReceipt(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.TotalNetPaymentReceiptInvoiceTypes);
-           
+
             decimal result = 0;
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -304,7 +305,7 @@ namespace LTCDataManager.Dashboard
         public List<gBreakdown> GetTotalNetPaymentReceiptBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.TotalNetPaymentReceiptInvoiceTypes);
-         
+
             List<gBreakdown> result = new List<gBreakdown>();
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -341,7 +342,7 @@ namespace LTCDataManager.Dashboard
         public decimal GetTotalHygenistProduction(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.TotalHygenistProductionInvoiceTypes);
-           
+
             decimal result = 0;
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -376,7 +377,7 @@ namespace LTCDataManager.Dashboard
         public List<gBreakdown> GetTotalHygenistProductionBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.TotalHygenistProductionInvoiceTypes);
-            
+
             List<gBreakdown> result = new List<gBreakdown>();
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -413,7 +414,7 @@ namespace LTCDataManager.Dashboard
         public decimal GetTotalNetDoctorProduction(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.TotalTotalNetDoctorProductionInvoiceTypes);
-          
+
             decimal result = 0;
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -448,7 +449,7 @@ namespace LTCDataManager.Dashboard
         public List<gBreakdown> GetTotalNetDoctorProductionBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.TotalTotalNetDoctorProductionInvoiceTypes);
-           
+
             List<gBreakdown> result = new List<gBreakdown>();
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
@@ -485,7 +486,7 @@ namespace LTCDataManager.Dashboard
         public List<gPieChart> GetServiceAnalysis(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.ServiceAnalysisInvoiceTypes);
-           
+
             List<gCode> codes = new List<gCode>();
             List<gPieChart> serviceAnalysisList = new List<gPieChart>();
             var providers = Utility.ProviderToList(providerList);
@@ -561,7 +562,7 @@ namespace LTCDataManager.Dashboard
         public List<gServiceAnalysis> GetServiceAnalysisBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.ServiceAnalysisInvoiceTypes);
-            
+
             List<gCode> codes = new List<gCode>();
             List<gServiceAnalysis> serviceAnalysisList = new List<gServiceAnalysis>();
             var providers = Utility.ProviderToList(providerList);
@@ -638,12 +639,12 @@ namespace LTCDataManager.Dashboard
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public List<gBarChart> GetCancellationAndNoShows(int[] offices, string[] providerList, string startDate, string endDate, string types)
+        public string GetCancellationAndNoShows(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.CancellationAndNoShowsStatusTypes);
-           
+
             List<gCode> codes = new List<gCode>();
-            List<gBarChart> serviceAnalysisList = new List<gBarChart>();
+            List<object> serviceAnalysisList = new List<object>();
             var providers = Utility.ProviderToList(providerList);
             foreach (var office in offices)
             {
@@ -654,32 +655,33 @@ namespace LTCDataManager.Dashboard
 
                 var db = PocoDatabase.DbConnection(Utility.GetConnectionStringByOfficeId(office));
 
-                string query = $"SELECT contactdate as xLabel, count(r.patientNumber) as yValue FROM recall r "
-                        + $"LEFT JOIN provider p on r.provider = p.provider  "
-                        + $"LEFT JOIN patient pt on r.patientNumber = pt.patientnumber "
-                        + $"WHERE r.provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("CancellationAndNoShowsTypes")})) "
-                        + $"AND status in ({types}) "
-                        + $"AND r.contactdate >= '{startDate}' "
-                        + $"AND r.contactdate <= '{endDate}' "
-                        + $"AND r.Office_sequence = {office} "
-                        + $"Group By r.office_sequence, contactdate ";
+                //string query = $"SELECT contactdate as xLabel, count(r.patientNumber) as yValue FROM recall r "
+                //        + $"LEFT JOIN provider p on r.provider = p.provider  "
+                //        + $"LEFT JOIN patient pt on r.patientNumber = pt.patientnumber "
+                //        + $"WHERE r.provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("CancellationAndNoShowsTypes")})) "
+                //        + $"AND status in ({types}) "
+                //        + $"AND r.contactdate >= '{startDate}' "
+                //        + $"AND r.contactdate <= '{endDate}' "
+                //        + $"AND r.Office_sequence = {office} "
+                //        + $"Group By r.office_sequence, contactdate ";
 
-                var seAnalysis = db.Fetch<gBarChart>(query);
-                foreach (var item in seAnalysis)
-                {
-                    if (DateTime.TryParse(item.xLabel, out DateTime dt))
-                    {
-                        item.OrderDate = dt;
-                        item.xLabel = dt.ToString("MMM, yy");
-                    }
-                    //
-                    //item.xLabel = item.xLabel.Split(' ')[0];
-                }
+
+                string query = $"SELECT DATE_FORMAT(contactdate, \"%Y/%m\") as contactDate, count(r.patientNumber) as count, status FROM recall r "
+                          + $"LEFT JOIN provider p on r.provider = p.provider  "
+                       + $"LEFT JOIN patient pt on r.patientNumber = pt.patientnumber "
+                       + $"WHERE r.provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("CancellationAndNoShowsTypes")})) "
+                       + $"AND status in ({types}) "
+                       + $"AND r.contactdate >= '{startDate}' "
+                       + $"AND r.contactdate <= '{endDate}' "
+                       + $"AND r.Office_sequence = {office} "
+                       + $"Group By r.office_sequence, DATE_FORMAT(contactdate, '%m %Y'), r.status "
+                       + $"";
+
+                var seAnalysis = db.Fetch<object>(query);
+               
                 serviceAnalysisList.AddRange(seAnalysis);
-
             }
-
-            return serviceAnalysisList.OrderBy(x => x.OrderDate).ToList();
+            return JsonConvert.SerializeObject(serviceAnalysisList, Formatting.Indented);
         }
 
         /// <summary>
@@ -693,7 +695,7 @@ namespace LTCDataManager.Dashboard
         public List<gCancellationAndNoShows> GetCancellationAndNoShowsBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.CancellationAndNoShowsStatusTypes);
-           
+
             List<gCode> codes = new List<gCode>();
             List<gCancellationAndNoShows> serviceAnalysisList = new List<gCancellationAndNoShows>();
             var providers = Utility.ProviderToList(providerList);
@@ -740,7 +742,7 @@ namespace LTCDataManager.Dashboard
         public decimal GetAverageProductionPerPatient(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.TotalAverageProductionPerPatientInvoiceTypes);
-            
+
             decimal paidAmount = 0;
             decimal patientCount = 0;
             var providers = Utility.ProviderToList(providerList);
@@ -787,7 +789,7 @@ namespace LTCDataManager.Dashboard
                 if (!string.IsNullOrEmpty(item.InvoiceType))
                 {
                     var type = _mapping.Map.FirstOrDefault(x => x.Type == item.InvoiceType);
-                    if(type!=null)
+                    if (type != null)
                     {
                         item.InvoiceTypeDetail = type.Description;
                     }
