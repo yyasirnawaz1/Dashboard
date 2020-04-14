@@ -27,8 +27,8 @@ var ScheduledNewsletters = function () {
                     "title": "ScheduledDate",
                     "data": "AppointDate",
                     "searchable": true
-                    }
-                    ,
+                }
+                ,
                 {
                     "title": "Status",
                     "data": "Status",
@@ -57,12 +57,12 @@ var ScheduledNewsletters = function () {
                                     break;
                                 }
                         }
-                       
+
                         return status;
                     }
                 }
                 ,
-              
+
             ],
             "language": {
                 "aria": {
@@ -76,10 +76,10 @@ var ScheduledNewsletters = function () {
                 "lengthMenu": "Show _MENU_",
                 "search": "Search:",
                 "zeroRecords": "No matching records found",
-                 
+
             },
 
-        
+
             "bStateSave": false, // save datatable state(pagination, sort, etc) in cookie.
 
             "lengthMenu": [
@@ -110,7 +110,7 @@ var ScheduledNewsletters = function () {
             ], // set first column as a default sort by asc
 
             initComplete: function () {
-                 
+
 
             }
         });

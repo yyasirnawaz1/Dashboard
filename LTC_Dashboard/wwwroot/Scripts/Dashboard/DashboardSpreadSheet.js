@@ -24,7 +24,7 @@
                     proxyURL: "/Dashboard/Index_Proxy"
                 },
                 sheets: [{
-                    name: "Service Analysis",
+                    name: "Breakdown",
                     rows: [...DashboardSpreadSheet.organizeResults(Dashboard.chartsDetailData, Dashboard.setting.loadedChartName)],
                     columns: [{
                         width: 100
@@ -49,7 +49,7 @@
     },
 
     organizeResults: function (data, chartName) {
-        debugger;
+        
         if (chartName == "ServiceAnalysis") {
             return DashboardSpreadSheet.organizedDataForServiceAnalysisChart(data);
         } else if (chartName == "CancellationAndNoShows") {

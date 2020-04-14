@@ -1173,7 +1173,7 @@ var Newsletter = function () {
             var imgs = $('.imageUserCard').length;
             for (var i = 0; i < imgs; i++) {
                 $('.imageUserCard')[i].style.backgroundColor = 'transparent';
-                //= '../Content/Limitless/global_assets/images/placeholders/placeholder.jpg';
+                //= '../Resources/Limitless/global_assets/images/placeholders/placeholder.jpg';
             }
 
 
@@ -1326,7 +1326,7 @@ var Newsletter = function () {
         },
         loadUserDefinedTemplates: function (selectedTypeId) {
             $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
-            var noTemp = '<tr> <td colspan="3"> No record found! </td></tr>';
+            var noTemp = '<tr> <td colspan="5"> No record found! </td></tr>';
             $.ajax({
                 type: "GET",
                 url: '/Newsletter/GetUserDefinedTemplates',
@@ -1337,7 +1337,7 @@ var Newsletter = function () {
                         NewsLetter_UserDefinedTemplates = data;
 
                         if (NewsLetter_UserDefinedTemplates.length < 1) {
-                            $("#tblBody").html('<tr> <td colspan="3"> No record found! </td></tr>');
+                            $("#tblBody").html('<tr> <td colspan="5"> No record found! </td></tr>');
                             $("#tblBodyMarketing").html(noTemp);
                         }
                         else {
@@ -1417,41 +1417,44 @@ var Newsletter = function () {
                             $("#tblBody").append(strParadigm);
                             $("#tblBodyMarketing").append(strMarketing);
 
-                            setTimeout(function () {
-                                $('#tblParadigm').DataTable({
-                                    "order": [[3, "desc"]],
-                                    "paging": false,
-                                });
-
-                                $('#tblMarketing').DataTable({
-                                    "order": [[1, "desc"]],
-                                    "paging": false,
-                                });
-
+                            if (!IsLoadedAlready) {
                                 setTimeout(function () {
-
-                                    $('#tblMarketing').on('click', 'thead th', function (event) {
-                                        var clickedHeader = $(this).closest('th').index();
-                                      
-                                        if (clickedHeader > -1) {
-                                            $('#ddlCategoryArticle2').prop('selectedIndex', 0);
-                                        }
+                                    $('#tblParadigm').DataTable({
+                                        "order": [[3, "desc"]],
+                                        "paging": false,
                                     });
 
-
-                                    $('#tblParadigm').on('click', 'thead th', function (event) {
-                                       
-                                        var clickedHeader = $(this).closest('th').index();
-                                        
-                                        if (clickedHeader > -1) {
-                                            $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
-
-                                        }
+                                    $('#tblMarketing').DataTable({
+                                        "order": [[1, "desc"]],
+                                        "paging": false,
                                     });
+
+                                    setTimeout(function () {
+                                        IsLoadedAlready = true;
+                                        $('#tblMarketing').on('click', 'thead th', function (event) {
+                                            var clickedHeader = $(this).closest('th').index();
+
+                                            if (clickedHeader > -1) {
+                                                $('#ddlCategoryArticle2').prop('selectedIndex', 0);
+                                            }
+                                        });
+
+
+                                        $('#tblParadigm').on('click', 'thead th', function (event) {
+
+                                            var clickedHeader = $(this).closest('th').index();
+
+                                            if (clickedHeader > -1) {
+                                                $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
+
+                                            }
+                                        });
+                                    },
+                                        3000);
                                 },
                                     3000);
-                            },
-                                3000);
+                            }
+                          
                         }
                     }
 
@@ -1472,7 +1475,7 @@ var Newsletter = function () {
         Search: function () {
             $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
             var searchText = $('#txtSearch').val().toLowerCase();
-            var noTemp = '<tr> <td colspan="3"> No record found! </td></tr>';
+            var noTemp = '<tr> <td colspan="5"> No record found! </td></tr>';
             if (searchText == "") {
                 this.loadUserDefinedTemplates();
                 this.loadSystemTemplates();
@@ -1656,7 +1659,7 @@ var Newsletter = function () {
             var imgs = $('.imageCard').length;
             for (var i = 0; i < imgs; i++) {
                 $('.imageCard')[i].style.backgroundColor = 'transparent';
-                //= '../Content/Limitless/global_assets/images/placeholders/placeholder.jpg';
+                //= '../Resources/Limitless/global_assets/images/placeholders/placeholder.jpg';
             }
 
             SelectedUserDefinedTemplateId = tempId;
@@ -2066,7 +2069,7 @@ var Newsletter = function () {
 
 
                             } else {
-                                ltcApp.errorMessage("Error", "Move Action cannot be done");
+                                ltcApp.errorMessage("Error", "Unable to save. Please try again later");
                                 $('#templateEditorWindow').modal('hide');
 
                             }
@@ -2302,6 +2305,8 @@ var NewsLetter_SubIndustries;
 var SelectedUserDefinedTemplateId;
 var SelectedSystemDefinedTemplateId;
 var SelectedArticleId;
+
+var IsLoadedAlready = false;
 var isKendoWindowLoaded = false;
 var getCanvas; // global variable
 

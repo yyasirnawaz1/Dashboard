@@ -524,3 +524,8 @@ D:\LTC Git\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\LTC_Dashboard.Views
 D:\LTC Git\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\LTC_Dashboard.csproj.CopyComplete
 D:\LTC Git\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\LTC_Dashboard.dll
 D:\LTC Git\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\LTC_Dashboard.pdb
+D:\Office\Github\Dashboard\LTC_Dashboard\bin\Release\netcoreapp2.2\bundleconfig.json
+D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\LTC_Dashboard.csproj.CoreCompileInputs.cache
+D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\Razor\Views\Review\Index.cshtml.g.cs
+D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\Razor\Views\Shared\Layouts\_ReviewLayout.cshtml.g.cs
+D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\LTC_Dashboard.genruntimeconfig.cache
