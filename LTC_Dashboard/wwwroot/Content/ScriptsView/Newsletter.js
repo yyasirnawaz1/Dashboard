@@ -1173,7 +1173,7 @@ var Newsletter = function () {
             var imgs = $('.imageUserCard').length;
             for (var i = 0; i < imgs; i++) {
                 $('.imageUserCard')[i].style.backgroundColor = 'transparent';
-                //= '../Content/Limitless/global_assets/images/placeholders/placeholder.jpg';
+                //= '../Resources/Limitless/global_assets/images/placeholders/placeholder.jpg';
             }
 
 
@@ -1659,7 +1659,7 @@ var Newsletter = function () {
             var imgs = $('.imageCard').length;
             for (var i = 0; i < imgs; i++) {
                 $('.imageCard')[i].style.backgroundColor = 'transparent';
-                //= '../Content/Limitless/global_assets/images/placeholders/placeholder.jpg';
+                //= '../Resources/Limitless/global_assets/images/placeholders/placeholder.jpg';
             }
 
             SelectedUserDefinedTemplateId = tempId;
