@@ -8,6 +8,8 @@
 }
 
 <link href="~/Resources/FormDesigner/assets/css/RateYo/RateYo.css" rel="stylesheet" />
+<script src="~/Resources/FormDesigner/assets/js/Rateyo/jquery.rateyo.min.js"></script>
+
 @{
     string os = "0", fid = "0", pid = "0", ac = "0";
     os = HttpContextAccessor.HttpContext.Request.Query["os"].ToString();
@@ -38,7 +40,8 @@
     <script src="~/Resources/theme/js/vendor/datatables.net/js/datatables.min.js"></script>
     <script src="~/Resources/theme/js/vendor/datatables.net/js/Select-1.2.6/js/select.bootstrap.min.js"></script>
     <script src="~/Resources/FormDesigner/assets/js/form-render.min.js"></script>
-    <script src="~/Resources/FormDesigner/assets/js/Rateyo/jquery.rateyo.min.js"></script>
+    <link href="~/Resources/Signature/jquery.signature.css" rel="stylesheet" />
+    <script src="~/Resources/Signature/jquery.signature.js"></script>
     @*<script src="~/Scripts/Form/FormRender.js"></script>*@
     <script src="~/Scripts/Home/FormRender.js"></script>
 }

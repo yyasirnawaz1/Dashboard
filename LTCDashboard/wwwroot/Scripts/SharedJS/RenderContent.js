@@ -31,6 +31,33 @@ jQuery(document).ready(function ($) {
         return controlLineSeprator;
     });
     window.fbControls.push(function (controlClass) {
+        class controlSignature extends controlClass {
+            build() {
+
+                return '<div><div id="' + this.config.name + '"></div></div><p style="clear: both;"><button id="clear' + this.config.name + '">Clear</button></p>';
+
+            }
+            onRender() {
+
+                var signature = $('#' + this.config.name);
+                signature.signature();
+                var signature = $('#' + this.config.name).signature();
+                $('#clear' + this.config.name).click(function () {
+                    signature.signature('clear');
+                });
+                //$('#json' + this.config.name).click(function () {
+                //    alert(signature.signature('toJSON'));
+                //});
+                //$('#svg' + this.config.name).click(function () {
+                //    alert(signature.signature('toSVG'));
+                //});
+            }
+
+        }
+        controlClass.register('signature', controlSignature);
+        return controlSignature;
+    });
+    window.fbControls.push(function (controlClass) {
         class controlNewLine extends controlClass {
             build() {
                 return '<br/>';

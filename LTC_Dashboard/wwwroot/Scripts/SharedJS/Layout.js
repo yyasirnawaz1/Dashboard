@@ -114,7 +114,7 @@ var Layout = {
         }
     },
 
-    renderFormDesignerInIframe(content, id) {
+    renderFormDesignerInIframe: function (content, id) {
         var iframe = document.getElementById(id),
             iframeWin = iframe.contentWindow || iframe,
             iframeDoc = iframe.contentDocument || iframeWin.document;
@@ -122,7 +122,8 @@ var Layout = {
         iframeDoc.open();
         iframeDoc.write('<html><head>');
         iframeDoc.write('</head><body>');
-        iframeDoc.write('<link rel="stylesheet" href="/Resources/theme/css/styles.css"><script type="text/javascript" src="/Resources/theme/js/vendor/jquery/jquery.min.js"></script><script type="text/javascript" src="/Resources/theme/js/vendor/jquery/jquery-ui.min.js"></script><script type="text/javascript" src="/Resources/theme/js/vendor/bootstrap/bootstrap.min.js"></script><script src="/Resources/FormDesigner/assets/js/form-render.min.js"></script><link href="/Resources/FormDesigner/assets/css/RateYo/RateYo.css" rel="stylesheet" /><script src="/Resources/FormDesigner/assets/js/Rateyo/jquery.rateyo.min.js"></script>');
+        // <script src="/Resources/Signature/signature_pad.min.js"></script>
+        iframeDoc.write('<link rel="stylesheet" href="/Resources/theme/css/styles.css"><script type="text/javascript" src="/Resources/theme/js/vendor/jquery/jquery.min.js"></script><script type="text/javascript" src="/Resources/theme/js/vendor/jquery/jquery-ui.min.js"></script><script type="text/javascript" src="/Resources/theme/js/vendor/bootstrap/bootstrap.min.js"></script><script src="/Resources/FormDesigner/assets/js/form-render.min.js"></script><link href="/Resources/FormDesigner/assets/css/RateYo/RateYo.css" rel="stylesheet" /><script src="/Resources/FormDesigner/assets/js/Rateyo/jquery.rateyo.min.js"></script><link href="/Resources/Signature/jquery.signature.css" rel="stylesheet" /><script src="/Resources/Signature/jquery.signature.js"></script>');
         iframeDoc.write('<script src="/Scripts/SharedJS/RenderContent.js"></script>');
         iframeDoc.write('<div id="render-container"  style="padding: 30px;"></div>');
         iframeDoc.write('<script type="text/javascript">$(document).ready(function () {var content = ' + content + ';  RenderContent.RenderContentInIframe(content);});</script>');
@@ -131,7 +132,7 @@ var Layout = {
         iframeDoc.close();
     },
 
-    renderContentInIframe(content, id) {
+    renderContentInIframe: function (content, id) {
         var iframe = document.getElementById(id);
         iframe = iframe.contentWindow || (iframe.contentDocument.document || iframe.contentDocument);
 
@@ -239,30 +240,55 @@ var Layout = {
         }
     },
 
-    //loadAboutText: function () {
-    //    var DATAURL = window.location.origin + "/Home/GetAboutText";
-    //    $.ajax({
-    //        type: "GET",
-    //        url: DATAURL,
-    //        contentType: "application/json; charset=utf-8",
-    //        dataType: "json",
-    //        success: function (response) {
-    //            if (response !== null) {
-    //                $('#aboutModal .modal-body').html(response.Text);
-    //            } else {
+    circularProgressBar: function () {
+        $(".circularBar .progress").each(function () {
+            var value = $(this).attr('data-value');
+            var left = $(this).find('.progress-left .progress-bar');
+            var right = $(this).find('.progress-right .progress-bar');
 
-    //            }
-    //        },
-    //        failure: function (response) {
+            if (value > 0) {
+                if (value <= 50) {
+                    right.css('transform', 'rotate(' + Layout.percentageToDegrees(value) + 'deg)')
+                } else {
+                    right.css('transform', 'rotate(180deg)')
+                    left.css('transform', 'rotate(' + Layout.percentageToDegrees(value - 50) + 'deg)')
+                }
+            }
 
-    //        },
-    //        error: function (response) {
+        })
+    },
 
-    //        }
-    //    });
-    //},
+    percentageToDegrees: function (percentage) {
 
-    closeTab: function (id) {
+        return percentage / 100 * 360
+
+    },
+
+
+//loadAboutText: function () {
+//    var DATAURL = window.location.origin + "/Home/GetAboutText";
+//    $.ajax({
+//        type: "GET",
+//        url: DATAURL,
+//        contentType: "application/json; charset=utf-8",
+//        dataType: "json",
+//        success: function (response) {
+//            if (response !== null) {
+//                $('#aboutModal .modal-body').html(response.Text);
+//            } else {
+
+//            }
+//        },
+//        failure: function (response) {
+
+//        },
+//        error: function (response) {
+
+//        }
+//    });
+//},
+
+closeTab: function (id) {
         var tabContentId = $('#tab-' + id + '> a').attr("href");
         $('#tab-' + id).hide(); //remove li of tab
         $(tabContentId).hide(); //remove respective tab content

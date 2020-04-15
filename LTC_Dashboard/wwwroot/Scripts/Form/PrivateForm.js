@@ -23,30 +23,45 @@
     },
 
     initializeFormBuilderAfterGetTags: function (selectoptions) {
-        fields = [{
-            label: 'Star Rating',
-            attrs: {
-                type: 'starRating'
+        fields = [
+            {
+                label: 'Signature',
+                attrs: {
+                    type: 'signature'
+                },
+                icon: '✍️'
             },
-            icon: '🌟'
-        },
-        {
-            label: 'Line Seperator',
-            attrs: {
-                type: 'LineSeprator',
-                className: "form-control"
+            {
+                label: 'Star Rating',
+                attrs: {
+                    type: 'starRating'
+                },
+                icon: '🌟'
             },
-            icon: '🔖'
-        },
-        {
-            label: 'New Line',
-            attrs: {
-                type: 'NewLine',
-                className: "form-control"
+            {
+                label: 'Line Seperator',
+                attrs: {
+                    type: 'LineSeprator',
+                    className: "form-control"
+                },
+                icon: '🔖'
             },
-            icon: '📥'
-        }];
+            {
+                label: 'New Line',
+                attrs: {
+                    type: 'NewLine',
+                    className: "form-control"
+                },
+                icon: '📥'
+            }];
         templates = {
+            signature: function (fieldData) {
+                return {
+                    field: '<hr>',
+                    onRender: function () {
+                    }
+                };
+            },
             starRating: function (fieldData) {
                 return {
                     field: '<span id="' + fieldData.name + '">',
@@ -157,6 +172,12 @@
                     options: selectoptions
                 }
             },
+            signature: {
+                TagId: {
+                    label: 'Tag',
+                    options: selectoptions
+                }
+            },
             starRating: {
                 TagId: {
                     label: 'Tag',
@@ -194,7 +215,15 @@
             controlClass.register('LineSeprator', controlLineSeprator);
             return controlLineSeprator;
         });
-
+        window.fbControls.push(function (controlClass) {
+            class controlSignature extends controlClass {
+                build() {
+                    return '<hr>';
+                }
+            }
+            controlClass.register('signature', controlSignature);
+            return controlSignature;
+        });
         window.fbControls.push(function (controlClass) {
             class controlNewLine extends controlClass {
                 build() {

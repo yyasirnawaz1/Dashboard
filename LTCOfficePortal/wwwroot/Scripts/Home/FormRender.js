@@ -18,9 +18,9 @@
         $.when(
             FormRender.loadTags()
             , FormRender.loadDesgin(officeSequence, formId)
-            , FormRender.loadPatientDetail(officeSequence,  PID)
-            , FormRender.loadAddress(officeSequence,  PID)
-            , FormRender.loadPhoneDetail(officeSequence,  PID))
+            , FormRender.loadPatientDetail(officeSequence, PID)
+            , FormRender.loadAddress(officeSequence, PID)
+            , FormRender.loadPhoneDetail(officeSequence, PID))
             .done(function (a1, a2, a3, a4, a5) {
                 Common.hideLoader();
 
@@ -84,7 +84,7 @@
     loadPatientDetail: function (officeSequence, PID) {
         return $.ajax({
             type: "GET",
-            url: "/Home/GetPatientDetail?OfficeSequence=" + officeSequence + "&PatientNumber=" + PID ,
+            url: "/Home/GetPatientDetail?OfficeSequence=" + officeSequence + "&PatientNumber=" + PID,
             success: function (response) {
                 FormRender.Patient = response;
 
@@ -103,7 +103,7 @@
     loadAddress: function (officeSequence, PID) {
         return $.ajax({
             type: "GET",
-            url: "/Home/GetPatientAddress?OfficeSequence=" + officeSequence + "&PatientNumber=" + PID ,
+            url: "/Home/GetPatientAddress?OfficeSequence=" + officeSequence + "&PatientNumber=" + PID,
             success: function (response) {
                 FormRender.Address = response;
 
@@ -121,7 +121,7 @@
     loadPhoneDetail: function (officeSequence, PID) {
         return $.ajax({
             type: "GET",
-            url: "/Home/GetPatientPhone?OfficeSequence=" + officeSequence + "&PatientNumber=" + PID ,
+            url: "/Home/GetPatientPhone?OfficeSequence=" + officeSequence + "&PatientNumber=" + PID,
             success: function (response) {
                 FormRender.PatientPhone = response;
 
@@ -146,9 +146,17 @@
 
     saveRendering: function () {
 
+        var result = $('#render-container').formRender('userData');
+        $.each(result, function (index, item) {
+            if (item.type == "signature") {
+                var list = [];
+                list.push($('#input-' + item.name).val());
+                item.userData = list;
+            }
+        });
         //Common.showLoader();
-        var content = JSON.stringify($('#render-container').formRender('userData'));
-        
+        var content = JSON.stringify(result);
+        console.log(content);
         var FID = $('#hid_fid').val();
         var PID = $('#hid_pid').val();
         var OS = $('#hid_os').val();
@@ -157,10 +165,10 @@
         //Common.showLoader();
         $.post("/Home/SaveSurveyAndForm", { FormID: FID, PatientNumber: PID, Office_Sequence: OS, Type: type, Content: content }, function (result) {
             $("btnSubmit").hide();
-           // Common.hideLoader();
+            // Common.hideLoader();
 
             alert('Data Successfully Added');
-          //  window.location.href = '/account/logout';
+            //  window.location.href = '/account/logout';
             //$('#modalFormSubmit').modal('hide');
         });
     },
@@ -176,11 +184,11 @@
                 var value = '';
                 if (tableName.toLowerCase().indexOf('patient') > -1 && FormRender.Patient.length > 0) {
                     value = FormRender.Patient[0][columnName];
-                    
+
                     if (columnName.toLowerCase() == 'birthdate') {
                         var extractDate = value.split(' ');
                         var dateSplit = extractDate[0].split('/');
-                        
+
                         if (dateSplit[0].length > 2) {
                             if (dateSplit[1].length == 1) {
                                 dateSplit[1] = "0" + dateSplit[1];
@@ -250,16 +258,16 @@ jQuery(document).ready(function ($) {
                 $('#' + el.config.name).rateYo({
 
                     onSet: function (rating, rateYoInstance) {
-                       
+
                         $(rateYoInstance).next().val(rating);
                         el.config.ratingData = rating;
                         el.rawConfig.ratingData = rating;
                         el.config.value = rating;
                     },
-                    ratingData : 5,
+                    ratingData: 5,
                     rating: el.config.ratingData || 5,
                     numStars: el.config.noStars || 5,
-                    
+
                     fullStar: true,
                 });
 
@@ -272,4 +280,42 @@ jQuery(document).ready(function ($) {
         controlClass.register('starRating', controlStarRating);
         return controlStarRating;
     });
+    window.fbControls.push(function (controlClass) {
+        class controlSignature extends controlClass {
+            build() {
+                return '<div><input style="display:none" id= "input-' + this.config.name + '" /><div id="' + this.config.name + '"></div></div><p style="clear: both;"><button id="clear' + this.config.name + '">Clear</button></p>';
+            }
+            onRender() {
+                
+                if (this.config.userData) {
+                    $('#' + this.config.name).val(this.config.userData[0]);
+                }
+                var signature = $('#' + this.config.name);
+                var input = $('#input-' + this.config.name);
+
+                signature.signature({
+                    change: function (event, ui) {
+                        
+                        //signature.signature('toJSON');
+                        input.val( signature.signature('toSVG') );
+                    }
+                });
+
+                var signature = $('#' + this.config.name).signature();
+                $('#clear' + this.config.name).click(function () {
+                    signature.signature('clear');
+                });
+                $('#json' + this.config.name).click(function () {
+                    alert(signature.signature('toJSON'));
+                });
+                $('#svg' + this.config.name).click(function () {
+                    alert(signature.signature('toSVG'));
+                });
+            }
+
+        }
+        controlClass.register('signature', controlSignature);
+        return controlSignature;
+    });
+
 });
