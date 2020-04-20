@@ -6,34 +6,20 @@
     <title>@ViewData["Title"] - LTCDashboard</title>
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/global_assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/global_assets/css/icons/fontawesome/styles.min.css" rel="stylesheet" />
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/layout.min.css" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/components.min.css" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/colors.min.css" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Vendor/bootstrap-select-1.13.7/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/bundling/css/commonStyle.min.css" rel="stylesheet" />
 
-    <link href="~/Resources/Limitless/Site.css" rel="stylesheet" />
-    <!-- /global stylesheets -->
-    <!-- Core JS files -->
-    <script type="text/javascript" src="~/Resources/theme/js/vendor/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="~/Resources/theme/js/vendor/jquery/jquery-ui.min.js"></script>
 
-    <script src="~/Resources/Limitless/global_assets/js/main/bootstrap.bundle.min.js"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/loaders/blockui.min.js"></script>
-    <!-- /core JS files -->
-    <!-- Theme JS files -->
-    <script src="~/Resources/Limitless/global_assets/js/plugins/visualization/d3/d3.min.js"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/forms/styling/switchery.min.js"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/ui/moment/moment.min.js"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/pickers/daterangepicker.js"></script>
-    <script src="~/Resources/Limitless/layout_1/LTR/default/full/assets/js/app.js"></script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <script src="~/Resources/Limitless/global_assets/js/demo_pages/dashboard.js"></script>
-    <script src="~/Resources/Vendor/bootstrap-select-1.13.7/js/bootstrap-select.min.js"></script>
+    
 
     <!-- /theme JS files -->
     @RenderSection("styles", required: false)
@@ -132,7 +118,7 @@
         <!-- Main content -->
         <div class="content-wrapper">
             @RenderBody()
-            
+
             <partial name="~/Views/Shared/Footer/_Footer.cshtml" />
         </div>
         <!-- /main content -->
@@ -173,7 +159,7 @@
 
 
     @RenderSection("scripts", required: false)
-    <script src="~/Scripts/SharedJS/Layout.js"></script>
+    
     <script src="~/Scripts/Home/HomeLayout.js"></script>
     <script src="~/Scripts/CommonJS.js"></script>
 

@@ -8,43 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>LTC Dental</title>
-    <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/global_assets/css/icons/icomoon/styles.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/global_assets/css/icons/fontawesome/styles.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
-    @*<link href="~/Resources/Limitless/global_assets/css/icons/material/icons.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />*@
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap_limitless.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/layout.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/components.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/colors.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Vendor/bootstrap-select-1.13.7/css/bootstrap-select.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
-    <link href="~/Resources/Limitless/Site.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
-    <!-- /global stylesheets -->
-    <!-- Core JS files -->
-    @*<script src="~/Resources/Limitless/global_assets/js/main/jquery.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>*@
-    <script type="text/javascript" src="~/Resources/theme/js/vendor/jquery/jquery.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script type="text/javascript" src="~/Resources/theme/js/vendor/jquery/jquery-ui.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-
-    <script src="~/Resources/Limitless/global_assets/js/main/bootstrap.bundle.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/loaders/blockui.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <!-- /core JS files -->
-    <!-- Theme JS files -->
-    <script src="~/Resources/Limitless/global_assets/js/plugins/visualization/d3/d3.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/visualization/d3/d3_tooltip.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/forms/styling/switchery.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/forms/selects/bootstrap_multiselect.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/ui/moment/moment.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/pickers/daterangepicker.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/layout_1/LTR/default/full/assets/js/app.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/demo_pages/dashboard.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Vendor/bootstrap-select-1.13.7/js/bootstrap-select.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/theme/js/vendor/ResizePanel/Resize.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <!-- /theme JS files -->
+    <link href="~/bundling/css/commonStyle.min.css" rel="stylesheet" />
 
     @RenderSection("styles", required: false)
 
-    @RenderSection("headscripts", required: false)
 </head>
 <body>
     <div class="navbar navbar-expand-md navbar-dark">
@@ -173,8 +141,16 @@
     @Html.Partial("~/Views/Shared/PartialViews/_ChangePassword.cshtml")
     @Html.Partial("~/Views/Shared/PartialViews/_Profile.cshtml")
 
+    <script src="~/bundling/js/commonScripts1.min.js"></script>
+    <script src="~/bundling/js/commonScripts2.min.js"></script>
+    
+    <script src="~/Resources/Limitless/global_assets/js/demo_pages/dashboard.js"></script>
+    <script src="~/Resources/theme/js/vendor/ResizePanel/Resize.js"></script>
+
+    @RenderSection("headscripts", required: false)
+    <script src="~/Scripts/Survey/SurveyLayout.js"></script>
+
     @RenderSection("scripts", required: false)
-    <script src="~/Scripts/Survey/SurveyLayout.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Scripts/SharedJS/Layout.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+
 </body>
 </html>

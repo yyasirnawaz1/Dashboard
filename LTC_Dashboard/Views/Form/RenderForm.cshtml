@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/Layouts/_RenderFormLayout.cshtml";
 }
 
-<link href="~/Resources/FormDesigner/assets/css/RateYo/RateYo.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
-@*<link rel="stylesheet" type="text/css" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]">*@
-@*<link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.1/jquery.rateyo.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]">*@
+<link href="~/Resources/FormDesigner/assets/css/RateYo/RateYo.css" rel="stylesheet" />
+@*<link rel="stylesheet" type="text/css" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+@*<link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.1/jquery.rateyo.min.css">*@
 @{
     string os = "0", fid = "0", pid = "0";
     os = HttpContextAccessor.HttpContext.Request.Query["os"].ToString();
@@ -46,16 +46,16 @@
 
 <br />
 @section scripts{
-    @*<script src="~/Resources/theme/js/vendor/datatables/jquery.dataTables.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-        <script src="~/Resources/theme/js/vendor/datatables/dataTables.bootstrap.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>*@
+    @*<script src="~/Resources/theme/js/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="~/Resources/theme/js/vendor/datatables/dataTables.bootstrap.min.js"></script>*@
 
-    <script src="~/Resources/theme/js/vendor/datatables.net/js/datatables.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/theme/js/vendor/datatables.net/js/Select-1.2.6/js/select.bootstrap.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    @*<script src="~/Resources/FormDesigner/assets/js/form-builder.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>*@
-    <script src="~/Resources/FormDesigner/assets/js/form-render.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.1/jquery.rateyo.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>*@
-    <script src="~/Resources/FormDesigner/assets/js/Rateyo/jquery.rateyo.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Scripts/Form/FormRender.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Resources/theme/js/vendor/datatables.net/js/datatables.min.js"></script>
+    <script src="~/Resources/theme/js/vendor/datatables.net/js/Select-1.2.6/js/select.bootstrap.min.js"></script>
+    @*<script src="~/Resources/FormDesigner/assets/js/form-builder.min.js"></script>*@
+    <script src="~/Resources/FormDesigner/assets/js/form-render.min.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.1/jquery.rateyo.min.js"></script>*@
+    <script src="~/Resources/FormDesigner/assets/js/Rateyo/jquery.rateyo.min.js"></script>
+    <script src="~/Scripts/Form/FormRender.js"></script>
 
     @*<script language="javascript" type="text/javascript">
             function submitForm() {
