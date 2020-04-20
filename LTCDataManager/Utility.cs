@@ -179,7 +179,7 @@ namespace LTCDataManager
             }
         }
 
-       public static string GeneratePdf(string content, string filePath)
+        public static string GeneratePdf(string content, string filePath)
         {
             #region Create PDF file
 
@@ -187,7 +187,7 @@ namespace LTCDataManager
 
             var result = JsonConvert.DeserializeObject<List<gSelectedData>>(content);
             var html = " <form id='rendered-form'><div class='rendered-form'>";
-          
+
             foreach (var element in result)
             {
                 if (element.type == "header")
@@ -201,8 +201,9 @@ namespace LTCDataManager
                     //{
                     element.className = "form-control";
                     //}
-
-                    if (element.type == "textarea")
+                    if (element.type == "signature")
+                        html += "<div class='form-group'><label>" + element.label + "</label><p>";
+                    else if (element.type == "textarea")
                         html += "<div class='form-group'><label>" + element.label + "</label><p>";
                     else
                         html += "<div class='form-group'><label>" + element.label +
@@ -210,11 +211,20 @@ namespace LTCDataManager
 
                     foreach (var userData in element.userData)
                     {
-                        html += userData + " ,";
+                        if (element.type == "signature")
+                        {
+                            html += userData.Replace("15cm", "7cm") + " ,";
+                        }
+                        else
+                        {
+                            html += userData + " ,";
+                        }
                     }
 
                     html = html.Remove(html.Length - 1, 1);
-                    if (element.type == "textarea")
+                    if (element.type == "signature")
+                        html += "</p></div>";
+                    else if (element.type == "textarea")
                         html += "</p></div>";
                     else
                         html += "' /></div>";
@@ -225,7 +235,7 @@ namespace LTCDataManager
             htmlPage = htmlPage.Replace("[Body]", html);
 
             HtmlToPdf converter = new HtmlToPdf();
- 
+
             PdfDocument doc = converter.ConvertHtmlString(htmlPage);
             MemoryStream stream = new MemoryStream();
             doc.Save(stream);
@@ -235,7 +245,7 @@ namespace LTCDataManager
 
             #endregion
         }
-          public static byte[] GeneratePdfArray(string content, string filePath)
+        public static byte[] GeneratePdfArray(string content, string filePath)
         {
             #region Create PDF file
 

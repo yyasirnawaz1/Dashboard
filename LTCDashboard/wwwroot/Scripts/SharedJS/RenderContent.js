@@ -1,11 +1,11 @@
 ﻿var RenderContent = {
     renderedForm: null,
-    renderData: null,
+    renderData:null,
 
     RenderContentInIframe: function (Content) {
         RenderContent.renderedForm = $('#render-container').formRender({
             formData: RenderContent.removeSelectedTitles(JSON.stringify(Content))
-        });
+        }); 
     },
 
     removeSelectedTitles: function (content) {
@@ -19,7 +19,7 @@
 
 
 jQuery(document).ready(function ($) {
-
+    
     if (!window.fbControls) window.fbControls = new Array();
     window.fbControls.push(function (controlClass) {
         class controlLineSeprator extends controlClass {
@@ -33,33 +33,24 @@ jQuery(document).ready(function ($) {
     window.fbControls.push(function (controlClass) {
         class controlSignature extends controlClass {
             build() {
-                //return '<div><canvas id="' + this.config.name + '" class="signature-pad" style="width: 300px; height: 200px;border: 1px solid black;" width="300px" height="200px"></canvas><button onclick="onclick1();" id="' + "btn-" + this.config.name + '">Clear</button></div>'
 
-                return '<div><div id="' + this.config.name + '"></div></div><p style="clear: both;"><button id="clear' + this.config.name + '">Clear</button><button id = "json' + this.config.name + '" > To JSON</button > <button id="svg' + this.config.name + '">To SVG</button></p >';
+                return '<div><div id="' + this.config.name + '"></div></div><p style="clear: both;"><button id="clear' + this.config.name + '">Clear</button></p>';
 
             }
             onRender() {
 
-
-                
-                //var signaturePad = new SignaturePad(document.getElementById(this.config.name));
-
-
-                //function onclick1() {
-                //    signaturePad.clear();
-                //}
                 var signature = $('#' + this.config.name);
                 signature.signature();
                 var signature = $('#' + this.config.name).signature();
                 $('#clear' + this.config.name).click(function () {
                     signature.signature('clear');
                 });
-                $('#json' + this.config.name).click(function () {
-                    alert(signature.signature('toJSON'));
-                });
-                $('#svg' + this.config.name).click(function () {
-                    alert(signature.signature('toSVG'));
-                });
+                //$('#json' + this.config.name).click(function () {
+                //    alert(signature.signature('toJSON'));
+                //});
+                //$('#svg' + this.config.name).click(function () {
+                //    alert(signature.signature('toSVG'));
+                //});
             }
 
         }

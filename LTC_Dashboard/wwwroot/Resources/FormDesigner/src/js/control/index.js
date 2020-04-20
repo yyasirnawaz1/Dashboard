@@ -9,18 +9,20 @@ import controlFineUploader from './file.fineuploader';
 import controlTextarea from './textarea';
 import controlTinymce from './textarea.tinymce';
 import controlQuill from './textarea.quill';
+import controlSignature from './signature';
 
 export default {
-  controlAutocomplete,
-  controlButton,
-  controlCustom,
-  controlHidden,
-  controlParagraph,
-  controlSelect,
-  controlText,
-  controlFineUploader,
-  controlTextarea,
-  controlTinymce,
-  controlQuill
+    controlAutocomplete,
+    controlButton,
+    controlCustom,
+    controlHidden,
+    controlParagraph,
+    controlSelect,
+    controlText,
+    controlFineUploader,
+    controlTextarea,
+    controlTinymce,
+    controlQuill,
+    controlSignature
 };
 
