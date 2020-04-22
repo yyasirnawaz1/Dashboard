@@ -17,7 +17,7 @@ var HomeView = function () {
             $.get(actionURL, function (data) {
                 
                 $('#scheduledNewsletterContainer').html(data);
-
+                Layout.hideLoader(); 
             });
 
         },

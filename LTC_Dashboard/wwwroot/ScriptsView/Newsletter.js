@@ -206,7 +206,7 @@ var Newsletter = function () {
         },
 
         userDefinedOptionChanged: function (val) {
-
+            
             if (val == enumNewsletterUserDefinedOptions.send) {
                 this.sendTemplate();
             }
@@ -415,7 +415,7 @@ var Newsletter = function () {
                             $("#modal-window").modal("hide");
                             ltcApp.successMessage(null, "Image removed!");
                             $("#ImageUploadButton").click();
-
+                            Layout.hideLoader();
 
 
                         }
@@ -535,6 +535,7 @@ var Newsletter = function () {
                 error: function (xhr, textStatus, errorThrown) {
                 },
                 complete: function () {
+                    Layout.hideLoader();
                 }
             });
         },
@@ -778,6 +779,7 @@ var Newsletter = function () {
                             type: "GET",
                             url: '/Newsletter/GetArticles',
                             success: function (data) {
+                                
                                 if (data != null) {
                                     $("#tblBodyArticle").html('');
                                     articles = data;
@@ -809,15 +811,13 @@ var Newsletter = function () {
 
                                     }
                                 }
-
                             },
                             error: function (xhr, textStatus, errorThrown) {
-
+                                
                                 ltcApp.errorMessage("Error", 'Error loading Articles');
                             },
                             complete: function () {
-
-
+                                Layout.hideLoader();
                             }
                         });
                     }
@@ -1216,12 +1216,13 @@ var Newsletter = function () {
             $('#previewArticleModel').modal('show'); //show model
         },
         loadArticles: function () {
-
+            
             var noTemp = '<div class="row" style="padding:10px;margin-left:25px;margin-right:25px">No Article Found! </div>';
             $.ajax({
                 type: "GET",
                 url: '/Newsletter/GetArticles',
                 success: function (data) {
+                    
                     if (data != null) {
                         $("#tblBodyArticle").html('');
                         articles = data;
@@ -1256,12 +1257,11 @@ var Newsletter = function () {
 
                 },
                 error: function (xhr, textStatus, errorThrown) {
-
+                    
                     ltcApp.errorMessage("Error", 'Error loading Articles');
                 },
                 complete: function () {
-
-
+                    Layout.hideLoader();
                 }
             });
         },
@@ -1454,7 +1454,7 @@ var Newsletter = function () {
                                 },
                                     3000);
                             }
-                          
+
                         }
                     }
 
@@ -1464,10 +1464,9 @@ var Newsletter = function () {
                     ltcApp.errorMessage("Error", 'Error loading user defined templates');
                 },
                 complete: function () {
+                    Layout.hideLoader();
                     if (SelectedUserDefinedTemplateId != null)
                         Newsletter.loadSelectedUserdefinedTemplate(SelectedUserDefinedTemplateId, null);
-
-
 
                 }
             });
@@ -1677,7 +1676,7 @@ var Newsletter = function () {
                 $("#previewContent").addClass('hide');
                 this.setIframeHtml('previewContent', '');
             }
-
+            Layout.hideLoader();
         },
 
         setIframeHtml: function (iframeId, html) {
@@ -1734,7 +1733,7 @@ var Newsletter = function () {
                 type: "GET",
                 url: '/Newsletter/LoadServerTime',
                 success: function (data) {
-                    debugger;
+                    
                     if (data != null) {
 
                         $("#lblserverTime").html(data);
@@ -1754,6 +1753,7 @@ var Newsletter = function () {
                 },
                 complete: function () {
                     $("#sendNewsletterDTP").data("kendoDateTimePicker").enable(false);
+                    Layout.hideLoader();
                 }
             });
         },
@@ -2081,6 +2081,7 @@ var Newsletter = function () {
                         complete: function () {
                             somethingChanged = false;
                             $('#btnSave').removeAttr("disabled");
+                            Layout.hideLoader();
                         }
                     });
                     //$("#btn-Convert-Html2Image").attr("download", "your_pic_name.png").attr("href", newData);
@@ -2137,6 +2138,7 @@ var Newsletter = function () {
                     ltcApp.errorMessage("Error", 'Error loading industries');
                 },
                 complete: function () {
+                    Layout.hideLoader();
                 }
             });
         },
@@ -2185,21 +2187,22 @@ var Newsletter = function () {
         },
 
         GetUserImages: function () {
-            var data;
             $.ajax({
+                type: "GET",
+                url: '/ImageManagement/GetUserImages',
+                dataType: 'json',
                 async: false,
                 cache: false,
-                url: "/ImageManagement/GetUserImages",
-                contentType: 'application/json; charset=utf-8',
-                type: 'GET',
-                dataType: 'json'
-            }).success(function (d) {
-                data = JSON.parse(d);
-            }).error(function (data) {
-                console.log(data.responseText);
+                success: function (d) {
+                    data = JSON.parse(d);
+                    return data;
+                },
+                error: function (data) {
+                    console.log(data.responseText);
+                }
             });
 
-            return data;
+            //return data;
         },
 
         GetOfficeImageTest: function () {
@@ -2210,22 +2213,20 @@ var Newsletter = function () {
                 url: "/ImageManagement/GetUserImagesLink",
                 contentType: 'application/json; charset=utf-8',
                 type: 'GET',
-                dataType: 'json'
-            }).success(function (d) {
-                d = JSON.parse(d);
-                $(d).each(function (i, val) {
-                    data.push({ text: val.name, value: "<img src='" + window.location.origin + "/" + val.path + "'>" });
-                });
-            }).error(function (data) {
-                console.log(data.responseText);
+                dataType: 'json',
+                success: function (d) {
+                    d = JSON.parse(d);
+                    $(d).each(function (i, val) {
+                        data.push({ text: val.name, value: "<img src='" + window.location.origin + "/" + val.path + "'>" });
+                    });
+                    return data;
+                },
+                error: function (data) {
+                    console.log(data.responseText);
+                }
             });
 
-
-
-
-
-
-            return data;
+            //return data;
         },
         GetOfficeImages: function () {
             var data = [];
@@ -2235,17 +2236,20 @@ var Newsletter = function () {
                 url: "/ImageManagement/GetUserImagesLink",
                 contentType: 'application/json; charset=utf-8',
                 type: 'GET',
-                dataType: 'json'
-            }).success(function (d) {
-                d = JSON.parse(d);
-                $(d).each(function (i, val) {
-                    data.push({ text: val.name, value: "<img src='" + window.location.origin + "/" + val.path + "'>" });
-                });
-            }).error(function (data) {
-                console.log(data.responseText);
+                dataType: 'json',
+                success: function (d) {
+                    d = JSON.parse(d);
+                    $(d).each(function (i, val) {
+                        data.push({ text: val.name, value: "<img src='" + window.location.origin + "/" + val.path + "'>" });
+                    });
+                    return data;
+                },
+                error: function (data) {
+                    console.log(data.responseText);
+                }
             });
 
-            return data;
+            //return data;
         },
         GetOfficeImagesOld: function () {
             var data = [];
@@ -2255,17 +2259,20 @@ var Newsletter = function () {
                 url: "/ImageManagement/GetUserImages",
                 contentType: 'application/json; charset=utf-8',
                 type: 'GET',
-                dataType: 'json'
-            }).success(function (d) {
-                d = JSON.parse(d);
-                $(d).each(function (i, val) {
-                    data.push({ text: val.name, value: "<img src='" + window.location.origin + "/" + val.path + "'>" });
-                });
-            }).error(function (data) {
-                console.log(data.responseText);
+                dataType: 'json',
+                success: function (d) {
+                    d = JSON.parse(d);
+                    $(d).each(function (i, val) {
+                        data.push({ text: val.name, value: "<img src='" + window.location.origin + "/" + val.path + "'>" });
+                    });
+                    return data;
+                },
+                error: function (data) {
+                    console.log(data.responseText);
+                }
             });
 
-            return data;
+            //return data;
         }
     };
 }();
