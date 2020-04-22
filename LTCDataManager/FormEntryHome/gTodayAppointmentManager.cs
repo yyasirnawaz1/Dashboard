@@ -109,7 +109,7 @@ namespace LTCDataManager.TodayAppointment
                 //for sp
                 //var result = db.Fetch<dynamic>(";EXEC GetPermitPendingApproval @@permitYear = @0", 2013);
 
-                using (MySqlConnection conn = new MySqlConnection(DbConfiguration.LtcDental))
+                using (MySqlConnection conn = new MySqlConnection(DbConfiguration.LtcForm))
                 {
                     using (MySqlCommand cmd = new MySqlCommand("Save_Form_Data", conn))
                     {
@@ -129,7 +129,7 @@ namespace LTCDataManager.TodayAppointment
             else
             {
                 
-                using (MySqlConnection conn = new MySqlConnection(DbConfiguration.LtcDental))
+                using (MySqlConnection conn = new MySqlConnection(DbConfiguration.LtcForm))
                 {
                     using (MySqlCommand cmd = new MySqlCommand("Save_Survey_Data", conn))
                     {

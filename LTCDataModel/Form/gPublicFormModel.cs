@@ -17,5 +17,6 @@ namespace LTCDataModel.Form
         public string Content { get; set; }
         public DateTime SystemDate { get; set; }
         public short IsActive { get; set; }
+        public short IsSurveyForm { get; set; }
     }
 }

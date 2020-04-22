@@ -19,5 +19,6 @@ namespace LTCDataModel.Form
 
         public string Caption { get; set; }
         public string DataField { get; set; }
+        public short IsSurveyForm { get; set; }
     }
 }

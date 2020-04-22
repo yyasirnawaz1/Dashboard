@@ -209,6 +209,8 @@ namespace LTCDataManager
                         html += "<div class='form-group'><label>" + element.label +
                                 "</label><input class='form-control' id=" + element.name + " value = '";
 
+                    // Signature
+
                     foreach (var userData in element.userData)
                     {
                         if (element.type == "signature")
@@ -220,7 +222,7 @@ namespace LTCDataManager
                             html += userData + " ,";
                         }
                     }
-
+                     
                     html = html.Remove(html.Length - 1, 1);
                     if (element.type == "signature")
                         html += "</p></div>";

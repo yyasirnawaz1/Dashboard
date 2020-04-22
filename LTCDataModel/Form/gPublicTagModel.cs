@@ -18,6 +18,6 @@ namespace LTCDataModel.Form
         public int TagType { get; set; }
         public int MaxSize { get; set; }
 
-
+        public short IsSurveyForm { get; set; }
     }
 }

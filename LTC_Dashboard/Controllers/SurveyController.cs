@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LTCDataManager.SurveyManager;
 using LTCDataModel.Configurations;
+using LTCDataModel.Form;
 using LTCDataModel.Survey;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -56,7 +57,7 @@ namespace LTCDashboard.Controllers
         [HttpPost]
         [AllowAnonymous]
         //[ValidateInput(false)]
-        public ActionResult SaveAnswer(gSurveySavedModel data)
+        public ActionResult SaveAnswer(gFormSavedModel data)
         {
             //gSurveyManager.SaveSurveyAnswer(data);
             return Json(_gSurveyManager.SaveSurveyAnswer(data));
@@ -64,7 +65,7 @@ namespace LTCDashboard.Controllers
 
 
         [HttpPost]
-        public JsonResult SaveDesign(gPrivateSurveyModel data)
+        public JsonResult SaveDesign(gPrivateFormModel data)
         {
             _gSurveyManager.SaveDesign(data);
             return Json(new { Success = true });
@@ -79,7 +80,7 @@ namespace LTCDashboard.Controllers
 
         #region Public Survey
         [HttpPost]
-        public JsonResult SavePublicDesign(gPrivateSurveyModel data)
+        public JsonResult SavePublicDesign(gPrivateFormModel data)
         {
             _gSurveyManager.SavePublicDesign(data, OfficeSequence);
             return Json(new { Success = true });
@@ -97,14 +98,14 @@ namespace LTCDashboard.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetPrivateSurveys(gData data)
+        public ActionResult GetPrivateSurveys(LTCDataModel.Form.gData data)
         {
             return Json(_gSurveyManager.GetAllPrivateSurvey(data.OfficeId));
         }
 
 
         [HttpPost]
-        public ActionResult GetSurveysAnswers(gData data)
+        public ActionResult GetSurveysAnswers(LTCDataModel.Form.gData data)
         {
             //TODO: getconnectionstring change needed. 
             //return Json(gSurveyManager.GetSurveysAnswers(GetUserConnectionString(), data.OfficeId));
@@ -112,7 +113,7 @@ namespace LTCDashboard.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetSurveysReport(gData data)
+        public ActionResult GetSurveysReport(LTCDataModel.Form.gData data)
         {
             return Json(_gSurveyManager.GetSurveyReport(data.OfficeId));
         }
@@ -136,7 +137,7 @@ namespace LTCDashboard.Controllers
         }
 
         [HttpPost]
-        public JsonResult SavePublicTag(gPublicTagModel data)
+        public JsonResult SavePublicTag(LTCDataModel.Form.gPublicTagModel data)
         {
             _gSurveyManager.SavePublicTag(data);
             return Json(new { Success = true });
@@ -151,14 +152,14 @@ namespace LTCDashboard.Controllers
         #region private Tags
 
         [HttpPost]
-        public ActionResult GetPrivateTags(gData data)
+        public ActionResult GetPrivateTags(LTCDataModel.Form.gData data)
         {
             return Json(_gSurveyManager.GetPrivateTags(data.OfficeId));
         }
 
 
         [HttpPost]
-        public JsonResult SavePrivateTag(gSurveyPrivateTag data)
+        public JsonResult SavePrivateTag(gFormPrivateTag data)
         {
             _gSurveyManager.SavePrivateTag(data);
             return Json(new { Success = true });

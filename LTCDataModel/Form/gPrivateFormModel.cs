@@ -18,7 +18,8 @@ namespace LTCDataModel.Form
 		public DateTime SystemDate { get; set; }
 		public short IsActive { get; set; }
 		public short IsInUsed { get; set; }
-
+		public int UserID { get; set; }
+		public short IsSurveyForm { get; set; }
 		/*
 		 * Existing Class Definition
 		 * Changed By Yousaf 01/Nov/2018

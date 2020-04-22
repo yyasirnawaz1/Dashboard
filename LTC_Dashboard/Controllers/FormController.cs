@@ -107,7 +107,7 @@ namespace LTCDashboard.Controllers
         [HttpPost]
         public ActionResult GetFormsAnswers(gData data)
         {
-            return Json(_gFormManager.GetFormsAnswers(GetUserConnectionString(), data.OfficeId));
+            return Json(_gFormManager.GetFormsAnswers( data.OfficeId));
         }
 
         [HttpPost]

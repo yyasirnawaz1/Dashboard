@@ -14,5 +14,6 @@ namespace LTCDataModel.Form
         public int CategoryID { get; set; }
         public string form_Tag_Type { get; set; }
         public string Description { get; set; }
+        public short IsSurveyForm { get; set; }
     }
 }
