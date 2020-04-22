@@ -440,9 +440,9 @@
 
 @section styles{
 
-    <link href="~/Content/kendo/styles/kendo.common.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
-    <link href="~/Content/kendo/styles/kendo.default.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
-    <link href="~/Content/kendo/styles/kendo.default.mobile.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
+    <link href="~/Resources/kendo/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Resources/kendo/styles/kendo.default.min.css" rel="stylesheet" />
+    <link href="~/Resources/kendo/styles/kendo.default.mobile.min.css" rel="stylesheet" />
 
 }
 
@@ -465,8 +465,8 @@
         <div id="previewImage"></div>
         <div id="html-content-holder"></div>
     </div>
-    <script src="~/Content/ScriptsView/Newsletter.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Content/kendo/js/kendo.all.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/ScriptsView/Newsletter.js"></script>
+    <script src="~/Resources/kendo/js/kendo.all.min.js"></script>
     <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
     <script id="treeview-template" type="text/kendo-ui-template">
         # if (!item.items) { #

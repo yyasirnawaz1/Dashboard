@@ -152,8 +152,14 @@ namespace LTCDashboard.Controllers
                 }
                 else if (chartName == "CancellationAndNoShows")
                 {
-                    //pie chart and line chart
+                    //pie chart and bar chart
                     var data = _gChartManager.GetCancellationAndNoShows(offices, providers, startDate, endDate, types);
+                    return Json(new { Success = true, Data = data, hasMultipleRecords = true });
+                }
+                else if (chartName == "PatientGrowthRate")
+                {
+                    //line chart
+                    var data = _gChartManager.GetPatientGrowthRate(offices, providers, startDate, endDate, types);
                     return Json(new { Success = true, Data = data, hasMultipleRecords = true });
                 }
 

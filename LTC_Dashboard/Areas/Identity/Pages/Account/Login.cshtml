@@ -23,7 +23,7 @@
 @section styles
 {
     @*<script src="~/Resources/Limitless/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
-        <script src="~/Resources/Vendor/bootstrap-select-1.13.7/js/bootstrap-select.min.js"></script>
+        
         <script src="~/Resources/theme/js/vendor/datatables.net/js/datatables.min.js"></script>
         <script src="~/Resources/theme/js/vendor/datatables.net/js/Select-1.2.6/js/select.bootstrap.min.js"></script>
         <script src="~/Resources/theme/js/vendor/ResizePanel/Resize.js"></script>
@@ -541,6 +541,6 @@
 {
     @if (SignInManager.IsSignedIn(User))
     {
-        <script src="~/bundling/js/loginPageCombined.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+        <script src="~/bundling/js/loginPageCombined.min.js" async></script>
     }
 }

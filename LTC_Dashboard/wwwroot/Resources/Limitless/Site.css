@@ -679,3 +679,8 @@ li.k-tool-group {
         top: 3px;
         left: 0;
     }
+
+
+#subscriberTable_wrapper.form-inline {
+    display: block;
+}

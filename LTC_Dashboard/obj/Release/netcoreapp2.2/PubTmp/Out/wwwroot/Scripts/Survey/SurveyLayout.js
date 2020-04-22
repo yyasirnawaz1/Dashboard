@@ -3,7 +3,9 @@
 
     loadOfficeDropdown: function () {
         var officeDATAURL = window.location.origin + "/Home/GetOffices";
+        
         $.getJSON(officeDATAURL, function (data) {
+        
             var items = '<option>Select an Office</option>';
             $.each(data, function (i, offices) {
                 items += "<option value='" + offices.Id + "'>" + offices.ClinicName + "</option>";
@@ -20,6 +22,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
+                debugger;
                 if (response !== null) {
                     $('#txtSalutation').val(response.Salutation);
                     $('#txtInitials').val(response.Initials);

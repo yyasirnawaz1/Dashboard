@@ -4,74 +4,63 @@
     "outputFileName": "wwwroot/bundling/css/commonStyle.min.css",
     "inputFiles": [
       "wwwroot/Resources/Limitless/global_assets/css/icons/icomoon/styles.css",
+      "wwwroot/Resources/Limitless/global_assets/css/icons/fontawesome/styles.min.css",
       "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap.min.css",
       "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap_limitless.min.css",
+      "wwwroot/Resources/Vendor/bootstrap-select-1.13.7/css/bootstrap-select.min.css",
       "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/layout.min.css",
       "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/components.min.css",
       "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/colors.min.css",
-      "wwwroot/Resources/Vendor/bootstrap-select-1.13.7/css/bootstrap-select.min.css",
-      "wwwroot/Resources/Limitless/global_assets/css/icons/fontawesome/styles.min.css",
       "wwwroot/Resources/Limitless/Site.css"
-    ]
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": false
+    }
   },
   {
-    "outputFileName": "wwwroot/bundling/js/commonScripts.min.js",
+    "outputFileName": "wwwroot/bundling/js/commonScripts1.min.js",
     "inputFiles": [
       "wwwroot/Resources/theme/js/vendor/jquery/jquery.min.js",
       "wwwroot/Resources/theme/js/vendor/jquery/jquery-ui.min.js",
       "wwwroot/Resources/Limitless/global_assets/js/main/bootstrap.bundle.min.js",
+      ////"wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "wwwroot/Resources/Limitless/global_assets/js/plugins/loaders/blockui.min.js",
-      "wwwroot/Resources/Limitless/global_assets/js/plugins/visualization/d3/d3.min.js",
-      "wwwroot/Resources/Limitless/global_assets/js/plugins/visualization/d3/d3_tooltip.js",
-      "wwwroot/Resources/Limitless/global_assets/js/plugins/forms/styling/switchery.min.js",
       "wwwroot/Resources/Limitless/global_assets/js/plugins/forms/selects/bootstrap_multiselect.js",
       "wwwroot/Resources/Limitless/global_assets/js/plugins/ui/moment/moment.min.js",
       "wwwroot/Resources/Limitless/global_assets/js/plugins/pickers/daterangepicker.js",
       "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/js/app.js",
-      "wwwroot/Resources/Limitless/global_assets/js/demo_pages/content_cards_draggable.js",
-      "wwwroot/Resources/theme/js/vendor/bootstrap-select/bootstrap-select.js",
       "wwwroot/Resources/Vendor/bootstrap-select-1.13.7/js/bootstrap-select.min.js",
       "wwwroot/Scripts/SharedJS/Layout.js"
     ],
     "minify": {
       "enabled": false,
-      "renameLocals": true
+      "renameLocals": false
     },
     "sourceMap": false
   },
-
-  // login layout
   {
-    "outputFileName": "wwwroot/bundling/css/loginLayoutCombined.min.css",
+    "outputFileName": "wwwroot/bundling/js/commonScripts2.min.js",
     "inputFiles": [
-      "wwwroot/Resources/Limitless/global_assets/css/icons/icomoon/styles.css",
-      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap.min.css",
-      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap_limitless.min.css",
-      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/layout.min.css",
-      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/components.min.css",
-      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/colors.min.css",
-      "wwwroot/Resources/Vendor/bootstrap-select-1.13.7/css/bootstrap-select.min.css",
-      "wwwroot/Resources/Limitless/global_assets/css/icons/fontawesome/styles.min.css",
-      "wwwroot/Resources/Limitless/Site.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/bundling/js/loginLayoutCombined.min.js",
-    "inputFiles": [
-      "wwwroot/Resources/theme/js/vendor/jquery/jquery.min.js",
-      "wwwroot/Resources/theme/js/vendor/jquery/jquery-ui.min.js",
-      "wwwroot/lib/jquery-validation/dist/jquery.validate.js",
-      "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
-      "wwwroot/Resources/Limitless/global_assets/js/main/bootstrap.bundle.min.js",
-      "wwwroot/Resources/Limitless/global_assets/js/plugins/loaders/blockui.min.js",
-      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/js/app.js",
-      "wwwroot/Resources/Limitless/global_assets/js/demo_pages/login.js",
-      "wwwroot/Scripts/Login/Login.js",
-      "wwwroot/Scripts/SharedJS/Layout.js"
+      "wwwroot/Resources/Limitless/global_assets/js/plugins/visualization/d3/d3.min.js", 
+      "wwwroot/Resources/Limitless/global_assets/js/plugins/visualization/d3/d3_tooltip.js", 
+      "wwwroot/Resources/Limitless/global_assets/js/plugins/forms/styling/switchery.min.js" 
     ],
     "minify": {
       "enabled": false,
-      "renameLocals": true
+      "renameLocals": false
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/bundling/js/loginLayoutCombined.min.js",
+    "inputFiles": [ // may not need it
+      "wwwroot/Resources/Limitless/global_assets/js/demo_pages/login.js",
+      "wwwroot/Scripts/Login/Login.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": false
     },
     "sourceMap": false
   },
@@ -87,7 +76,6 @@
     "outputFileName": "wwwroot/bundling/js/loginPageCombined.min.js",
     "inputFiles": [
       "wwwroot/Resources/Limitless/global_assets/js/plugins/forms/styling/uniform.min.js",
-      "wwwroot/Resources/Vendor/bootstrap-select-1.13.7/js/bootstrap-select.min.js",
       "wwwroot/Resources/theme/js/vendor/datatables.net/js/datatables.min.js",
       "wwwroot/Resources/theme/js/vendor/datatables.net/js/Select-1.2.6/js/select.bootstrap.min.js",
       "wwwroot/Resources/theme/js/vendor/ResizePanel/Resize.js",
@@ -103,32 +91,26 @@
     ],
     "minify": {
       "enabled": false,
-      "renameLocals": true
+      "renameLocals": false
     },
     "sourceMap": false
   },
 
   // Dashboard Layout
   {
-    "outputFileName": "wwwroot/bundling/css/dashboardLayoutCombined.min.css",
-    "inputFiles": [
-      ""
-    ]
-  },
-  {
     "outputFileName": "wwwroot/bundling/js/dashboardLayoutCombined.min.js",
     "inputFiles": [
+      "wwwroot/Resources/Limitless/global_assets/js/demo_pages/content_cards_draggable.js",
+      "wwwroot/Scripts/SharedJS/Layout.js",
       "wwwroot/Scripts/Dashboard/DashboardLayout.js",
       "wwwroot/Scripts/Dashboard/DashboardSpreadSheet.js"
     ],
     "minify": {
       "enabled": false,
-      "renameLocals": true
+      "renameLocals": false
     },
     "sourceMap": false
   },
-
-
   // Dashboard page
   {
     "outputFileName": "wwwroot/bundling/css/dashboardPageCombined.min.css",
@@ -143,11 +125,11 @@
       "wwwroot/Resources/theme/js/mydragable.js",
       "wwwroot/Resources/Vendor/canvasjs/canvasjs.min.js",
       "wwwroot/Resources/kendo/js/jszip.js",
-      "wwwroot/Resources/kendo/js/kendo.all.min.js",
+      "wwwroot/Resources/kendo/js/kendo.all.min.js"
     ],
     "minify": {
       "enabled": false,
-      "renameLocals": true
+      "renameLocals": false
     },
     "sourceMap": false
   },
@@ -161,7 +143,7 @@
     ],
     "minify": {
       "enabled": false,
-      "renameLocals": true
+      "renameLocals": false
     },
     "sourceMap": false
   },
@@ -179,7 +161,7 @@
     ],
     "minify": {
       "enabled": false,
-      "renameLocals": true
+      "renameLocals": false
     },
     "sourceMap": false
   },
@@ -198,7 +180,7 @@
     ],
     "minify": {
       "enabled": false,
-      "renameLocals": true
+      "renameLocals": false
     },
     "sourceMap": false
   }

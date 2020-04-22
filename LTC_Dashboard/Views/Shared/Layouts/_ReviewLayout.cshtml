@@ -14,44 +14,25 @@
     <meta content="" name="author" />
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/global_assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-
-    <link href="~/Content/New folder/Vendor/bootstrap-select-1.13.7/css/bootstrap-select.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
-
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap_limitless.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/layout.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/components.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/Resources/Limitless/layout_1/LTR/default/full/assets/css/colors.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css">
-    <link href="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
-
-    <link href="~/Resources/Limitless/global_assets/css/icons/fontawesome/styles.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
-    <link href="~/Resources/Limitless/Site.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
-    <!-- /global stylesheets -->
-    <!-- Core JS files -->
-
-    <script src="/assets/global/plugins/jquery.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" type="text/javascript"></script>
+    <link href="~/bundling/css/commonStyle.min.css" rel="stylesheet" />
 
 
+
+
+    <link href="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" />
+
+
+    
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script src="~/Resources/Limitless/global_assets/js/main/bootstrap.bundle.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/loaders/blockui.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <!-- /core JS files -->
-    <!-- Theme JS files -->
-    <script src="~/Resources/Limitless/global_assets/js/plugins/ui/moment/moment.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/plugins/pickers/daterangepicker.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-
-    <script src="~/Content/New folder/Vendor/bootstrap-select-1.13.7/js/bootstrap-select.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <!-- /theme JS files -->
-
-
-
-    <link href="/assets/global/plugins/font-awesome/css/font-awesome.min.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" type="text/css" />
-
-    <script src="~/Resources/Limitless/layout_1/LTR/default/full/assets/js/app.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-
-    <script src="~/Resources/Limitless/global_assets/js/plugins/notifications/bootbox.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/Resources/Limitless/global_assets/js/demo_pages/components_modals.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    
+    
+    
+    
+    
+    <link href="/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    
+    <script src="~/Resources/Limitless/global_assets/js/plugins/notifications/bootbox.min.js"></script>
+    <script src="~/Resources/Limitless/global_assets/js/demo_pages/components_modals.js"></script>
 
     @RenderSection("styles", required: false)
 
@@ -298,18 +279,19 @@
         </div>
     </div>
 
+    <script src="~/bundling/js/commonScripts1.min.js"></script>
+    <script src="~/bundling/js/commonScripts2.min.js"></script>
 
-
-
-    <script src="~/Content/Scripts/Common.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" type="text/javascript"></script>
-    <script src="/assets/global/plugins/jquery.validate.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" type="text/javascript"></script>
-    <script src="/assets/global/plugins/jquery.validate.unobtrusive.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" type="text/javascript"></script>
-    <script src="/assets/global/plugins/jquery.unobtrusive-ajax.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" type="text/javascript"></script>
-    <script src="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
-    <script src="~/assets/pages/scripts/ui-sweetalert.min.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+    <script src="~/Scripts/SharedJS/Common.js"></script>
+    <script src="/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <script src="/assets/global/plugins/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="/assets/global/plugins/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+    <script src="/assets/global/plugins/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js"></script>
+    <script src="~/assets/global/plugins/ui-sweetalert.min.js"></script>
     @RenderSection("scripts", required: false)
-    <link href="~/Resources/Limitless/Site.css?v=@Configuration.GetSection("Configuration")["staticFileVersion"]" rel="stylesheet" />
-    <script src="~/Content/Scripts/SharedJS/Layout.js?v=@Configuration.GetSection("Configuration")["staticFileVersion"]"></script>
+
+
+
 </body>
 </html>

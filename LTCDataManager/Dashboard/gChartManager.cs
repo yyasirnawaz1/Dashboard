@@ -474,7 +474,6 @@ namespace LTCDataManager.Dashboard
             return AddInvoiceType(result);
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -628,9 +627,6 @@ namespace LTCDataManager.Dashboard
             return serviceAnalysisList;
         }
 
-
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -729,8 +725,6 @@ namespace LTCDataManager.Dashboard
             return serviceAnalysisList;
         }
 
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -778,6 +772,157 @@ namespace LTCDataManager.Dashboard
             }
 
             return 0;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="offices"></param>
+        /// <param name="providerList">This list contains entries with [OfficeSequence]_[Providers]</param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public List<PatientGrowthRateChart> GetPatientGrowthRate(int[] offices, string[] providerList, string startDate, string endDate, string types)
+        {
+            types = Utility.StringToCharacterString(types, _configuration.ServiceAnalysisInvoiceTypes);
+
+            List<gCode> codes = new List<gCode>();
+            List<PatientGrowthRateChart> serviceAnalysisList = new List<PatientGrowthRateChart>();
+            var providers = Utility.ProviderToList(providerList);
+            foreach (var office in offices)
+            {
+                if (providers.All(x => x.Office_Sequence != office))
+                {
+                    continue;
+                }
+
+                var db = PocoDatabase.DbConnection(Utility.GetConnectionStringByOfficeId(office));
+                string query = $"Select Office_sequence,codecounter,code,line1,line2 from code where codetype = 'Y'  AND Office_Sequence = {office};";
+
+                var officeCodeList = db.Fetch<gCode>(query);
+                codes.AddRange(officeCodeList);
+
+                query = $"Select "
+                        + $"IFNULL(sum(patamount/100) + sum(insamount/100),0) as yValue, IFNULL(d.servicecode,0) as UsableInformation from item  i "
+                        + $"LEFT JOIN detail d on i.invoiceNumber = d.invoicenumber "
+                        + $"LEFT JOIN provider p on i.provider = p.provider "
+                        + $"WHERE i.provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("ServiceAnalysisTypes")})) "
+                        + $"AND InvoiceType in ({types}) "
+                        + $"AND i.invoicedate >= '{startDate}' "
+                        + $"AND i.invoicedate <= '{endDate}' "
+                        + $"AND i.Office_sequence = {office} "
+                        + $"Group by d.servicecode ";
+
+                var seAnalysis = db.Fetch<PatientGrowthRateChart>(query);
+
+                foreach (var item in seAnalysis)
+                {
+                    var code = officeCodeList.FirstOrDefault(x => x.Office_Sequence == office && x.Code == item.UsableInformation);
+                    if (code != null)
+                    {
+                        item.xLabel = code.Code;
+                    }
+                    else
+                    {
+                        if (int.TryParse(item.UsableInformation, out var serviceCode))
+                        {
+                            var intCode = officeCodeList.FirstOrDefault(x => x.Office_Sequence == office
+                                                                            && serviceCode >= x.Line1Int
+                                                                            && serviceCode <= x.Line2Int);
+
+                            item.xLabel = intCode != null ? intCode.Code : "";
+
+                        }
+                        else
+                        {
+                            item.xLabel = item.UsableInformation;
+                        }
+                    }
+                }
+
+
+                serviceAnalysisList.AddRange(seAnalysis);
+            }
+
+            return serviceAnalysisList.OrderBy(x => x.xLabel).ToList();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="offices"></param>
+        /// <param name="providerList">This list contains entries with [OfficeSequence]_[Providers]</param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public List<gServiceAnalysis> GetPatientGrowthRateBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
+        {
+            types = Utility.StringToCharacterString(types, _configuration.ServiceAnalysisInvoiceTypes);
+
+            List<gCode> codes = new List<gCode>();
+            List<gServiceAnalysis> serviceAnalysisList = new List<gServiceAnalysis>();
+            var providers = Utility.ProviderToList(providerList);
+            foreach (var office in offices)
+            {
+                if (providers.All(x => x.Office_Sequence != office))
+                {
+                    continue;
+                }
+
+                var db = PocoDatabase.DbConnection(Utility.GetConnectionStringByOfficeId(office));
+                string query = $"Select Office_sequence,codecounter,code,line1,line2 from code where codetype = 'Y'  AND Office_Sequence = {office};";
+
+                var officeCodeList = db.Fetch<gCode>(query);
+                codes.AddRange(officeCodeList);
+
+                query = $"Select "
+                        + $"i.Office_sequence,i.invoiceNumber, sum(i.insamount/100) as insamount,sum(i.patamount/100) as patamount, d.servicecode, "
+                        + $"d.provider, p.name as ProviderName, d.invoicedate from item  i "
+                        + $"LEFT JOIN detail d on i.invoiceNumber = d.invoicenumber "
+                        + $"LEFT JOIN provider p on i.provider = p.provider "
+                        + $"WHERE i.provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("ServiceAnalysisTypes")})) "
+                        + $"AND InvoiceType in ({types}) "
+                        + $"AND i.invoicedate >= '{startDate}' "
+                        + $"AND i.invoicedate <= '{endDate}' "
+                        + $"AND i.Office_sequence = {office} "
+                        + $"Group by i.Office_sequence, d.servicecode, i.invoicenumber, d.provider, d.invoicedate "
+                        + $"order by i.invoiceNumber, d.provider, d.invoicedate, d.servicecode; ";
+
+                var seAnalysis = db.Fetch<gServiceAnalysis>(query);
+
+                foreach (var item in seAnalysis)
+                {
+                    var code = officeCodeList.FirstOrDefault(x => x.Office_Sequence == office && x.Code == item.ServiceCode);
+                    if (code != null)
+                    {
+                        item.CodeCategory = code.Code;
+                    }
+                    else
+                    {
+                        if (int.TryParse(item.ServiceCode, out var serviceCode))
+                        {
+                            var intCode = officeCodeList.FirstOrDefault(x => x.Office_Sequence == office
+                                                                            && serviceCode >= x.Line1Int
+                                                                            && serviceCode <= x.Line2Int);
+                            if (intCode != null)
+                            {
+                                item.CodeCategory = intCode.Code;
+                            }
+
+                        }
+                        else
+                        {
+                            item.CodeCategory = item.ServiceCode;
+                        }
+                    }
+                }
+
+
+                serviceAnalysisList.AddRange(seAnalysis);
+            }
+
+            return serviceAnalysisList;
         }
 
 

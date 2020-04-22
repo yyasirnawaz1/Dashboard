@@ -32,17 +32,17 @@ namespace LTCDashboard
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-        //    services.AddCors(options =>
-        //{
-        //    options.AddPolicy(MyAllowSpecificOrigins,
-        //    builder =>
-        //    {
-        //        builder.WithOrigins("http://ltcdashboard.azurewebsites.net/", "https://localhost:44380/");
-        //    });
-        //});
+            //    services.AddCors(options =>
+            //{
+            //    options.AddPolicy(MyAllowSpecificOrigins,
+            //    builder =>
+            //    {
+            //        builder.WithOrigins("http://ltcdashboard.azurewebsites.net/", "https://localhost:44380/");
+            //    });
+            //});
 
 
-           
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -67,6 +67,10 @@ namespace LTCDashboard
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "");
+                })
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
             services.ConfigureApplicationCookie(options =>
@@ -103,10 +107,17 @@ namespace LTCDashboard
                     name: "NewslettersArea",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
+                routes.MapRoute(
+            name: "accountlogin",
+            template: "Identity",
+            defaults: new { controller = "Account", action = "Login" });
+
 
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Dashboard}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}");
+
+
             });
         }
     }

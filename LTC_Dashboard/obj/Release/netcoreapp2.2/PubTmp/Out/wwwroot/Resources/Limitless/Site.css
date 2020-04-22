@@ -373,9 +373,9 @@ li.input-control {
     margin-top: 18px;
 }
 
-.mediumBarGraph {
-    padding-top: 20px;
-    height: 320px;
+.mediumBarGraph .chart {
+    padding-top: 10px;
+    height: 215px;
 }
 
 .smallBarGraph {
@@ -602,3 +602,80 @@ li.k-tool-group {
 .checboxFilterTypes{
     margin-right:10px;
 }
+
+
+
+
+
+
+
+.circularBar .progress {
+    width: 100px;
+    height: 100px;
+    background: none;
+    position: relative;
+    box-shadow:none;
+    margin-top:5px;
+}
+
+    .circularBar .progress::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 6px solid #eee;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .circularBar .progress > span {
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        z-index: 1;
+    }
+
+    .circularBar .progress .progress-left {
+        left: 0;
+    }
+
+    .circularBar .progress .progress-bar {
+        width: 100%;
+        height: 100%;
+        background: none;
+        border-width: 6px;
+        border-style: solid;
+        position: absolute;
+        top: 0;
+    }
+
+    .circularBar .progress .progress-left .progress-bar {
+        left: 100%;
+        border-top-right-radius: 80px;
+        border-bottom-right-radius: 80px;
+        border-left: 0;
+        -webkit-transform-origin: center left;
+        transform-origin: center left;
+    }
+
+    .circularBar .progress .progress-right {
+        right: 0;
+    }
+
+        .circularBar .progress .progress-right .progress-bar {
+            left: -100%;
+            border-top-left-radius: 80px;
+            border-bottom-left-radius: 80px;
+            border-right: 0;
+            -webkit-transform-origin: center right;
+            transform-origin: center right;
+        }
+
+    .circularBar .progress .progress-value {
+        position: absolute;
+        top: 3px;
+        left: 0;
+    }

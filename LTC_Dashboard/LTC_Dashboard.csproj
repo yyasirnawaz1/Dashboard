@@ -14,9 +14,13 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Newsletters\**" />
+    <Compile Remove="wwwroot\Settings\**" />
     <Content Remove="Areas\Newsletters\**" />
+    <Content Remove="wwwroot\Settings\**" />
     <EmbeddedResource Remove="Areas\Newsletters\**" />
+    <EmbeddedResource Remove="wwwroot\Settings\**" />
     <None Remove="Areas\Newsletters\**" />
+    <None Remove="wwwroot\Settings\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,10 +46,6 @@
   <ItemGroup>
     <ProjectReference Include="..\LTCDataManager\LTCDataManager.csproj" />
     <ProjectReference Include="..\LTCDataModel\LTCDataModel.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\Settings\" />
   </ItemGroup>
 
 </Project>
