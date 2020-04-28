@@ -11,7 +11,7 @@ namespace LTCDataManager.DataAccess
 {
     public class DbConfiguration
     {
-        public static string LtcGateway
+        public static string LtcReview
         {
             get
             {
@@ -19,7 +19,7 @@ namespace LTCDataManager.DataAccess
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                 var config = builder.Build();
-                return config.GetConnectionString("LTCGateway");
+                return config.GetConnectionString("LTCReview");
             }
         }
         public static string LtcForm
@@ -76,6 +76,17 @@ namespace LTCDataManager.DataAccess
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                 var config = builder.Build();
                 return config.GetConnectionString("LTCSystem");
+            }
+        }
+        public static string LtcGateway
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                var config = builder.Build();
+                return config.GetConnectionString("LTCGateway");
             }
         }
     }

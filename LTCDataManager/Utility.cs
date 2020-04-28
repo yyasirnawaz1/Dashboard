@@ -80,7 +80,7 @@ namespace LTCDataManager
         {
             try
             {
-                var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+                var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
                 var allowedOffices = db.Fetch<gOfficelist>($"SELECT AOL.Office_Sequence, AOL.Providerrange,AOI.IP_Address, AOI.DB_Name,AOI.DB_Port FROM authentication_office_list AOL LEFT JOIN authentication_office_ip AOI ON AOL.office_sequence = AOI.office_sequence WHERE AOL.UserID ={userId}").ToList();
                 return allowedOffices;
             }
@@ -96,7 +96,7 @@ namespace LTCDataManager
             {
                 ////TODO: Start Replace this code with [GetAllowedOffices] method as that will get the records from cache in future. 
                 //Start 
-                var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+                var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
                 var connectionString = db.Fetch<gOfficelist>($"SELECT * FROM authentication_office_ip WHERE Office_sequence = {officeSequence}").FirstOrDefault();
                 //END
                 if (connectionString != null)

@@ -20,22 +20,9 @@
     var permissionList = gUserModuleManager.GetAllAuthenticationModuleByOfficeSequence(officeSequence);
 }
 
-@section styles
-{
-    @*<script src="~/Resources/Limitless/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
-        
-        <script src="~/Resources/theme/js/vendor/datatables.net/js/datatables.min.js"></script>
-        <script src="~/Resources/theme/js/vendor/datatables.net/js/Select-1.2.6/js/select.bootstrap.min.js"></script>
-        <script src="~/Resources/theme/js/vendor/ResizePanel/Resize.js"></script>
-        <script src="~/Resources/FormDesigner/assets/js/form-builder.min.js"></script>
-        <script src="~/Resources/FormDesigner/assets/js/form-render.min.js"></script>*@
-
-}
-
 <div class="navbar navbar-expand-md navbar-dark">
     <div class="navbar-brand">
         <a href="javascript:;" class="d-inline-block">
-            @*<img src="~/Resources/Limitless/global_assets/images/logo_light.png" alt="">*@
             <span style="color: white;
                         font-family: 'Open Sans', sans-serif;
                         text-decoration: none;
@@ -69,7 +56,7 @@
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        @if (permissionList.IsSurveyOk == 1)
+                        @if (permissionList.IsESurveyEnabled == 1)
                         {
                             <a href="javascript:void(0)" onclick="PublicSurveyControls.openSurveyModal();" class="dropdown-item">
                                 <i class="icon-stack"></i>
@@ -81,7 +68,7 @@
                             </a>
                         }
 
-                        @if (permissionList.IsFormOk == 1)
+                        @if (permissionList.IsEFormEnabled == 1)
                         {
                             <a href="javascript:void(0)" onclick="PublicFormControls.openFormModal();" class="dropdown-item">
                                 <i class="icon-pencil3"></i>
@@ -92,14 +79,6 @@
                                 Public Forms Tags
                             </a>
                         }
-
-                        @*@if (permissionList.IsNewsletterOk == 1)
-                            {
-                                <a href="javascript:void(0)" onclick="PreNewsLetterControls.loadFromHomePage();" class="dropdown-item">
-                                    <i class="icon-newspaper"></i>
-                                    Public Newsletters
-                                </a>
-                            }*@
                         <div class="dropdown-divider"></div>
                         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/Identity/Account/Login">
                             <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">
@@ -203,12 +182,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group d-flex align-items-center">
-                                    @*<div class="form-check mb-0">
-                                            <label class="form-check-label">
-                                                <div class="uniform-checker"><span class="checked"><input type="checkbox" name="remember" class="form-input-styled" checked="" data-fouc=""></span></div>
-                                                Remember
-                                            </label>
-                                        </div>*@
                                     <a asp-page="./ForgotPassword" class="ml-auto">Forgot password?</a>
                                 </div>
                                 <div class="form-group">
@@ -233,7 +206,7 @@
                                     @if (SignInManager.IsSignedIn(User))
                                     {
 
-                                        if (permissionList.IsReportsOk == 1)
+                                        if (permissionList.IsContactListEnabled == 1)
                                         {
                                             <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("index","survey")')">
                                                 <i class="icon-users2 text-pink-400 icon-2x"></i>
@@ -259,7 +232,7 @@
                                     @if (SignInManager.IsSignedIn(User))
                                     {
 
-                                        if (permissionList.IsSurveyOk == 1)
+                                        if (permissionList.IsESurveyEnabled == 1)
                                         {
                                             <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("index","survey")')">
                                                 <i class="icon-stack text-blue-400 icon-2x"></i>
@@ -286,7 +259,7 @@
                                     {
 
 
-                                        if (permissionList.IsReportsOk == 1)
+                                        if (permissionList.IsOfficePortalEnabled == 1)
                                         {
                                             <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("index","report")')">
                                                 <i class="icon-mail5 text-success-400 icon-2x"></i>
@@ -313,7 +286,7 @@
                                     @if (SignInManager.IsSignedIn(User))
                                     {
 
-                                        if (permissionList.IsDashboardOk == 1)
+                                        if (permissionList.IsDashboardEnabled == 1)
                                         {
                                             <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("index", "dashboard")')">
                                                 <i class="icon-meter2 text-pink-400 icon-2x"></i>
@@ -343,7 +316,7 @@
                                     @if (SignInManager.IsSignedIn(User))
                                     {
 
-                                        if (permissionList.IsSmsOk == 1)
+                                        if (permissionList.IsSMSEnabled == 1)
                                         {
                                             <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("LoadSMS","sms")')">
                                                 <i class="icon-mail-read text-success-400 icon-2x"></i>
@@ -370,7 +343,7 @@
                                     @if (SignInManager.IsSignedIn(User))
                                     {
 
-                                        if (permissionList.IsNewsletterOk == 1)
+                                        if (permissionList.IsNewsletterEnabled == 1)
                                         {
                                             <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("Home","Newsletter")')">
                                                 <i class="icon-magazine text-success-400 icon-2x"></i>
@@ -397,7 +370,7 @@
                                     @if (SignInManager.IsSignedIn(User))
                                     {
 
-                                        if (permissionList.IsOfficeManagementOk == 1)
+                                        if (permissionList.IsParadigmCloudEnabled == 1)
                                         {
                                             <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("index","officemanagement")')">
                                                 <i class="icon-atom text-pink-400 icon-2x"></i>
@@ -423,7 +396,7 @@
                                     @if (SignInManager.IsSignedIn(User))
                                     {
 
-                                        if (permissionList.IsReportsOk == 1)
+                                        if (permissionList.IsOfficePortalEnabled == 1)
                                         {
                                             <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Configuration.GetSection("Configuration")["OfficePortalUrl"]', true)">
                                                 <i class="icon-printer text-blue-400 icon-2x"></i>
@@ -450,7 +423,7 @@
                                     @if (SignInManager.IsSignedIn(User))
                                     {
 
-                                        if (permissionList.IsFormOk == 1)
+                                        if (permissionList.IsEFormEnabled == 1)
                                         {
                                             <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("index","form")')">
                                                 <i class="icon-pencil3 text-success-400 icon-2x"></i>

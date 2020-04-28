@@ -2,6 +2,11 @@
 @using LTCDashboard.Models
 @using LTCDataManager.User
 
+@{ 
+
+    int.TryParse(User.FindFirstValue("OfficeSequence"), out var officeSequence);
+    var permissionList = gUserModuleManager.GetAllAuthenticationModuleByOfficeSequence(officeSequence);
+}
 
 <ul class="navbar-nav">
     <li class="nav-item dropdown">
@@ -17,11 +22,10 @@
 
                 @{
 
-                    int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var userId);
 
                     <ul class="media-list">
 
-                        @if (gUserModuleManager.GetAuthenticationModule(userId, "dashboard"))
+                        @if (permissionList.IsDashboardEnabled == 1)
                         {
                             <li class="media" onclick="Layout.openMenu('dashboard');">
                                 <div class="mr-2">
@@ -45,14 +49,14 @@
 
                         }
 
-                        @if (gUserModuleManager.GetAuthenticationModule(userId, "officemanagement"))
+                        @if (permissionList.IsParadigmCloudEnabled == 1)
                         {
                             <li class="media" onclick="Layout.openMenu('officemanagement');">
                                 <div class="mr-2">
                                     <a href="#" class="btn bg-transparent border-warning text-warning rounded-round border-2 btn-icon"><i class="icon-atom"></i></a>
                                 </div>
                                 <div class="media-body">
-                                    Paradigm Cloud
+                                    Paradigm Mobile
                                 </div>
                             </li>
                         }
@@ -63,12 +67,12 @@
                                     <a href="#" class="btn bg-transparent border-warning text-warning rounded-round border-2 btn-icon"><i class="icon-atom"></i></a>
                                 </div>
                                 <div class="media-body">
-                                    Paradigm Cloud
+                                    Paradigm Mobile
                                 </div>
                             </li>
                         }
 
-                        @if (gUserModuleManager.GetAuthenticationModule(userId, "report"))
+                        @if (permissionList.IsOfficePortalEnabled == 1)
                         {
                             <li class="media" onclick="Layout.openMenu('report');">
                                 <div class="mr-2">
@@ -91,7 +95,7 @@
                             </li>
                         }
 
-                        @if (gUserModuleManager.GetAuthenticationModule(userId, "form"))
+                        @if (permissionList.IsEFormEnabled == 1)
                         {
                             <li class="media" onclick="Layout.openMenu('form');">
                                 <div class="mr-2">
@@ -114,7 +118,7 @@
                             </li>
                         }
 
-                        @if (gUserModuleManager.GetAuthenticationModule(userId, "newsletter"))
+                        @if (permissionList.IsNewsletterEnabled == 1)
                         {
                             <li class="media" onclick="Layout.openMenu('newsletter');">
                                 <div class="mr-2">
@@ -137,7 +141,7 @@
                             </li>
                         }
 
-                        @if (gUserModuleManager.GetAuthenticationModule(userId, "report"))
+                        @if (permissionList.IsContactListEnabled == 1)
                         {
                             <li class="media" onclick="Layout.openMenu('report');">
                                 <div class="mr-2">
@@ -161,7 +165,7 @@
                         }
 
 
-                        @if (gUserModuleManager.GetAuthenticationModule(userId, "survey"))
+                        @if (permissionList.IsESurveyEnabled == 1)
                         {
                             <li class="media" onclick="Layout.openMenu('survey');">
                                 <div class="mr-2">
@@ -184,7 +188,7 @@
                             </li>
                         }
 
-                        @if (gUserModuleManager.GetAuthenticationModule(userId, "report"))
+                        @if (permissionList.IsContactListEnabled == 1)
                         {
                             <li class="media" onclick="Layout.openMenu('report');">
                                 <div class="mr-2">

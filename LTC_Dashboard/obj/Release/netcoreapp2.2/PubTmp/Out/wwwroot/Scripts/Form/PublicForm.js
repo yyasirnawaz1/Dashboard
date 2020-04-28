@@ -93,6 +93,13 @@
 
     initializeFormBuilderAfterGetTags: function (selectoptions) {
         fields = [{
+            label: 'Signature',
+            attrs: {
+                type: 'signature'
+            },
+            icon: '✍️'
+        },
+{
             label: 'Star Rating',
             attrs: {
                 type: 'starRating'
@@ -132,7 +139,14 @@
                     onRender: function () {
                     }
                 };
+            }, signature: function (fieldData) {
+                return {
+                    field: '<hr>',
+                    onRender: function () {
+                    }
+                };
             },
+
             NewLine: function () {
                 return {
                     field: '<br/>',
@@ -155,6 +169,11 @@
                 }
             },
             "checkbox-group": {
+                TagId: {
+                    label: 'Tag',
+                    options: selectoptions
+                }
+            }, signature: {
                 TagId: {
                     label: 'Tag',
                     options: selectoptions
@@ -273,7 +292,38 @@
             controlClass.register('NewLine', controlNewLine);
             return controlNewLine;
         });
+        window.fbControls.push(function (controlClass) {
+            class controlSignature extends controlClass {
+                build() {
+                    return '<div><input style="display:none" id= "input-' + this.config.name + '" /><div id="' + this.config.name + '"></div></div><p style="clear: both;"><button id="clear' + this.config.name + '">Clear</button></p>';
+                }
+                onRender() {
 
+                    if (this.config.userData) {
+                        $('#' + this.config.name).val(this.config.userData[0]);
+                    }
+                    var signature = $('#' + this.config.name);
+                    var input = $('#input-' + this.config.name);
+
+                    signature.signature({
+                        change: function (event, ui) {
+
+                            //signature.signature('toJSON');
+                            input.val(signature.signature('toSVG'));
+                        }
+                    });
+
+                    var signature = $('#' + this.config.name).signature();
+                    $('#clear' + this.config.name).click(function () {
+                        signature.signature('clear');
+                    });
+
+                }
+
+            }
+            controlClass.register('signature', controlSignature);
+            return controlSignature;
+        });
         window.fbControls.push(function (controlClass) {
             class controlStarRating extends controlClass {
                 build() {

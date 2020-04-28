@@ -20,11 +20,16 @@ namespace LTCDataManager.Review
             Utility.Config = configuration.Value; ;
         }
 
+        /// <summary>
+        /// TODO: the tables in the query are missing in ltcreview db
+        /// </summary>
+        /// <param name="office_sequence"></param>
+        /// <returns></returns>
         public static List<gReviewOfficeSetting> GetAllOfficeReviewLinks(int office_sequence)
         {
-            //  string constr = string.Format(ConString, "ltc_gateway");
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
-            return db.Fetch<gReviewOfficeSetting>(@"select review_office_settings.Office_Sequence , review_office_settings.Review_Link_Type, review_link_source.Review_Link_Name   FROM review_office_settings Inner JOIN review_link_source on 
+           
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcReview);
+            return db.Fetch<gReviewOfficeSetting>(@"select review_office_settings.Office_Sequence , review_office_settings.Review_Link_Type, review_link_source.Review_Link_Name FROM review_office_settings Inner JOIN review_link_source on 
 review_office_settings.Review_Link_Type = review_link_source.Review_Link_Type
 where  Office_Sequence = " + office_sequence);
         }

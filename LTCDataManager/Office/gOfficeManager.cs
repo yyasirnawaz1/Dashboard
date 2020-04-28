@@ -32,12 +32,12 @@ namespace LTCDataManager.Office
 
         public static gPatientOfficeInfo GetOffice(string email)
         {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
             return db.Fetch<gPatientOfficeInfo>($"select Office_Number, DoctorID from authentication where Email  = '{email.Replace("@", "@@")}' ").FirstOrDefault();
         }
         public static gPatientOfficeInfo GetPatientInfo(string email)
         {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
             return db.Fetch<gPatientOfficeInfo>($"select * from authentication where Email  = '{email.Replace("@", "@@")}' ").FirstOrDefault();
         }
 
@@ -72,20 +72,20 @@ namespace LTCDataManager.Office
         [Obsolete]
         public static int GetOfficeId(int UserId)
         {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
             return db.Fetch<int>(@"select Office_Sequence from authentication where Id=" + UserId).FirstOrDefault();
         }
 
         public static List<gBusinesInfo> GetOffices(int userId)
         {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
-            var dbSystem = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
             List<gBusinesInfo> offices = new List<gBusinesInfo>();
 
             var allowedOfficeList = db.Fetch<string>($"SELECT Office_Sequence FROM authentication_office_list where UserId = " + userId).ToList();
+            //TODO: if allowed list is empty. then handle it properly, right now it throws an error 
             if (allowedOfficeList != null)
             {
-                offices = dbSystem.Fetch<gBusinesInfo>($"SELECT Office_Sequence as Id,ClinicName FROM businessInfo where Office_Sequence in (" + string.Join(",", allowedOfficeList) + ")").ToList();
+                offices = db.Fetch<gBusinesInfo>($"SELECT Office_Sequence as Id,ClinicName FROM businessInfo where Office_Sequence in (" + string.Join(",", allowedOfficeList) + ")").ToList();
             }
 
             return offices;
