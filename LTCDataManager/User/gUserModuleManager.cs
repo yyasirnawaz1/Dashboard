@@ -23,118 +23,60 @@ namespace LTCDataManager.User
         //    Utility.Config = configuration.Value; ;
         //}
 
-        public static bool GetAuthenticationModule(int userid, string modulename)
-        {
-            try
-            {
-                bool result = false;
-                using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
-                {
-                    string qry = $"select a.Office_Sequence,a.IsDashboardOk,a.IsOfficeManagementOk, a.IsSurveyOk,a.IsFormOk,a.IsReviewOk,a.IsNewsletterOk,a.IsReportsOk, IsSmsOk from authentication_module as a INNER JOIN authentication as b ON a.Office_Sequence = b.Office_Sequence AND b.Id = {userid}";
-                    gUserModule found = db.Fetch<gUserModule>(qry).FirstOrDefault();
-                    if (found != null)
-                    {
-                        switch (modulename)
-                        {
-                            case "dashboard":
-                                result = found.IsDashboardOk == 1 ? true : false;
-                                break;
-                            case "officemanagement":
-                                result = found.IsOfficeManagementOk == 1 ? true : false;
-                                break;
-                            case "survey":
-                                result = found.IsSurveyOk == 1 ? true : false;
-                                break;
-                            case "form":
-                                result = found.IsFormOk == 1 ? true : false;
-                                break;
-                            case "review":
-                                result = found.IsReviewOk == 1 ? true : false;
-                                break;
-                            case "newsletter":
-                                result = found.IsNewsletterOk == 1 ? true : false;
-                                break;
-                            case "report":
-                                result = found.IsReportsOk == 1 ? true : false;
-                                break;
-                            case "sms":
-                                result = found.IsSmsOk == 1 ? true : false;
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        result = false;
-                    }
-                }
-
-                return result;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-
-        }
-
-        public static bool GetAuthenticationModule(string username, string modulename)
-        {
-            bool result = false;
-            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
-            {
-                string qry = $"select a.Office_Sequence,a.IsDashboardOk,a.IsOfficeManagementOk, a.IsSurveyOk,a.IsFormOk,a.IsReviewOk,a.IsNewsletterOk,a.IsReportsOk from authentication_module as a INNER JOIN authentication as b ON a.Office_Sequence = b.Office_Sequence AND b.Email = {username}";
-                gUserModule found = db.Fetch<gUserModule>(qry).FirstOrDefault();
-                if (found != null)
-                {
-                    switch (modulename)
-                    {
-                        case "dashboard":
-                            result = found.IsDashboardOk == 1 ? true : false;
-                            break;
-                        case "officemanagement":
-                            result = found.IsOfficeManagementOk == 1 ? true : false;
-                            break;
-                        case "survey":
-                            result = found.IsSurveyOk == 1 ? true : false;
-                            break;
-                        case "form":
-                            result = found.IsFormOk == 1 ? true : false;
-                            break;
-                        case "review":
-                            result = found.IsReviewOk == 1 ? true : false;
-                            break;
-                        case "newsletter":
-                            result = found.IsNewsletterOk == 1 ? true : false;
-                            break;
-                        case "report":
-                            result = found.IsReportsOk == 1 ? true : false;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-                    result = false;
-                }
-            }
-
-            return result;
-        }
-
-        //[Obsolete]
-        //public static gUserModule GetAllAuthenticationModule(int userid)
+        //public static bool GetAuthenticationModule(int office_sequence, string modulename)
         //{
-        //    gUserModule model;
-        //    using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
+        //    try
         //    {
-        //        string qry = $"select a.Office_Sequence,a.IsDashboardOk,a.IsOfficeManagementOk, a.IsSurveyOk,a.IsFormOk,a.IsReviewOk,a.IsNewsletterOk,a.IsReportsOk, IsSmsOk from authentication_module as a INNER JOIN authentication as b ON a.Office_Sequence = b.Office_Sequence AND b.Id = {userid}";
-        //        model = db.Fetch<gUserModule>(qry).FirstOrDefault();
+        //        bool result = false;
+        //        using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LTCSystem))
+        //        {
+        //            string qry = $"select a.Office_Sequence,a.IsDashboardEnabled, a.IsContactListEnabled ,a.IsOfficeManagementOk, a.IsEFormEnabled as IsESurveyEnabled,a.IsEFormEnabled,a.Newsletter as IsNewsletterEnabled,a.IsOfficePortalEnabled, a.SMS as IsSMSEnabled from businessinfo WHERE Office_Sequence = {office_sequence}";
+        //            gUserModule found = db.Fetch<gUserModule>(qry).FirstOrDefault();
+        //            if (found != null)
+        //            {
+        //                switch (modulename)
+        //                {
+        //                    case "dashboard":
+        //                        result = found.IsDashboardEnabled == 1 ? true : false;
+        //                        break;
+        //                    case "officemanagement":
+        //                        result = found.IsParadigmCloudEnabled == 1 ? true : false;
+        //                        break;
+        //                    case "survey":
+        //                        result = found.IsESurveyEnabled == 1 ? true : false;
+        //                        break;
+        //                    case "form":
+        //                        result = found.IsEFormEnabled == 1 ? true : false;
+        //                        break;
+        //                    case "review":
+        //                        result = found.IsContactListEnabled == 1 ? true : false;
+        //                        break;
+        //                    case "newsletter":
+        //                        result = found.IsNewsletterEnabled == 1 ? true : false;
+        //                        break;
+        //                    case "report":
+        //                        result = found.IsOfficePortalEnabled == 1 ? true : false;
+        //                        break;
+        //                    case "sms":
+        //                        result = found.IsSMSEnabled == 1 ? true : false;
+        //                        break;
+        //                    default:
+        //                        break;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                result = false;
+        //            }
+        //        }
+
+        //        return result;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return false;
         //    }
 
-        //    return model;
         //}
 
         public static gUserModule GetAllAuthenticationModuleByOfficeSequence(int officeSequence)
@@ -142,27 +84,33 @@ namespace LTCDataManager.User
             gUserModule model;
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
             {
-                string qry = $"select Office_Sequence,IsDashboardOk,IsOfficeManagementOk, IsSurveyOk,IsFormOk, IsReviewOk,IsNewsletterOk,IsReportsOk, IsSmsOk from businessinfo WHERE Office_Sequence  = {officeSequence}";
+                string qry = $"select Office_Sequence,IsDashboardEnabled, IsContactListEnabled ,IsParadigmCloudEnabled, IsEFormEnabled as IsESurveyEnabled,IsEFormEnabled,Newsletter as IsNewsletterEnabled,IsOfficePortalEnabled, SMS as IsSMSEnabled from businessInfo  WHERE Office_Sequence  = {officeSequence}";
                 model = db.Fetch<gUserModule>(qry).FirstOrDefault();
             }
 
             return model;
         }
 
+        /// <summary>
+        /// TODO: check if the query can be optimized. can we directly get the data based on office sequence?
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
         public static gUserPermissionsModel GetUserPermissions(int UserId)
         {
             var query = $"select app.ActionDescription from authentication_pre_permissions app join authentication_permission ap on app.ActionID=ap.ActionID where ap.UserId={UserId};";
 
-            var authColumns = $"select Office_Sequence,isDisplaySummary  from authentication Where Id={UserId};";
-
-
+            var authColumns = $"select Office_Sequence,isDisplaySummary from authentication Where Id={UserId};";
 
             var result = new gUserPermissionsModel();
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
             {
                 result = db.Fetch<gUserPermissionsModel>(authColumns).FirstOrDefault();
+            }
 
 
+            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
+            {
                 var permissions = db.Fetch<string>(query).ToList();
                 foreach (PropertyInfo propertyInfo in new gUserPermissionsModel().GetType().GetProperties())
                 {
@@ -174,25 +122,6 @@ namespace LTCDataManager.User
             return result;
         }
 
-        //public static string GetConnectionString(int OfficeSequence)
-        //{
-        //    string result = "";
-        //    using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
-        //    {
-        //        string qry = $"select IP_Address,DB_Name,DB_Port from authentication_office_ip where Office_sequence = {OfficeSequence}";
-        //        AuthenticationOfficeIp detail = db.Fetch<AuthenticationOfficeIp>(qry).FirstOrDefault();
-        //        if (detail != null)
-        //        {
-        //            result = "Server=" + detail.IP_Address + ";userid=ltcuser;password=" + System.Configuration.ConfigurationManager.AppSettings["databasePassword"] + ";database=" + detail.DB_Name + ";Port=" + detail.DB_Port + ";Convert Zero Datetime=True;SslMode=none;Connection Timeout=190;";
-        //        }
-        //        else
-        //        {
-        //            result = ConfigurationManager.AppSettings["FallbackConnection"];
-        //        }
-        //    }
-
-        //    return result;
-        //}
     }
 
 }

@@ -235,7 +235,7 @@ namespace LTCDataManager.Form
         }
         public List<gFormReportModel> GetFormReport(int officeId)
         {
-            var dbprivateSurveyDb = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+            var dbprivateSurveyDb = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
             var dbprivateSurvey = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcForm);
             
             var result = dbprivateSurvey.Fetch<gPrivateFormModel>($"select * from form_private where  IsSurveyForm = 0  AND Office_Sequence=" + officeId).ToList();
