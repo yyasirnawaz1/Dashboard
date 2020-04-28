@@ -20,5 +20,12 @@ namespace LTCDataModel.User
 		public short IsNewsletterOk { get; set; }
 		public short IsReportsOk { get; set; }
 		public short IsSmsOk { get; set; }
-    }
+		public int IsDashboardEnabled { get; set; }
+		public int IsESurveyEnabled { get; set; }
+		public int IsEFormEnabled { get; set; }
+		public int IsContactListEnabled { get; set; }
+		public int IsNewsletterEnabled { get; set; }
+		public int IsOfficePortalEnabled { get; set; }
+		public int IsSMSEnabled { get; set; }
+	}
 }

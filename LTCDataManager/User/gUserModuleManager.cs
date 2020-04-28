@@ -22,8 +22,62 @@ namespace LTCDataManager.User
         //    _configuration = configuration.Value;
         //    Utility.Config = configuration.Value; ;
         //}
+        public static bool GetAuthenticationModule(int office_sequence, string modulename)
+        {
+            try
+            {
+                bool result = false;
+                using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
+                {
+                    string qry = $"select a.Office_Sequence,a.IsDashboardEnabled, a.IsContactListEnabled ,a.IsOfficeManagementOk, a.IsEFormEnabled as IsESurveyEnabled,a.IsEFormEnabled,a.Newsletter as IsNewsletterEnabled,a.IsOfficePortalEnabled, a.SMS as IsSMSEnabled from authentication_module WHERE Office_Sequence = {office_sequence}";
+                    gUserModule found = db.Fetch<gUserModule>(qry).FirstOrDefault();
+                    if (found != null)
+                    {
+                        switch (modulename)
+                        {
+                            case "dashboard":
+                                result = found.IsDashboardEnabled == 1 ? true : false;
+                                break;
+                            case "officemanagement":
+                                result = found.IsOfficeManagementOk == 1 ? true : false;
+                                break;
+                            case "survey":
+                                result = found.IsESurveyEnabled == 1 ? true : false;
+                                break;
+                            case "form":
+                                result = found.IsEFormEnabled == 1 ? true : false;
+                                break;
+                            case "review":
+                                result = found.IsContactListEnabled == 1 ? true : false;
+                                break;
+                            case "newsletter":
+                                result = found.IsNewsletterEnabled == 1 ? true : false;
+                                break;
+                            case "report":
+                                result = found.IsOfficePortalEnabled == 1 ? true : false;
+                                break;
+                            case "sms":
+                                result = found.IsSMSEnabled == 1 ? true : false;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                }
 
-        public static bool GetAuthenticationModule(int userid, string modulename)
+                return result;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+        public static bool GetAuthenticationModules(int userid, string modulename)
         {
             try
             {
