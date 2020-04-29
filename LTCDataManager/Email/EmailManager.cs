@@ -18,6 +18,9 @@ namespace LTCDataManager.Email
             {
                 StringBuilder sb = new StringBuilder(template.MainBodymarkup);
                 // &amp;
+                
+                sb.Replace("&amp;OfficeName&amp;", office?.ClinicName);
+                sb.Replace("&OFFICENAME&", office?.ClinicName);
                 sb.Replace("&OfficeName&", office?.ClinicName);
                 sb.Replace("[officename]", office?.ClinicName);
                 sb.Replace("&Subscriber&", patient.Email);
@@ -47,8 +50,10 @@ namespace LTCDataManager.Email
             public static string ClearArticleTemplate(gOfficeInfo office, gArticleModel template, gPatientOfficeInfo patient, string familyList)
             {
                 StringBuilder sb = new StringBuilder(template.ContentWithDefaultStyle);
-
+                sb.Replace("&amp;OfficeName&amp;", office?.ClinicName);
+                sb.Replace("&OFFICENAME&", office?.ClinicName);
                 sb.Replace("&OfficeName&", office?.ClinicName);
+                sb.Replace("[officename]", office?.ClinicName);
                 sb.Replace("&Subscriber&", patient.Email);
                 sb.Replace("&PatientName&", patient.FirstName);
                 sb.Replace("&PatientSalutation&", patient.Salutation);
