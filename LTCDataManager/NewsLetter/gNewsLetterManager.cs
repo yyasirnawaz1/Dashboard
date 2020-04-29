@@ -143,7 +143,7 @@ namespace LTCDataManager.NewsLetter
             var db = new Database(DbConfiguration.LtcNewsletter);
             return db.Fetch<gArticleCategories>($"SELECT * FROM articlecategories").ToList();
         }
-
+        
         public static List<gShellTemplatesModel> GetShellTemplates()
         {
             var db = new Database(DbConfiguration.LtcNewsletter);

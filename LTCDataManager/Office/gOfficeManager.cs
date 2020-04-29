@@ -53,6 +53,16 @@ namespace LTCDataManager.Office
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
             return db.Fetch<gBusinesInfo>($"select a.Office_Sequence as Id,b.ClinicName as ClinicName from businessinfo WHERE Office_Sequence={officeSequence} ").ToList();
         }
+        public static gBusinesInfo GetBuisnessInfo(string syncIdentifier)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
+            return db.Fetch<gBusinesInfo>($"select Office_Sequence as Id,ClinicName,  as ClinicName, Active, Newsletter from businessinfo WHERE Office_Sequence={syncIdentifier} ").FirstOrDefault();
+        }
+        //public static gBusinesInfo GetOfficeDetailByOfficeId(int OfficeSequence)
+        //{
+        //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
+        //    return db.Fetch<gBusinesInfo>($"select b.Office_Sequence as Id,b.Business_Name as ClinicName FROM authentication_businessinfo b  WHERE b.Office_Number ={OfficeSequence} ").FirstOrDefault();
+        //}
 
         public static gOffice GetOfficeName(string connectionString, int officeSequence)
         {

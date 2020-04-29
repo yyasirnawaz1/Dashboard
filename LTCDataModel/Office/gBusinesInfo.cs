@@ -9,5 +9,7 @@ namespace LTCDataModel.Office
 	{
 		public int Id { get; set; }
 		public string ClinicName { get; set; }
+		public bool Active { get; set; }
+		public bool Newsletter { get; set; }
 	}
 }
