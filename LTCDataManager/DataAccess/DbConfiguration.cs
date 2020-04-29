@@ -78,17 +78,17 @@ namespace LTCDataManager.DataAccess
                 return config.GetConnectionString("LTCSystem");
             }
         }
-        public static string LtcGateway
-        {
-            get
-            {
-                var builder = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-                var config = builder.Build();
-                return config.GetConnectionString("LTCGateway");
-            }
-        }
+        //public static string LtcGateway
+        //{
+        //    get
+        //    {
+        //        var builder = new ConfigurationBuilder()
+        //            .SetBasePath(Directory.GetCurrentDirectory())
+        //            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+        //        var config = builder.Build();
+        //        return config.GetConnectionString("LTCGateway");
+        //    }
+        //}
     }
 
     public class PocoDatabase

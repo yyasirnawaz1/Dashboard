@@ -100,17 +100,13 @@ namespace LTCDataManager.User
         {
             var query = $"select app.ActionDescription from authentication_pre_permissions app join authentication_permission ap on app.ActionID=ap.ActionID where ap.UserId={UserId};";
 
-            var authColumns = $"select Office_Sequence,isDisplaySummary from authentication Where Id={UserId};";
+            var authColumns = $"select Office_Sequence,isDisplaySummary from authentication Where DoctorId={UserId};";
 
             var result = new gUserPermissionsModel();
-            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway))
-            {
-                result = db.Fetch<gUserPermissionsModel>(authColumns).FirstOrDefault();
-            }
-
 
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
             {
+                result = db.Fetch<gUserPermissionsModel>(authColumns).FirstOrDefault();
                 var permissions = db.Fetch<string>(query).ToList();
                 foreach (PropertyInfo propertyInfo in new gUserPermissionsModel().GetType().GetProperties())
                 {
