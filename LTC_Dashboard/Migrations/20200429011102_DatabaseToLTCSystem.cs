@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LTC_Dashboard.Migrations
 {
-    public partial class Recreatedb : Migration
+    public partial class DatabaseToLTCSystem : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,23 +27,26 @@ namespace LTC_Dashboard.Migrations
                 name: "Authentication",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    DoctorID = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
+                    Office_Number = table.Column<int>(nullable: true),
                     Office_Sequence = table.Column<int>(nullable: false),
+                    Branch_Number = table.Column<int>(nullable: true),
+                    AuthenticationPhone = table.Column<string>(nullable: true),
                     Provider = table.Column<string>(nullable: true),
                     Salutation = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
@@ -57,19 +60,38 @@ namespace LTC_Dashboard.Migrations
                     Province = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: true),
                     PostalCode = table.Column<string>(nullable: true),
+                    IsSystemAdministrator = table.Column<bool>(nullable: false),
+                    IsAdministrator = table.Column<bool>(nullable: false),
+                    IsDisplaySummary = table.Column<bool>(nullable: false),
+                    IsDefaultUser = table.Column<bool>(nullable: false),
+                    MondayCSV = table.Column<string>(nullable: true),
+                    TuesdayCSV = table.Column<string>(nullable: true),
+                    WednesdayCSV = table.Column<string>(nullable: true),
+                    ThursdayCSV = table.Column<string>(nullable: true),
+                    FridayCSV = table.Column<string>(nullable: true),
+                    SaturdayCSV = table.Column<string>(nullable: true),
+                    SundayCSV = table.Column<string>(nullable: true),
                     LastLogin = table.Column<DateTime>(nullable: true),
                     PhotoImageURL = table.Column<string>(nullable: true),
                     WebsiteURL = table.Column<string>(nullable: true),
-                    LanguageSelected = table.Column<int>(nullable: false),
+                    ActivationStatus = table.Column<string>(nullable: true),
+                    LanguageSelected = table.Column<string>(nullable: true),
                     DateFormat = table.Column<string>(nullable: true),
-                    IsActive = table.Column<bool>(nullable: false),
-                    IsSystemAdministrator = table.Column<bool>(nullable: false),
-                    IsAdministrator = table.Column<bool>(nullable: false),
-                    IsDisplaySummary = table.Column<bool>(nullable: false)
+                    SelectedTemplateId = table.Column<int>(nullable: true),
+                    SelectedMainTitle_Name_ClinicName = table.Column<string>(nullable: true),
+                    PreferedSubIndustriesCSV = table.Column<string>(nullable: true),
+                    FirstNewsletterDate = table.Column<DateTime>(nullable: true),
+                    NotifyAutoSchedulesBeforeDispatch = table.Column<bool>(nullable: false),
+                    NotifyAutoSchedulesAfterDispatch = table.Column<bool>(nullable: false),
+                    AutoNewsletterCount = table.Column<int>(nullable: true),
+                    DB_Path = table.Column<string>(nullable: true),
+                    Serial_Number = table.Column<string>(nullable: true),
+                    Cust_id = table.Column<int>(nullable: false),
+                    Providerrange = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Authentication", x => x.Id);
+                    table.PrimaryKey("PK_Authentication", x => x.DoctorID);
                 });
 
             migrationBuilder.CreateTable(
@@ -110,7 +132,7 @@ namespace LTC_Dashboard.Migrations
                         name: "FK_AspNetUserClaims_Authentication_UserId",
                         column: x => x.UserId,
                         principalTable: "Authentication",
-                        principalColumn: "Id",
+                        principalColumn: "DoctorID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -130,7 +152,7 @@ namespace LTC_Dashboard.Migrations
                         name: "FK_AspNetUserLogins_Authentication_UserId",
                         column: x => x.UserId,
                         principalTable: "Authentication",
-                        principalColumn: "Id",
+                        principalColumn: "DoctorID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -154,7 +176,7 @@ namespace LTC_Dashboard.Migrations
                         name: "FK_AspNetUserRoles_Authentication_UserId",
                         column: x => x.UserId,
                         principalTable: "Authentication",
-                        principalColumn: "Id",
+                        principalColumn: "DoctorID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -174,7 +196,7 @@ namespace LTC_Dashboard.Migrations
                         name: "FK_AspNetUserTokens_Authentication_UserId",
                         column: x => x.UserId,
                         principalTable: "Authentication",
-                        principalColumn: "Id",
+                        principalColumn: "DoctorID",
                         onDelete: ReferentialAction.Cascade);
                 });
 

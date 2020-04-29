@@ -28,7 +28,7 @@ namespace LTCDataModel.User
 
 
 
-        public string Office_Sequence {get;set;}
+        public string Office_Number {get;set;}
         public bool isDisplaySummary { get;set;}
     }
 }

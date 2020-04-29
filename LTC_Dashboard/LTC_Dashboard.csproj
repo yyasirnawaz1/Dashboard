@@ -48,4 +48,8 @@
     <ProjectReference Include="..\LTCDataModel\LTCDataModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

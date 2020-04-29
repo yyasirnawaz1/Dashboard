@@ -17,18 +17,10 @@ namespace LTCOfficePortal.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<ApplicationUser>()
-                //.Ignore(c => c.NormalizedUserName)
-                //.Ignore(c => c.NormalizedEmail)
-                //.Ignore(c => c.ConcurrencyStamp)
-                //.Ignore(c => c.PhoneNumber)
-                //.Ignore(c => c.PhoneNumberConfirmed)
-                //.Ignore(c => c.EmailConfirmed)
-                //.Ignore(c => c.TwoFactorEnabled)
-                //.Ignore(c => c.LockoutEnd)
-                //.Ignore(c => c.LockoutEnabled)
-                //.Ignore(c => c.AccessFailedCount)
-                .ToTable("Authentication");
+            builder.Entity<ApplicationUser>().ToTable("Authentication").Property(p => p.Id).HasColumnName("DoctorID");
+            builder.Entity<ApplicationUser>().ToTable("Authentication").Property(p => p.PasswordHash).HasColumnName("Password");
+            builder.Entity<ApplicationUser>().ToTable("Authentication").Property(p => p.PhoneNumber).HasColumnName("Phone");
+
 
         }
     }

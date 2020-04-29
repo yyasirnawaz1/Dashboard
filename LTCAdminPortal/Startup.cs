@@ -41,7 +41,7 @@ namespace LTCAdminPortal
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
-                    Configuration.GetConnectionString("LTCGateway")));
+                    Configuration.GetConnectionString("LTCSystem")));
 
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.Configure<ConfigSettings>(Configuration.GetSection("Configuration"));

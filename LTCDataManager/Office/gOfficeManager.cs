@@ -24,22 +24,23 @@ namespace LTCDataManager.Office
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
             return db.Fetch<gOfficeInfo>($"SELECT * FROM businessinfo where Office_Sequence = '{OfficeNumber}' ").FirstOrDefault();
         }
-        public static gOfficeInfo GetOfficeNames(int OfficeNumber)
-        {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
-            return db.Fetch<gOfficeInfo>($"SELECT * FROM businessInfo where Office_Sequence = '{OfficeNumber}' ").FirstOrDefault();
-        }
+       
+        //public static gOfficeInfo GetOfficeNames(int OfficeNumber)
+        //{
+        //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
+        //    return db.Fetch<gOfficeInfo>($"SELECT * FROM businessInfo where Office_Sequence = '{OfficeNumber}' ").FirstOrDefault();
+        //}
 
-        public static gPatientOfficeInfo GetOffice(string email)
-        {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
-            return db.Fetch<gPatientOfficeInfo>($"select Office_Number, DoctorID from authentication where Email  = '{email.Replace("@", "@@")}' ").FirstOrDefault();
-        }
-        public static gPatientOfficeInfo GetPatientInfo(string email)
-        {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
-            return db.Fetch<gPatientOfficeInfo>($"select * from authentication where Email  = '{email.Replace("@", "@@")}' ").FirstOrDefault();
-        }
+        //public static gPatientOfficeInfo GetOffice(string email)
+        //{
+        //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
+        //    return db.Fetch<gPatientOfficeInfo>($"select Office_Number, DoctorID from authentication where Email  = '{email.Replace("@", "@@")}' ").FirstOrDefault();
+        //}
+        //public static gPatientOfficeInfo GetPatientInfo(string email)
+        //{
+        //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
+        //    return db.Fetch<gPatientOfficeInfo>($"select * from authentication where Email  = '{email.Replace("@", "@@")}' ").FirstOrDefault();
+        //}
 
         //public static List<gBusinesInfo> GetOfficeDetailByUserId(int userId)
         //{
@@ -69,12 +70,12 @@ namespace LTCDataManager.Office
             return db.Fetch<gOffice>($"SELECT Office_sequence, name FROM office WHERE Office_sequence=" + officeSequence).FirstOrDefault();
         }
 
-        [Obsolete]
-        public static int GetOfficeId(int UserId)
-        {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
-            return db.Fetch<int>(@"select Office_Sequence from authentication where Id=" + UserId).FirstOrDefault();
-        }
+        //[Obsolete]
+        //public static int GetOfficeId(int UserId)
+        //{
+        //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
+        //    return db.Fetch<int>(@"select Office_Sequence from authentication where Id=" + UserId).FirstOrDefault();
+        //}
 
         public static List<gBusinesInfo> GetOffices(int userId)
         {
