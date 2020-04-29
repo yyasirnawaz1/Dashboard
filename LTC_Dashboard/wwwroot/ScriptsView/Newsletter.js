@@ -84,6 +84,11 @@ var Newsletter = function () {
 
             $("#btnSaveArticle").attr("disabled", true);
 
+         
+            var element = $("#html-content-holder"); // global variable
+            document.getElementById("dvManage").style.position = "";
+            document.getElementById("dvManage").style.top = "0px";
+            document.getElementById("dvManage").style.left = "0px;";
             $("#html-content-holder").html("<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='IE=edge'></head><body>" + content + "</body></html>");
             var element = $("#html-content-holder"); // global variable
             html2canvas(element, {
@@ -111,11 +116,15 @@ var Newsletter = function () {
                         contentType: 'application/json',
                         dataType: 'json',
                         success: function (d) {
+
                             $('#useArticle').modal('hide');
                             ltcApp.successMessage(null, "Template created!");
                             Newsletter.init();
                             $('#btnSaveArticle').removeAttr('disabled');
 
+                            document.getElementById("dvManage").style.position = "absolute";
+                            document.getElementById("dvManage").style.top = "-9999px";
+                            document.getElementById("dvManage").style.left = "-9999px;";
                         }
                     });
 
@@ -1990,6 +1999,10 @@ var Newsletter = function () {
 
             $("#html-content-holder").html("<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='IE=edge'></head><body>" + $("#templateEditor").data("kendoEditor").value() + "</body></html>");
             var element = $("#html-content-holder"); // global variable
+            document.getElementById("dvManage").style.position = "";
+            document.getElementById("dvManage").style.top = "0px";
+            document.getElementById("dvManage").style.left = "0px;";
+           
             html2canvas(element, {
                 useCORS: true,
                 imageTimeout: 15000,
@@ -2082,6 +2095,9 @@ var Newsletter = function () {
                             somethingChanged = false;
                             $('#btnSave').removeAttr("disabled");
                             Layout.hideLoader();
+                            document.getElementById("dvManage").style.position = "absolute";
+                            document.getElementById("dvManage").style.top = "-9999px";
+                            document.getElementById("dvManage").style.left = "-9999px;";
                         }
                     });
                     //$("#btn-Convert-Html2Image").attr("download", "your_pic_name.png").attr("href", newData);
