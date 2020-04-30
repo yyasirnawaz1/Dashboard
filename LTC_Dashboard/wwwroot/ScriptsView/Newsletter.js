@@ -1853,7 +1853,7 @@ var Newsletter = function () {
             }
 
             $("#btnSend").attr("disabled", true);
-            Layout.showLoader();
+        //    Layout.showLoader();
 
             var data = {
                 ScheduledDateTime: sendDate,
@@ -1881,11 +1881,14 @@ var Newsletter = function () {
                         }
 
                         $('#btnSend').removeAttr('disabled');
+                        Layout.hideLoader();
 
                     } else {
                         $('#sendNewsletterModel').modal('hide');
                         ltcApp.errorMessage(null, "Specified email does not exists.");
                         $('#btnSend').removeAttr('disabled');
+                        Layout.hideLoader();
+
                         return;
                     }
 
@@ -1894,6 +1897,8 @@ var Newsletter = function () {
                     $('#sendNewsletterModel').modal('hide');
                     ltcApp.warningMessage(null, "There is an error, please try later.");
                     $('#btnSend').removeAttr('disabled');
+                    Layout.hideLoader();
+
                     return;
 
 
