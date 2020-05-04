@@ -119,6 +119,11 @@ namespace LTCDashboard.Controllers
                     var data = _gChartManager.GetTotalNetProduction(offices, providers, startDate, endDate, types);
                     return Json(new { Success = true, Data = data, IsCurrency = true, hasMultipleRecords = false });
                 }
+                else if (chartName == "TotalGrossProduction")
+                {
+                    var data = _gChartManager.GetTotalGrossProduction(offices, providers, startDate, endDate, types);
+                    return Json(new { Success = true, Data = data, IsCurrency = true, hasMultipleRecords = false });
+                }
                 else if (chartName == "TotalPaymentReceipt") //new
                 {
                     var data = _gChartManager.GetTotalPaymentReceipt(offices, providers, startDate, endDate, types);
@@ -184,6 +189,11 @@ namespace LTCDashboard.Controllers
                 else if (chartName == "TotalNetProduction")
                 {
                     var data = _gChartManager.GetTotalNetProductionBreakdown(offices, providers, startDate, endDate, types);
+                    return Json(new { Success = true, Data = data });
+                }
+                else if (chartName == "TotalGrossProduction")
+                {
+                    var data = _gChartManager.GetTotalGrossProductionBreakdown(offices, providers, startDate, endDate, types);
                     return Json(new { Success = true, Data = data });
                 }
                 else if (chartName == "TotalPaymentReceipt")

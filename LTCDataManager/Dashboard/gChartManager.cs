@@ -203,6 +203,80 @@ namespace LTCDataManager.Dashboard
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="offices"></param>
+        /// <param name="providerList">This list contains entries with [OfficeSequence]_[Providers]</param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public decimal GetTotalGrossProduction(int[] offices, string[] providerList, string startDate, string endDate, string types)
+        {
+            types = Utility.StringToCharacterString(types, _configuration.TotalGrossProductionInvoiceTypes);
+
+            decimal result = 0;
+            var providers = Utility.ProviderToList(providerList);
+            foreach (var office in offices)
+            {
+                if (providers.All(x => x.Office_Sequence != office))
+                {
+                    continue;
+                }
+
+                var db = PocoDatabase.DbConnection(Utility.GetConnectionStringByOfficeId(office));
+                string query =
+                $"SELECT IFNULL(sum(patamount/100) + sum(insamount/100),0) as amount FROM item " +
+                $"where provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("TotalGrossProductionTypes")})) and " +
+                $"invoiceType in ({types}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
+                $"AND Office_sequence = {office}";
+
+                var model = db.ExecuteScalar<decimal>(query);
+                result += model;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="offices"></param>
+        /// <param name="providerList">This list contains entries with [OfficeSequence]_[Providers]</param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public List<gBreakdown> GetTotalGrossProductionBreakdown(int[] offices, string[] providerList, string startDate, string endDate, string types)
+        {
+            types = Utility.StringToCharacterString(types, _configuration.TotalGrossProductionInvoiceTypes);
+
+            List<gBreakdown> result = new List<gBreakdown>();
+            var providers = Utility.ProviderToList(providerList);
+            foreach (var office in offices)
+            {
+                if (providers.All(x => x.Office_Sequence != office))
+                {
+                    continue;
+                }
+
+                var db = PocoDatabase.DbConnection(Utility.GetConnectionStringByOfficeId(office));
+                string query =
+              $"SELECT i.Office_sequence,i.patientNumber,i.invoicedate,i.patamount/100 patamount ,i.insamount/100 insamount ,i.provider,i.invoiceType, lastname, firstname,title FROM item i LEFT JOIN patient P on i.patientnumber = P.patientnumber AND i.Office_sequence = P.Office_sequence " +
+              $"where provider in (SELECT provider FROM provider WHERE provider in ({Utility.FilterProviderToString(office, providers)}) AND i.Office_sequence = {office} AND activeProvider = 1 AND hygienist in ({Utility.HygenistType("TotalGrossProductionTypes")})) and " +
+              $"invoiceType in ({types}) and invoicedate >= '{startDate}' AND invoicedate <= '{endDate}' " +
+              $"AND i.Office_sequence = {office} order by invoicedate,invoiceType";
+
+                var model = db.Fetch<gBreakdown>(query);
+                result.AddRange(model);
+            }
+
+            return AddInvoiceType(result);
+        }
+
+
+
+
+
         public decimal GetTotalPaymentReceipt(int[] offices, string[] providerList, string startDate, string endDate, string types)
         {
             types = Utility.StringToCharacterString(types, _configuration.TotalPaymentReceiptInvoiceTypes);
