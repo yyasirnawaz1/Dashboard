@@ -309,14 +309,10 @@
                                         </button>
                                     }
 
-                                    @*<button type="button" class="btn btn-pureWhite btn-block btn-float m-0 crossButton">
-                                            <i class="icon-cross2 icon-2x"></i>
-                                        </button>*@
-
                                     @if (SignInManager.IsSignedIn(User))
                                     {
 
-                                        if (permissionList.IsSMSEnabled == 1)
+                                        if (permissionList.IsSMSEnabled == 1 || permissionList.IsEmailEnabled == 1)
                                         {
                                             <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Url.Action("LoadSMS","sms")')">
                                                 <i class="icon-mail-read text-success-400 icon-2x"></i>

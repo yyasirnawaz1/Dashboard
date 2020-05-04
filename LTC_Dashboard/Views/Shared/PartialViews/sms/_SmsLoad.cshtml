@@ -7,11 +7,6 @@
 }
 
 <!-- Theme JS files -->
-<script src="~/Resources/Limitless/global_assets/js/plugins/visualization/dimple/dimple.min.js"></script>
-<script src="~/Resources/Vendor/DataTable/jquery.dataTables.min.js"></script>
-<link href="~/Resources/sms.css" rel="stylesheet" />
-
-
 <!-- Content area -->
 <div class="content">
 
@@ -160,7 +155,13 @@
     </div>
 </div>
 <!-- /content area -->
-<script>
+@section scripts{
+
+    <script src="~/Resources/Limitless/global_assets/js/plugins/visualization/dimple/dimple.min.js"></script>
+    <script src="~/Resources/Vendor/DataTable/jquery.dataTables.min.js"></script>
+    <link href="~/Resources/sms.css" rel="stylesheet" />
+
+    <script>
     $(function () {
 
 
@@ -246,5 +247,7 @@
 
 
 
-</script>
+    </script>
+}
+
 

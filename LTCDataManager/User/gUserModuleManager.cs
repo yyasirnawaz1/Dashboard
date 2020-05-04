@@ -84,7 +84,7 @@ namespace LTCDataManager.User
             gUserModule model;
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
             {
-                string qry = $"select Office_Sequence,IsDashboardEnabled, IsContactListEnabled ,IsParadigmCloudEnabled, IsEFormEnabled as IsESurveyEnabled,IsEFormEnabled,Newsletter as IsNewsletterEnabled,IsOfficePortalEnabled, SMS as IsSMSEnabled from businessInfo  WHERE Office_Sequence  = {officeSequence}";
+                string qry = $"select Office_Sequence,IsDashboardEnabled, IsContactListEnabled ,IsParadigmCloudEnabled, IsSMSSurveyEnabled as IsESurveyEnabled,IsEFormEnabled,Newsletter as IsNewsletterEnabled,IsOfficePortalEnabled, SMS as IsSMSEnabled, email as IsEmailEnabled from businessInfo  WHERE Office_Sequence  = {officeSequence}";
                 model = db.Fetch<gUserModule>(qry).FirstOrDefault();
             }
 

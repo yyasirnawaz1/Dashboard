@@ -20,5 +20,6 @@ namespace LTCDataModel.User
 		public short IsNewsletterEnabled { get; set; }
 		public short IsOfficePortalEnabled { get; set; }
 		public short IsSMSEnabled { get; set; }
-    }
+		public short IsEmailEnabled { get; set; }
+	}
 }
