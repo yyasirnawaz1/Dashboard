@@ -12,41 +12,7 @@
             $('#ddlFormOffice').selectpicker('refresh');
         });
     },
-    loadUserData: function () {
-        var DATAURL = window.location.origin + "/Account/GetUserdata";
-        $.ajax({
-            type: "GET",
-            url: DATAURL,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response !== null) {
-                    $('#txtSalutation').val(response.Salutation);
-                    $('#txtInitials').val(response.Initials);
-                    $('#txtFirstName').val(response.FirstName);
-                    $('#txtLastName').val(response.LastName);
-                    $('#txtPhone').val(response.Phone);
-                    $('#txtFax').val(response.Fax);
-                    $('#txtAddressLine1').val(response.AddressLine1);
-                    $('#txtAddressLine2').val(response.AddressLine2);
-                    $('#txtAddressLine3').val(response.AddressLine3);
-                    $('#txtCity').val(response.City);
-                    $('#txtProvince').val(response.Province);
-                    $('#txtCountry').val(response.Country);
-                    $('#txtPostalCode').val(response.PostalCode);
-                } else {
-                    //alert("Something went wrong");
-                }
-            },
-            failure: function (response) {
-                //alert(response.responseText);
-            },
-            error: function (response) {
-                //alert(response.responseText);
-            }
-        });
-    },
-
+    
     loadMenuItem: function (id) {
         if (Form.OfficeId != null && Form.OfficeId > -1) {
             if (id == 'formDesigner') {
@@ -164,5 +130,5 @@
 
 $(document).ready(function () {
     Form.loadOfficeDropdown();
-    Form.loadUserData();
+    $(".headerDate").hide();
 });

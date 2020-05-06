@@ -64,5 +64,20 @@ namespace LTCDashboard.Controllers
                 return Json(new { Success = false });
             }
         }
+
+
+        [HttpPost]
+        public JsonResult GetUserdata()
+        {
+            try
+            {
+                var data = gUserModuleManager.GetUserProfile(UserId);
+                return Json(new { Success = true, Data = "" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Success = false });
+            }
+        }
     }
 }
