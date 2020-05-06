@@ -75,7 +75,7 @@ namespace LTC_Dashboard.Controllers
                                   Response.Cookies.Delete("ModuleRestriction");
                             var options = new CookieOptions
                             {
-                                Expires = DateTime.Now.AddMinutes(60),
+                                Expires = DateTime.Now.AddDays(1),
                                 IsEssential = true
                             };
 

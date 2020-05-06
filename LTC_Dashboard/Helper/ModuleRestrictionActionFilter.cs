@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +26,46 @@ namespace LTC_Dashboard.Helper
                 var controllerName = context.Controller.ToString();
                 var actionName = context.ActionDescriptor.DisplayName;
 
-               // helpers/common.cs use that class to get and set cookies
+                // helpers/common.cs use that class to get and set cookies
+                var isAjaxRequest = context.HttpContext.Request.Headers["x-requested-with"] == "XMLHttpRequest";
+                if (context.HttpContext.Request.Cookies["ModuleRestriction"] != null)
+                {
+                    if (isAjaxRequest == false)
+                    {
+                        string moduleRestriction = (context.HttpContext.Request.Cookies["ModuleRestriction"]);
 
-                var cookie = context.HttpContext.Request.Cookies["moduleRestriction"].ToString();
+                        switch (moduleRestriction)
+                        {
+                            case "Newsletter":
+                                if ((context.HttpContext.Request.Path.HasValue && context.HttpContext.Request.Path.Value != "/Report/Get")
+                                    && context.Controller.ToString() != "LTC_Dashboard.Controllers.SubscribersController" &&
+                                    context.Controller.ToString() != "LTC_Dashboard.Controllers.NewsletterController" &&
+                                    context.Controller.ToString() != "LTC_Dashboard.Controllers.ImageManagementController")
+                                    context.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "Newsletter" }, { "action", "Home" } });
+                                //if (context.HttpContext.Request.Path.HasValue && context.HttpContext.Request.Path.Value != "/Newsletter/Home")
+
+                                return;
+                                break;
+                            //case "Form":
+                            //    if (context.HttpContext.Request.Path.HasValue && context.HttpContext.Request.Path.Value != "/Form/Index")
+                            //        context.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "Form" }, { "action", "Index" } });
+                            //    //LocalRedirect("/Form/Index");
+                            //    break;
+                            //case "Dashboard":
+                            //    //LocalRedirect("/Dashboard/Index");
+                            //    context.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "Dashboard" }, { "action", "Index" } });
+                            //    break;
+                            default:
+                                break;
+
+
+                        }
+                    }
+
+                }
+
+
+
             }
             catch (Exception ex)
             {
@@ -36,7 +75,7 @@ namespace LTC_Dashboard.Helper
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-           
+
         }
     }
 }
