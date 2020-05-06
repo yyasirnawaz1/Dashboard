@@ -35,8 +35,19 @@ namespace LTCDataModel.Office
 		public string DateFormat { get; set; }
 		public int LanguageSelected { get; set; }
 		public short IsActive { get; set; }
+		public short IsDefaultUser { get; set; }
 
-		
+
+	}
+
+	public class gDefaultUser
+	{
+
+		public string Password { get; set; }
+		public string Email { get; set; }
+		public string UserName { get; set; }
+		public short IsDefaultUser { get; set; }
+
 
 	}
 }

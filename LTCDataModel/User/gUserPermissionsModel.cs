@@ -25,10 +25,8 @@ namespace LTCDataModel.User
         public bool NewsLetterDelete { get; set; }
         public bool NewsLetterDuplicate { get; set; }
 
-
-
-
         public string Office_Number {get;set;}
         public bool isDisplaySummary { get;set;}
+        public bool IsDefaultUser { get; set; }
     }
 }

@@ -41,6 +41,7 @@ namespace LTCDashboard.Data
         public bool IsAdministrator { get; set; }
         public bool IsDisplaySummary { get; set; }
         public bool IsDefaultUser { get; set; }
+      
 
         public string MondayCSV { get; set; }
         public string TuesdayCSV { get; set; }

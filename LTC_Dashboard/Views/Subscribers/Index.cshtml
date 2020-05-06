@@ -51,7 +51,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="#" onclick="Subscription.toggleSubscription('@Url.Action("ToggleStatus", "Subscribers", new {  Id="__prm_id__" })')" class="dropdown-item"><i class="icon-shuffle"></i> Toggle</a>
-                        <a href="#" onclick="Subscription.modifySubscription('@Url.Action("Edit", "Subscribers",new { Id= "__prm_id__" })');" data-target="#modifySubscription" data-toggle="modal" class="dropdown-item"><i class="icon-pencil7"></i> Modify</a>
+                        @*<a href="#" onclick="Subscription.modifySubscription('@Url.Action("Edit", "Subscribers",new { Id= "__prm_id__" })');" data-target="#modifySubscription" data-toggle="modal" class="dropdown-item"><i class="icon-pencil7"></i> Modify</a>*@
                         <a href="#" onclick="Subscription.deleteSubscription('@Url.Action("Delete", "Subscribers",new { Id="__prm_id__" })');" class="dropdown-item"><i class="icon-x"></i> Delete</a>
                     </div>
                 </div>

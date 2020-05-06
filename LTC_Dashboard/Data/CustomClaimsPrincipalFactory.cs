@@ -22,6 +22,10 @@ namespace LTCDashboard.Data
             var identity = await base.GenerateClaimsAsync(user);
             identity.AddClaim(new Claim("OfficeSequence", user.Office_Sequence.ToString()));
             identity.AddClaim(new Claim("Name", user.LastName + " " + user.FirstName));
+            identity.AddClaim(new Claim("IsDefault", user.IsDefaultUser.ToString()));
+            
+
+
             return identity;
         }
     }

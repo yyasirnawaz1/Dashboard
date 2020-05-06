@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LTCDataManager.DataAccess;
 using LTCDataModel.Configurations;
+using LTCDataModel.Office;
 using LTCDataModel.PetaPoco;
 using LTCDataModel.User;
 using Microsoft.Extensions.Options;
@@ -78,7 +79,28 @@ namespace LTCDataManager.User
         //    }
 
         //}
+        public static gDefaultUser GetDefaultUser(int officeSequence)
+        {
+            gDefaultUser model;
+            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
+            {
+                string qry = $"select Email, Password, UserName, IsDefaultUser  from ltcsystem.authentication  WHERE Office_Sequence  = {officeSequence} AND IsDefaultUser = 1 ";
+                model = db.Fetch<gDefaultUser>(qry).FirstOrDefault();
+            }
 
+            return model;
+        }
+        public static gUserProfile NewsletterOfficeInfo(string SyncIdentificator)
+        {
+            gUserProfile model;
+            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
+            {
+                string qry = $"select * from ltcsystem.businessInfo where SyncIdentificator = '"+ SyncIdentificator + "' AND Active = 1 AND Newsletter = 1;";
+                model = db.Fetch<gUserProfile>(qry).FirstOrDefault();
+            }
+
+            return model;
+        }
         public static gUserModule GetAllAuthenticationModuleByOfficeSequence(int officeSequence)
         {
             gUserModule model;
@@ -100,7 +122,7 @@ namespace LTCDataManager.User
         {
             var query = $"select app.ActionDescription from authentication_pre_permissions app join authentication_permission ap on app.ActionID=ap.ActionID where ap.UserId={UserId};";
 
-            var authColumns = $"select Office_Sequence,isDisplaySummary from authentication Where DoctorId={UserId};";
+            var authColumns = $"select Office_Sequence,isDisplaySummary, IsDefaultUser from authentication Where DoctorId={UserId};";
 
             var result = new gUserPermissionsModel();
 

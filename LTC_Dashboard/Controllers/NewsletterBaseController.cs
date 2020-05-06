@@ -48,6 +48,14 @@ namespace LTCDashboard.Controllers
                 return officeNumber;
             }
         }
+        public bool IsDefault
+        {
+            get
+            {
+                bool.TryParse(User.FindFirstValue("IsDefault"), out var isDefault);
+                return isDefault;
+            }
+        }
         public string OfficeName
         {
             get

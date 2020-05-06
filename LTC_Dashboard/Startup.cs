@@ -64,7 +64,8 @@ namespace LTCDashboard
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddClaimsPrincipalFactory<CustomClaimsPrincipalFactory>()
                 .AddDefaultTokenProviders();
-
+             
+            
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
@@ -72,7 +73,7 @@ namespace LTCDashboard
                     options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "");
                 })
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
-
+           
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/Identity/Account/Login";
@@ -103,6 +104,7 @@ namespace LTCDashboard
             app.UseCors(MyAllowSpecificOrigins);
             app.UseMvc(routes =>
             {
+                 
                 routes.MapRoute(
                     name: "NewslettersArea",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"

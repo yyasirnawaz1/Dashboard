@@ -15,6 +15,7 @@ namespace LTCDashboard.Controllers
     [Authorize]
     public class BaseController : Controller
     {
+       
 
         public int UserId
         {
@@ -22,6 +23,14 @@ namespace LTCDashboard.Controllers
             {
                 int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var userId);
                 return userId;
+            }
+        }
+        public bool IsDefault
+        {
+            get
+            {
+                bool.TryParse(User.FindFirstValue("IsDefault"), out var isDefault);
+                return isDefault;
             }
         }
 
@@ -50,6 +59,7 @@ namespace LTCDashboard.Controllers
                 }
             }
         }
+
         //TODO: remove this method and get the connection string based on office id
         public string GetUserConnectionString()
         {
