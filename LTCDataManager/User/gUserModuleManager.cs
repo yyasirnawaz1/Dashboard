@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LTCDataManager.DataAccess;
 using LTCDataModel.Configurations;
+using LTCDataModel.Office;
 using LTCDataModel.PetaPoco;
 using LTCDataModel.User;
 using Microsoft.Extensions.Options;
@@ -114,6 +115,18 @@ namespace LTCDataManager.User
                         if (r == propertyInfo.Name)
                             propertyInfo.SetValue(result, true);
                 }
+            }
+            return result;
+        }
+
+        public static gUserProfile GetUserProfile(int UserId)
+        {
+            var query = $"select * From Authentication Where DoctorID={UserId};";
+            var result = new gUserProfile();
+
+            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
+            {
+                result = db.Fetch<gUserProfile>(query).FirstOrDefault();
             }
             return result;
         }

@@ -11,7 +11,7 @@ namespace LTCDataModel.Office
 	public class gUserProfile
 	{
 
-		public int UserID { get; set; }
+		public int DoctorID { get; set; }
 		public int? Office_Sequence { get; set; }
 		public string Email { get; set; }
 		public string Password { get; set; }

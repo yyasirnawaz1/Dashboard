@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LTC_Dashboard.Helper;
 using LTCDashboard.Data;
 using LTCDashboard.Models;
 using LTCDataManager.Email;
@@ -52,20 +53,25 @@ namespace LTCDashboard
             services.AddScoped<IPasswordHasher<ApplicationUser>, CustomPasswordHasher>(); // disable password hashing in that class
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySql(
-                    Configuration.GetConnectionString("LTCSystem")));
+                options.UseMySql(Configuration.GetConnectionString("LTCSystem"))
+            );
             services.Configure<EmailManager.ElasticEmail>(Configuration.GetSection("ElasticEmail"));
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.Configure<ConfigSettings>(Configuration.GetSection("Configuration"));
             services.Configure<Mapping>(Configuration.GetSection("Mapping"));
+
+
             services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, HostingService>();
+
+
             services.AddTransient<IEmailSender, EmailSender>();
+
             services.AddIdentity<ApplicationUser, IdentityRole<int>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddClaimsPrincipalFactory<CustomClaimsPrincipalFactory>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc()
+            services.AddMvc(options=> options.Filters.Add(typeof(ModuleRestrictionActionFilter)))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
                 {
