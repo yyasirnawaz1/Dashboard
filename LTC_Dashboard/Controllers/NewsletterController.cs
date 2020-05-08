@@ -22,6 +22,14 @@ using LTCDataModel.Newsletter;
 using LTCDataModel.Enums;
 using LTCDataManager.User;
 using System.Security.Claims;
+ 
+using System.Threading.Tasks;
+using LTCDashboard.Models;
+using LTCDataManager.Review;
+using LTCDataModel.Configurations;
+ 
+using DataTables.AspNetCore.Mvc.Binder;
+ 
 
 namespace LTC_Dashboard.Controllers
 {
@@ -551,7 +559,46 @@ namespace LTC_Dashboard.Controllers
                 return Json(null);
             }
         }
+        // GET: Reports
+        public ActionResult ScheduledNewsLetters()
+        {
+            @ViewBag.OfficeName = OfficeName;
+            return View();
+        }
+        [HttpGet()]
+        public IActionResult Get([DataTablesRequest] DataTablesRequest dataRequest)
+        {
+            IEnumerable<gPatientCallListView> products = gNewsLetterManager.GetPatientCallList(OfficeSequence).Where(p => p.Status == 1);
+            int recordsTotal = products.Count();
+            int recordsFilterd = recordsTotal;
 
+            if (!string.IsNullOrEmpty(dataRequest.Search?.Value))
+            {
+                products = products.Where(e => e.TemplateTitle.Contains(dataRequest.Search.Value));
+                recordsFilterd = products.Count();
+            }
+            products = products.Skip(dataRequest.Start).Take(dataRequest.Length);
+
+
+
+
+            products = products.Skip(dataRequest.Start).Take(dataRequest.Length).ToList();
+
+
+            return Json(products
+                .Select(e => new
+                {
+                    NewsletterId = e.NewsletterId,
+                    Account = e.Account,
+                    AppointDate = e.DateToSendEmail.ToString(@"yyyy-MM-dd hh:mm tt", new CultureInfo("en-US")),
+                    TemplateBodymarkup = e.TemplateBodymarkup,
+                    TemplateSourceMarkup = e.TemplateSourceMarkup,
+                    TemplateTitle = e.TemplateTitle,
+                    Status = e.Status
+
+                })
+                .ToDataTablesResponse(dataRequest, recordsTotal, recordsFilterd));
+        }
         #region Home
         public ActionResult Home()
         {

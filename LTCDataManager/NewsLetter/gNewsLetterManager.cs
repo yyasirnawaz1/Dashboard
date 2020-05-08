@@ -58,7 +58,7 @@ namespace LTCDataManager.NewsLetter
         public static gGetUserDefinedTemplateModel GetUserDefinedTemplate(int LetterID)
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
-            return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.*, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID where templates_user.LetterID=" + LetterID + " order by templates_user.ModificationDate desc ").FirstOrDefault();
+            return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.LetterID,templates_user.Office_Sequence, templates_user.TemplateTitle, templates_user.TemplateSourceMarkup, templates_user.TypeID,templates_user.IsParadigmNewsletter, templates_user.IsDefault, templates_user.ModificationDate,templates_user.CategoryID, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID where templates_user.LetterID=" + LetterID + " order by templates_user.ModificationDate desc ").FirstOrDefault();
         }
         public static List<gGetUserDefinedTemplateModel> GetUserDefinedTemplates(int officeSequence)
         {
@@ -166,7 +166,7 @@ namespace LTCDataManager.NewsLetter
 
                 var Count = db
                     .Fetch<gSaveUserTemplate>(
-                        $"select * from templates_user where  Office_Sequence={office_sequence} AND IsParadigmNewsletter = 1  ")
+                        $"select LetterID from templates_user where  Office_Sequence={office_sequence} AND IsParadigmNewsletter = 1  ")
                     .Count();
 
                 if (Count < 1)

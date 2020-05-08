@@ -58,7 +58,7 @@ namespace LTC_Dashboard.Helper
             {
                 //newsletter page has this controller
                 if (controllerName.Equals("Subscribers", StringComparison.OrdinalIgnoreCase)
-                    || controllerName.Equals("Report", StringComparison.OrdinalIgnoreCase))
+                    || controllerName.Equals("ImageManagement", StringComparison.OrdinalIgnoreCase))
                 {
                     return true;
                 }

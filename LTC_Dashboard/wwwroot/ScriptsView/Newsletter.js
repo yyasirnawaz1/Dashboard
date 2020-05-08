@@ -1929,8 +1929,10 @@ var Newsletter = function () {
                 { text: 'Fax', value: '&Fax&' },
                 { text: 'Office Web Address', value: '&OfficeWebAddress&' },
                 { text: 'Confirmation Field', value: '&ClickHere&' },
-                { text: 'Confirmation Button', value: '<a href="&ClickHere&"><img src="&ImageSource&"></a>' },
-                { text: 'Pre-Confirmation Button', value: '<a href="&ClickHere&"><img src="&ImageSource&"></a>' }
+                { text: 'Confirmation Button', value: '<a href="&ClickHere&"></a>' },
+                { text: 'Pre-Confirmation Button', value: '<a href="&ClickHere&"></a>' }
+                // <img src="&ImageSource&">
+                // <img src="&ImageSource&">
             ];
             return data;
         },

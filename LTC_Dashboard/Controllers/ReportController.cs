@@ -137,12 +137,12 @@ namespace LTCDashboard.Controllers
             return View();
         }
 
-        // GET: Reports
-        public ActionResult ScheduledNewsLetters()
-        {
-              @ViewBag.OfficeName = OfficeName;
-            return View();
-        }
+        //// GET: Reports
+        //public ActionResult ScheduledNewsLetters()
+        //{
+        //      @ViewBag.OfficeName = OfficeName;
+        //    return View();
+        //}
 
         [HttpGet()]
         public IActionResult Get([DataTablesRequest] DataTablesRequest dataRequest)
