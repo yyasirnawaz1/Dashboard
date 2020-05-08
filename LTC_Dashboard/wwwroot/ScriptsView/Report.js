@@ -15,7 +15,7 @@ var ScheduledNewsletters = function () {
             "serverSide": true,
             "processing": true,
             "ajax": {
-                "url": "/Report/Get"
+                "url": "/Newsletter/Get"
             },
             "columns": [
                 {
