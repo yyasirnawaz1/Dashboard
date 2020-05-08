@@ -650,36 +650,38 @@ var Newsletter = function () {
                                 url: window.location.protocol + "//" + window.location.host + "/ImageManagement/Index",
                                 contentType: 'application/html; charset=utf-8',
                                 type: 'GET',
-                                dataType: 'html'
-                            }).success(function (data) {
-                                $("#modal-window .modal-title").text("Image Management");
-                                $("#modal-window .modal-body").html(data);
-                                $("#modal-window .modal-body #UserImageTreeview").kendoTreeView({
-                                    template: kendo.template($("#treeview-template").html()),
-                                    dataSource: {
-                                        data: [
-                                            {
-                                                text: "Images", value: null, expanded: false,
-                                                items: Newsletter.GetOfficeImages(),
+                                dataType: 'html',
+                                success: function (data) {
+                                    $("#modal-window .modal-title").text("Image Management");
+                                    $("#modal-window .modal-body").html(data);
+                                    $("#modal-window .modal-body #UserImageTreeview").kendoTreeView({
+                                        template: kendo.template($("#treeview-template").html()),
+                                        dataSource: {
+                                            data: [
+                                                {
+                                                    text: "Images", value: null, expanded: false,
+                                                    items: Newsletter.GetOfficeImages(),
 
 
+                                                }
+                                            ],
+                                            select: function (e) {
+                                                alert('a');
                                             }
-                                        ],
-                                        select: function (e) {
-                                            alert('a');
-                                        }
-                                    },
-                                    dataTextField: "text",
-                                    dataValueField: "value",
-                                    dragAndDrop: false
-                                });
-                                $("#modal-window").on("click", "#btn-close", function () {
-                                    $("#modal-window").modal("hide");
-                                });
+                                        },
+                                        dataTextField: "text",
+                                        dataValueField: "value",
+                                        dragAndDrop: false
+                                    });
+                                    $("#modal-window").on("click", "#btn-close", function () {
+                                        $("#modal-window").modal("hide");
+                                    });
 
-                                $("#modal-window").modal("show");
-                            }).error(function (data) {
-                                alert(data.responseText);
+                                    $("#modal-window").modal("show");
+                                }, 
+                                error: function (data) {
+                                    alert(data.responseText);
+                                }
                             });
                         }
                     });
