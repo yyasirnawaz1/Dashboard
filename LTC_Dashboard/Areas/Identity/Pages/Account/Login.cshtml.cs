@@ -76,32 +76,43 @@ namespace LTCDashboard.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(Input.Email);
-                if (user != null && user.IsDefaultUser)
-                {
-                    return LocalRedirect("/Newsletter/Home");
-                }
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                //var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                //if (result.Succeeded)
+                //{
+
+                //    var user = await _userManager.FindByEmailAsync(Input.Email);
+                //    if (user != null && user.IsDefaultUser)
+                //    {
+                //        return LocalRedirect("/Newsletter/Home");
+                //    }
+
+                //    if (Request.Cookies["ModuleRestriction"] != null)
+                //    {
+                //        #region Cookie
+                //        Response.Cookies.Delete("ModuleRestriction");
+                //        var options = new CookieOptions
+                //        {
+                //            Expires = DateTime.Now.AddMinutes(60),
+                //            IsEssential = true
+                //        };
+                //        Response.Cookies.Append("ModuleRestriction", "0", options);
+                //        return LocalRedirect("/Newsletter/Home");
+
+                //        #endregion
+                //    }
+                //    else
+                //        _logger.LogInformation("User logged in.");
+
+                //    return LocalRedirect(returnUrl);
+                //}
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-                    if (Request.Cookies["isnewsletter"] != null)
-                    {
-                        #region Cookie
-                        Response.Cookies.Delete("isnewsletter");
-                        var options = new CookieOptions
-                        {
-                            Expires = DateTime.Now.AddMinutes(60),
-                            IsEssential = true
-                        };
-                        Response.Cookies.Append("isnewsletter", "0", options);
-                        return LocalRedirect("/Newsletter/Home");
-
-                        #endregion
-                    }
-                    else
-                        _logger.LogInformation("User logged in.");
+                    _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
 

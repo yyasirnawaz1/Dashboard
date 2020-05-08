@@ -141,6 +141,41 @@ var Layout = {
         iframe.document.close();
     },
 
+    loadUserData: function () {
+        var DATAURL = window.location.origin + "/Home/GetUserdata";
+        $.ajax({
+            type: "POST",
+            url: DATAURL,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response !== null) {
+                    $('#txtSalutation').val(response.Salutation);
+                    $('#txtInitials').val(response.Initials);
+                    $('#txtFirstName').val(response.FirstName);
+                    $('#txtLastName').val(response.LastName);
+                    $('#txtPhone').val(response.Phone);
+                    $('#txtFax').val(response.Fax);
+                    $('#txtAddressLine1').val(response.AddressLine1);
+                    $('#txtAddressLine2').val(response.AddressLine2);
+                    $('#txtAddressLine3').val(response.AddressLine3);
+                    $('#txtCity').val(response.City);
+                    $('#txtProvince').val(response.Province);
+                    $('#txtCountry').val(response.Country);
+                    $('#txtPostalCode').val(response.PostalCode);
+                } else {
+                    //alert("Something went wrong");
+                }
+            },
+            failure: function (response) {
+                //alert(response.responseText);
+            },
+            error: function (response) {
+                //alert(response.responseText);
+            }
+        });
+    },
+
     updateUserProfile: function () {
         if ($('#txtSalutation').val() == '' ||
             $('#txtInitials').val() == '' ||
@@ -264,31 +299,7 @@ var Layout = {
 
     },
 
-
-//loadAboutText: function () {
-//    var DATAURL = window.location.origin + "/Home/GetAboutText";
-//    $.ajax({
-//        type: "GET",
-//        url: DATAURL,
-//        contentType: "application/json; charset=utf-8",
-//        dataType: "json",
-//        success: function (response) {
-//            if (response !== null) {
-//                $('#aboutModal .modal-body').html(response.Text);
-//            } else {
-
-//            }
-//        },
-//        failure: function (response) {
-
-//        },
-//        error: function (response) {
-
-//        }
-//    });
-//},
-
-closeTab: function (id) {
+    closeTab: function (id) {
         var tabContentId = $('#tab-' + id + '> a').attr("href");
         $('#tab-' + id).hide(); //remove li of tab
         $(tabContentId).hide(); //remove respective tab content
@@ -415,12 +426,6 @@ $(document).ready(function () {
         Layout.hideLoader();
     });
 
-    //$.get("/Account/GetUserPermissions", function (data) {
-    //    UserPermissions = data;
-    //    Layout.hideLoader();
-    //});
-
-
     $('#thePreviewPanel').on('hidden.bs.modal', function (e) {
         if (Layout.currentModel != '') {
             $("#" + Layout.currentModel).modal('show');
@@ -452,7 +457,11 @@ $(document).ready(function () {
         }
     });
 
-    //Layout.loadAboutText();
+    $('#userprofileModal').on('shown.bs.modal', function (e) {
+        Layout.loadUserData();
+    });
+
+    
 
     Layout.loadCornerMenuControl();
 

@@ -14,41 +14,6 @@
             $('#ddlSurveyOffice').selectpicker('refresh');
         });
     },
-    loadUserData: function () {
-        var DATAURL = window.location.origin + "/Account/GetUserdata";
-        $.ajax({
-            type: "GET",
-            url: DATAURL,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                debugger;
-                if (response !== null) {
-                    $('#txtSalutation').val(response.Salutation);
-                    $('#txtInitials').val(response.Initials);
-                    $('#txtFirstName').val(response.FirstName);
-                    $('#txtLastName').val(response.LastName);
-                    $('#txtPhone').val(response.Phone);
-                    $('#txtFax').val(response.Fax);
-                    $('#txtAddressLine1').val(response.AddressLine1);
-                    $('#txtAddressLine2').val(response.AddressLine2);
-                    $('#txtAddressLine3').val(response.AddressLine3);
-                    $('#txtCity').val(response.City);
-                    $('#txtProvince').val(response.Province);
-                    $('#txtCountry').val(response.Country);
-                    $('#txtPostalCode').val(response.PostalCode);
-                } else {
-                    //alert("Something went wrong");
-                }
-            },
-            failure: function (response) {
-                //alert(response.responseText);
-            },
-            error: function (response) {
-                //alert(response.responseText);
-            }
-        });
-    },
 
     loadMenuItem: function (id) {
         if (Survey.OfficeId != null && Survey.OfficeId > -1) {
@@ -127,5 +92,5 @@
 
 $(document).ready(function () {
     Survey.loadOfficeDropdown();
-    Survey.loadUserData();
+    $(".headerDate").hide();
 });

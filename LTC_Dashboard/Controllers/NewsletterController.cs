@@ -43,8 +43,6 @@ namespace LTC_Dashboard.Controllers
             return View();
         }
 
-
-
         [AllowAnonymous]
         [Route("Newsletter/{id}")]
         public async System.Threading.Tasks.Task<IActionResult> WithoutLoginAsync(string id)
