@@ -394,6 +394,7 @@
 
                                         if (permissionList.IsOfficePortalEnabled == 1)
                                         {
+
                                             <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Configuration.GetSection("Configuration")["OfficePortalUrl"]', true)">
                                                 <i class="icon-printer text-blue-400 icon-2x"></i>
                                                 <span>Office Portal</span>
@@ -410,7 +411,7 @@
                                     }
                                     else
                                     {
-                                        <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Configuration.GetSection("Configuration")["OfficePortalUrl"]',true)">
+                                        <button type="button" class="btn btn-pureWhite btn-block btn-float m-0" onclick="Login.openTab('@Configuration.GetSection("Configuration")["OfficePortalUrl"]',true">
                                             <i class="icon-printer text-blue-400 icon-2x"></i>
                                             <span>Office Portal</span>
                                         </button>

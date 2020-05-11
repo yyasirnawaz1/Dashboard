@@ -386,28 +386,9 @@
             Layout.renderFormDesignerInIframe(content, 'iframePreviewPrivateForm');
             Layout.renderFormDesignerInIframe(content, 'iframeThePreview');
 
-            //if ($('#privateFormListToggleParent').hasClass('toggleDivHidden') && isFromPreviewButton) {
-            //    $('#privateFormListToggleParent').removeClass('toggleDivHidden');
-            //    $('#privateFormListToggleParent .panel-left').hide();
-            //    $('#privateFormListToggleParent .panel-right').addClass('col-lg-6 col-md-6 col-sm-6 col-xs-6');
-            //    $('#btnPrivateFormToogle').hide();
-            //    $('#btnPrivateFormCreateNew').hide();
-            //    $('#btnPrivateFormShowTemplates').hide();
-            //    $('#btnPrivateFormCloseFullScreenPreview').show();
-            //}
         }
 
     },
-
-    //closeFullScreenPreview: function () {
-    //    $('#privateFormListToggleParent').addClass('toggleDivHidden');
-    //    $('#privateFormListToggleParent .panel-left').show();
-    //    $('#privateFormListToggleParent .panel-right').removeClass('col-lg-6 col-md-6 col-sm-6 col-xs-6');
-    //    $('#btnPrivateFormToogle').show();
-    //    $('#btnPrivateFormCreateNew').show();
-    //    $('#btnPrivateFormShowTemplates').show();
-    //    $('#btnPrivateFormCloseFullScreenPreview').hide();
-    //},
 
     renderPublicForm: function () {
         if (FormControls.selectedPublicFormID > 0) {
@@ -418,18 +399,7 @@
             Layout.renderFormDesignerInIframe(content, 'iframePreviewPrivateFormPublicList');
             Layout.renderFormDesignerInIframe(content, 'iframeThePreview');
 
-            //$('#renderFormForm').html('');
-            //var record = PublicFormTable.data().filter(x => x.FormID == FormControls.selectedPublicFormID);
-            //$("#renderFormModal-header").html(record[0].Description);
-            //$('#renderFormForm').formRender({
-            //    dataType: 'json',
-            //    formData: record[0].Content
-            //});
         }
-        //else {
-        //    $("#renderFormModal-header").html("Rendering");
-        //    $('#renderFormForm').html('Select a form from table.');
-        //}
     },
 
     createNewForm: function () {
