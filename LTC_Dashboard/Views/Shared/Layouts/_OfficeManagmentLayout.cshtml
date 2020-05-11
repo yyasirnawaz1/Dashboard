@@ -111,14 +111,15 @@
         </div>
     </div>
 
-    @Html.Partial("~/Views/Shared/PartialViews/_About.cshtml")
-    @Html.Partial("~/Views/Shared/PartialViews/_ChangePassword.cshtml")
-    @Html.Partial("~/Views/Shared/PartialViews/_Profile.cshtml")
+    <partial name="~/Views/Shared/PartialViews/_About.cshtml" />
+    <partial name="~/Views/Shared/PartialViews/_ChangePassword.cshtml" />
+    <partial name="~/Views/Shared/PartialViews/_Profile.cshtml" />
+
     <script src="~/bundling/js/commonScripts1.min.js"></script>
     <script src="~/bundling/js/commonScripts2.min.js"></script>
 
-    @RenderSection("scripts", required: false)
     <script src="~/Scripts/OfficeManagement/OfficeManagementLayout.js"></script>
 
+    @RenderSection("scripts", required: false)
 </body>
 </html>
