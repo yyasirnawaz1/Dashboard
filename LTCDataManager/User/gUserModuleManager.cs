@@ -95,7 +95,7 @@ namespace LTCDataManager.User
             gUserProfile model;
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
             {
-                string qry = $"select * from ltcsystem.businessInfo where SyncIdentificator = '"+ SyncIdentificator + "' AND Active = 1 AND Newsletter = 1;";
+                string qry = $"select * from ltcsystem.businessInfo where SyncIdentificator = '" + SyncIdentificator + "' AND Active = 1 AND Newsletter = 1;";
                 model = db.Fetch<gUserProfile>(qry).FirstOrDefault();
             }
 
@@ -103,7 +103,7 @@ namespace LTCDataManager.User
         }
         public static gUserModule GetAllAuthenticationModuleByOfficeSequence(int officeSequence)
         {
-            gUserModule model;
+            gUserModule model = new gUserModule();
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
             {
                 string qry = $"select Office_Sequence,IsDashboardEnabled, IsContactListEnabled ,IsParadigmCloudEnabled, IsSMSSurveyEnabled as IsESurveyEnabled,IsEFormEnabled,Newsletter as IsNewsletterEnabled,IsOfficePortalEnabled, SMS as IsSMSEnabled, email as IsEmailEnabled from businessInfo  WHERE Office_Sequence  = {officeSequence}";
@@ -152,6 +152,15 @@ namespace LTCDataManager.User
             return result;
         }
 
+        public static void UpdateProfile(gUserProfile model)
+        {
+            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
+            {
+                gUserProfile newModel = new gUserProfile();
+                newModel = model;
+                db.Save(newModel);
+            }
+        }
     }
 
 }

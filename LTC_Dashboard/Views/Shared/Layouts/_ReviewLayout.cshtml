@@ -16,18 +16,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
     <link href="~/bundling/css/commonStyle.min.css" rel="stylesheet" />
 
-
-
-
     <link href="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" />
-
-
-    
+        
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    
-    
-    
-    
     
     <link href="/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     
@@ -92,15 +83,16 @@
     </style>
 </head>
 <body class="sidebar-xs">
+    <input type="hidden" id="hdnIsReview" />
     <div class="navbar navbar-expand-md navbar-dark">
         <span class="applicationName">
             @ViewBag.OfficeName
         </span>
         @*<div class="page-logo">
-            <a href="#" style="color: #e67a7a;font-size: 35px;font-weight: bolder;">
-                @ViewBag.OfficeName
-            </a>
-        </div>*@
+                <a href="#" style="color: #e67a7a;font-size: 35px;font-weight: bolder;">
+                    @ViewBag.OfficeName
+                </a>
+            </div>*@
         <div class="d-md-none">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
                 <i class="icon-tree5"></i>

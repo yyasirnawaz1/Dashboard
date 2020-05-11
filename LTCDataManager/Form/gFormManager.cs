@@ -53,8 +53,6 @@ namespace LTCDataManager.Form
 
                     db.Save(design);
                 }
-
-
             }
         }
         public void DeleteDesign(int Id)

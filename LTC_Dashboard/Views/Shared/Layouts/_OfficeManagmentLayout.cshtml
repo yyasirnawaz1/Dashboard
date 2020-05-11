@@ -11,18 +11,6 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
     <link href="~/bundling/css/commonStyle.min.css" rel="stylesheet" />
 
-
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    
     <script src="~/Resources/Limitless/global_assets/js/demo_pages/dashboard.js"></script>
 
     @RenderSection("styles", required: false)
@@ -30,6 +18,7 @@
     @RenderSection("headscripts", required: false)
 </head>
 <body>
+    <input type="hidden" id="hdnIsOfficeManagement" />
     <div class="navbar navbar-expand-md navbar-dark">
         <span class="applicationName">
             Logic Tech Corp

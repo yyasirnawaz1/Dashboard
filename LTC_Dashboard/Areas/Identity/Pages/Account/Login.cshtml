@@ -52,7 +52,7 @@
                     <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-user"></i>
                         <span class="login-userName">
-                            @User.Identity.Name
+                            @User.FindFirstValue("Name")
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">

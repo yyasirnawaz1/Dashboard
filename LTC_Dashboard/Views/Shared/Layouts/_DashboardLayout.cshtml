@@ -16,7 +16,7 @@
     @RenderSection("headscripts", required: false)
 </head>
 <body class="sidebar-xs">
-    <input id="hdnIsdashboard" />
+    <input type="hidden" id="hdnIsdashboard" />
     <div class="navbar navbar-expand-md navbar-dark">
         <span class="applicationName">
             Logic Tech Corp
@@ -160,6 +160,10 @@
     <script src="~/bundling/js/commonScripts2.min.js"></script>
     <script src="~/bundling/js/dashboardLayoutCombined.min.js"></script>
 
+
+    <partial name="~/Views/Shared/PartialViews/_About.cshtml" />
+    <partial name="~/Views/Shared/PartialViews/_ChangePassword.cshtml" />
+    <partial name="~/Views/Shared/PartialViews/_Profile.cshtml" />
     @RenderSection("scripts", required: false)
 
     <script type="text/javascript">

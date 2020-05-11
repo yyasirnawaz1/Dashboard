@@ -24,7 +24,7 @@ namespace LTCDataManager.Office
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
             return db.Fetch<gOfficeInfo>($"SELECT * FROM businessinfo where Office_Sequence = '{OfficeNumber}' ").FirstOrDefault();
         }
-       
+
         //public static gOfficeInfo GetOfficeNames(int OfficeNumber)
         //{
         //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
@@ -84,7 +84,7 @@ namespace LTCDataManager.Office
 
             var allowedOfficeList = db.Fetch<string>($"SELECT Office_Sequence FROM authentication_office_list where UserId = " + userId).ToList();
             //TODO: if allowed list is empty. then handle it properly, right now it throws an error 
-            if (allowedOfficeList != null)
+            if (allowedOfficeList != null && allowedOfficeList.Count > 0)
             {
                 offices = db.Fetch<gBusinesInfo>($"SELECT Office_Sequence as Id,ClinicName FROM businessInfo where Office_Sequence in (" + string.Join(",", allowedOfficeList) + ")").ToList();
             }

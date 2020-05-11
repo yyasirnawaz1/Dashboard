@@ -130,5 +130,4 @@
 
 $(document).ready(function () {
     Form.loadOfficeDropdown();
-    $(".headerDate").hide();
 });

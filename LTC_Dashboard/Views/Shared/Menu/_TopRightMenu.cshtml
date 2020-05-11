@@ -6,7 +6,7 @@
 
 <ul class="navbar-nav">
     <li class="nav-item dropdown">
-        <div class="headerDate">
+        <div class="headerDate" style="display:none;">
             <div class="input-group">
                 <input id="dashboardCalendar" name="dashboardCalendar" type="text" class="form-control daterange-left" value="">
                 <span class="input-group-append">
@@ -25,9 +25,9 @@
                     <span>@User.FindFirstValue("Name")</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a href="#" data-toggle="modal" data-target="#userprofileModal" class="dropdown-item"><i class="icon-user-plus"></i> User Profile</a>
-                    <a href="#" data-toggle="modal" data-target="#userpreferenceModal" class="dropdown-item"><i class="icon-user-plus"></i> User Preference</a>
-                    <a href="#" data-toggle="modal" data-target="#changePasswordHashModal" class="dropdown-item"><i class="icon-envelope"></i> Change PasswordHash</a>
+                    <a href="javascript:Layout.loadUserData()" class="dropdown-item"><i class="icon-user-plus"></i> User Profile</a>
+                    @*<a href="#" data-toggle="modal" data-target="#userpreferenceModal" class="dropdown-item"><i class="icon-wrench3"></i> User Preference</a>*@
+                    <a href="#" data-toggle="modal" data-target="#changePasswordModal" class="dropdown-item"><i class="icon-envelope"></i> Change Password</a>
                     <div class="dropdown-divider"></div>
                     <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/Identity/Account/Login">
                         <button type="submit" class="dropdown-item"><i class="icon-users"></i> Logout</button>
