@@ -958,14 +958,17 @@ var Newsletter = function () {
                 url: window.location.protocol + "//" + window.location.host + "/ImageManagement/GetUserImages",
                 contentType: 'application/json; charset=utf-8',
                 type: 'GET',
-                dataType: 'json'
-            }).success(function (d) {
-                data = JSON.parse(d);
-            }).error(function (data) {
-                alert(data.responseText);
+                dataType: 'json',
+                success: function (d) {
+                    data = JSON.parse(d);
+                    return data;
+                },
+                error: function (data) {
+                    alert(data.responseText);
+                }
             });
 
-            return data;
+           
         },
 
         GetOfficeImages: function () {
@@ -976,17 +979,19 @@ var Newsletter = function () {
                 url: window.location.protocol + "//" + window.location.host + "/ImageManagement/GetOfficeImages",
                 contentType: 'application/json; charset=utf-8',
                 type: 'GET',
-                dataType: 'json'
-            }).success(function (d) {
-                d = JSON.parse(d);
-                $(d).each(function (i, val) {
-                    data.push({ text: val.name, value: "<img src='" + val.path + "'>" });
-                });
-            }).error(function (data) {
-                alert(data.responseText);
+                dataType: 'json',
+                success: function (d) {
+                    d = JSON.parse(d);
+                    $(d).each(function (i, val) {
+                        data.push({ text: val.name, value: "<img src='" + val.path + "'>" });
+                    });
+                    return data;
+                },
+                error: function (data) {
+                    alert(data.responseText);
+                }
             });
 
-            return data;
         }
     };
 }();

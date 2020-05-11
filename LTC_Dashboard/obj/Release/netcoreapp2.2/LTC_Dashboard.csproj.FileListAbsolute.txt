@@ -337,7 +337,6 @@ D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\Razor\Views\N
 D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\Razor\Views\OfficeManagement\Index.cshtml.g.cs
 D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\Razor\Views\Report\Home.cshtml.g.cs
 D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\Razor\Views\Report\Index.cshtml.g.cs
-D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\Razor\Views\Report\ScheduledNewsLetters.cshtml.g.cs
 D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\Razor\Views\Shared\Error.cshtml.g.cs
 D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\Razor\Views\Shared\Footer\_Footer.cshtml.g.cs
 D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\Razor\Views\Shared\Layouts\_DashboardLayout.cshtml.g.cs
@@ -529,3 +528,4 @@ D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\LTC_Dashboard
 D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\Razor\Views\Review\Index.cshtml.g.cs
 D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\Razor\Views\Shared\Layouts\_ReviewLayout.cshtml.g.cs
 D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\LTC_Dashboard.genruntimeconfig.cache
+D:\Office\Github\Dashboard\LTC_Dashboard\obj\Release\netcoreapp2.2\Razor\Views\Newsletter\ScheduledNewsLetters.cshtml.g.cs

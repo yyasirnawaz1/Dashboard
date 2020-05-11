@@ -76,6 +76,7 @@ var Dashboard = {
         if (!$("#hdnIsdashboard").length)
             return;
 
+        $(".headerDate").show();
 
         Dashboard.CalendarSetup("dashboardCalendar");
         Dashboard.CalendarSetup("dashboardModelCalendar");

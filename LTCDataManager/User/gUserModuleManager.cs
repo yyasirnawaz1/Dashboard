@@ -98,16 +98,24 @@ namespace LTCDataManager.User
                 string qry = $"select * from ltcsystem.businessInfo where SyncIdentificator = '" + SyncIdentificator + "' AND Active = 1 AND Newsletter = 1;";
                 model = db.Fetch<gUserProfile>(qry).FirstOrDefault();
             }
+            if (model == null)
+            {
+                model = new gUserProfile();
+            }
 
             return model;
         }
         public static gUserModule GetAllAuthenticationModuleByOfficeSequence(int officeSequence)
         {
-            gUserModule model = new gUserModule();
+            gUserModule model;
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
             {
                 string qry = $"select Office_Sequence,IsDashboardEnabled, IsContactListEnabled ,IsParadigmCloudEnabled, IsSMSSurveyEnabled as IsESurveyEnabled,IsEFormEnabled,Newsletter as IsNewsletterEnabled,IsOfficePortalEnabled, SMS as IsSMSEnabled, email as IsEmailEnabled from businessInfo  WHERE Office_Sequence  = {officeSequence}";
                 model = db.Fetch<gUserModule>(qry).FirstOrDefault();
+            }
+            if(model==null)
+            {
+                model = new gUserModule();
             }
 
             return model;
