@@ -96,6 +96,10 @@ namespace LTC_Dashboard.Controllers
                         return LocalRedirect(returnUrl);
                 }
             }
+            else
+            {
+                return LocalRedirect(returnUrl);
+            }
             return View();
         }
         private IHttpContextAccessor _accessor;
@@ -388,9 +392,7 @@ namespace LTC_Dashboard.Controllers
                         string msgID = null;
                         string familyList = subscriber.Salutation + "," + subscriber.LastName + "," + subscriber.FirstName;
                         patient = new gPatientOfficeInfo();
-                        //if (patient == null)
-                        //{
-                        //    patient = new gPatientOfficeInfo();
+                        
                         patient.FirstName = subscriber.FirstName;
                         patient.LastName = subscriber.LastName;
                         patient.Name = model.Email;
