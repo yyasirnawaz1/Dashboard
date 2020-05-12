@@ -30,7 +30,8 @@ var Login = {
         win.focus();
         if (closeTab == true) {
             //logout user
-            $(location).attr('href', '/Account/LogOut');
+            //$(location).attr('href', '/Account/LogOut');
+            document.getElementById('logoutForm').submit();
         }
     },
 

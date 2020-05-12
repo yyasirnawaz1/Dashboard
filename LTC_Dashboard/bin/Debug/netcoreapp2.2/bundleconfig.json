@@ -14,7 +14,7 @@
       "wwwroot/Resources/Limitless/Site.css"
     ],
     "minify": {
-      "enabled": false,
+      "enabled": true,
       "renameLocals": false
     }
   },
@@ -34,7 +34,7 @@
       "wwwroot/Scripts/SharedJS/Layout.js"
     ],
     "minify": {
-      "enabled": false,
+      "enabled": true,
       "renameLocals": false
     },
     "sourceMap": false
@@ -47,7 +47,7 @@
       "wwwroot/Resources/Limitless/global_assets/js/plugins/forms/styling/switchery.min.js" 
     ],
     "minify": {
-      "enabled": false,
+      "enabled": true,
       "renameLocals": false
     },
     "sourceMap": false
@@ -59,7 +59,7 @@
       "wwwroot/Scripts/Login/Login.js"
     ],
     "minify": {
-      "enabled": false,
+      "enabled": true,
       "renameLocals": false
     },
     "sourceMap": false
@@ -90,7 +90,7 @@
       "wwwroot/Resources/kendo/js/kendo.all.min.js"
     ],
     "minify": {
-      "enabled": false,
+      "enabled": true,
       "renameLocals": false
     },
     "sourceMap": false
@@ -106,7 +106,7 @@
       "wwwroot/Scripts/Dashboard/DashboardSpreadSheet.js"
     ],
     "minify": {
-      "enabled": false,
+      "enabled": true,
       "renameLocals": false
     },
     "sourceMap": false
@@ -128,7 +128,7 @@
       "wwwroot/Resources/kendo/js/kendo.all.min.js"
     ],
     "minify": {
-      "enabled": false,
+      "enabled": true,
       "renameLocals": false
     },
     "sourceMap": false
@@ -142,7 +142,7 @@
       "wwwroot/Resources/Limitless/global_assets/js/plugins/visualization/dimple/dimple.min.js"
     ],
     "minify": {
-      "enabled": false,
+      "enabled": true,
       "renameLocals": false
     },
     "sourceMap": false
@@ -160,7 +160,7 @@
       ""
     ],
     "minify": {
-      "enabled": false,
+      "enabled": true,
       "renameLocals": false
     },
     "sourceMap": false
@@ -179,7 +179,7 @@
       ""
     ],
     "minify": {
-      "enabled": false,
+      "enabled": true,
       "renameLocals": false
     },
     "sourceMap": false
