@@ -3,14 +3,16 @@ using System;
 using LTCDashboard.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LTC_Dashboard.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200513155755_nullfix")]
+    partial class nullfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,13 +69,13 @@ namespace LTC_Dashboard.Migrations
 
                     b.Property<string>("Initials");
 
-                    b.Property<bool?>("IsAdministrator");
+                    b.Property<bool>("IsAdministrator");
 
-                    b.Property<bool?>("IsDefaultUser");
+                    b.Property<bool>("IsDefaultUser");
 
-                    b.Property<bool?>("IsDisplaySummary");
+                    b.Property<bool>("IsDisplaySummary");
 
-                    b.Property<bool?>("IsSystemAdministrator");
+                    b.Property<bool>("IsSystemAdministrator");
 
                     b.Property<string>("LanguageSelected");
 
@@ -93,9 +95,9 @@ namespace LTC_Dashboard.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
-                    b.Property<bool?>("NotifyAutoSchedulesAfterDispatch");
+                    b.Property<bool>("NotifyAutoSchedulesAfterDispatch");
 
-                    b.Property<bool?>("NotifyAutoSchedulesBeforeDispatch");
+                    b.Property<bool>("NotifyAutoSchedulesBeforeDispatch");
 
                     b.Property<int?>("Office_Number");
 

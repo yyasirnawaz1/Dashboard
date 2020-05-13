@@ -37,10 +37,10 @@ namespace LTCDashboard.Data
         public string Country { get; set; }
         public string PostalCode { get; set; }
 
-        public bool IsSystemAdministrator { get; set; }
-        public bool IsAdministrator { get; set; }
-        public bool IsDisplaySummary { get; set; }
-        public bool IsDefaultUser { get; set; }
+        public bool? IsSystemAdministrator { get; set; }
+        public bool? IsAdministrator { get; set; }
+        public bool? IsDisplaySummary { get; set; }
+        public bool? IsDefaultUser { get; set; }
       
 
         public string MondayCSV { get; set; }
@@ -61,12 +61,12 @@ namespace LTCDashboard.Data
         public string SelectedMainTitle_Name_ClinicName { get; set; }
         public string PreferedSubIndustriesCSV { get; set; }
         public DateTime? FirstNewsletterDate { get; set; }
-        public bool NotifyAutoSchedulesBeforeDispatch { get; set; }
-        public bool NotifyAutoSchedulesAfterDispatch { get; set; }
+        public bool? NotifyAutoSchedulesBeforeDispatch { get; set; }
+        public bool? NotifyAutoSchedulesAfterDispatch { get; set; }
         public int? AutoNewsletterCount { get; set; }
         public string DB_Path { get; set; }
         public string Serial_Number { get; set; }
-        public int Cust_id { get; set; }
+        public int? Cust_id { get; set; }
         public string Providerrange { get; set; }
     }
 }
