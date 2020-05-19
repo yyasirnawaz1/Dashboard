@@ -67,7 +67,6 @@ namespace LTC_Dashboard.Controllers
                     var user = await _userManager.FindByEmailAsync(defaultUser.Email);
                     if (user != null)
                     {
-
                         await _signInManager.SignOutAsync();
 
                         var result = await _signInManager.PasswordSignInAsync(defaultUser.Email, defaultUser.Password, false, lockoutOnFailure: true);
@@ -89,18 +88,11 @@ namespace LTC_Dashboard.Controllers
                             #endregion
                             return LocalRedirect("/Newsletter/Home");
                         }
-                        else
-                            return LocalRedirect(returnUrl);
                     }
-                    else
-                        return LocalRedirect(returnUrl);
                 }
             }
-            else
-            {
-                return LocalRedirect(returnUrl);
-            }
-            return View();
+
+            return LocalRedirect(returnUrl);
         }
         private IHttpContextAccessor _accessor;
 
