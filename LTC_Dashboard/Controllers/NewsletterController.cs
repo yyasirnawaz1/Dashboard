@@ -22,7 +22,7 @@ using LTCDataModel.Newsletter;
 using LTCDataModel.Enums;
 using LTCDataManager.User;
 using System.Security.Claims;
- 
+using DataTables.AspNetCore.Mvc.Binder;
 using System.Threading.Tasks;
 using LTCDashboard.Models;
 using LTCDataManager.Review;
@@ -223,17 +223,130 @@ namespace LTC_Dashboard.Controllers
                 return Json(null);
             }
         }
-
-        public JsonResult GetUserDefinedTemplates()
+        [HttpPost]
+        public JsonResult GetUserDefinedTemplates([FromBody] gNewsletterModel model)
         {
             var objResult = new List<gGetUserDefinedTemplateModel>();
 
             try
             {
 
-                objResult = gNewsLetterManager.GetUserDefinedTemplates(OfficeSequence);
+                objResult = gNewsLetterManager.GetUserDefinedTemplatesV2(OfficeSequence, model.IsParadigm);
 
                 return Json(objResult);
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetUserDefinedTemplateDetail([FromBody] gNewsletterDetailModel model)
+        {
+            var objResult = new gGetUserDefinedTemplateModel();
+
+            try
+            {
+
+                objResult = gNewsLetterManager.GetUserTemplateDetails(model.LetterID);
+
+                return Json(objResult);
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetArticleTemplateDetail([FromBody] gArticleDetailModel model)
+        {
+            var objResult = new gGetUserDefinedTemplateModel();
+
+            try
+            {
+
+                var article = gNewsLetterManager.GetArticle(model.ArticleID);
+
+                return Json(article);
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
+        }
+        [HttpPost]
+        public JsonResult GetUserDefinedTemplatesV2([FromBody] gNewsletterModel model)
+        {
+            var objResult = new List<gGetUserDefinedTemplateModel>();
+
+            try
+            {
+
+                objResult = gNewsLetterManager.GetUserDefinedTemplates(OfficeSequence, model.IsParadigm);
+
+                return Json(objResult);
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
+        }
+
+
+        public JsonResult GetParadigm([DataTablesRequest] DataTablesRequest requestModel)
+        {
+            var objResult = new List<gGetUserDefinedTemplateModel>();
+
+            try
+            {
+
+                objResult = gNewsLetterManager.GetUserDefinedWithPaging(OfficeSequence, true, requestModel.Start + 1, requestModel.Length);
+
+                var totalCount = 0;
+                var filteredCount = 0;
+                
+                totalCount = gNewsLetterManager.GetUserDefinedTemplatesCount(OfficeSequence, true);
+
+                #region Filtering
+                //search Filters
+                if (!string.IsNullOrEmpty(requestModel.Search?.Value))
+                {
+                    var value = requestModel.Search.Value.Trim();
+                    objResult = objResult.Where(s => s.MainBodymarkup.Contains(value) ||
+                                             s.TemplateSourceMarkup.Contains(value) ||
+                                             s.TemplateTitle.Contains(value)
+
+                                       ).ToList();
+                }
+
+                filteredCount = objResult.Count();
+
+                #endregion Filtering
+
+
+
+                //objResult = objResult.Skip(requestModel.Start).Take(requestModel.Length).ToList();
+
+                
+                return Json(objResult
+                 .Select(e => new
+                 {
+                     LetterID = e.LetterID,
+                     TemplateTitle = e.TemplateTitle,
+                     TypeID = e.TypeID,
+                     MainBodymarkup = e.MainBodymarkup,
+                     TemplateSourceMarkup = e.TemplateSourceMarkup,
+                     CategoryID = e.CategoryID,
+                     IsParadigmNewsletter = e.IsParadigmNewsletter,
+                     IsDefault = e.IsDefault,
+                     ModificationDate = e.ModificationDate,
+                     TypeName = e.TypeName
+
+                 })
+                 .ToDataTablesResponse(requestModel, totalCount, filteredCount));
+                // return Json(objResult);
             }
             catch (Exception ex)
             {
@@ -567,6 +680,7 @@ namespace LTC_Dashboard.Controllers
             @ViewBag.OfficeName = OfficeName;
             return View();
         }
+
         [HttpGet()]
         public IActionResult Get([DataTablesRequest] DataTablesRequest dataRequest)
         {
@@ -579,10 +693,7 @@ namespace LTC_Dashboard.Controllers
                 products = products.Where(e => e.TemplateTitle.Contains(dataRequest.Search.Value));
                 recordsFilterd = products.Count();
             }
-            products = products.Skip(dataRequest.Start).Take(dataRequest.Length);
-
-
-
+           
 
             products = products.Skip(dataRequest.Start).Take(dataRequest.Length).ToList();
 

@@ -43,6 +43,24 @@ namespace LTCDataModel.NewsLetter
         public string ContentImage { get; set; }
 
     }
+    public class gNewsletterModel
+    {
+        public bool IsParadigm { get; set; }
+       
+
+    }
+    public class gArticleDetailModel
+    {
+        public int ArticleID { get; set; }
+
+
+    }
+    public class gNewsletterDetailModel
+    {
+        public int LetterID { get; set; }
+
+
+    }
     public class gLetterModelTest
     {
         public int LetterID { get; set; }

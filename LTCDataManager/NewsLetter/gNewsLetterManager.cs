@@ -60,15 +60,53 @@ namespace LTCDataManager.NewsLetter
             var db = new Database(DbConfiguration.LtcNewsletter);
             return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.LetterID,templates_user.Office_Sequence, templates_user.TemplateTitle, templates_user.MainBodymarkup, templates_user.TemplateSourceMarkup, templates_user.TypeID,templates_user.IsParadigmNewsletter, templates_user.IsDefault, templates_user.ModificationDate,templates_user.CategoryID, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID where templates_user.LetterID=" + LetterID + " order by templates_user.ModificationDate desc ").FirstOrDefault();
         }
-        public static List<gGetUserDefinedTemplateModel> GetUserDefinedTemplates(int officeSequence)
+        public static List<gGetUserDefinedTemplateModel> GetUserDefinedTemplatesV2(int officeSequence, bool IsParadigm)
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
-            return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.CategoryID, templates_user.LetterID, templates_user.TemplateTitle, templates_user.TemplateSourceMarkup, templates_user.MainBodymarkup, templates_user.TypeID, templates_user.IsParadigmNewsletter, templates_user.IsDefault, templates_user.ModificationDate, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID  where templates_user.Office_Sequence=" + officeSequence + " order by templates_user.ModificationDate desc ").ToList(); // 
+            if (IsParadigm)
+                return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.CategoryID, templates_user.LetterID, templates_user.TemplateTitle, templates_user.TypeID, templates_user.IsParadigmNewsletter, templates_user.IsDefault, templates_user.ModificationDate, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID  where templates_user.TypeID <> 8 AND templates_user.Office_Sequence=" + officeSequence + " order by templates_user.ModificationDate desc ").ToList(); // 
+            else
+                return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.CategoryID, templates_user.LetterID, templates_user.TemplateTitle, templates_user.TypeID, templates_user.IsParadigmNewsletter, templates_user.IsDefault, templates_user.ModificationDate, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID  where templates_user.TypeID = 8 AND templates_user.Office_Sequence=" + officeSequence + " order by templates_user.ModificationDate desc ").ToList(); // 
+
+        }
+        public static gGetUserDefinedTemplateModel GetUserTemplateDetails(int LetterID)
+        {
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.CategoryID, templates_user.LetterID, templates_user.TemplateTitle, templates_user.TemplateSourceMarkup, templates_user.MainBodymarkup, templates_user.TypeID, templates_user.IsParadigmNewsletter, templates_user.IsDefault, templates_user.ModificationDate, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID  where templates_user.LetterID=" + LetterID ).FirstOrDefault(); // 
+
+        }
+        public static List<gGetUserDefinedTemplateModel> GetUserDefinedTemplates(int officeSequence, bool IsParadigm)
+        {
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            if (IsParadigm)
+                return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.CategoryID, templates_user.LetterID, templates_user.TemplateTitle, templates_user.TemplateSourceMarkup, templates_user.MainBodymarkup, templates_user.TypeID, templates_user.IsParadigmNewsletter, templates_user.IsDefault, templates_user.ModificationDate, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID  where templates_user.TypeID <> 8 AND templates_user.Office_Sequence=" + officeSequence + " order by templates_user.ModificationDate desc ").ToList(); // 
+            else
+                return db.Fetch<gGetUserDefinedTemplateModel>($"SELECT templates_user.CategoryID, templates_user.LetterID, templates_user.TemplateTitle, templates_user.TemplateSourceMarkup, templates_user.MainBodymarkup, templates_user.TypeID, templates_user.IsParadigmNewsletter, templates_user.IsDefault, templates_user.ModificationDate, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID  where templates_user.TypeID = 8 AND templates_user.Office_Sequence=" + officeSequence + " order by templates_user.ModificationDate desc ").ToList(); // 
+
+        }
+        public static Int32 GetUserDefinedTemplatesCount(int officeSequence, bool IsParadigm)
+        {
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            if (IsParadigm)
+                return db.Fetch<Int32>($"SELECT Count(LetterID) FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID  where templates_user.TypeID <> 8 AND templates_user.Office_Sequence=" + officeSequence ).Count();  
+            else
+                return db.Fetch<Int32>($"SELECT Count(LetterID)  FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID  where templates_user.TypeID = 8 AND templates_user.Office_Sequence=" + officeSequence ).Count();  
+
+        }
+        public static List<gGetUserDefinedTemplateModel> GetUserDefinedWithPaging(int officeSequence, bool IsParadigm, int Start, int Total)
+        {
+            var db = new Database(DbConfiguration.LtcNewsletter);
+            if (IsParadigm)
+                return db.Fetch<gGetUserDefinedTemplateModel>(Start,Total,$"SELECT templates_user.CategoryID, templates_user.LetterID, templates_user.TemplateTitle, templates_user.TemplateSourceMarkup, templates_user.MainBodymarkup, templates_user.TypeID, templates_user.IsParadigmNewsletter, templates_user.IsDefault, templates_user.ModificationDate, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID  where templates_user.TypeID <> 8 AND templates_user.Office_Sequence=" + officeSequence + " order by templates_user.ModificationDate desc ").ToList(); // 
+            else
+                return db.Fetch<gGetUserDefinedTemplateModel>(Start, Total, $"SELECT templates_user.CategoryID, templates_user.LetterID, templates_user.TemplateTitle, templates_user.TemplateSourceMarkup, templates_user.MainBodymarkup, templates_user.TypeID, templates_user.IsParadigmNewsletter, templates_user.IsDefault, templates_user.ModificationDate, templatetypes.TypeName FROM templates_user inner join templatetypes on templates_user.TypeID = templatetypes.TypeID  where templates_user.TypeID = 8 AND templates_user.Office_Sequence=" + officeSequence + " order by templates_user.ModificationDate desc ").ToList(); // 
+
         }
         public static List<gArticleViewModel> GetArticles()
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
-            return db.Fetch<gArticleViewModel>($" SELECT ArticleID, Title, Content, ContentWithDefaultStyle, ModificationDate , system_articles.CategoryID, articlecategories.CategoryName  FROM system_articles Inner join articlecategories on system_articles.CategoryID = articlecategories.CategoryID  where Content is not null ").ToList();
+            //return db.Fetch<gArticleViewModel>($" SELECT ArticleID, Title, Content, ContentWithDefaultStyle, ModificationDate , system_articles.CategoryID, articlecategories.CategoryName  FROM system_articles Inner join articlecategories on system_articles.CategoryID = articlecategories.CategoryID  where Content is not null ").ToList();
+            return db.Fetch<gArticleViewModel>($" SELECT ArticleID, Title, ModificationDate , system_articles.CategoryID, articlecategories.CategoryName  FROM system_articles Inner join articlecategories on system_articles.CategoryID = articlecategories.CategoryID  where Content is not null ").ToList();
         }
         public static gArticleModel GetArticle(int articleId)
         {
@@ -143,7 +181,7 @@ namespace LTCDataManager.NewsLetter
             var db = new Database(DbConfiguration.LtcNewsletter);
             return db.Fetch<gArticleCategories>($"SELECT * FROM articlecategories").ToList();
         }
-        
+
         public static List<gShellTemplatesModel> GetShellTemplates()
         {
             var db = new Database(DbConfiguration.LtcNewsletter);

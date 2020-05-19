@@ -18,7 +18,7 @@ namespace LTCDataManager.Email
             {
                 StringBuilder sb = new StringBuilder(template.MainBodymarkup);
                 // &amp;
-                
+                sb.Replace("&amp;","&");
                 sb.Replace("&amp;OfficeName&amp;", office?.ClinicName);
                 sb.Replace("&OFFICENAME&", office?.ClinicName);
                 sb.Replace("&OfficeName&", office?.ClinicName);
