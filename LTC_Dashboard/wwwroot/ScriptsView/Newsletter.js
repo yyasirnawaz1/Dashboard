@@ -6,13 +6,15 @@ var Newsletter = function () {
 
             this.loadArticleTypes();
             this.loadTemplateTypes();
-            this.loadUserDefinedTemplates();
-            Layout.showLoader();
+            this.loadUserDefinedTemplates(true);
+            //this.initUserDefinedTable();
+            //Layout.showLoader();
 
             //this.loadArticles();
-            this.loadSystemTemplates();
+            //this.loadSystemTemplates();
 
         },
+
 
         initActionPage: function (loadOnlyImages) {
             kendo.destroy($("#OfficeImageTreeview"));
@@ -62,11 +64,11 @@ var Newsletter = function () {
             }
 
             var name = $("#txtArticleTitle").val();
-            var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == name);
-            if (articleWithSameName != null) {
-                ltcApp.warningMessage(null, "Newsletter with same name already exists.");
-                return;
-            }
+            //var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == name);
+            //if (articleWithSameName != null) {
+            //    ltcApp.warningMessage(null, "Newsletter with same name already exists.");
+            //    return;
+            //}
 
             var content = '';
             var template = NewsLetter_SystemTemplates.find(x => x.TemplateID == tempId);
@@ -74,64 +76,114 @@ var Newsletter = function () {
             $("#dvHidden").html('');
             if (template != null && article != null) {
 
+                var data = {
+                    ArticleID: SelectedArticleId
+                };
+                $.ajax({
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    url: '/Newsletter/GetArticleTemplateDetail',
+                    success: function (data) {
+
+                        if (data != null) {
+                            var item1 = data;
+
+                            if (item1 != null) {
+                                if (item1.Content.length > 0) {
+                                    $('#dvHidden').html(template.TemplateSourceMarkup);
+                                    $("#content").html('');
+                                    $("#content2").html('');
+                                    $("#content").html(item1.Content);
+                                    content = $("#dvHidden").html();
+                                } else {
+                                    $('#dvHidden').html('');
+                                    $("#content").html('');
+                                    $("#content2").html('');
+                                    $("#content").html('');
+                                    content = $("#dvHidden").html();
+                                }
+
+
+                            } else {
+                                $('#dvHidden').html('');
+                                $("#content").html('');
+                                $("#content2").html('');
+                                $("#content").html('');
+                                content = $("#dvHidden").html();
+
+                            }
+
+
+                        }
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+
+                        ltcApp.errorMessage("Error", 'Error loading preview');
+
+                    },
+                    complete: function () {
+                        Layout.hideLoader();
+
+                        $("#btnSaveArticle").attr("disabled", true);
+
+
+                        var element = $("#html-content-holder"); // global variable
+                        document.getElementById("dvManage").style.position = "";
+                        document.getElementById("dvManage").style.top = "0px";
+                        document.getElementById("dvManage").style.left = "0px;";
+                        $("#html-content-holder").html("<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='IE=edge'></head><body>" + content + "</body></html>");
+                        var element = $("#html-content-holder"); // global variable
+                        html2canvas(element, {
+                            useCORS: true,
+                            imageTimeout: 15000,
+                            onrendered: function (canvas) {
+                                $("#previewImage").append(canvas);
+
+                                getCanvas = canvas;
+                                var imageData = getCanvas.toDataURL("image/png");
+
+                                var data = {
+                                    TemplateId: $("#ddlTemplatesTypes2").val(),
+                                    ArticleId: SelectedArticleId,
+                                    Title: $("#txtArticleTitle").val(),
+                                    Content: content,
+                                    ContentImageString: imageData
+                                };
+
+
+                                $.ajax({
+                                    url: '/Newsletter/CopyArticle',
+                                    method: 'POST',
+                                    data: JSON.stringify(data),
+                                    contentType: 'application/json',
+                                    dataType: 'json',
+                                    success: function (d) {
+
+                                        $('#useArticle').modal('hide');
+                                        ltcApp.successMessage(null, "Template created!");
+                                        // Newsletter.init();
+                                        $('#btnSaveArticle').removeAttr('disabled');
+
+                                        document.getElementById("dvManage").style.position = "absolute";
+                                        document.getElementById("dvManage").style.top = "-9999px";
+                                        document.getElementById("dvManage").style.left = "-9999px;";
+                                    }
+                                });
+
+
+
+                            }
+                        });
+
+                    }
+                })
+
                 //content = template.TemplateSourceMarkup;
-                $('#dvHidden').html(template.TemplateSourceMarkup);
-                $("#content").html('');
-                $("#content2").html('');
-                $("#content").html(article.Content);
-                content = $("#dvHidden").html();
+
             }
 
-            $("#btnSaveArticle").attr("disabled", true);
-
-         
-            var element = $("#html-content-holder"); // global variable
-            document.getElementById("dvManage").style.position = "";
-            document.getElementById("dvManage").style.top = "0px";
-            document.getElementById("dvManage").style.left = "0px;";
-            $("#html-content-holder").html("<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='IE=edge'></head><body>" + content + "</body></html>");
-            var element = $("#html-content-holder"); // global variable
-            html2canvas(element, {
-                useCORS: true,
-                imageTimeout: 15000,
-                onrendered: function (canvas) {
-                    $("#previewImage").append(canvas);
-
-                    getCanvas = canvas;
-                    var imageData = getCanvas.toDataURL("image/png");
-
-                    var data = {
-                        TemplateId: $("#ddlTemplatesTypes2").val(),
-                        ArticleId: SelectedArticleId,
-                        Title: $("#txtArticleTitle").val(),
-                        Content: content,
-                        ContentImageString: imageData
-                    };
-
-
-                    $.ajax({
-                        url: '/Newsletter/CopyArticle',
-                        method: 'POST',
-                        data: JSON.stringify(data),
-                        contentType: 'application/json',
-                        dataType: 'json',
-                        success: function (d) {
-
-                            $('#useArticle').modal('hide');
-                            ltcApp.successMessage(null, "Template created!");
-                            Newsletter.init();
-                            $('#btnSaveArticle').removeAttr('disabled');
-
-                            document.getElementById("dvManage").style.position = "absolute";
-                            document.getElementById("dvManage").style.top = "-9999px";
-                            document.getElementById("dvManage").style.left = "-9999px;";
-                        }
-                    });
-
-
-
-                }
-            });
 
 
 
@@ -182,10 +234,10 @@ var Newsletter = function () {
                     return false;
                 }
 
-                var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == name);
-                if (articleWithSameName != null) {
-                    ltcApp.warningMessage(null, "Newsletter with same name already exists.");
-                }
+                //var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == name);
+                //if (articleWithSameName != null) {
+                //    ltcApp.warningMessage(null, "Newsletter with same name already exists.");
+                //}
                 $('.confirm').attr("disabled", true);
                 var data = {
                     TemplateId: SelectedSystemDefinedTemplateId, Title: name
@@ -215,7 +267,7 @@ var Newsletter = function () {
         },
 
         userDefinedOptionChanged: function (val) {
-            
+
             if (val == enumNewsletterUserDefinedOptions.send) {
                 this.sendTemplate();
             }
@@ -297,7 +349,7 @@ var Newsletter = function () {
 
             var item = NewsLetter_UserDefinedTemplates.find(x => x.LetterID === SelectedUserDefinedTemplateId);
 
-            $("#templateEditor").data("kendoEditor").value(item.TemplateSourceMarkup);
+            //   $("#templateEditor").data("kendoEditor").value(item.TemplateSourceMarkup);
 
 
             var currTemplateType = NewsLetter_TemplatesTypes.find(x => x.TypeID == item.TypeID);
@@ -309,7 +361,7 @@ var Newsletter = function () {
             }
 
             if (item != null && item != undefined) {
-                $("#ddlCategoryArticle3").val(currTemitemplateType.CategoryID);
+                $("#ddlCategoryArticle3").val(currTemplateType.CategoryID);
             }
             else {
                 $("#ddlCategoryArticle3").val('-1');
@@ -319,8 +371,50 @@ var Newsletter = function () {
 
 
 
+            var data = {
+                LetterID: SelectedUserDefinedTemplateId
+            };
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                url: '/Newsletter/GetUserDefinedTemplateDetail',
+                success: function (data) {
 
-            this.setIframeHtml('editorPreview', item.TemplateSourceMarkup);
+                    if (data != null) {
+                        var item1 = data;
+
+                        if (item1 != null) {
+                            if (item1.TemplateSourceMarkup.length > 0) {
+                                Newsletter.setIframeHtml('editorPreview', item1.TemplateSourceMarkup);
+                                $("#templateEditor").data("kendoEditor").value(item1.TemplateSourceMarkup);
+                            } else {
+                                Newsletter.setIframeHtml('editorPreview', '');
+                                $("#templateEditor").data("kendoEditor").value('');
+
+                            }
+
+
+                        } else {
+                            Newsletter.setIframeHtml('editorPreview', '');
+                            $("#templateEditor").data("kendoEditor").value('');
+
+                        }
+
+
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+
+                    ltcApp.errorMessage("Error", 'Error loading preview');
+
+                },
+                complete: function () {
+                    Layout.hideLoader();
+                }
+            })
+
 
 
             $(document).off("focusin");
@@ -328,6 +422,8 @@ var Newsletter = function () {
         },
         loadTemplateDetailInEditor: function (isModified) {
 
+            Newsletter.setIframeHtml('editorPreview', '');
+            $("#templateEditor").data("kendoEditor").value('');
 
             if (isModified) {
 
@@ -337,7 +433,7 @@ var Newsletter = function () {
                 var item = NewsLetter_UserDefinedTemplates.find(x => x.LetterID === SelectedUserDefinedTemplateId);
 
 
-                $("#templateEditor").data("kendoEditor").value(item.MainBodymarkup);
+
                 if (item.TypeID == 8) {
                     $('#dvCategory').show();
                 } else {
@@ -358,10 +454,47 @@ var Newsletter = function () {
 
                 $("#txtTemplateTitle").val(item.TemplateTitle);
 
+                var data = {
+                    LetterID: SelectedUserDefinedTemplateId
+                };
+                $.ajax({
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    url: '/Newsletter/GetUserDefinedTemplateDetail',
+                    success: function (data) {
+                        Layout.hideLoader();
+                        if (data != null) {
+                            var item = data;
+
+                            if (item != null) {
+                                $("#previewContentEmpty").addClass('hide');
+                                $("#previewContent").removeClass('hide');
+                                Newsletter.setIframeHtml('editorPreview', item.MainBodymarkup);
+                                $("#templateEditor").data("kendoEditor").value(item.MainBodymarkup);
+
+                            } else {
+                                $("#previewContentEmpty").removeClass('hide');
+                                $("#previewContent").addClass('hide');
+                                Newsletter.setIframeHtml('editorPreview', '');
+                                $("#templateEditor").data("kendoEditor").value('');
+                            }
 
 
+                        }
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
 
-                this.setIframeHtml('editorPreview', item.MainBodymarkup);
+                        ltcApp.errorMessage("Error", 'Error loading preview');
+
+                    },
+                    complete: function () {
+                        Layout.hideLoader();
+                    }
+                })
+
+
 
             }
             else {
@@ -382,6 +515,7 @@ var Newsletter = function () {
             $(document).off("focusin");
             $(document).off("focus");
         },
+
         DeleteImage: function (fileName) {
 
             swal({
@@ -502,7 +636,11 @@ var Newsletter = function () {
                             $("#ddlCategoryArticle2").prop('selectedIndex', 0);
                             ltcApp.successMessage(null, "Template removed!");
                             $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
-                            Newsletter.loadUserDefinedTemplates();
+                            if (currentView == 'user') {
+                                Newsletter.loadUserDefinedTemplates(true);
+                            } else {
+                                Newsletter.loadUserDefinedTemplates(false);
+                            }
                             // Newsletter.loadTemplateTypes(); //reload selected template types and repopulate the dropdown
                         }
                     });
@@ -518,7 +656,7 @@ var Newsletter = function () {
                 ltcApp.errorMessage("Warning!", "Please select other template as Default");
                 return;
             }
-            Layout.showLoader();
+            //Layout.showLoader();
 
             var data = {
                 IsDefault: isDefaultCheck,
@@ -534,7 +672,12 @@ var Newsletter = function () {
                 success: function (d) {
                     if (d) {
                         ltcApp.successMessage(null, "Updated");
-                        Newsletter.loadUserDefinedTemplates();
+                        if (currentView == 'user') {
+                            Newsletter.loadUserDefinedTemplates(true);
+                        } else {
+                            Newsletter.loadUserDefinedTemplates(false);
+                        }
+
                         $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
 
                     } else {
@@ -678,7 +821,7 @@ var Newsletter = function () {
                                     });
 
                                     $("#modal-window").modal("show");
-                                }, 
+                                },
                                 error: function (data) {
                                     alert(data.responseText);
                                 }
@@ -790,7 +933,7 @@ var Newsletter = function () {
                             type: "GET",
                             url: '/Newsletter/GetArticles',
                             success: function (data) {
-                                
+
                                 if (data != null) {
                                     $("#tblBodyArticle").html('');
                                     articles = data;
@@ -824,7 +967,7 @@ var Newsletter = function () {
                                 }
                             },
                             error: function (xhr, textStatus, errorThrown) {
-                                
+
                                 ltcApp.errorMessage("Error", 'Error loading Articles');
                             },
                             complete: function () {
@@ -1118,6 +1261,35 @@ var Newsletter = function () {
 
 
 
+        loadSystemTemplateDDL: function () {
+
+            $.ajax({
+                type: "GET",
+                url: '/Newsletter/GetSystemTemplates',
+                success: function (data) {
+                    if (data != null) {
+
+                        NewsLetter_SystemTemplates = data;
+                        $("#ddlTemplatesTypes2").html('<option value="-1">Select a design</option>');
+                        $.each(NewsLetter_SystemTemplates, function (index, value) {
+                            var item = NewsLetter_SystemTemplates[index];
+                            $("#ddlTemplatesTypes2").append('<option value="' + item.TemplateID + '">' + item.TemplateTitle + '</option>');
+                        });
+
+
+
+                    }
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    ltcApp.errorMessage("Error", 'Error loading system templates');
+
+                },
+                complete: function () {
+
+                }
+            });
+        },
 
         loadSystemTemplates: function () {
 
@@ -1128,11 +1300,7 @@ var Newsletter = function () {
                     if (data != null) {
                         $("#tblBodySystem").html('');
                         NewsLetter_SystemTemplates = data;
-                        $("#ddlTemplatesTypes2").html('<option value="-1">Select a design</option>');
-                        $.each(NewsLetter_SystemTemplates, function (index, value) {
-                            var item = NewsLetter_SystemTemplates[index];
-                            $("#ddlTemplatesTypes2").append('<option value="' + item.TemplateID + '">' + item.TemplateTitle + '</option>');
-                        });
+
 
                         if (NewsLetter_SystemTemplates.length < 1) {
                             $("#tblBodySystem").html('<tr> <td colspan="3"> No record found! </td></tr>');
@@ -1202,38 +1370,121 @@ var Newsletter = function () {
             }
         },
         loadSelectedArticle: function (tempId, obj) {
-            var imgs = $('.imageUserCard2').length;
-            for (var i = 0; i < imgs; i++) {
-                $('.imageUserCard2')[i].style.backgroundColor = 'transparent';
-            }
+            //var imgs = $('.imageUserCard2').length;
+            //for (var i = 0; i < imgs; i++) {
+            //    $('.imageUserCard2')[i].style.backgroundColor = 'transparent';
+            //}
             //obj.style.backgroundColor = 'darkseagreen';
 
             SelectedArticleId = tempId;
-            var item = articles.find(x => x.ArticleID === tempId);
-            if (item != null) {
-                $("#previewArticleContent").removeClass('hide');
-                this.setIframeHtml('previewArticleContent', item.Content);
-            } else {
-                $("#previewArticleContent").addClass('hide');
-                this.setIframeHtml('previewArticleContent', '');
-            }
+
+
+
+            //var item = articles.find(x => x.ArticleID === tempId);
+            //if (item != null) {
+            //    $("#previewArticleContent").removeClass('hide');
+            //    this.setIframeHtml('previewArticleContent', item.Content);
+            //} else {
+
+            //}
         },
         loadPreview: function () {
+            Newsletter.setIframeHtml('previewContent', '');
+            var data = {
+                LetterID: SelectedUserDefinedTemplateId
+            };
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                url: '/Newsletter/GetUserDefinedTemplateDetail',
+                success: function (data) {
+                    Layout.hideLoader();
+                    if (data != null) {
+                        var item = data;
 
-            $('#previewNewsletterModel').modal('show'); //show model
+                        if (item != null) {
+                            $("#previewContentEmpty").addClass('hide');
+                            $("#previewContent").removeClass('hide');
+                            if (item.TemplateSourceMarkup.length > 0) {
+                                Newsletter.setIframeHtml('previewContent', item.MainBodymarkup);
+                            } else {
+                                Newsletter.setIframeHtml('previewContent', '');
+
+                            }
+
+
+                        } else {
+                            $("#previewContentEmpty").removeClass('hide');
+                            $("#previewContent").addClass('hide');
+                            Newsletter.setIframeHtml('previewContent', '');
+                        }
+
+
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+
+                    ltcApp.errorMessage("Error", 'Error loading preview');
+
+                },
+                complete: function () {
+                    $('#previewNewsletterModel').modal('show'); //show model
+                }
+            })
+
+
         },
         loadArticlePreview: function () {
+            Newsletter.setIframeHtml('previewArticleContent', '');
+            var data = {
+                ArticleID: SelectedArticleId
+            };
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                url: '/Newsletter/GetArticleTemplateDetail',
+                success: function (data) {
+                    Layout.hideLoader();
+                    if (data != null) {
+                        var item = data;
 
-            $('#previewArticleModel').modal('show'); //show model
+                        if (item != null) {
+                            $("#previewArticleContent").removeClass('hide');
+                            Newsletter.setIframeHtml('previewArticleContent', item.Content);
+
+                        } else {
+                            $("#previewArticleContent").addClass('hide');
+                            Newsletter.setIframeHtml('previewArticleContent', '');
+                        }
+
+
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+
+                    ltcApp.errorMessage("Error", 'Error loading preview');
+
+                },
+                complete: function () {
+                    $('#previewArticleModel').modal('show'); //show model
+                    Layout.hideLoader();
+                }
+            })
+
         },
         loadArticles: function () {
-            
+            Layout.showLoader();
+            this.loadSystemTemplateDDL();
             var noTemp = '<div class="row" style="padding:10px;margin-left:25px;margin-right:25px">No Article Found! </div>';
             $.ajax({
                 type: "GET",
                 url: '/Newsletter/GetArticles',
                 success: function (data) {
-                    
+
                     if (data != null) {
                         $("#tblBodyArticle").html('');
                         articles = data;
@@ -1268,7 +1519,7 @@ var Newsletter = function () {
 
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    
+
                     ltcApp.errorMessage("Error", 'Error loading Articles');
                 },
                 complete: function () {
@@ -1278,7 +1529,7 @@ var Newsletter = function () {
         },
         deleteSelectedNewsletters: function () {
             var post_arr = [];
-            Layout.showLoader();
+            //Layout.showLoader();
             // Get checked checkboxes
             $('#marketingTemplateList input[type=checkbox]').each(function () {
                 if (jQuery(this).is(":checked")) {
@@ -1320,7 +1571,12 @@ var Newsletter = function () {
                             complete: function () {
                                 $("#btnDeleteSelectOptions").attr("disabled", true);
                                 ltcApp.successMessage(null, "Templates removed!");
-                                Newsletter.loadUserDefinedTemplates();
+                                if (currentView == 'user') {
+                                    Newsletter.loadUserDefinedTemplates(true);
+                                } else {
+                                    Newsletter.loadUserDefinedTemplates(false);
+                                }
+
                                 $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
                             }
                         });
@@ -1335,12 +1591,22 @@ var Newsletter = function () {
 
             }
         },
-        loadUserDefinedTemplates: function (selectedTypeId) {
+
+        loadUserDefinedTemplates: function (isParadigm) {
+            Layout.showLoader();
+
             $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
             var noTemp = '<tr> <td colspan="5"> No record found! </td></tr>';
+            var data = {
+                IsParadigm: isParadigm
+            };
+
             $.ajax({
-                type: "GET",
+                type: "POST",
+                data: JSON.stringify(data),
                 url: '/Newsletter/GetUserDefinedTemplates',
+                contentType: 'application/json',
+                dataType: 'json',
                 success: function (data) {
                     if (data != null) {
                         $("#tblBody").empty();
@@ -1424,24 +1690,44 @@ var Newsletter = function () {
                                 }
                             });
 
+                            if (isParadigm) {
+                                $("#tblBody").append(strParadigm);
+                            } else {
+                                $("#tblBodyMarketing").append(strMarketing);
+                            }
+                            if (IsLoadedAlready == false) {
 
-                            $("#tblBody").append(strParadigm);
-                            $("#tblBodyMarketing").append(strMarketing);
+                                if (isParadigm) {
+                                    try {
+                                        IsLoadedAlready = true;
+                                        setTimeout(function () {
 
-                            if (!IsLoadedAlready) {
-                                setTimeout(function () {
-                                    $('#tblParadigm').DataTable({
-                                        "order": [[3, "desc"]],
-                                        "paging": false,
-                                    });
+                                            $('#tblParadigm').DataTable({
+                                                "order": [[3, "desc"]],
+                                                "paging": false,
+                                            });
 
-                                    $('#tblMarketing').DataTable({
-                                        "order": [[1, "desc"]],
-                                        "paging": false,
-                                    });
+
+
+                                        },
+                                            3000);
+
+                                    } catch (e) {
+
+                                    }
+                                } else {
+                                    try {
+                                        $('#tblMarketing').DataTable({
+                                            "order": [[1, "desc"]],
+                                            "paging": false,
+                                        });
+                                    } catch (e) {
+
+                                    }
+
 
                                     setTimeout(function () {
-                                        IsLoadedAlready = true;
+
                                         $('#tblMarketing').on('click', 'thead th', function (event) {
                                             var clickedHeader = $(this).closest('th').index();
 
@@ -1450,20 +1736,22 @@ var Newsletter = function () {
                                             }
                                         });
 
+                                        if (isParadigm) {
 
-                                        $('#tblParadigm').on('click', 'thead th', function (event) {
+                                            $('#tblParadigm').on('click', 'thead th', function (event) {
 
-                                            var clickedHeader = $(this).closest('th').index();
+                                                var clickedHeader = $(this).closest('th').index();
 
-                                            if (clickedHeader > -1) {
-                                                $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
+                                                if (clickedHeader > -1) {
+                                                    $('#ddlTemplatesTypes1').prop('selectedIndex', 0);
 
-                                            }
-                                        });
+                                                }
+                                            });
+                                        }
                                     },
                                         3000);
-                                },
-                                    3000);
+                                }
+
                             }
 
                         }
@@ -1487,9 +1775,18 @@ var Newsletter = function () {
             var searchText = $('#txtSearch').val().toLowerCase();
             var noTemp = '<tr> <td colspan="5"> No record found! </td></tr>';
             if (searchText == "") {
-                this.loadUserDefinedTemplates();
-                this.loadSystemTemplates();
-                this.loadArticles();
+                if (currentView == 'user') {
+                    Newsletter.loadUserDefinedTemplates(true);
+                } else if (currentView == 'marketing') {
+                    Newsletter.loadUserDefinedTemplates(false);
+                } else if (currentView == 'article') {
+                    this.loadArticles();
+                } else if (currentView == 'system') {
+                    this.loadSystemTemplates();
+                }
+
+
+
             } else {
                 if (NewsLetter_UserDefinedTemplates != null) {
 
@@ -1586,77 +1883,82 @@ var Newsletter = function () {
                         }
                     }
                 }
-                if (NewsLetter_SystemTemplates != null) {
-                    var resultFound = false;
-                    $("#tblBodySystem").html('');
-                    if (NewsLetter_SystemTemplates.length < 1) {
-                        $("#tblBodySystem").html('<tr> <td colspan="3"> No record found! </td></tr>');
-                    } else {
-                        var strSystem = '';
-
-                        $.each(NewsLetter_SystemTemplates, function (index, item) {
-                            var st = item.ModificationDate;
-                            var modificationDate = new Date(st);
-                            if (item.TemplateTitle.toLowerCase().includes(searchText)) {
-                                resultFound = true;
-                                strSystem += "<tr><td>" +
-                                    item.TemplateTitle +
-                                    "</td >" +
-                                    "<td>" +
-                                    modificationDate.toISOString().split('T')[0] +
-                                    "</td>" +
-                                    "<td class=\"text-center\"><div class=\"list-icons\"  onclick=\"Newsletter.loadSelectedSystemTemplate(" +
-                                    item.TemplateID +
-                                    ",this)\"> " +
-                                    "<div class=\"dropdown\">" +
-                                    "<a href=\"#\" class=\"list-icons-item\" data-toggle=\"dropdown\">" +
-                                    "<i class=\"icon-menu9\"></i></a>" +
-                                    "<div class=\"dropdown-menu dropdown-menu-right\">" +
-                                    "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.useTempalte();\"><i class=\"icon-pencil\"></i> Use</a>" +
-                                    "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadPreview();\"><i class=\"icon-file-eye\"></i> Preview</a>";
-                            }
-                        });
-
-                        if (!resultFound) {
+                if (currentView == 'system') {
+                    if (NewsLetter_SystemTemplates != null) {
+                        var resultFound = false;
+                        $("#tblBodySystem").html('');
+                        if (NewsLetter_SystemTemplates.length < 1) {
                             $("#tblBodySystem").html('<tr> <td colspan="3"> No record found! </td></tr>');
-                        }
-                        $("#tblBodySystem").append(strSystem);
-                        //$("#SystemTemplateList .image:first").click();
-                    }
+                        } else {
+                            var strSystem = '';
 
-                }
-                if (articles != null) {
-                    var resultFound = false;
-                    $("#tblBodyArticle").html('');
-                    if (articles.length < 1) {
-                        $("#tblBodyArticle").html('<tr> <td colspan="3"> No record found! </td></tr>');
-                    } else {
-                        var str = '';
-                        $.each(articles, function (index, item) {
-                            var st = item.ModificationDate;
-                            var modificationDate = new Date(st);
-                            if (item.Title.toLowerCase().includes(searchText) || item.Content.toLowerCase().includes(searchText)) {
-                                resultFound = true;
-                                str += "<tr><td>" +
-                                    item.Title +
-                                    "</td ><td>" +
-                                    modificationDate.toISOString().split('T')[0] +
-                                    "</td>" +
-                                    "<td class=\"text-center\"><div class=\"list-icons\"  onclick=\"Newsletter.loadSelectedArticle(" +
-                                    item.ArticleID +
-                                    ",this)\"> " +
-                                    "<div class=\"dropdown\">" +
-                                    "<a href=\"#\" class=\"list-icons-item\" data-toggle=\"dropdown\">" +
-                                    "<i class=\"icon-menu9\"></i></a>" +
-                                    "<div class=\"dropdown-menu dropdown-menu-right\">" +
-                                    "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadArticlePreview();\"><i class=\"icon-file-eye\"></i> Preview</a></div></div></td></tr>";
+                            $.each(NewsLetter_SystemTemplates, function (index, item) {
+                                var st = item.ModificationDate;
+                                var modificationDate = new Date(st);
+                                if (item.TemplateTitle.toLowerCase().includes(searchText)) {
+                                    resultFound = true;
+                                    strSystem += "<tr><td>" +
+                                        item.TemplateTitle +
+                                        "</td >" +
+                                        "<td>" +
+                                        modificationDate.toISOString().split('T')[0] +
+                                        "</td>" +
+                                        "<td class=\"text-center\"><div class=\"list-icons\"  onclick=\"Newsletter.loadSelectedSystemTemplate(" +
+                                        item.TemplateID +
+                                        ",this)\"> " +
+                                        "<div class=\"dropdown\">" +
+                                        "<a href=\"#\" class=\"list-icons-item\" data-toggle=\"dropdown\">" +
+                                        "<i class=\"icon-menu9\"></i></a>" +
+                                        "<div class=\"dropdown-menu dropdown-menu-right\">" +
+                                        "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.useTempalte();\"><i class=\"icon-pencil\"></i> Use</a>" +
+                                        "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadPreview();\"><i class=\"icon-file-eye\"></i> Preview</a>";
+                                }
+                            });
+
+                            if (!resultFound) {
+                                $("#tblBodySystem").html('<tr> <td colspan="3"> No record found! </td></tr>');
                             }
-                        });
-
-                        if (!resultFound) {
-                            $("#tblBodyArticle").html('<tr> <td colspan="3"> No record found! </td></tr>');
+                            $("#tblBodySystem").append(strSystem);
+                            //$("#SystemTemplateList .image:first").click();
                         }
-                        $("#tblBodyArticle").append(str);
+
+                    }
+                }
+                if (currentView == 'article') {
+                    if (articles != null) {
+                        var resultFound = false;
+                        $("#tblBodyArticle").html('');
+                        if (articles.length < 1) {
+                            $("#tblBodyArticle").html('<tr> <td colspan="3"> No record found! </td></tr>');
+                        } else {
+                            var str = '';
+                            $.each(articles, function (index, item) {
+                                var st = item.ModificationDate;
+                                var modificationDate = new Date(st);
+                                if (item.Title.toLowerCase().includes(searchText) || item.Content.toLowerCase().includes(searchText)) {
+                                    resultFound = true;
+                                    str += "<tr><td>" +
+                                        item.Title +
+                                        "</td ><td>" +
+                                        modificationDate.toISOString().split('T')[0] +
+                                        "</td>" +
+                                        "<td class=\"text-center\"><div class=\"list-icons\"  onclick=\"Newsletter.loadSelectedArticle(" +
+                                        item.ArticleID +
+                                        ",this)\"> " +
+                                        "<div class=\"dropdown\">" +
+                                        "<a href=\"#\" class=\"list-icons-item\" data-toggle=\"dropdown\">" +
+                                        "<i class=\"icon-menu9\"></i></a>" +
+                                        "<div class=\"dropdown-menu dropdown-menu-right\">" +
+                                        "<a href=\"#\" class=\"dropdown-item\"  onclick=\"Newsletter.loadArticlePreview();\"><i class=\"icon-file-eye\"></i> Preview</a></div></div></td></tr>";
+                                }
+                            });
+
+                            if (!resultFound) {
+                                $("#tblBodyArticle").html('<tr> <td colspan="3"> No record found! </td></tr>');
+                            }
+                            $("#tblBodyArticle").append(str);
+                        }
+
                     }
 
                 }
@@ -1666,28 +1968,12 @@ var Newsletter = function () {
         },
         loadSelectedUserdefinedTemplate: function (tempId, obj) {
 
-            var imgs = $('.imageCard').length;
-            for (var i = 0; i < imgs; i++) {
-                $('.imageCard')[i].style.backgroundColor = 'transparent';
-                //= '../Resources/Limitless/global_assets/images/placeholders/placeholder.jpg';
-            }
+
 
             SelectedUserDefinedTemplateId = tempId;
             SelectedSystemDefinedTemplateId = null;
-            var item = NewsLetter_UserDefinedTemplates.find(x => x.LetterID === tempId);
+         
 
-            if (item != null) {
-                $("#previewContentEmpty").addClass('hide');
-                $("#previewContent").removeClass('hide');
-                this.setIframeHtml('previewContent', item.MainBodymarkup);
-
-
-            } else {
-                $("#previewContentEmpty").removeClass('hide');
-                $("#previewContent").addClass('hide');
-                this.setIframeHtml('previewContent', '');
-            }
-            Layout.hideLoader();
         },
 
         setIframeHtml: function (iframeId, html) {
@@ -1701,34 +1987,45 @@ var Newsletter = function () {
 
         clearTabSelection: function (tab) {
             if (tab == 'system') {
+                currentView = 'system';
+                this.loadSystemTemplates();
 
-                if (NewsLetter_SystemTemplates == null) {
-                    this.loadSystemTemplates();
-                    Layout.showLoader();
+                //if (NewsLetter_SystemTemplates == null) {
+                //    //Layout.showLoader();
 
-                }
+                //}
                 $("#btnSelectedTemplate").show();
                 $("#btnSelectOptions").hide();
                 SelectedUserDefinedTemplateId = null;
                 $("#SystemTemplateList .image:first").click();
             } else
                 if (tab == 'user') {
+                    currentView = 'user';
+
                     $("#btnSelectedTemplate").hide();
                     $("#btnSelectOptions").show();
                     $("#userDefineTemplateList .image:first").click();
                     $("#deleteTemplate").hide();
+                    this.loadUserDefinedTemplates(true);
+                    //Layout.showLoader();
+
                 }
                 else if (tab == 'marketing') {
+                    currentView = 'marketing';
                     $("#deleteTemplate").show();
                     $("#btnSelectedTemplate").hide();
                     $("#btnSelectOptions").show();
                     $("#userDefineTemplateList .image:first").click();
+                    this.loadUserDefinedTemplates(false);
+                    //Layout.showLoader();
+
                 }
                 else if (tab == 'article') {
+                    currentView = 'article';
 
                     if (articles == null) {
                         this.loadArticles();
-                        Layout.showLoader();
+                        //Layout.showLoader();
 
                     }
                     $("#deleteTemplate").hide();
@@ -1744,7 +2041,7 @@ var Newsletter = function () {
                 type: "GET",
                 url: '/Newsletter/LoadServerTime',
                 success: function (data) {
-                    
+
                     if (data != null) {
 
                         $("#lblserverTime").html(data);
@@ -1855,7 +2152,7 @@ var Newsletter = function () {
             }
 
             $("#btnSend").attr("disabled", true);
-        //    Layout.showLoader();
+            //    //Layout.showLoader();
 
             var data = {
                 ScheduledDateTime: sendDate,
@@ -1970,11 +2267,14 @@ var Newsletter = function () {
 
 
         saveNewsletterEditor: function (isSave) {
+            //Newsletter.setIframeHtml('editorPreview', '');
+            //$("#templateEditor").data("kendoEditor").value('');
+
             if ($("#txtTemplateTitle").val().trim() == '') {
                 ltcApp.warningMessage(null, "Title cannot be empty.");
                 return;
             }
-            Layout.showLoader();
+            //Layout.showLoader();
             var isParadigm = false;
             var currTemplateTypeId = 0;
             var currCategoryTypeId = 1;
@@ -2012,7 +2312,7 @@ var Newsletter = function () {
             document.getElementById("dvManage").style.position = "";
             document.getElementById("dvManage").style.top = "0px";
             document.getElementById("dvManage").style.left = "0px;";
-           
+
             html2canvas(element, {
                 useCORS: true,
                 imageTimeout: 15000,
@@ -2027,11 +2327,11 @@ var Newsletter = function () {
 
                     if (!isSave) {
 
-                        var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == $("#txtTemplateTitle").val() && x.LetterID != SelectedUserDefinedTemplateId);
-                        if (articleWithSameName != null) {
-                            ltcApp.warningMessage(null, "Newsletter with same name already exists.");
-                            return;
-                        }
+                        //var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == $("#txtTemplateTitle").val() && x.LetterID != SelectedUserDefinedTemplateId);
+                        //if (articleWithSameName != null) {
+                        //    ltcApp.warningMessage(null, "Newsletter with same name already exists.");
+                        //    return;
+                        //}
                         var item = NewsLetter_UserDefinedTemplates.find(x => x.LetterID === SelectedUserDefinedTemplateId);
                         isParadigm = item.IsParadigmNewsletter;
                         currTemplateId = SelectedUserDefinedTemplateId;
@@ -2049,11 +2349,11 @@ var Newsletter = function () {
 
                     } else {
 
-                        var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == $("#txtTemplateTitle").val());
-                        if (articleWithSameName != null) {
-                            ltcApp.warningMessage(null, "Newsletter with same name already exists.");
-                            return;
-                        }
+                        //var articleWithSameName = NewsLetter_UserDefinedTemplates.find(x => x.TemplateTitle == $("#txtTemplateTitle").val());
+                        //if (articleWithSameName != null) {
+                        //    ltcApp.warningMessage(null, "Newsletter with same name already exists.");
+                        //    return;
+                        //}
 
                         var data = {
                             TemplateTitle: $("#txtTemplateTitle").val(),
@@ -2080,7 +2380,12 @@ var Newsletter = function () {
                         success: function (d) {
 
                             if (d) {
-                                Newsletter.loadUserDefinedTemplates();
+                                if (currentView == 'user') {
+                                    Newsletter.loadUserDefinedTemplates(true);
+                                } else if (currentView == 'marketing') {
+                                    Newsletter.loadUserDefinedTemplates(false);
+                                }
+
                                 $("#ddlCategoryArticle2").prop('selectedIndex', 0);
 
                                 $('#templateEditorWindow').modal('hide');
@@ -2108,6 +2413,10 @@ var Newsletter = function () {
                             document.getElementById("dvManage").style.position = "absolute";
                             document.getElementById("dvManage").style.top = "-9999px";
                             document.getElementById("dvManage").style.left = "-9999px;";
+                            $("#txtTemplateTitle").val();
+                            currTemplateId = '';
+                            $("#templateEditor").data("kendoEditor").value('');
+
                         }
                     });
                     //$("#btn-Convert-Html2Image").attr("download", "your_pic_name.png").attr("href", newData);
@@ -2142,6 +2451,10 @@ var Newsletter = function () {
                 ltcApp.promptConfirmation("Warning", "Are you sure want to close without saving?");
             } else {
                 $('#templateEditorWindow').modal('hide');
+                Newsletter.setIframeHtml('editorPreview', '');
+                $("#templateEditor").data("kendoEditor").value('');
+                $("#txtTemplateTitle").val();
+                currTemplateId = '';
             }
 
         },
@@ -2342,6 +2655,6 @@ var SelectedArticleId;
 var IsLoadedAlready = false;
 var isKendoWindowLoaded = false;
 var getCanvas; // global variable
-
+var currentView = 'user';
 
 
