@@ -8,6 +8,7 @@ namespace LTCDataModel.FormEntryHome
 {
     public class gPendingFormModel
     {
+        public int? PatientNumber { get; set; }
         public int SavedFormID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -16,6 +17,7 @@ namespace LTCDataModel.FormEntryHome
     }
     public class gPendingFormViewModel
     {
+        public int? PatientNumber { get; set; }
         public int SavedFormID { get; set; }
         public string PatientName { get; set; }
         public string Content { get; set; }

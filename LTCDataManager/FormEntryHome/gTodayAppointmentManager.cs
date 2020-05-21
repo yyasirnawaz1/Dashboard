@@ -128,7 +128,6 @@ namespace LTCDataManager.TodayAppointment
             }
             else
             {
-                
                 using (MySqlConnection conn = new MySqlConnection(DbConfiguration.LtcForm))
                 {
                     using (MySqlCommand cmd = new MySqlCommand("Save_Survey_Data", conn))

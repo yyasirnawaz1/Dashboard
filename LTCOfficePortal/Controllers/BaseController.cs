@@ -42,12 +42,17 @@ namespace LTCOfficePortal.Controllers
         }
 
         //TODO: remove this method and get the connection string based on office id
-        public string GetUserConnectionString()
+        public string GetUserConnectionStringDental()
         {
             return
                 DbConfiguration.LtcDental;
         }
 
+        public string GetUserConnectionStringForms()
+        {
+            return
+                DbConfiguration.LtcForm;
+        }
 
 
     }
