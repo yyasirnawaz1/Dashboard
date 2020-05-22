@@ -25,7 +25,7 @@ namespace LTCDataManager.FormEntryHome
 
             var dbForms = @"SELECT 
                      ss.SavedFormID,ss.Content,ss.SystemDate,pt.FirstName,pt.LastName
-                     from _form_saved ss left join patient pt on ss.PatientNumber=pt.PatientNumber where ss.FormProcessed=0 and ss.Office_sequence=" +
+                     from _form_saved ss left join patient pt on ss.PatientNumber=pt.PatientNumber where ss.IsSurveyForm = 0 AND ss.FormProcessed=0 and ss.Office_sequence=" +
                     OfficeId + " order by ss.SystemDate desc";
 
             var db = new LTCDataModel.PetaPoco.Database(connectionString, "MySql");
@@ -52,7 +52,7 @@ namespace LTCDataManager.FormEntryHome
         {
             var patientCommaSeparatedList = "";
 
-            var dbForms = $"SELECT PatientNumber, SavedFormID,Content, SystemDate from _form_saved where FormProcessed=0 and Office_sequence={OfficeId} order by SystemDate desc";
+            var dbForms = $"SELECT PatientNumber, SavedFormID,Content, SystemDate from _form_saved where IsSurveyForm = 0 AND FormProcessed=0 and Office_sequence={OfficeId} order by SystemDate desc";
 
             var db = new LTCDataModel.PetaPoco.Database(connectionStringForms, "MySql");
 

@@ -119,13 +119,13 @@ namespace LTCOfficePortal.Controllers
         public ActionResult GetPrivateSurveys()
         {
             //var result = gSurveyManager.GetAllPrivateSurvey(OfficeSequence);
-            return Json(_gSurveyManager.GetAllPrivateSurvey(OfficeSequence));
+            return Json(_gSurveyManager.GetAllPrivateSurvey(OfficeSequence,GetUserConnectionStringForms()));
         }
 
         [HttpGet]
         public ActionResult GetPrivateForms()
         {
-            return Json(_gFormManager.GetAllPrivateForm(OfficeSequence));
+            return Json(_gFormManager.GetAllPrivateForm(OfficeSequence,GetUserConnectionStringForms()));
         }
 
         [HttpPost]
@@ -177,8 +177,9 @@ namespace LTCOfficePortal.Controllers
                     Type = model.Type,
                     Office_Sequence = model.Office_Sequence,
                     PatientNumber = model.PatientNumber,
-                    PdfContent = pdfContent
-                }));
+                    PdfContent = pdfContent,
+                    IsSurveyForm= model.IsSurveyForm
+                }, GetUserConnectionStringForms()));
             }
             catch (Exception ex)
             {
@@ -304,7 +305,7 @@ namespace LTCOfficePortal.Controllers
         //[ValidateInput(false)]
         public ActionResult GetPrivateDesignSurvey(int OfficeSequence, int FormId, int PatientNumber, int AppointmentCounter)
         {
-            return Json(_gSurveyManager.GetSurveyDesign(FormId));
+            return Json(_gSurveyManager.GetSurveyDesign(FormId, GetUserConnectionStringForms()));
         }
 
         [HttpGet]
@@ -336,21 +337,21 @@ namespace LTCOfficePortal.Controllers
         //[ValidateInput(false)]
         public ActionResult GetPrivateDesignForm(int oid, int fid)
         {
-            return Json(_gFormManager.GetFormDesign(fid));
+            return Json(_gFormManager.GetFormDesign(fid,GetUserConnectionStringForms()));
         }
 
         [HttpGet]
         [AllowAnonymous]
         public ActionResult GetFormsPublicTags()
         {
-            return Json(_gFormManager.GetPublicTags());
+            return Json(_gFormManager.GetPublicTags(GetUserConnectionStringForms()));
         }
 
         [HttpGet]
         [AllowAnonymous]
         public ActionResult GetSurveyPublicTags()
         {
-            return Json(_gFormManager.GetPublicTags());
+            return Json(_gSurveyManager.GetPublicTags(GetUserConnectionStringForms()));
         }
 
         #endregion

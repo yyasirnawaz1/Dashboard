@@ -58,12 +58,12 @@ var TodayAppointmentParent = {
                 {
                     "targets": [3],
                     "render": function (data, type, row) {
-                        var arrivedIcon = '<i class="fa ' + arrivedDynamicIcon + '" title="Arrived"></i>';
-                        var checkInIcon = '<i class="fa ' + checkInDynamicIcon + '" title="Checkin"></i>';
+                        var arrivedIcon = '<i class="fa ' + arrivedDynamicIcon + '" title="Arrived"></i>&nbsp;';
+                        var checkInIcon = '<i class="fa ' + checkInDynamicIcon + '" title="Checkin"></i>&nbsp;';
 
                         var returnString = '';
-                        if (!appointmentDateVisible && row.ArrivedTime != '01/01/0001') returnString += arrivedIcon;
-                        if (!appointmentDateVisible && row.TakenInTime != '01/01/0001') returnString += checkInIcon;
+                        if (!appointmentDateVisible && row.ArrivedTime != '01/01/0001' && row.ArrivedTime != '' && row.ArrivedTime != null) returnString += arrivedIcon;
+                        if (!appointmentDateVisible && row.TakenInTime != '01/01/0001' && row.TakenInTime != '' && row.TakenInTime != null) returnString += checkInIcon;
                         returnString += data;
 
                         return returnString;
@@ -88,10 +88,10 @@ var TodayAppointmentParent = {
                     "targets": [8],
                     "data": null,
                     "render": function (data, type, full, row) {
-                        var btnArrived = '<a class="editable editable-click apply-Cursur-Pointer" onclick="TodayAppointmentParent.patientArrived(' + data + ')"><i class="fa ' + arrivedDynamicIcon + '" title="Arrived"></i></a>&nbsp;&nbsp;&nbsp;';
-                        var btnSurvey = '<a class="editable editable-click apply-Cursur-Pointer" onclick="TodayAppointmentParent.patientSurvey(' + data + ',' + full.PatientNumber + ',' + full.Office_Sequence + ')"><i class="fa fa-clipboard" title="Survey"></i></a> &nbsp;&nbsp;&nbsp;';
-                        var btnCheckIn = '<a class="editable editable-click apply-Cursur-Pointer" onclick="TodayAppointmentParent.patientCheckIn(' + data + ')"><i class="fa ' + checkInDynamicIcon + '" title="Checkin"></i></a> &nbsp;&nbsp;&nbsp; ';
-                        var btnSelectForm = '<a class="editable editable-click apply-Cursur-Pointer" onclick="TodayAppointmentParent.patientForm(' + data + ',' + full.PatientNumber + ',' + full.Office_Sequence + ')"><i class="fa fa-hand-pointer-o" title="Select Form"></i></a> &nbsp;&nbsp;&nbsp; ';
+                        var btnArrived = '<a class="editable editable-click apply-Cursur-Pointer" onclick="TodayAppointmentParent.patientArrived(' + data + ')">&nbsp;<i class="fa ' + arrivedDynamicIcon + '" title="Arrived"></i></a>&nbsp;&nbsp;&nbsp;';
+                        var btnSurvey = '<a class="editable editable-click apply-Cursur-Pointer" onclick="TodayAppointmentParent.patientSurvey(' + data + ',' + full.PatientNumber + ',' + full.Office_Sequence + ')">&nbsp;<i class="fa fa-clipboard" title="Survey"></i></a> &nbsp;&nbsp;&nbsp;';
+                        var btnCheckIn = '<a class="editable editable-click apply-Cursur-Pointer" onclick="TodayAppointmentParent.patientCheckIn(' + data + ')">&nbsp;<i class="fa ' + checkInDynamicIcon + '" title="Checkin"></i></a> &nbsp;&nbsp;&nbsp; ';
+                        var btnSelectForm = '<a class="editable editable-click apply-Cursur-Pointer" onclick="TodayAppointmentParent.patientForm(' + data + ',' + full.PatientNumber + ',' + full.Office_Sequence + ')">&nbsp;<i class="fa fa-hand-pointer-o" title="Select Form"></i></a> &nbsp;&nbsp;&nbsp; ';
                         //Arrived, Checkin, Select Form
 
                         var allButtons = '';
@@ -139,12 +139,12 @@ var TodayAppointmentParent = {
     },
 
     changeDate: function (fromDate, toDate) {
-        //appointmentDateVisible = true;
-        ////$('#txtDateSpan').html($('#daterangepicker_start').val() + ' - ' + $('#daterangepicker_end').val());
+        appointmentDateVisible = true;
+        //$('#txtDateSpan').html($('#daterangepicker_start').val() + ' - ' + $('#daterangepicker_end').val());
 
-        //var dateRange = $("#todayRangeControl").val().split('-');
-        //var fromDate = dateRange[0].replace(/\s+$/, '');
-        //var toDate = dateRange[1].replace(/\s+$/, '');
+        var dateRange = $("#todayRangeControl").val().split('-');
+        var fromDate = dateRange[0].replace(/\s+$/, '');
+        var toDate = dateRange[1].replace(/\s+$/, '');
 
 
         this.defaultLoad(fromDate, toDate);

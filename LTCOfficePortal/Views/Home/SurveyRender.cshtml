@@ -8,11 +8,15 @@
 
     string os = "0", fid = "0", pid = "0", ac = "0";
     os = HttpContextAccessor.HttpContext.Request.Query["os"].ToString();
-    pid = HttpContextAccessor.HttpContext.Request.Query["pi"].ToString();
+    pid = HttpContextAccessor.HttpContext.Request.Query["pn"].ToString();
     fid = HttpContextAccessor.HttpContext.Request.Query["fi"].ToString();
     ac = HttpContextAccessor.HttpContext.Request.Query["ac"].ToString();
 
 }
+
+<form class="form-inline hide" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/Identity/Account/Login">
+    <button id="logoutButton" type="submit" class="dropdown-item"><i class="icon-users"></i> Logout</button>
+</form>
 
 <link href="~/Resources/FormDesigner/assets/css/RateYo/RateYo.css" rel="stylesheet" />
 <div class="row">

@@ -173,6 +173,12 @@ namespace LTCDataManager.Form
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcForm);
             return db.Fetch<gFormPublicTag>($"SELECT STP.*, SC.Description as CategoryDescription FROM form_tag_public STP Left Join form_category SC on STP.CategoryID = SC.CategoryID Where  STP.IsSurveyForm = 0 ").ToList();
         }
+
+        public List<gFormPublicTag> GetPublicTags(string connectionString)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(connectionString);
+            return db.Fetch<gFormPublicTag>($"SELECT STP.*, SC.Description as CategoryDescription FROM form_tag_public STP Left Join form_category SC on STP.CategoryID = SC.CategoryID Where  STP.IsSurveyForm = 0 ").ToList();
+        }
         public void DeletePublicTags(int Id)
         {
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcForm))
@@ -187,7 +193,7 @@ namespace LTCDataManager.Form
 
            // var db = new LTCDataModel.PetaPoco.Database(connectionString, "MySql");
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcForm);
-            return db.Fetch<gFormAnswerWithPrivateForm>($"select * from _form_saved  where Office_Sequence = " + officeId).ToList();
+            return db.Fetch<gFormAnswerWithPrivateForm>($"select * from _form_saved  where IsSurveyForm = 0 AND Office_Sequence = " + officeId).ToList();
 
         }
         public string SaveFormAnswer(gFormSavedModel model)
@@ -204,7 +210,7 @@ namespace LTCDataManager.Form
         private bool IsFormAlreadyExist(gFormSavedModel model)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcForm);
-            var id = db.Fetch<int>($"SELECT SavedFormID FROM _form_saved where office_sequence={model.Office_Sequence} and FormID={model.FormID} and PatientNumber={model.PatientNumber}").FirstOrDefault();
+            var id = db.Fetch<int>($"SELECT SavedFormID FROM _form_saved where IsSurveyForm = 0 AND office_sequence={model.Office_Sequence} and FormID={model.FormID} and PatientNumber={model.PatientNumber}").FirstOrDefault();
             if (id == 0)
                 return false;
             return true;
@@ -214,6 +220,13 @@ namespace LTCDataManager.Form
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcForm);
             return db.Fetch<gPrivateFormModel>($"select * from form_private where FormID={formid}").FirstOrDefault();
         }
+
+        public gPrivateFormModel GetFormDesign(int formid, string connectionString)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(connectionString);
+            return db.Fetch<gPrivateFormModel>($"select * from form_private where FormID={formid}").FirstOrDefault();
+        }
+
         public gPublicFormModel GetPublicFormDesign(int formid)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcForm);
@@ -228,9 +241,14 @@ namespace LTCDataManager.Form
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcForm);
             return db.Fetch<gPrivateFormModel>($"select * from form_private where  IsSurveyForm = 0 AND Office_Sequence=" + officeId).ToList();
-            //return db.Fetch<gPrivateFormModel>($"select * from form_private").ToList();
-
         }
+
+        public List<gPrivateFormModel> GetAllPrivateForm(int officeId,string connectionString)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(connectionString);
+            return db.Fetch<gPrivateFormModel>($"select * from form_private where  IsSurveyForm = 0 AND Office_Sequence=" + officeId).ToList();
+        }
+
         public List<gFormReportModel> GetFormReport(int officeId)
         {
             var dbprivateSurveyDb = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
@@ -245,7 +263,7 @@ namespace LTCDataManager.Form
             // TODO
             //var db = new LTCDataModel.PetaPoco.Database(connectionString, "MySql");
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcForm);
-            var formAnswers = db.Fetch<gFormReportModel>($"SELECT count(SavedFormID) 'Count', MAX(SavedFormID) 'SavedFormID' FROM _form_saved  where Office_Sequence = {officeId} group by SavedFormID").ToList();
+            var formAnswers = db.Fetch<gFormReportModel>($"SELECT count(SavedFormID) 'Count', MAX(SavedFormID) 'SavedFormID' FROM _form_saved  where IsSurveyForm = 0 AND Office_Sequence = {officeId} group by SavedFormID").ToList();
 
             for (int i = 0; i < formAnswers.Count; i++)
             {

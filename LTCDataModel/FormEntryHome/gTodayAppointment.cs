@@ -59,5 +59,7 @@ namespace LTCDataModel.FormEntryHome
         public int Office_Sequence { get; set; }
         public string PatientNumber { get; set; }
         public string PdfContent { get; set; }
+
+        public bool IsSurveyForm { get; set; }
     }
 }

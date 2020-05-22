@@ -16,86 +16,41 @@ namespace LTCDataManager.User
 {
     public class gUserModuleManager
     {
-        //private readonly ConfigSettings _configuration;
-
-        //public gUserModuleManager(IOptions<ConfigSettings> configuration)
-        //{
-        //    _configuration = configuration.Value;
-        //    Utility.Config = configuration.Value; ;
-        //}
-
-        //public static bool GetAuthenticationModule(int office_sequence, string modulename)
-        //{
-        //    try
-        //    {
-        //        bool result = false;
-        //        using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LTCSystem))
-        //        {
-        //            string qry = $"select a.Office_Sequence,a.IsDashboardEnabled, a.IsContactListEnabled ,a.IsOfficeManagementOk, a.IsEFormEnabled as IsESurveyEnabled,a.IsEFormEnabled,a.Newsletter as IsNewsletterEnabled,a.IsOfficePortalEnabled, a.SMS as IsSMSEnabled from businessinfo WHERE Office_Sequence = {office_sequence}";
-        //            gUserModule found = db.Fetch<gUserModule>(qry).FirstOrDefault();
-        //            if (found != null)
-        //            {
-        //                switch (modulename)
-        //                {
-        //                    case "dashboard":
-        //                        result = found.IsDashboardEnabled == 1 ? true : false;
-        //                        break;
-        //                    case "officemanagement":
-        //                        result = found.IsParadigmCloudEnabled == 1 ? true : false;
-        //                        break;
-        //                    case "survey":
-        //                        result = found.IsESurveyEnabled == 1 ? true : false;
-        //                        break;
-        //                    case "form":
-        //                        result = found.IsEFormEnabled == 1 ? true : false;
-        //                        break;
-        //                    case "review":
-        //                        result = found.IsContactListEnabled == 1 ? true : false;
-        //                        break;
-        //                    case "newsletter":
-        //                        result = found.IsNewsletterEnabled == 1 ? true : false;
-        //                        break;
-        //                    case "report":
-        //                        result = found.IsOfficePortalEnabled == 1 ? true : false;
-        //                        break;
-        //                    case "sms":
-        //                        result = found.IsSMSEnabled == 1 ? true : false;
-        //                        break;
-        //                    default:
-        //                        break;
-        //                }
-        //            }
-        //            else
-        //            {
-        //                result = false;
-        //            }
-        //        }
-
-        //        return result;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return false;
-        //    }
-
-        //}
+        
         public static gDefaultUser GetDefaultUser(int officeSequence)
         {
             gDefaultUser model;
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
             {
-                string qry = $"select Email, Password, UserName, IsDefaultUser  from ltcsystem.authentication  WHERE Office_Sequence  = {officeSequence} AND IsDefaultUser = 1 ";
+                string qry = $"select Email, Password, UserName, IsDefaultUser from authentication  WHERE Office_Sequence  = {officeSequence} AND IsDefaultUser = 1 ";
                 model = db.Fetch<gDefaultUser>(qry).FirstOrDefault();
             }
 
             return model;
         }
+
+        public static gBusinessInfoIp GetConnectionString(string email)
+        {
+            gBusinessInfoIp model;
+            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
+            {
+                string qry = $"select Dental_DB_Name,  Dental_DB_IP , Dental_DB_Port,  Dental_DB_Type , Gateway_DB_Name , Gateway_DB_IP , Gateway_DB_Port,  Gateway_DB_Type , Form_DB_Name , Form_DB_IP , Form_DB_Port  from businessinfo_db_ip Where Id=3;";
+                model = db.Fetch<gBusinessInfoIp>(qry).FirstOrDefault();
+            }
+            if (model == null)
+            {
+                model = new gBusinessInfoIp();
+            }
+
+            return model;
+        }
+
         public static gUserProfile NewsletterOfficeInfo(string SyncIdentificator)
         {
             gUserProfile model;
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
             {
-                string qry = $"select * from ltcsystem.businessInfo where SyncIdentificator = '" + SyncIdentificator + "' AND Active = 1 AND Newsletter = 1;";
+                string qry = $"select * from businessInfo where SyncIdentificator = '" + SyncIdentificator + "' AND Active = 1 AND Newsletter = 1;";
                 model = db.Fetch<gUserProfile>(qry).FirstOrDefault();
             }
             if (model == null)

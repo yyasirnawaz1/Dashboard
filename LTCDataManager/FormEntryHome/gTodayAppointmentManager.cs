@@ -147,5 +147,50 @@ namespace LTCDataManager.TodayAppointment
             }
             return true;
         }
+
+        public static bool SaveSurveyAndForm(gSaveSurveyAndFormModel model,string connectionString)
+        {
+            //if (model.Type == 0)
+            //{
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("Save_Form_Data", conn))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        conn.Open();
+                        cmd.Parameters.Add(new MySqlParameter("AC", 0));
+                        cmd.Parameters.Add(new MySqlParameter("FormID", model.FormID));
+                        cmd.Parameters.Add(new MySqlParameter("Content", model.Content));
+                        cmd.Parameters.Add(new MySqlParameter("PatientNumber", model.PatientNumber));
+                        cmd.Parameters.Add(new MySqlParameter("OfficeSequence", model.Office_Sequence));
+                        cmd.Parameters.Add(new MySqlParameter("PdfFile", model.PdfContent));
+                        cmd.Parameters.Add(new MySqlParameter("IsSurveyForm", model.IsSurveyForm));
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+                    }
+                }
+            //}
+            //else
+            //{
+            //    using (MySqlConnection conn = new MySqlConnection(connectionString))
+            //    {
+            //        using (MySqlCommand cmd = new MySqlCommand("Save_Survey_Data", conn))
+            //        {
+            //            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            //            conn.Open();
+            //            cmd.Parameters.Add(new MySqlParameter("AC", model.AppointmentCounter));
+            //            cmd.Parameters.Add(new MySqlParameter("FormID", model.FormID));
+            //            cmd.Parameters.Add(new MySqlParameter("Content", model.Content));
+            //            cmd.Parameters.Add(new MySqlParameter("PatientNumber", model.PatientNumber));
+            //            cmd.Parameters.Add(new MySqlParameter("OfficeSequence", model.Office_Sequence));
+            //            cmd.Parameters.Add(new MySqlParameter("PdfFile", model.PdfContent));
+            //            cmd.Parameters.Add(new MySqlParameter("IsSurveyForm", model.IsSurveyForm));
+            //            cmd.ExecuteNonQuery();
+            //            conn.Close();
+            //        }
+            //    }
+            //}
+            return true;
+        }
     }
 }
