@@ -15,5 +15,7 @@ namespace LTCOfficePortal.Models
 
         public int Office_Sequence { get; set; }
         public string PatientNumber { get; set; }
+
+        public bool IsSurveyForm { get; set; }
     }
 }

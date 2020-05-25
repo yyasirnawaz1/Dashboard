@@ -163,11 +163,12 @@
         var type = 0;
 
         //Common.showLoader();
-        $.post("/Home/SaveSurveyAndForm", { FormID: FID, PatientNumber: PID, Office_Sequence: OS, Type: type, Content: content }, function (result) {
+        $.post("/Home/SaveSurveyAndForm", { FormID: FID, PatientNumber: PID, Office_Sequence: OS, Type: type, Content: content, IsSurveyForm:false }, function (result) {
             $("btnSubmit").hide();
             // Common.hideLoader();
 
             alert('Data Successfully Added');
+            $("#logoutButton").click();
             //  window.location.href = '/account/logout';
             //$('#modalFormSubmit').modal('hide');
         });

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using LTCDataManager.DataAccess;
+using LTCDataModel.Office;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ namespace LTCOfficePortal.Controllers
     public class BaseController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
-         
+
         private string webRootPath;
        
         public BaseController(IHostingEnvironment hostingEnvironment )
@@ -41,14 +42,14 @@ namespace LTCOfficePortal.Controllers
             }
         }
 
-        //TODO: remove this method and get the connection string based on office id
-        public string GetUserConnectionString()
+        public string GetUserConnectionStringDental()
         {
-            return
-                DbConfiguration.LtcDental;
+            return Request.Cookies["CDental"];
         }
 
-
-
+        public string GetUserConnectionStringForms()
+        {
+            return Request.Cookies["CForm"];
+        }
     }
 }

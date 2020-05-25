@@ -47,6 +47,8 @@ namespace LTCOfficePortal
                     Configuration.GetConnectionString("LTCSystem")));
 
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
+            
             services.Configure<ConfigSettings>(Configuration.GetSection("Configuration"));
 
             services.AddTransient<IEmailSender, EmailSender>();

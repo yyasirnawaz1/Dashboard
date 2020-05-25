@@ -72,8 +72,6 @@ namespace LTCOfficePortal.Controllers
         {
             return View();
         }
-
-
         
         public IActionResult Privacy()
         {
@@ -90,13 +88,13 @@ namespace LTCOfficePortal.Controllers
         [HttpGet]
         public ActionResult GetProviders()
         {
-            return Json(_gOfficeManager.GetProviders(GetUserConnectionString()));
+            return Json(_gOfficeManager.GetProviders(GetUserConnectionStringDental()));
         }
 
         [HttpGet]
         public ActionResult GetOfficeName()
         {
-            return Json(gOfficeManager.GetOfficeName(GetUserConnectionString(), OfficeSequence));
+            return Json(gOfficeManager.GetOfficeName(GetUserConnectionStringDental(), OfficeSequence));
         }
         #endregion
 
@@ -106,34 +104,34 @@ namespace LTCOfficePortal.Controllers
         public ActionResult GetTodayAppointment()
         {
             if (HttpContext.Request.Query["fromDate"].ToString() != "undefined" && HttpContext.Request.Query["toDate"].ToString() != "undefined")
-                return Json(gTodayAppointmentManager.GetTodayAppointment(GetUserConnectionString(), OfficeSequence, HttpContext.Request.Query["fromDate"].ToString(), HttpContext.Request.Query["toDate"].ToString()));
-            return Json(gTodayAppointmentManager.GetTodayAppointment(GetUserConnectionString(), OfficeSequence));
+                return Json(gTodayAppointmentManager.GetTodayAppointment(GetUserConnectionStringDental(), OfficeSequence, HttpContext.Request.Query["fromDate"].ToString(), HttpContext.Request.Query["toDate"].ToString()));
+            return Json(gTodayAppointmentManager.GetTodayAppointment(GetUserConnectionStringDental(), OfficeSequence));
         }
 
         [HttpPost]
         public ActionResult AddPortalStatus(int AppId, int PortalAction, int Type)
         {
             //var AppId = Convert.ToInt32(Request.QueryString["AppId"]);
-            return Json(gTodayAppointmentManager.AddPortalStatus(GetUserConnectionString(), AppId, PortalAction, Type));
+            return Json(gTodayAppointmentManager.AddPortalStatus(GetUserConnectionStringDental(), AppId, PortalAction, Type));
         }
 
         [HttpGet]
         public ActionResult GetPrivateSurveys()
         {
             //var result = gSurveyManager.GetAllPrivateSurvey(OfficeSequence);
-            return Json(_gSurveyManager.GetAllPrivateSurvey(OfficeSequence));
+            return Json(_gSurveyManager.GetAllPrivateSurvey(OfficeSequence,GetUserConnectionStringForms()));
         }
 
         [HttpGet]
         public ActionResult GetPrivateForms()
         {
-            return Json(_gFormManager.GetAllPrivateForm(OfficeSequence));
+            return Json(_gFormManager.GetAllPrivateForm(OfficeSequence,GetUserConnectionStringForms()));
         }
 
         [HttpPost]
         public ActionResult AddFormQueueEntry(QueueEntryViewModel model)
         {
-            return Json(gTodayAppointmentManager.AddFormQueueEntry(GetUserConnectionString(), new gAddQueueEntryModel
+            return Json(gTodayAppointmentManager.AddFormQueueEntry(GetUserConnectionStringForms(), new gAddQueueEntryModel
             {
                 AppointmentCounter = model.AppointmentCounter,
                 FormID = model.FormID,
@@ -148,7 +146,7 @@ namespace LTCOfficePortal.Controllers
         [HttpPost]
         public ActionResult AddSurveyQueueEntry(QueueEntryViewModel model)
         {
-            return Json(gTodayAppointmentManager.AddSurveyQueueEntry(GetUserConnectionString(), new gAddQueueEntryModel
+            return Json(gTodayAppointmentManager.AddSurveyQueueEntry(GetUserConnectionStringForms(), new gAddQueueEntryModel
             {
                 AppointmentCounter = model.AppointmentCounter,
                 FormID = model.FormID,
@@ -179,8 +177,9 @@ namespace LTCOfficePortal.Controllers
                     Type = model.Type,
                     Office_Sequence = model.Office_Sequence,
                     PatientNumber = model.PatientNumber,
-                    PdfContent = pdfContent
-                }));
+                    PdfContent = pdfContent,
+                    IsSurveyForm= model.IsSurveyForm
+                }, GetUserConnectionStringForms()));
             }
             catch (Exception ex)
             {
@@ -219,7 +218,7 @@ namespace LTCOfficePortal.Controllers
             public string GetPatients(string office_sequence, string sEcho, int iDisplayStart, int iDisplayLength, string sSearch)
         {
 
-            var resultData = gSearchPatientManager.GetPatients(GetUserConnectionString(), OfficeSequence, sSearch,
+            var resultData = gSearchPatientManager.GetPatients(GetUserConnectionStringDental(), OfficeSequence, sSearch,
                 iDisplayStart,
                 iDisplayLength);
 
@@ -230,7 +229,7 @@ namespace LTCOfficePortal.Controllers
             };
            
 
-            int count = gSearchPatientManager.GetPatientCount(GetUserConnectionString(), OfficeSequence, sSearch);
+            int count = gSearchPatientManager.GetPatientCount(GetUserConnectionStringDental(), OfficeSequence, sSearch);
 
             StringBuilder sb = new StringBuilder();
             sb.Clear();
@@ -287,7 +286,7 @@ namespace LTCOfficePortal.Controllers
         [HttpGet]
         public ActionResult GePendingtForms()
         {
-            return Json(gPendingForm.GetForms(GetUserConnectionString(), OfficeSequence));
+            return Json(gPendingForm.GetForms(GetUserConnectionStringDental(), GetUserConnectionStringForms(), OfficeSequence));
         }
         #endregion
 
@@ -295,7 +294,7 @@ namespace LTCOfficePortal.Controllers
         [HttpGet]
         public ActionResult GetPendingSurveys()
         {
-            return Json(gPendingSurvey.GetSurveys(GetUserConnectionString(), OfficeSequence));
+            return Json(gPendingSurvey.GetSurveys(GetUserConnectionStringDental(), GetUserConnectionStringForms(), OfficeSequence));
         }
         #endregion
 
@@ -306,7 +305,7 @@ namespace LTCOfficePortal.Controllers
         //[ValidateInput(false)]
         public ActionResult GetPrivateDesignSurvey(int OfficeSequence, int FormId, int PatientNumber, int AppointmentCounter)
         {
-            return Json(_gSurveyManager.GetSurveyDesign(FormId));
+            return Json(_gSurveyManager.GetSurveyDesign(FormId, GetUserConnectionStringForms()));
         }
 
         [HttpGet]
@@ -314,7 +313,7 @@ namespace LTCOfficePortal.Controllers
         //[ValidateInput(false)]
         public ActionResult GetPatientDetail(int OfficeSequence, int PatientNumber)
         {
-            return Json(gSearchPatientManager.GetPatientDetail(GetUserConnectionString(), OfficeSequence, PatientNumber));
+            return Json(gSearchPatientManager.GetPatientDetail(GetUserConnectionStringDental(), OfficeSequence, PatientNumber));
         }
 
         [HttpGet]
@@ -322,7 +321,7 @@ namespace LTCOfficePortal.Controllers
         //[ValidateInput(false)]
         public ActionResult GetPatientAddress(int OfficeSequence, int PatientNumber)
         {
-            return Json(gSearchPatientManager.GetPatientAddress(GetUserConnectionString(), OfficeSequence, PatientNumber));
+            return Json(gSearchPatientManager.GetPatientAddress(GetUserConnectionStringDental(), OfficeSequence, PatientNumber));
         }
 
         [HttpGet]
@@ -330,7 +329,7 @@ namespace LTCOfficePortal.Controllers
         //[ValidateInput(false)]
         public ActionResult GetPatientPhone(int OfficeSequence, int PatientNumber)
         {
-            return Json(gSearchPatientManager.GetPatientPhone(GetUserConnectionString(), OfficeSequence, PatientNumber));
+            return Json(gSearchPatientManager.GetPatientPhone(GetUserConnectionStringDental(), OfficeSequence, PatientNumber));
         }
 
         [HttpGet]
@@ -338,21 +337,21 @@ namespace LTCOfficePortal.Controllers
         //[ValidateInput(false)]
         public ActionResult GetPrivateDesignForm(int oid, int fid)
         {
-            return Json(_gFormManager.GetFormDesign(fid));
+            return Json(_gFormManager.GetFormDesign(fid,GetUserConnectionStringForms()));
         }
 
         [HttpGet]
         [AllowAnonymous]
         public ActionResult GetFormsPublicTags()
         {
-            return Json(_gFormManager.GetPublicTags());
+            return Json(_gFormManager.GetPublicTags(GetUserConnectionStringForms()));
         }
 
         [HttpGet]
         [AllowAnonymous]
         public ActionResult GetSurveyPublicTags()
         {
-            return Json(_gFormManager.GetPublicTags());
+            return Json(_gSurveyManager.GetPublicTags(GetUserConnectionStringForms()));
         }
 
         #endregion

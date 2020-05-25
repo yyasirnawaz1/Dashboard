@@ -7,6 +7,11 @@
     Layout = "~/Views/Shared/_RenderLayout.cshtml";
 }
 
+<form class="form-inline hide" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/Identity/Account/Login">
+    <button id="logoutButton" type="submit" class="dropdown-item"><i class="icon-users"></i> Logout</button>
+</form>
+
+
 <link href="~/Resources/FormDesigner/assets/css/RateYo/RateYo.css" rel="stylesheet" />
 <script src="~/Resources/FormDesigner/assets/js/Rateyo/jquery.rateyo.min.js"></script>
 

@@ -125,11 +125,11 @@
         var type = 1;
 
         Common.showLoader();
-        $.post("/Home/SaveSurveyAndForm", { AppointmentCounter: AP, FormID: FID, PatientNumber: PID, Office_Sequence: OS, Type: type, Content: content }, function (result) {
+        $.post("/Home/SaveSurveyAndForm", { AppointmentCounter: AP, FormID: FID, PatientNumber: PID, Office_Sequence: OS, Type: type, Content: content, IsSurveyForm : true }, function (result) {
             $("btnSubmit").hide();
             Common.hideLoader();
             alert('Data Successfully Added');
-            window.location.href = '/account/logout';
+            $("#logoutButton").click();
         });
     }
 }

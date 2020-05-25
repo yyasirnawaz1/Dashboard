@@ -7,7 +7,8 @@ using LTCDataModel.PetaPoco;
 
 namespace LTCDataModel.Survey
 {
-	[TableName("_survey_saved")]
+	[Obsolete]
+	[TableName("_form_saved")]
 	[PrimaryKey("SavedFormID", AutoIncrement = true)]
 	public class gSurveySavedModel
 	{

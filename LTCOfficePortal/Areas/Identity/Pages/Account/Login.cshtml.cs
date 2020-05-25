@@ -10,6 +10,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using LTCDataManager.User;
+using LTCDataModel.Configurations;
+using Microsoft.Extensions.Options;
 
 namespace LTCOfficePortal.Areas.Identity.Pages.Account
 {
@@ -18,10 +22,14 @@ namespace LTCOfficePortal.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
+            IOptions<ApplicationSettings> applicationSettings,
+            ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
+            _applicationSettings = applicationSettings.Value;
             _logger = logger;
         }
 
@@ -61,6 +69,9 @@ namespace LTCOfficePortal.Areas.Identity.Pages.Account
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
+            Response.Cookies.Delete("CDental");
+            Response.Cookies.Delete("CForm");
+
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
@@ -77,6 +88,7 @@ namespace LTCOfficePortal.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
+                    SetupConnectionCookie(Input.Email);
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
@@ -98,6 +110,26 @@ namespace LTCOfficePortal.Areas.Identity.Pages.Account
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+
+        private void SetupConnectionCookie(string email)
+        {
+            #region Cookie
+
+            var setting = gUserModuleManager.GetConnectionString(email);
+            var connectionStringTemplate = "Server={0};userid="+ _applicationSettings.UserName + ";password=" + _applicationSettings.Password + ";database={1};Port={2};Convert Zero Datetime=True;SslMode=none;Connection Timeout=190;";
+
+            var options = new CookieOptions
+            {
+                Expires = DateTime.Now.AddDays(1),
+                IsEssential = true
+            };
+            // get office detail here
+
+            Response.Cookies.Append("CDental", string.Format(connectionStringTemplate,setting.Dental_DB_IP,setting.Dental_DB_Name,setting.Dental_DB_Port), options);
+            Response.Cookies.Append("CForm", string.Format(connectionStringTemplate, setting.Form_DB_IP, setting.Form_DB_Name, setting.Form_DB_Port), options);
+
+            #endregion
         }
     }
 }
