@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using LTCDataManager.User;
 using LTCDataModel.Configurations;
 using Microsoft.Extensions.Options;
+using System.Security.Claims;
 
 namespace LTCOfficePortal.Areas.Identity.Pages.Account
 {
@@ -115,7 +116,7 @@ namespace LTCOfficePortal.Areas.Identity.Pages.Account
         private void SetupConnectionCookie(string email)
         {
             #region Cookie
-
+           
             var setting = gUserModuleManager.GetConnectionString(email);
             var connectionStringTemplate = "Server={0};userid="+ _applicationSettings.UserName + ";password=" + _applicationSettings.Password + ";database={1};Port={2};Convert Zero Datetime=True;SslMode=none;Connection Timeout=190;";
 

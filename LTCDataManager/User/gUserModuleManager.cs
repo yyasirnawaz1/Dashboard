@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using LTCDataManager.DataAccess;
@@ -34,7 +35,7 @@ namespace LTCDataManager.User
             gBusinessInfoIp model;
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
             {
-                string qry = $"select Dental_DB_Name,  Dental_DB_IP , Dental_DB_Port,  Dental_DB_Type , Gateway_DB_Name , Gateway_DB_IP , Gateway_DB_Port,  Gateway_DB_Type , Form_DB_Name , Form_DB_IP , Form_DB_Port  from businessinfo_db_ip Where Id=3;";
+                string qry = $@"Select BIP.Dental_DB_Name,  BIP.Dental_DB_IP , BIP.Dental_DB_Port,  BIP.Dental_DB_Type , BIP.Gateway_DB_Name , BIP.Gateway_DB_IP , BIP.Gateway_DB_Port,  BIP.Gateway_DB_Type , BIP.Form_DB_Name , BIP.Form_DB_IP , BIP.Form_DB_Port from authentication A  INNER JOIN businessinfo BI on A.Office_Sequence = BI.Office_Sequence INNER JOIN businessinfo_db_ip BIP ON BI.AlternateDB_ID = BIP.ID Where A.email = '{email.Replace("@","@@")}'";
                 model = db.Fetch<gBusinessInfoIp>(qry).FirstOrDefault();
             }
             if (model == null)
@@ -52,10 +53,6 @@ namespace LTCDataManager.User
             {
                 string qry = $"select * from businessInfo where SyncIdentificator = '" + SyncIdentificator + "' AND Active = 1 AND Newsletter = 1;";
                 model = db.Fetch<gUserProfile>(qry).FirstOrDefault();
-            }
-            if (model == null)
-            {
-                model = new gUserProfile();
             }
 
             return model;

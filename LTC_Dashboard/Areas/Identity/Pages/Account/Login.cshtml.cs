@@ -39,6 +39,10 @@ namespace LTCDashboard.Areas.Identity.Pages.Account
         [TempData]
         public string ErrorMessage { get; set; }
 
+
+        [TempData]
+        public string MenuErrorMessage { get; set; }
+
         public class InputModel
         {
             [Required]
