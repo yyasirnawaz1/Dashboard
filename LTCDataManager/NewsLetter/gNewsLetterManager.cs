@@ -278,7 +278,10 @@ namespace LTCDataManager.NewsLetter
                     model.IsParadigmNewsletter = false;
                 }
                 if (found != null)
+                {
+                    model.TemplateSourceMarkup = found.MainBodymarkup;
                     db.Update(model, model.LetterID);
+                }
                 else
                 {
                     model.TemplateSourceMarkup = model.MainBodymarkup;
