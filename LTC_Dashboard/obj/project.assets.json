@@ -5178,6 +5178,8 @@
         "framework": ".NETCoreApp,Version=v2.2",
         "dependencies": {
           "ElasticEmail.WebApiClient": "1.3.106",
+          "Microsoft.AspNetCore.App": "2.2.0",
+          "Microsoft.AspNetCore.Identity": "2.2.0",
           "MySql.Data": "8.0.17",
           "PetaPoco.Core": "5.1.306"
         },

@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
+using LTCDataManager.Email;
+using LTCDataModel.User;
 
 namespace LTCAdminPortal
 {
@@ -37,17 +39,32 @@ namespace LTCAdminPortal
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequiredLength = 1;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+            });
+
             services.AddScoped<IPasswordHasher<ApplicationUser>, CustomPasswordHasher>(); // disable password hashing in that class
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySql(
-                    Configuration.GetConnectionString("LTCSystem")));
-
+                options.UseMySql(Configuration.GetConnectionString("LTCSystem"))
+            );
+            services.Configure<EmailManager.ElasticEmail>(Configuration.GetSection("ElasticEmail"));
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.Configure<ConfigSettings>(Configuration.GetSection("Configuration"));
             services.Configure<Mapping>(Configuration.GetSection("Mapping"));
 
+
             services.AddTransient<IEmailSender, EmailSender>();
+
             services.AddIdentity<ApplicationUser, IdentityRole<int>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddClaimsPrincipalFactory<CustomClaimsPrincipalFactory>()
@@ -55,6 +72,10 @@ namespace LTCAdminPortal
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "");
+                })
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
             services.ConfigureApplicationCookie(options =>

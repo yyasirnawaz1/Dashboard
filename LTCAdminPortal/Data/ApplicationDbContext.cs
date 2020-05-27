@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using LTCDataModel.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,6 @@ namespace LTCAdminPortal.Data
             builder.Entity<ApplicationUser>().ToTable("Authentication").Property(p => p.Id).HasColumnName("DoctorID");
             builder.Entity<ApplicationUser>().ToTable("Authentication").Property(p => p.PasswordHash).HasColumnName("Password");
             builder.Entity<ApplicationUser>().ToTable("Authentication").Property(p => p.PhoneNumber).HasColumnName("Phone");
-
 
         }
     }

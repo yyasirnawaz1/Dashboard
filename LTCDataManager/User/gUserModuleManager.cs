@@ -17,7 +17,31 @@ namespace LTCDataManager.User
 {
     public class gUserModuleManager
     {
-        
+        public static List<ApplicationUser> GetAllUsers()
+        {
+           List<ApplicationUser> model;
+            using (var db = new Database(DbConfiguration.LtcSystem))
+            {
+                string qry = $"select Email, Password as PasswordHash, DoctorID as Id, Office_Number, Branch_Number, Provider, Salutation, AuthenticationPhone, LastName, FirstName, Initials, Phone, Fax, AddressLine1, AddressLine2, AddressLine3, City, Province, Country, PostalCode, MondayCSV, TuesdayCSV, WednesdayCSV, ThursdayCSV, FridayCSV, SaturdayCSV, SundayCSV, LastLogin, PhotoImageURL, WebsiteURL, ActivationStatus, LanguageSelected, DateFormat, SelectedTemplateId, SelectedMainTitle_Name_ClinicName, PreferedSubIndustriesCSV, FirstNewsletterDate, NotifyAutoSchedulesBeforeDispatch, NotifyAutoSchedulesAfterDispatch, AutoNewsletterCount, DB_path, serial_number, cust_id, Providerrange, UserName, NormalizedUserName, NormalizedEmail, EmailConfirmed, SecurityStamp, ConcurrencyStamp, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount, Office_Sequence, IsSystemAdministrator, IsAdministrator, IsDisplaySummary, IsDefaultUser from authentication";
+                model = db.Fetch<ApplicationUser>(qry).ToList();
+            }
+
+            return model;
+        }
+
+        public static ApplicationUser GetUserById(int Id)
+        {
+            ApplicationUser model;
+            using (var db = new Database(DbConfiguration.LtcSystem))
+            {
+                string qry = $"select Email, Password as PasswordHash,SecurityStamp,ConcurrencyStamp, DoctorID as Id, Office_Number, Branch_Number, Provider, Salutation, AuthenticationPhone, LastName, FirstName, Initials, Phone, Fax, AddressLine1, AddressLine2, AddressLine3, City, Province, Country, PostalCode, MondayCSV, TuesdayCSV, WednesdayCSV, ThursdayCSV, FridayCSV, SaturdayCSV, SundayCSV, LastLogin, PhotoImageURL, WebsiteURL, ActivationStatus, LanguageSelected, DateFormat, SelectedTemplateId, SelectedMainTitle_Name_ClinicName, PreferedSubIndustriesCSV, FirstNewsletterDate, NotifyAutoSchedulesBeforeDispatch, NotifyAutoSchedulesAfterDispatch, AutoNewsletterCount, DB_path, serial_number, cust_id, Providerrange, UserName, NormalizedUserName, NormalizedEmail, EmailConfirmed, SecurityStamp, ConcurrencyStamp, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount, Office_Sequence, IsSystemAdministrator, IsAdministrator, IsDisplaySummary, IsDefaultUser from authentication WHERE DoctorID={Id}";
+                model = db.Fetch<ApplicationUser>(qry).FirstOrDefault();
+            }
+
+            return model;
+        }
+
+
         public static gDefaultUser GetDefaultUser(int officeSequence)
         {
             gDefaultUser model;
