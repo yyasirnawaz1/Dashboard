@@ -89,4 +89,16 @@ namespace LTCDataModel.Office
 
 
 	}
+    public class gAttachment
+    {
+        public int Counter { get; set; }
+        public string FileName { get; set; }
+        public string AttachmentType { get; set; }
+        public byte[] Attachment { get; set; }
+        public string SyncIdentificator { get; set; }
+        public bool IsClientRead { get; set; }
+        public DateTime ReadDate { get; set; }
+
+
+    }
 }

@@ -15,6 +15,7 @@ using LTCDataModel.Office;
 using Microsoft.AspNetCore.Identity;
 using LTCDashboard.Data;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using LTCDataManager.Portal;
 
 namespace LTCDashboard.Controllers
 {
@@ -43,7 +44,23 @@ namespace LTCDashboard.Controllers
         {
             return Json(gUserModuleManager.GetUserPermissions(UserId));
         }
-
+        [AllowAnonymous]
+        [Route("Statement/{id}")]
+        public IActionResult DownloadFile(string id)
+        {
+            string returnUrl = Url.Content("/Identity/Account/Login");
+            var net = new System.Net.WebClient();
+            var res = gPortalAttachmentManager.GetAttachment(id);
+            if (res != null)
+            {
+                var content = new System.IO.MemoryStream(res.Attachment);
+                var contentType = "APPLICATION/octet-stream";
+                var fileName = res.FileName;
+                gPortalAttachmentManager.UpdateAttachment(res);
+                return File(content, contentType, fileName);
+            }
+            return LocalRedirect(returnUrl);
+        }
         [HttpGet]
         public ActionResult GetBusinessNames()
         {

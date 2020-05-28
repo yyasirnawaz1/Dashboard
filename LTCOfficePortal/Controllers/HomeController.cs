@@ -22,6 +22,7 @@ using Newtonsoft.Json;
  
 using System.IO;
 using System.Text;
+using LTCDataManager.Portal;
 
 namespace LTCOfficePortal.Controllers
 {
@@ -44,7 +45,7 @@ namespace LTCOfficePortal.Controllers
             _gOfficeManager = new gOfficeManager(configuration);
             
         }
-
+       
         public IActionResult Index()
         {
             return View();
