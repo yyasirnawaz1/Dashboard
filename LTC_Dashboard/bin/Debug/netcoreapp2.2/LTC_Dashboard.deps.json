@@ -921,6 +921,54 @@
           "ref/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
+      "Twilio/5.33.1": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Tokens": "5.3.0",
+          "Newtonsoft.Json": "12.0.2",
+          "System.Collections.Specialized": "4.3.0",
+          "System.IdentityModel.Tokens.Jwt": "5.3.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Twilio.dll": {
+            "assemblyVersion": "5.33.1.0",
+            "fileVersion": "5.33.1.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Twilio.dll": {}
+        }
+      },
+      "Twilio.AspNet.Common/5.33.1": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.3"
+        },
+        "runtime": {
+          "lib/netstandard1.0/Twilio.AspNet.Common.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.0/Twilio.AspNet.Common.dll": {}
+        }
+      },
+      "Twilio.AspNet.Core/5.33.1": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Core": "2.2.0",
+          "NETStandard.Library": "2.0.3",
+          "Twilio": "5.33.1",
+          "Twilio.AspNet.Common": "5.33.1"
+        },
+        "runtime": {
+          "lib/netstandard1.6/Twilio.AspNet.Core.dll": {
+            "assemblyVersion": "5.33.1.0",
+            "fileVersion": "5.33.1.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.6/Twilio.AspNet.Core.dll": {}
+        }
+      },
       "LTCDataManager/1.0.0": {
         "dependencies": {
           "ElasticEmail.WebApiClient": "1.3.106",
@@ -929,7 +977,8 @@
           "Microsoft.Extensions.Configuration.Json": "2.2.0",
           "Microsoft.Extensions.Options": "2.2.0",
           "Newtonsoft.Json": "12.0.2",
-          "Select.HtmlToPdf.NetCore": "19.2.0"
+          "Select.HtmlToPdf.NetCore": "19.2.0",
+          "Twilio.AspNet.Core": "5.33.1"
         },
         "runtime": {
           "LTCDataManager.dll": {}
@@ -4443,6 +4492,27 @@
       "sha512": "sha512-Zm2BdeanuncYs3NhCj4c9e1x3EXFzFBVv2wPEc/Dj4ZbI9R8ecLSR5frAsx4zJCPBtKQreQ7Q/KxJEohJZbfzA==",
       "path": "system.xml.xpath.xmldocument/4.0.1",
       "hashPath": "system.xml.xpath.xmldocument.4.0.1.nupkg.sha512"
+    },
+    "Twilio/5.33.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PB+PR1KU4q9kF9JrKTe4mPVW/SSsGM7svukooUWpj2Mtb0NU2vFO0pk8Q8T3NGvRW7tFDYrY0mQO5NjGPhPmQQ==",
+      "path": "twilio/5.33.1",
+      "hashPath": "twilio.5.33.1.nupkg.sha512"
+    },
+    "Twilio.AspNet.Common/5.33.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bhraBhABgftWbffPi8QOr6j+P/KvPW+Vr0Ua+ePhA5Kfa6BdogYv2VMd5HPhLb4+Wb8RUSZft3d057loEocKoA==",
+      "path": "twilio.aspnet.common/5.33.1",
+      "hashPath": "twilio.aspnet.common.5.33.1.nupkg.sha512"
+    },
+    "Twilio.AspNet.Core/5.33.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0x3cbyVDztM2kI2UywTggqlSz9ep+GKVtLQsuCsu/KHBEgWV5L7NJVb2pSC3MDk1BeGIHDXmjPyOwhrq+jiD1w==",
+      "path": "twilio.aspnet.core/5.33.1",
+      "hashPath": "twilio.aspnet.core.5.33.1.nupkg.sha512"
     },
     "LTCDataManager/1.0.0": {
       "type": "project",

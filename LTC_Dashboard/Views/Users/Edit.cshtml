@@ -21,12 +21,6 @@
             <div class="row">
 
                 <div class="col-md-6">
-
-                    @*<div class="form-group">
-            <label asp-for="UserName" class="control-label"></label>
-            <input asp-for="UserName" class="form-control" required />
-            <span asp-validation-for="UserName" class="text-danger"></span>
-        </div>*@
                     <div class="form-group">
                         <label class="control-label">Email/UserName</label>
                         <input asp-for="Email" class="form-control" disabled />
@@ -49,6 +43,7 @@
                         <select name="allowed_offices" id="allowed_offices" class="form-control" asp-items="@((IEnumerable<SelectListItem>)(ViewBag.OfficeList))" multiple>
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label asp-for="Branch_Number" class="control-label"></label>
                         <input asp-for="Branch_Number" class="form-control" />
@@ -120,6 +115,9 @@
                         <input asp-for="PostalCode" class="form-control" />
                         <span asp-validation-for="PostalCode" class="text-danger"></span>
                     </div>
+
+                </div>
+                <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group form-check">
@@ -165,8 +163,6 @@
 
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Fax" class="control-label"></label>
                         <input asp-for="Fax" class="form-control" />

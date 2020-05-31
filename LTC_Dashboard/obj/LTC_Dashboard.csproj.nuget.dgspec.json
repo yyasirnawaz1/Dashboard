@@ -74,6 +74,10 @@
             "Select.HtmlToPdf.NetCore": {
               "target": "Package",
               "version": "[19.2.0, )"
+            },
+            "Twilio.AspNet.Core": {
+              "target": "Package",
+              "version": "[5.33.1, )"
             }
           },
           "imports": [

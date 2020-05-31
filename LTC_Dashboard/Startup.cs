@@ -71,6 +71,7 @@ namespace LTCDashboard
                 options.UseMySql(Configuration.GetConnectionString("LTCSystem"))
             );
             services.Configure<EmailManager.ElasticEmail>(Configuration.GetSection("ElasticEmail"));
+            services.Configure<TwilioSettings>(Configuration.GetSection("TwilioSettings"));
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.Configure<ConfigSettings>(Configuration.GetSection("Configuration"));
             services.Configure<Mapping>(Configuration.GetSection("Mapping"));

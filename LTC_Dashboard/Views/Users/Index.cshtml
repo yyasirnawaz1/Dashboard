@@ -3,7 +3,8 @@
     Layout = "~/Views/Shared/Layouts/_AdminLayout.cshtml";
 }
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="Create">Create User</a>
+    <a class="btn btn-success" asp-action="CreateDefault">Create Default User</a>
 </p>
 <table class="table">
     <thead>
@@ -11,12 +12,6 @@
 
             <th>
                 @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Office_Number)
@@ -41,12 +36,6 @@
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Office_Number)
                 </td>
                 <td>
@@ -61,9 +50,21 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                    <a href="javascript:;" onclick="sendSMS(@item.Id)">Send Link</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<script type="text/javascript">
+    function sendSMS(id) {
+        $.post("/Users/SendSMS", { id: id }, function (data) {
+            if (data.Success == true) {
+                alert("SMS Sent");
+            } else {
+                alert(data.Message);
+            }
+        });
+    }
+</script>
