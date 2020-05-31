@@ -24,7 +24,7 @@ namespace LTCAdminPortal.Data
             identity.AddClaim(new Claim("OfficeSequence", user.Office_Sequence.ToString()));
             identity.AddClaim(new Claim("Name", user.LastName + " " + user.FirstName));
             identity.AddClaim(new Claim("IsDefault", user.IsDefaultUser.ToString()));
-            
+
 
 
             return identity;

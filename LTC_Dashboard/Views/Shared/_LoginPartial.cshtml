@@ -1,7 +1,7 @@
 @using LTCDashboard.Data
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<LTCDataModel.User.ApplicationUser> SignInManager
+@inject UserManager<LTCDataModel.User.ApplicationUser> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))

@@ -48,4 +48,11 @@
     <ProjectReference Include="..\LTCDataModel\LTCDataModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Resources\Vendor\select2\js\select2.full.js" />
+    <None Include="wwwroot\Resources\Vendor\select2\js\select2.full.min.js" />
+    <None Include="wwwroot\Resources\Vendor\select2\js\select2.js" />
+    <None Include="wwwroot\Resources\Vendor\select2\js\select2.min.js" />
+  </ItemGroup>
+
 </Project>

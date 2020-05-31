@@ -7,8 +7,8 @@
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<LTCDataModel.User.ApplicationUser> SignInManager
+@inject UserManager<LTCDataModel.User.ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Log in";
@@ -16,6 +16,7 @@
 
     int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId);
     int.TryParse(User.FindFirstValue("OfficeSequence"), out int officeSequence);
+    bool.TryParse(User.FindFirstValue("IsSystemAdmin"), out bool isSystemAdmin);
 
     var permissionList = gUserModuleManager.GetAllAuthenticationModuleByOfficeSequence(officeSequence);
 }
@@ -82,6 +83,13 @@
                             </a>
                         }
                         <div class="dropdown-divider"></div>
+                        @if (isSystemAdmin)
+                        {
+                            <a href="/Users/Index" class="dropdown-item">
+                                <i class="icon-users2"></i>
+                                Admin
+                            </a>
+                        }
                         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/Identity/Account/Login">
                             <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">
                                 <i class="icon-switch"></i>
@@ -517,10 +525,10 @@
         <script src="~/bundling/js/loginPageCombined.min.js" async></script>
     }
     @*<script type="text/javascript">
-        $(document).ready(function () {
-            if ($("#lblErrorDashboard").val() != "") {
-                alert($("#lblErrorDashboard").val());
-            }
-        });
-    </script>*@
+            $(document).ready(function () {
+                if ($("#lblErrorDashboard").val() != "") {
+                    alert($("#lblErrorDashboard").val());
+                }
+            });
+        </script>*@
 }

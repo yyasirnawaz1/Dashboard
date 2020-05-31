@@ -27,9 +27,7 @@ using System.Threading.Tasks;
 using LTCDashboard.Models;
 using LTCDataManager.Review;
 using LTCDataModel.Configurations;
-
-using DataTables.AspNetCore.Mvc.Binder;
-
+using LTCDataModel.User;
 
 namespace LTC_Dashboard.Controllers
 {

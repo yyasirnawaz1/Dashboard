@@ -120,7 +120,7 @@ namespace LTCAdminPortal.Controllers
                     {
                         ModelState.AddModelError(string.Empty, "Unable to update user");
                     }
-                        
+
 
                     return View();
 
@@ -144,11 +144,21 @@ namespace LTCAdminPortal.Controllers
         // POST: Users/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+
+                var user = await _userManager.FindByIdAsync(id.ToString());
+                var result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+
+                }
+                else
+                {
+
+                }
 
                 return RedirectToAction(nameof(Index));
             }

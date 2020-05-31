@@ -34,6 +34,15 @@ namespace LTCDashboard.Controllers
             }
         }
 
+        public bool IsSystemAdmin
+        {
+            get
+            {
+                bool.TryParse(User.FindFirstValue("IsSystemAdmin"), out var isDefault);
+                return isDefault;
+            }
+        }
+
         public int OfficeSequence
         {
             get

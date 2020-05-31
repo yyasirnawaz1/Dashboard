@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using LTCDataManager.Office;
 using LTCDataManager.NewsLetter;
 using Microsoft.AspNetCore.Http;
+using LTCDataModel.User;
 
 namespace LTCDashboard.Areas.Identity.Pages.Account
 {
@@ -46,7 +47,6 @@ namespace LTCDashboard.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
             public string Email { get; set; }
 
             [Required]
