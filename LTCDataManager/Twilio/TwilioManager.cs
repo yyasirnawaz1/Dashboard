@@ -24,7 +24,7 @@ namespace LTCDataManager.Twilio
             }
             catch (Exception ex)
             {
-                // ignored
+                throw ex;
             }
         }
 

@@ -148,10 +148,10 @@ namespace LTC_Dashboard.Controllers
                 DataEncryptor keys = new DataEncryptor();
 
                 var model = gUserModuleManager.GetUserById(id);
-                if (!string.IsNullOrEmpty(model.PhoneNumber))
+                if (!string.IsNullOrEmpty(model.AuthenticationPhone))
                 {
                     string signinUrl = $"{_twilioSettings.Url}Identity/Account/Login?userid={model.Email}&pass={keys.EncryptString(model.PasswordHash)}";
-                    TwilioManager.SendSms(_twilioSettings, model.PhoneNumber, signinUrl);
+                    TwilioManager.SendSms(_twilioSettings, model.AuthenticationPhone, signinUrl);
                     return Json(new { Success = true, Message = "" });
                 }
                 else
