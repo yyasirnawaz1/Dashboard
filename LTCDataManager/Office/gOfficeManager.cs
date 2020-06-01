@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using LTCDataManager.DataAccess;
 using LTCDataModel.Configurations;
 using Microsoft.Extensions.Options;
-
+using LTCDataModel.Office;
 namespace LTCDataManager.Office
 {
     public class gOfficeManager
@@ -48,15 +48,15 @@ namespace LTCDataManager.Office
         //    return db.Fetch<gBusinesInfo>($"select a.Office_Sequence as Id,b.Business_Name as ClinicName from authentication_office_list a INNER JOIN authentication_BusinessInfo b ON a.Office_Sequence=b.Office_Sequence where a.UserId={userId} ").ToList();
         //}
 
-        public static List<gBusinesInfo> GetOfficeDetailByOfficeSequence(int officeSequence)
+        public static List<gBusinessInfo> GetOfficeDetailByOfficeSequence(int officeSequence)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
-            return db.Fetch<gBusinesInfo>($"select a.Office_Sequence as Id,b.ClinicName as ClinicName from businessinfo WHERE Office_Sequence={officeSequence} ").ToList();
+            return db.Fetch<gBusinessInfo>($"select a.Office_Sequence as Id,b.ClinicName as ClinicName from businessinfo WHERE Office_Sequence={officeSequence} ").ToList();
         }
-        public static gBusinesInfo GetBuisnessInfo(string syncIdentifier)
+        public static gBusinessInfo GetBuisnessInfo(string syncIdentifier)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
-            return db.Fetch<gBusinesInfo>($"select Office_Sequence as Id,ClinicName,  as ClinicName, Active, Newsletter from businessinfo WHERE Office_Sequence={syncIdentifier} ").FirstOrDefault();
+            return db.Fetch<gBusinessInfo>($"select Office_Sequence as Id,ClinicName,  as ClinicName, Active, Newsletter from businessinfo WHERE Office_Sequence={syncIdentifier} ").FirstOrDefault();
         }
         //public static gBusinesInfo GetOfficeDetailByOfficeId(int OfficeSequence)
         //{
@@ -77,16 +77,16 @@ namespace LTCDataManager.Office
         //    return db.Fetch<int>(@"select Office_Sequence from authentication where Id=" + UserId).FirstOrDefault();
         //}
 
-        public static List<gBusinesInfo> GetOffices(int userId)
+        public static List<gBusinessInfo> GetOffices(int userId)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
-            List<gBusinesInfo> offices = new List<gBusinesInfo>();
+            List<gBusinessInfo> offices = new List<gBusinessInfo>();
 
             var allowedOfficeList = db.Fetch<string>($"SELECT Office_Sequence FROM authentication_office_list where UserId = " + userId).ToList();
             //TODO: if allowed list is empty. then handle it properly, right now it throws an error 
             if (allowedOfficeList != null && allowedOfficeList.Count > 0)
             {
-                offices = db.Fetch<gBusinesInfo>($"SELECT Office_Sequence as Id,ClinicName FROM businessInfo where Office_Sequence in (" + string.Join(",", allowedOfficeList) + ")").ToList();
+                offices = db.Fetch<gBusinessInfo>($"SELECT Office_Sequence as Id,ClinicName FROM businessInfo where Office_Sequence in (" + string.Join(",", allowedOfficeList) + ")").ToList();
             }
 
             return offices;

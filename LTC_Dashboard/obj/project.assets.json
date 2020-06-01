@@ -5154,6 +5154,21 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
+      "Twilio/5.42.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Tokens": "5.3.0",
+          "Newtonsoft.Json": "11.0.2",
+          "System.Collections.Specialized": "4.3.0",
+          "System.IdentityModel.Tokens.Jwt": "5.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Twilio.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Twilio.dll": {}
+        }
+      },
       "LTCDataManager/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
@@ -5164,7 +5179,8 @@
           "Microsoft.Extensions.Configuration.Json": "2.2.0",
           "Microsoft.Extensions.Options": "2.2.0",
           "Newtonsoft.Json": "12.0.2",
-          "Select.HtmlToPdf.NetCore": "19.2.0"
+          "Select.HtmlToPdf.NetCore": "19.2.0",
+          "Twilio": "5.42.0"
         },
         "compile": {
           "bin/placeholder/LTCDataManager.dll": {}
@@ -14208,6 +14224,25 @@
         "ref/xamarinwatchos10/_._",
         "system.xml.xpath.xmldocument.4.0.1.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
+      ]
+    },
+    "Twilio/5.42.0": {
+      "sha512": "l/AzlDIvW4sfzAv5EdFvjvEw9W6/xD5CMuQNC6bAqnuEli/sqE3BFPnfUhA2UUNrbstc/FgZi8XDrMbyuEhOOQ==",
+      "type": "package",
+      "path": "twilio/5.42.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net35/Twilio.dll",
+        "lib/net35/Twilio.xml",
+        "lib/net451/Twilio.dll",
+        "lib/net451/Twilio.xml",
+        "lib/netstandard1.4/Twilio.dll",
+        "lib/netstandard1.4/Twilio.xml",
+        "lib/netstandard2.0/Twilio.dll",
+        "lib/netstandard2.0/Twilio.xml",
+        "twilio.5.42.0.nupkg.sha512",
+        "twilio.nuspec"
       ]
     },
     "LTCDataManager/1.0.0": {
