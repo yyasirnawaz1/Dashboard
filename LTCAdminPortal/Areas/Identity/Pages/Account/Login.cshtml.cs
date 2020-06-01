@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using LTCDataModel.User;
 
 namespace LTCAdminPortal.Areas.Identity.Pages.Account
 {
@@ -18,10 +19,14 @@ namespace LTCAdminPortal.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<ApplicationUser> _userManager; //<----here
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, 
+            UserManager<ApplicationUser> userManager, //<----here
+            ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
+            _userManager = userManager;//<----here
             _logger = logger;
         }
 
@@ -68,7 +73,7 @@ namespace LTCAdminPortal.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = returnUrl ?? Url.Content("~/Users/index");
 
             if (ModelState.IsValid)
             {
@@ -77,6 +82,17 @@ namespace LTCAdminPortal.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
+                    var user =  await _userManager.FindByNameAsync(Input.Email); //<----here
+                    if (user.IsAdministrator==null || !user.IsAdministrator.Value)  //<----here
+                    {
+                        ModelState.AddModelError(string.Empty, "This user is not an Admin.");
+
+                        await _signInManager.SignOutAsync();
+
+                        return Page();
+                    }
+
+
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

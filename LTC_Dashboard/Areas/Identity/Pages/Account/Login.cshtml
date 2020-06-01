@@ -20,6 +20,8 @@
     var permissionList = gUserModuleManager.GetAllAuthenticationModuleByOfficeSequence(officeSequence);
 }
 
+<input id="lblErrorDashboard" type="hidden" value="@TempData["MenuErrorMessage"]" />
+
 <div class="navbar navbar-expand-md navbar-dark">
     <div class="navbar-brand">
         <a href="javascript:;" class="d-inline-block">
@@ -494,6 +496,7 @@
         </div>
     </div>
 
+
     <partial name="~/Views/Shared/PartialViews/_About.cshtml" />
 
     @*<script src="~/Scripts/SharedJS/LoginLayout.js"></script>
@@ -513,4 +516,11 @@
     {
         <script src="~/bundling/js/loginPageCombined.min.js" async></script>
     }
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            if ($("#lblErrorDashboard").val() != "") {
+                alert($("#lblErrorDashboard").val());
+            }
+        });
+    </script>*@
 }

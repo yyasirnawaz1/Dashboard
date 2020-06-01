@@ -27,9 +27,9 @@ using System.Threading.Tasks;
 using LTCDashboard.Models;
 using LTCDataManager.Review;
 using LTCDataModel.Configurations;
- 
+
 using DataTables.AspNetCore.Mvc.Binder;
- 
+
 
 namespace LTC_Dashboard.Controllers
 {
@@ -39,7 +39,7 @@ namespace LTC_Dashboard.Controllers
         private readonly IOptions<EmailManager.ElasticEmail> _email;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
- 
+
         // GET: Newsletters
         private readonly string blankImage = "iVBORw0KGgoAAAANSUhEUgAABVYAAAAyCAYAAAC3ZID5AAANAklEQVR4Xu3dYYxlZ1kH8Oc9987eAWemKQLxA9qMtsTaZJO9ZyewDcSNJiRGU2OIxtjYCqUltkgbaARbNhUKDQRJa9IiLba0iKUQoxhU/KIswabuzj2zTZMNRGsmEaOgbbKZ6erOnc55zSF3mtvrsp1Z95TM7W8/3j3nOe/7e+d++ee5z0nhHwECBAgQIECAAAECBAgQIECAAAECBAjsSiDt6moXEyBAgAABAgQIECBAgAABAgQIECBAgEAIVv0RECBAgAABAgQIECBAgAABAgQIECBAYJcCgtVdgrmcAAECBAgQIECAAAECBAgQIECAAAECglV/AwQIECBAgAABAgR2IXDppZf25ubmfuLJJ5/8l4iox28ty/K1EfFIzvnWlZWVb+20bFmWr46IzxZF8cDy8vI3dnqf6wgQIECAAAECBH54AoLVH569JxMgQIAAAQIEzlug3+9fnlL6akrpI4PB4PPbhUaf/0FEXFtV1TO7ecChQ4deNRwO3xsRt0TEj0XENyPitqqqHo+IvJtaE2HjBQsNy7L8eErpnwaDwUOT6zl48OA7c84Pjn1+Juf81ymlD1VV9e3zXf/kfWVZ9iPinqIorl5eXv6OYPVCyapDgAABAgQIENhbAoLVvXVeVkuAAAECBAgQ+L7AKED9WkRsRMQvbweH5xusHj58uLu+vn4k5/yaXq93xxNPPHGqLMsrI+JTOefrV1ZWnjpf+gvZjbmDYPXnI+L6qqr+e7SnqyPi6qIorlleXv7u+e5hp/fpWN2plOsIECBAgAABAntfQLC698/QDggQIECAAIFXoEAToBZF0XSq/kfO+dmIuKkJEyeD1QMHDlySUvpUSumqiFhNKd0xGAy+PPkT9tF99xVFce1YF2Yqy/JjOefnVlZW7hp1tN4cEb87In+w2+3eeezYsbUm8IyI0znnn0kpvb3pdk0p3VjXdZFSagLgS0b3fKKqqg9OrKvpJr2xqqp/GK3j7oj4m4i4NSLmcs4f6XQ6j9V1/ZWIeNOozqPbAer28Y86Vl8IVpvPx4POTqfz+rqub8s5/1tRFJfnnK+q6/pHzuaztLT05rqub5mdnb3u8ccfXz906NBrhsPhgznnOyJiM6W03RX8bL/f/8WU0qebtUbEF5rcexRGf2vSrNnLwsLCvUePHn1+aWlpqa7rP4qIK3LOj6aULiuK4ohRAK/AL7QtEyBAgAABAntSQLC6J4/NogkQIECAAIFXusAogHw4It6fUro9Ir7YjAQYD1b37dtXb25u/mld13++sLDwuVOnTi12Op3P1HV914kTJ/5u3HBpaeln67q+YTKsHLumCVk/kFK6YmZm5ubTp09vzMzM/H5EnJmfn//w+vr6RyPiLVtbW+947rnn/vWiiy5q/i9XVXV7WZavGp8f2oSUzboi4s8WFxcfXl1dfWvO+Uhd17+ZUrqoGXGQc757bW3tjy+++OLL67q+P+f8W83M0vPoWP2ViLi5rutf63a7l9V1/RcppRtmZmb+fjgcNqHvn5zNJ+dcdTqdz41GLZwoy/JNOedbNjY2ru/1ej++HazmnF+XUno4pfS+xcXFf1xdXX1bzvmTOedfXVlZ+fa2WafTuWk4HM4VRdHs5b5Op/NkXdefTyndv7i4+JXV1dX9OefHiqK4QbD6Sv922z8BAgQIECCwVwQEq3vlpKyTAAECBAgQIDAmsB2sNoFjSqkJLpvOx2tzzmk79IuIn26C19nZ2Wuarsvm9oMHD/56zvnK+fn59zVdk9slz9btOQ4+6thsuip/bzAYnGj+ryzLn4qI+55//vnrut3u74zPPh0Pakd1XngxU1mWbxlf1/iogK2trf8c6wZ9ZnKMwA6C1fEZq5sR8fWc820rKytVs6ac828Ph8PrnnrqqdOT65j0WV9fv6n5rKqqP+z3+7ellE5VVfXp8fA6pfQLOeelbc/xDtler/e94XD4IrOR8xsj4q9+kIFg1VedAAECBAgQILA3BASre+OcrJIAAQIECBAg8CKB8WB11Bn5nuYn6HVdNz/n/3ATshZFccVkF+oP6kx9qY7Vs80OHf8spXTtToPV0bOOTh5pSumauq4H/89g9UWjAMafMbnHs+15/LOc86VNJ2ozPqAoirtyzp9oumYngtWrcs5vbMYbjMLm10bEIznnW1NK/zUKULfHF2wvp+lU/UITim93CF/IObS+KgQIECBAgAABAi+PgGD15XH2FAIECBAgQIDABRWYCFabn8g3P6F/qK7rf08p/WQTrJ6jY/Xnzpw5856TJ08OtxfV7/f3p5TunXjT/QszVnu93mcmuy9HHasPdDqdd21tbb17p8HqqFP0xs3NzeubztFxmMkZsefRsbrjYPUcHavf94mIfbOzs/emlL4ZEQdOnTr1/qeffnpjlx2rjxRF8cHl5eWT4/s8V9eujtUL+lVRjAABAgQIECDQmoBgtTVahQkQIECAAAEC7QlMBqvNk8qy7EfEVyPiOxHxS2eZsfqGTqfTvIDpkysrK387vrrDhw9319fXj0TEqyPio1VVrZdleWVEfHz0IqYX5oU2M1Yj4n82NjZub8YQzM/Pf6CZsfpSwWpK6cuDweAv9+/f//qZmZmHUkpfmpub++LGxsbCcDh8R7fb/dLm5ub8DjpWvzcYDO5pZriO7+GlxhlMdqhuz3odm7H6f3xGNe9p5rIOBoPHmueNB6vnmrG6sLDwz+vr683Lsl7X6/Xu6PV6a2tra2/POT/T7XZPmrHa3vdDZQIECBAgQIDAyyEgWH05lD2DAAECBAgQIHCBBc4WrEZE02HadFpe3QSrVVU9c+DAgUvO9tb7iKgnlzR6g/17I+KWiPjR8fmkzbWTb7iPiAe73e6dx44dW5ucfToZYpZl+RsRcW8zk7WqqiMT6/puSulDc3Nzj66trV12rmC13++/NaXUvPjq6/Pz8+8+evTome197DZYbe57KZ/xrtzjx4+vTgarVVU92+/339Z0+0bEGyLigcYu5/yxZmzAhFkzC/f+Tqdz5/Hjx5v7ypTS3RHx5tFogH1FUXxWx+oF/rIoR4AAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSUCw2hKssgQIECBAgAABAgQIECBAgAABAgQITK+AYHV6z9bOCBAgQIAAAQIECBAgQIAAAQIECBBoSeB/AZUOJX55GTSTAAAAAElFTkSuQmCC";
         public ActionResult Index()
@@ -76,8 +76,8 @@ namespace LTC_Dashboard.Controllers
 
                             #region Cookie
 
-                            if ( Request.Cookies["ModuleRestriction"] != null)
-                                  Response.Cookies.Delete("ModuleRestriction");
+                            if (Request.Cookies["ModuleRestriction"] != null)
+                                Response.Cookies.Delete("ModuleRestriction");
                             var options = new CookieOptions
                             {
                                 Expires = DateTime.Now.AddDays(1),
@@ -90,6 +90,14 @@ namespace LTC_Dashboard.Controllers
                         }
                     }
                 }
+                else
+                {
+                    TempData["MenuErrorMessage"] = "No user found for newsletter access";
+                }
+            }
+            else
+            {
+                TempData["MenuErrorMessage"] = "No office found with the associated GUID";
             }
 
             return LocalRedirect(returnUrl);
@@ -103,7 +111,7 @@ namespace LTC_Dashboard.Controllers
             _email = email;
             _userManager = userManager;
             _signInManager = signInManager;
-            
+
 
         }
         public JsonResult GetTemplateTypes()
@@ -298,7 +306,7 @@ namespace LTC_Dashboard.Controllers
 
                 var totalCount = 0;
                 var filteredCount = 0;
-                
+
                 totalCount = gNewsLetterManager.GetUserDefinedTemplatesCount(OfficeSequence, true);
 
                 #region Filtering
@@ -321,7 +329,7 @@ namespace LTC_Dashboard.Controllers
 
                 //objResult = objResult.Skip(requestModel.Start).Take(requestModel.Length).ToList();
 
-                
+
                 return Json(objResult
                  .Select(e => new
                  {
@@ -497,7 +505,7 @@ namespace LTC_Dashboard.Controllers
                         string msgID = null;
                         string familyList = subscriber.Salutation + "," + subscriber.LastName + "," + subscriber.FirstName;
                         patient = new gPatientOfficeInfo();
-                        
+
                         patient.FirstName = subscriber.FirstName;
                         patient.LastName = subscriber.LastName;
                         patient.Name = model.Email;
@@ -685,7 +693,7 @@ namespace LTC_Dashboard.Controllers
                 products = products.Where(e => e.TemplateTitle.Contains(dataRequest.Search.Value));
                 recordsFilterd = products.Count();
             }
-           
+
 
             products = products.Skip(dataRequest.Start).Take(dataRequest.Length).ToList();
 

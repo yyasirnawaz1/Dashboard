@@ -8,6 +8,7 @@ using LTCAdminPortal.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using LTCDataModel.User;
 
 namespace LTCAdminPortal.Areas.Identity.Pages.Account
 {

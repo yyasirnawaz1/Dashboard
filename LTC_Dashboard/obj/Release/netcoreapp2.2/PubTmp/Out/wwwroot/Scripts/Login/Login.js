@@ -5,8 +5,11 @@ $(".toggleMenu").on('click', function () {
 });
 
 $(document).ready(function () {
+    debugger;
     $("#btnMenuOpener").click();
-
+    if ($("#lblErrorDashboard").val() != "") {
+        alert($("#lblErrorDashboard").val());
+    }
 });
 
 var Login = {
