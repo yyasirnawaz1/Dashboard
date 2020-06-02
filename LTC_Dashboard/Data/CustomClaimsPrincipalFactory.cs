@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using LTCDataModel.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
@@ -23,7 +24,8 @@ namespace LTCDashboard.Data
             identity.AddClaim(new Claim("OfficeSequence", user.Office_Sequence.ToString()));
             identity.AddClaim(new Claim("Name", user.LastName + " " + user.FirstName));
             identity.AddClaim(new Claim("IsDefault", user.IsDefaultUser.ToString()));
-            
+            identity.AddClaim(new Claim("IsSystemAdmin", user.IsSystemAdministrator.ToString()));
+
 
 
             return identity;

@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using LTCDataManager.Office;
 using LTCDataManager.NewsLetter;
 using Microsoft.AspNetCore.Http;
+using LTCDataModel.User;
 
 namespace LTCDashboard.Areas.Identity.Pages.Account
 {

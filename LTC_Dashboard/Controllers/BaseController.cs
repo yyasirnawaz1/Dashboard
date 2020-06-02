@@ -60,6 +60,17 @@ namespace LTCDashboard.Controllers
             }
         }
 
+
+        public bool IsSystemAdmin
+        {
+            get
+            {
+                bool.TryParse(User.FindFirstValue("IsSystemAdmin"), out var isDefault);
+                return isDefault;
+            }
+        }
+
+
         //TODO: remove this method and get the connection string based on office id
         public string GetUserConnectionString()
         {

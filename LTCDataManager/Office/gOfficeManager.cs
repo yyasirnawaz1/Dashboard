@@ -8,6 +8,9 @@ using LTCDataManager.DataAccess;
 using LTCDataModel.Configurations;
 using Microsoft.Extensions.Options;
 using LTCDataModel.Office;
+using LTCDataModel.PetaPoco;
+using LTCDataModel.User;
+
 namespace LTCDataManager.Office
 {
     public class gOfficeManager
@@ -136,7 +139,105 @@ namespace LTCDataManager.Office
             }
         }
 
+        public static int GetOfficeSequenceByOfficeNumber(int? officeNumber)
+        {
+            int? model = 0;
+            using (var db = new Database(DbConfiguration.LtcSystem))
+            {
+                string qry = $"select * from businessinfo where office_number={officeNumber}";
+                model = db.Fetch<int>(qry).FirstOrDefault();
+            }
 
+            return model ?? 0;
+        }
+
+        public static List<gBusinessInfo> GetAllOffices()
+        {
+            List<gBusinessInfo> model = new List<gBusinessInfo>();
+            using (var db = new Database(DbConfiguration.LtcSystem))
+            {
+                string qry = $"SELECT Office_Sequence, Office_Number, ClinicName FROM businessinfo";
+                model = db.Fetch<gBusinessInfo>(qry).ToList();
+            }
+
+            return model;
+        }
+
+        public static List<int> GetAuthenticatedOfficeListByUserId(int userId)
+        {
+            List<int> model = new List<int>();
+            using (var db = new Database(DbConfiguration.LtcSystem))
+            {
+                string qry = $"SELECT office_sequence FROM authentication_office_list WHERE userid = {userId}";
+                model = db.Fetch<int>(qry).ToList();
+            }
+
+            return model ?? new List<int>();
+        }
+
+        public static void UpdateUser(ApplicationUser model)
+        {
+            var sql = $"UPDATE authentication SET " +
+                        (model.Branch_Number != null ? $"Branch_Number={model.Branch_Number}," : "Branch_Number=null,") +
+                        (model.Office_Number != null ? $"Office_Number={model.Office_Number}," : "Office_Number=null,") +
+                        $"Office_Sequence={model.Office_Sequence}," +
+                        (model.SelectedTemplateId != null ? $"SelectedTemplateId={model.SelectedTemplateId}," : "SelectedTemplateId=null,") +
+                        (model.FirstNewsletterDate != null ? $"FirstNewsletterDate='{model.FirstNewsletterDate}'," : "FirstNewsletterDate=null,") +
+                        (model.AutoNewsletterCount != null ? $"AutoNewsletterCount={model.AutoNewsletterCount}," : "AutoNewsletterCount=null,") +
+                        (model.Cust_id != null ? $"Cust_id={model.Cust_id}," : "Cust_id=null,") +
+                        (string.IsNullOrEmpty(model.PasswordHash) == false ? $"Password='{model.PasswordHash}'," : "") +
+                        (string.IsNullOrEmpty(model.AuthenticationPhone) == false ? $"AuthenticationPhone='{model.AuthenticationPhone}'," : "AuthenticationPhone=null,") +
+                        (string.IsNullOrEmpty(model.AuthenticationPhone) == false ? $"Phone='{model.AuthenticationPhone}'," : "Phone=null,") +
+                        (string.IsNullOrEmpty(model.Provider) == false ? $"Provider='{model.Provider}'," : "Provider=null,") +
+                        (string.IsNullOrEmpty(model.Salutation) == false ? $"Salutation='{model.Salutation}'," : "Salutation=null,") +
+                        (string.IsNullOrEmpty(model.FirstName) == false ? $"FirstName='{model.FirstName}'," : "FirstName=null,") +
+                        (string.IsNullOrEmpty(model.LastName) == false ? $"LastName='{model.LastName}'," : "LastName=null,") +
+                        (string.IsNullOrEmpty(model.Initials) == false ? $"Initials='{model.Initials}'," : "Initials=null,") +
+                        (string.IsNullOrEmpty(model.AddressLine1) == false ? $"AddressLine1='{model.AddressLine1}'," : "AddressLine1=null,") +
+                        (string.IsNullOrEmpty(model.AddressLine2) == false ? $"AddressLine2='{model.AddressLine2}'," : "AddressLine2=null,") +
+                        (string.IsNullOrEmpty(model.AddressLine3) == false ? $"AddressLine3='{model.AddressLine3}'," : "AddressLine3=null,") +
+                        (string.IsNullOrEmpty(model.City) == false ? $"City='{model.City}'," : "City=null,") +
+                        (string.IsNullOrEmpty(model.Province) == false ? $"Province='{model.Province}'," : "Province=null,") +
+                        (string.IsNullOrEmpty(model.Country) == false ? $"Country='{model.Country}'," : "Country=null,") +
+                        (string.IsNullOrEmpty(model.PostalCode) == false ? $"PostalCode='{model.PostalCode}'," : "PostalCode=null,") +
+                        (string.IsNullOrEmpty(model.Fax) == false ? $"Fax='{model.Fax}'," : "Fax=null,") +
+                        (string.IsNullOrEmpty(model.PhotoImageURL) == false ? $"PhotoImageURL='{model.PhotoImageURL}'," : "PhotoImageURL=null,") +
+                        (string.IsNullOrEmpty(model.WebsiteURL) == false ? $"WebsiteURL='{model.WebsiteURL}'," : "WebsiteURL=null,") +
+                        (string.IsNullOrEmpty(model.ActivationStatus) == false ? $"ActivationStatus='{model.ActivationStatus}'," : "ActivationStatus=null,") +
+                        (string.IsNullOrEmpty(model.LanguageSelected) == false ? $"LanguageSelected='{model.LanguageSelected}'," : "LanguageSelected=null,") +
+                        (string.IsNullOrEmpty(model.DateFormat) == false ? $"DateFormat='{model.DateFormat}'," : "DateFormat=null,") +
+                        (string.IsNullOrEmpty(model.SelectedMainTitle_Name_ClinicName) == false ? $"SelectedMainTitle_Name_ClinicName='{model.SelectedMainTitle_Name_ClinicName}'," : "SelectedMainTitle_Name_ClinicName=null,") +
+                        (string.IsNullOrEmpty(model.PreferedSubIndustriesCSV) == false ? $"PreferedSubIndustriesCSV='{model.PreferedSubIndustriesCSV}'," : "PreferedSubIndustriesCSV=null,") +
+                        (string.IsNullOrEmpty(model.DB_Path) == false ? $"DB_Path='{model.DB_Path}'," : "DB_Path=null,") +
+                        (string.IsNullOrEmpty(model.Serial_Number) == false ? $"Serial_Number='{model.Serial_Number}'," : "Serial_Number=null,") +
+                        (string.IsNullOrEmpty(model.Providerrange) == false ? $"Providerrange='{model.Providerrange}', " : "Providerrange=null,") +
+
+                       ($"TwoFactorEnabled={model.TwoFactorEnabled},") +
+                       ($"IsAdministrator={model.IsAdministrator},") +
+                       ($"IsSystemAdministrator={model.IsSystemAdministrator},") +
+                       ($"IsDefaultUser={model.IsDefaultUser},") +
+                       ($"IsDisplaySummary={model.IsDisplaySummary},");
+
+            using (var db = new Database(DbConfiguration.LtcSystem))
+            {
+                sql = sql.TrimEnd(',') + $" Where DoctorID = {model.Id}";
+                db.Execute(new Sql(sql));
+            }
+        }
+
+        public static void InsertAllowedOffices(int userId, List<int> allowedOffices)
+        {
+            var sql = $"Delete from authentication_office_list WHERE UserId = {userId}; ";
+            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
+            {
+                var sqlTemplate = $"INSERT INTO authentication_office_list Values ({userId},[officeId],'*'); ";
+                foreach (var item in allowedOffices)
+                {
+                    sql += sqlTemplate.Replace("[officeId]", item.ToString());
+                }
+                db.Execute(new Sql(sql));
+            }
+        }
 
     }
 }
