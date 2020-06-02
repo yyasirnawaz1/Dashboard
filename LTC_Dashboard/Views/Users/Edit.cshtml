@@ -1,6 +1,10 @@
 ﻿@model LTCDataModel.User.ApplicationUser
+@using System.Security.Claims
 @{
     Layout = "~/Views/Shared/Layouts/_AdminLayout.cshtml";
+    bool.TryParse(User.FindFirstValue("IsAssignOfficeEnabled"), out bool isAssignOfficeEnabled);
+    bool.TryParse(User.FindFirstValue("IsEditModuleEnabled"), out bool isEditModuleEnabled);
+    bool.TryParse(User.FindFirstValue("IsEditUserEnabled"), out bool isEditUserEnabled);
 }
 <h4>ApplicationUser</h4>
 <hr />
@@ -40,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">Allowed Offices</label>
-                        <select name="allowed_offices" id="allowed_offices" class="form-control" asp-items="@((IEnumerable<SelectListItem>)(ViewBag.OfficeList))" multiple>
+                        <select name="allowed_offices" id="allowed_offices" class="form-control" asp-items="@((IEnumerable<SelectListItem>)(ViewBag.OfficeList))" disabled="@(isEditModuleEnabled?"":"disabled")" multiple>
                         </select>
                     </div>
 
@@ -222,7 +226,7 @@
 </div>
 
 @section Scripts {
-  
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#Office_Number").select2();

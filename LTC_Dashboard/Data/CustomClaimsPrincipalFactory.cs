@@ -25,6 +25,9 @@ namespace LTCDashboard.Data
             identity.AddClaim(new Claim("Name", user.LastName + " " + user.FirstName));
             identity.AddClaim(new Claim("IsDefault", user.IsDefaultUser.ToString()));
             identity.AddClaim(new Claim("IsSystemAdmin", user.IsSystemAdministrator.ToString()));
+            identity.AddClaim(new Claim("IsEditUserEnabled", user.IsEditUserEnabled.ToString()));
+            identity.AddClaim(new Claim("IsEditModuleEnabled", user.IsEditModuleEnabled.ToString()));
+            identity.AddClaim(new Claim("IsAssignOfficeEnabled", user.IsAssignOfficeEnabled.ToString()));
 
 
 
