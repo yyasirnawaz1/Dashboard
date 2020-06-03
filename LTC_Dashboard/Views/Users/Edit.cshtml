@@ -1,6 +1,10 @@
 ﻿@model LTCDataModel.User.ApplicationUser
+@using System.Security.Claims
 @{
     Layout = "~/Views/Shared/Layouts/_AdminLayout.cshtml";
+    bool.TryParse(User.FindFirstValue("IsAssignOfficeEnabled"), out bool isAssignOfficeEnabled);
+    bool.TryParse(User.FindFirstValue("IsEditModuleEnabled"), out bool isEditModuleEnabled);
+    bool.TryParse(User.FindFirstValue("IsEditUserEnabled"), out bool isEditUserEnabled);
 }
 <h4>ApplicationUser</h4>
 <hr />
@@ -40,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">Allowed Offices</label>
-                        <select name="allowed_offices" id="allowed_offices" class="form-control" asp-items="@((IEnumerable<SelectListItem>)(ViewBag.OfficeList))" multiple>
+                        <select name="allowed_offices" id="allowed_offices" class="form-control" asp-items="@((IEnumerable<SelectListItem>)(ViewBag.OfficeList))" disabled="@(isEditModuleEnabled?"":"disabled")" multiple>
                         </select>
                     </div>
 
@@ -197,42 +201,6 @@
 
 
                     <div class="form-group">
-                        <label asp-for="SelectedTemplateId" class="control-label"></label>
-                        <input asp-for="SelectedTemplateId" class="form-control" />
-                        <span asp-validation-for="SelectedTemplateId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="SelectedMainTitle_Name_ClinicName" class="control-label"></label>
-                        <input asp-for="SelectedMainTitle_Name_ClinicName" class="form-control" />
-                        <span asp-validation-for="SelectedMainTitle_Name_ClinicName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="PreferedSubIndustriesCSV" class="control-label"></label>
-                        <input asp-for="PreferedSubIndustriesCSV" class="form-control" />
-                        <span asp-validation-for="PreferedSubIndustriesCSV" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="FirstNewsletterDate" class="control-label"></label>
-                        <input asp-for="FirstNewsletterDate" class="form-control" />
-                        <span asp-validation-for="FirstNewsletterDate" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="AutoNewsletterCount" class="control-label"></label>
-                        <input asp-for="AutoNewsletterCount" class="form-control" />
-                        <span asp-validation-for="AutoNewsletterCount" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="DB_Path" class="control-label"></label>
-                        <input asp-for="DB_Path" class="form-control" />
-                        <span asp-validation-for="DB_Path" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Serial_Number" class="control-label"></label>
-                        <input asp-for="Serial_Number" class="form-control" />
-                        <span asp-validation-for="Serial_Number" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
                         <label asp-for="Cust_id" class="control-label"></label>
                         <input asp-for="Cust_id" class="form-control" />
                         <span asp-validation-for="Cust_id" class="text-danger"></span>
@@ -258,7 +226,7 @@
 </div>
 
 @section Scripts {
-  
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#Office_Number").select2();

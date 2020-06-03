@@ -8,15 +8,15 @@ namespace LTCDataModel.User
 {
     public class ApplicationUser : IdentityUser<int>
     {
-        [Display( Name ="Office No.")]
-        public int? Office_Number { get; set; } 
+        [Display(Name = "Office No.")]
+        public int? Office_Number { get; set; }
 
         [Required]
         [Display(Name = "Office Sequence")]
         public int Office_Sequence { get; set; }
 
         [Display(Name = "Branch No.")]
-        public int? Branch_Number { get; set; } 
+        public int? Branch_Number { get; set; }
 
         public string AuthenticationPhone { get; set; }
 
@@ -76,5 +76,11 @@ namespace LTCDataModel.User
         public string Serial_Number { get; set; }
         public int? Cust_id { get; set; }
         public string Providerrange { get; set; }
+        public bool? IsEditUserEnabled { get; set; }
+        public bool? IsEditModuleEnabled { get;set;}
+        public bool? IsAssignOfficeEnabled { get; set; }
     }
 }
+
+    
+

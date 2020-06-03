@@ -8,6 +8,7 @@ using LTCDashboard.Data;
 using LTCDashboard.Models;
 using LTCDataManager.Email;
 using LTCDataModel.Configurations;
+using LTCDataModel.User;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

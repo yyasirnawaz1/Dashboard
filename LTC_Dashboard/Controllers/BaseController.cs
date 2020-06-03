@@ -60,6 +60,40 @@ namespace LTCDashboard.Controllers
             }
         }
 
+
+        public bool IsSystemAdmin
+        {
+            get
+            {
+                bool.TryParse(User.FindFirstValue("IsSystemAdmin"), out var isDefault);
+                return isDefault;
+            }
+        }
+        public bool IsAssignOfficeEnabled
+        {
+            get
+            {
+                bool.TryParse(User.FindFirstValue("IsAssignOfficeEnabled"), out var isDefault);
+                return isDefault;
+            }
+        }
+        public bool IsEditModuleEnabled
+        {
+            get
+            {
+                bool.TryParse(User.FindFirstValue("IsEditModuleEnabled"), out var isDefault);
+                return isDefault;
+            }
+        }
+        public bool IsEditUserEnabled
+        {
+            get
+            {
+                bool.TryParse(User.FindFirstValue("IsEditUserEnabled"), out var isDefault);
+                return isDefault;
+            }
+        }
+
         //TODO: remove this method and get the connection string based on office id
         public string GetUserConnectionString()
         {

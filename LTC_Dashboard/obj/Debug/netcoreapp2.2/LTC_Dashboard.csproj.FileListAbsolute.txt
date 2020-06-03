@@ -799,3 +799,9 @@ F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.
 F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.AssemblyInfo.cs
 F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.dll
 F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.pdb
+D:\Office\Github\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Layouts\_AdminLayout.cshtml.g.cs
+D:\Office\Github\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Users\Create.cshtml.g.cs
+D:\Office\Github\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Users\Delete.cshtml.g.cs
+D:\Office\Github\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Users\Details.cshtml.g.cs
+D:\Office\Github\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Users\Edit.cshtml.g.cs
+D:\Office\Github\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\Razor\Views\Users\Index.cshtml.g.cs

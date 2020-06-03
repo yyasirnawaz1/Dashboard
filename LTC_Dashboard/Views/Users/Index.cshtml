@@ -1,6 +1,11 @@
 ﻿@model IEnumerable<LTCDataModel.User.ApplicationUser>
+@using System.Security.Claims
+
 @{
     Layout = "~/Views/Shared/Layouts/_AdminLayout.cshtml";
+    bool.TryParse(User.FindFirstValue("IsAssignOfficeEnabled"), out bool isAssignOfficeEnabled);
+    bool.TryParse(User.FindFirstValue("IsEditModuleEnabled"), out bool isEditModuleEnabled);
+    bool.TryParse(User.FindFirstValue("IsEditUserEnabled"), out bool isEditUserEnabled);
 }
 <p>
     <a class="btn btn-primary" asp-action="Create">Create User</a>
@@ -48,9 +53,18 @@
                     @Html.DisplayFor(modelItem => item.IsDefaultUser)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    @if (isEditUserEnabled)
+                    {
+                        <text>  <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> | </text>
+                    }
+
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                    @if (isEditUserEnabled)
+                    {
+                        <text>  <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> | </text>
+                    }
+
+
                     <a href="javascript:;" onclick="sendSMS(@item.Id)">Send Link</a>
                 </td>
             </tr>

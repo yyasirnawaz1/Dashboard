@@ -112,6 +112,11 @@ namespace LTC_Dashboard.Controllers
                     return View();
 
                 }
+                else
+                {
+                    if (IsEditModuleEnabled)
+                        gOfficeManager.InsertAllowedOffices(model.Id, allowed_offices);
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -124,7 +129,7 @@ namespace LTC_Dashboard.Controllers
 
         public ActionResult Edit(int id)
         {
-            if (!IsSystemAdmin)
+            if (!IsSystemAdmin || !IsEditUserEnabled)
             {
                 Response.Redirect("/", true);
             }
@@ -173,6 +178,10 @@ namespace LTC_Dashboard.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, string oldPassword, List<int> allowed_offices, ApplicationUser model)
         {
+            if (!IsSystemAdmin || !IsEditUserEnabled)
+            {
+                Response.Redirect("/", true);
+            }
             try
             {
                 if (ModelState.IsValid)
@@ -182,7 +191,8 @@ namespace LTC_Dashboard.Controllers
                     model.PhoneNumberConfirmed = true;
                     model.Office_Sequence = gOfficeManager.GetOfficeSequenceByOfficeNumber(model.Office_Number);
                     gOfficeManager.UpdateUser(model);
-                    gOfficeManager.InsertAllowedOffices(model.Id, allowed_offices);
+                    if (IsEditModuleEnabled)
+                        gOfficeManager.InsertAllowedOffices(model.Id, allowed_offices);
                 }
 
                 return RedirectToAction(nameof(Index));
@@ -200,6 +210,10 @@ namespace LTC_Dashboard.Controllers
         // GET: Users/Delete/5
         public ActionResult Delete(int id)
         {
+            if (!IsSystemAdmin || !IsEditUserEnabled)
+            {
+                Response.Redirect("/", true);
+            }
             var model = gUserModuleManager.GetUserById(id);
 
             return View(model);
@@ -210,6 +224,10 @@ namespace LTC_Dashboard.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
+            if (!IsSystemAdmin || !IsEditUserEnabled)
+            {
+                Response.Redirect("/", true);
+            }
             try
             {
 

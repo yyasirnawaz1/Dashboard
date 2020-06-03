@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Identity;
 using LTCDashboard.Data;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using LTCDataManager.Portal;
+using LTCDataModel.User;
 
 namespace LTCDashboard.Controllers
 {
