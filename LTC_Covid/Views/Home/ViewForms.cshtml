@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewData["Title"] = "ViewForms";
+    Layout = "~/Views/Shared/Layouts/_DashboardLayout.cshtml";
+}
+<style>
+    .form-check-input {
+        position: center;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+</style>
+<div class="content">
+
+    <!-- Form inputs -->
+
+    <div class="card">
+        <div class="card-header header-elements-inline">
+            <h5 class="card-title">Subscribers</h5>
+            <div class="header-elements">
+                <div class="list-icons">
+                    <a class="list-icons-item" data-action="collapse"></a>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <br />
+            <fieldset class="mb-3">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-lg">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Last Name</th>
+                                <th class="text-center">First Name</th>
+                                <th class="text-center">Form Name</th>
+                                <th class="text-center">Date of Last Edit</th>
+                                <th class="text-center">Pre-Screen</th>
+                                <th class="text-center">In-Person</th>
+                                <th class="text-center">Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">Ali</td>
+                                <td class="text-center">Ch</td>
+                                <td class="text-center">COVID</td>
+                                <td class="text-center">03/06/2020</td>
+                                <td class="text-center">  <input type="checkbox" name="q92" class="form-check-input" checked></td>
+                                <td class="text-center">  <input type="checkbox" name="q92" class="form-check-input" checked></td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown show">
+                                            <a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="true"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-158px, -145px, 0px);">
+                                                <a href="#" class="dropdown-item" onclick=""><i class="icon-pencil"></i> Edit</a>
+                                                <a href="#" class="dropdown-item" onclick=""><i class="icon-file-eye"></i> View</a>
+                                                <a href="#" class="dropdown-item" onclick=""><i class="icon-envelop2"></i> Archive</a>
+                                                <div class="dropdown-divider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">Usman</td>
+                                <td class="text-center">Khan</td>
+                                <td class="text-center">COVID</td>
+                                <td class="text-center">03/06/2020</td>
+                                <td class="text-center">
+                                    <input type="checkbox" name="q92" class="form-check-input" checked>
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" name="q92" class="form-check-input" checked>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown show">
+                                            <a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="true"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-158px, -145px, 0px);">
+                                                <a href="#" class="dropdown-item" onclick=""><i class="icon-pencil"></i> Edit</a>
+                                                <a href="#" class="dropdown-item" onclick=""><i class="icon-file-eye"></i> View</a>
+                                                <a href="#" class="dropdown-item" onclick=""><i class="icon-envelop2"></i> Archive</a>
+                                                <div class="dropdown-divider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+            </fieldset>
+
+        </div>
+    </div>
+    <!-- /form inputs -->
+
+</div>
