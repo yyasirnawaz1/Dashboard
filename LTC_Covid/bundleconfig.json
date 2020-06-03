@@ -1,0 +1,92 @@
+﻿[
+  // common files
+  {
+    "outputFileName": "wwwroot/bundling/css/commonStyle.min.css",
+    "inputFiles": [
+      "wwwroot/Resources/Limitless/global_assets/css/icons/icomoon/styles.css",
+      "wwwroot/Resources/Limitless/global_assets/css/icons/fontawesome/styles.min.css",
+      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap.min.css",
+      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/bootstrap_limitless.min.css",
+      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/layout.min.css",
+      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/components.min.css",
+      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/css/colors.min.css",
+      "wwwroot/Resources/Limitless/Site.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/bundling/js/commonScripts1.min.js",
+
+
+    //"wwwroot/Resources/Limitless/global_assets/js/plugins/pickers/daterangepicker.js",
+
+
+
+    "inputFiles": [
+      "wwwroot/Resources/theme/js/vendor/jquery/jquery.min.js",
+      "wwwroot/Resources/theme/js/vendor/jquery/jquery-ui.min.js",
+      "wwwroot/Resources/Limitless/global_assets/js/main/bootstrap.bundle.min.js",
+     
+
+      "wwwroot/Resources/Limitless/global_assets/js/plugins/loaders/blockui.min.js",
+      "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/js/app.js",
+      "wwwroot/Scripts/SharedJS/Layout.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": false
+    },
+    "sourceMap": false
+  },
+  
+
+  // login page
+  {
+    "outputFileName": "wwwroot/bundling/css/loginPageCombined.min.css",
+    "inputFiles": [
+
+    ]
+  },
+  
+
+  // Dashboard Layout
+  {
+    "outputFileName": "wwwroot/bundling/js/dashboardLayoutCombined.min.js",
+    "inputFiles": [
+      
+      "wwwroot/Scripts/Dashboard/DashboardLayout.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": false
+    },
+    "sourceMap": false
+  },
+  // Dashboard page
+  {
+    "outputFileName": "wwwroot/bundling/css/dashboardPageCombined.min.css",
+    "inputFiles": [
+      "wwwroot/Resources/kendo/styles/kendo.common.min.css",
+      "wwwroot/Resources/kendo/styles/kendo.default.min.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/bundling/js/dashboardPageCombined1.min.js",
+    "inputFiles": [
+      "wwwroot/Resources/theme/js/mydragable.js",
+      "wwwroot/Resources/Vendor/canvasjs/canvasjs.min.js",
+      "wwwroot/Resources/kendo/js/jszip.js",
+      "wwwroot/Resources/kendo/js/kendo.all.min.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": false
+    },
+    "sourceMap": false
+  },
+ 
+
+]
