@@ -64,29 +64,8 @@
       "renameLocals": false
     },
     "sourceMap": false
-  },
-  // Dashboard page
-  {
-    "outputFileName": "wwwroot/bundling/css/dashboardPageCombined.min.css",
-    "inputFiles": [
-      "wwwroot/Resources/kendo/styles/kendo.common.min.css",
-      "wwwroot/Resources/kendo/styles/kendo.default.min.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/bundling/js/dashboardPageCombined1.min.js",
-    "inputFiles": [
-      "wwwroot/Resources/theme/js/mydragable.js",
-      "wwwroot/Resources/Vendor/canvasjs/canvasjs.min.js",
-      "wwwroot/Resources/kendo/js/jszip.js",
-      "wwwroot/Resources/kendo/js/kendo.all.min.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": false
-    },
-    "sourceMap": false
-  },
+  } 
+  
  
 
 ]
