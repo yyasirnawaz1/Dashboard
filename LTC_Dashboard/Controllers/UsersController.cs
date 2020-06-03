@@ -93,6 +93,10 @@ namespace LTC_Dashboard.Controllers
                 model.EmailConfirmed = true;
                 model.PhoneNumberConfirmed = true;
                 model.PhoneNumber = model.AuthenticationPhone;
+                model.IsEditModuleEnabled = false;
+                model.IsEditUserEnabled = false;
+                model.IsAssignOfficeEnabled = false;
+
                 model.Office_Sequence = gOfficeManager.GetOfficeSequenceByOfficeNumber(model.Office_Number);
                 var result = await _userManager.CreateAsync(model, model.PasswordHash);
                 if (!result.Succeeded)
@@ -189,6 +193,9 @@ namespace LTC_Dashboard.Controllers
                     model.UserName = model.Email;
                     model.EmailConfirmed = true;
                     model.PhoneNumberConfirmed = true;
+                    model.IsEditModuleEnabled = false;
+                    model.IsEditUserEnabled = false;
+                    model.IsAssignOfficeEnabled = false;
                     model.Office_Sequence = gOfficeManager.GetOfficeSequenceByOfficeNumber(model.Office_Number);
                     gOfficeManager.UpdateUser(model);
                     if (IsEditModuleEnabled)
