@@ -2,7 +2,6 @@
 var Subscription = function () {
     var dt = null;
     var initSubscriptionTable = function () {
-        debugger;
         Layout.showLoader();
 
 
@@ -34,18 +33,10 @@ var Subscription = function () {
                     "searchable": true
                 },
                 {
-                    "title": "Status",
-                    "data": "SubscriptionStatus",
+                    "title": "Last Update At",
+                    "data": "LastSubscriptionStatusUpdated",
                     "searchable": true,
-                    "render": function (data, type, full, meta) {
-                        var strstatus = data;
-                        if (data == 1) {
-                            strstatus = '<span class="badge badge-success"> Subscribed </span>';
-                        } else {
-                            strstatus = ' <span class="badge badge-danger"> Unsubscribed </span>';
-                        }
-                        return strstatus;
-                    }
+                   
                 },
                 {
                     "title": "Actions",
@@ -119,7 +110,6 @@ var Subscription = function () {
 
         //main functionto initiate the module
         init: function () {
-            debugger;
             if (!jQuery().dataTable) {
                 return;
             }
@@ -136,7 +126,33 @@ var Subscription = function () {
         },
 
 
-   
+        toggleSubscription: function (actionURL) {
+            Layout.showLoader();
+
+
+
+
+            $.ajax({
+                url: actionURL,
+                type: 'Post',
+                async: false,
+                cache: false,
+                success: function (data) {
+
+                    Subscription.refresh();
+
+
+                },
+
+                error: function (xhr) {
+                    ltcApp.errorMessage("Error", 'error');
+
+                }
+
+
+            });
+
+        },
 
         newSubscription: function (actionURL) {
             $.get(actionURL, function (data) {
@@ -253,3 +269,10 @@ function createSubscriptionSuccess(data) {
 
 
 
+
+jQuery(document).ready(function () {
+
+    Subscription.init();
+
+
+});
