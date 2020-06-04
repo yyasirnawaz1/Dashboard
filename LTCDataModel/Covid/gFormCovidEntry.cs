@@ -60,4 +60,30 @@ namespace LTCDataModel.Covid
 
         public string CustomID { get; set; }
     }
+
+    public class gFormCovidEntryViewModel
+    {
+
+        public int BusinessInfo_ID { get; set; }
+        public int QueueID { get; set; }
+        public int FormID { get; set; }
+        public int SubscriberID { get; set; }
+        public short IsPreScreen { get; set; }
+        public DateTime PreScreenDate { get; set; }
+        public short IsInPersonScreen { get; set; }
+        public DateTime InPersonScreenDate { get; set; }
+        public string StorageInJson { get; set; }
+        public string Covid_Form_Description { get; set; }
+
+        public string Salutation { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string MiddleInitial { get; set; }
+        public string EmailAddress { get; set; }
+
+    }
+
 }

@@ -33,6 +33,18 @@ namespace LTCDataManager.DataAccess
                 return config.GetConnectionString("LTCFormConnection");
             }
         }
+        public static string LtcCovid
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                var config = builder.Build();
+                return config.GetConnectionString("LTCCovidConnection");
+            }
+        }
+
         public static string LtcDental
         {
             get
