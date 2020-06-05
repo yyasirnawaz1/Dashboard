@@ -98,7 +98,7 @@ var Subscription = function () {
             ], // set first column as a default sort by asc
 
             initComplete: function () {
-
+                Layout.hideLoader();
             }
         });
 
@@ -153,17 +153,10 @@ var Subscription = function () {
             });
 
         },
-
-        newSubscription: function (actionURL) {
-            $.get(actionURL, function (data) {
-                $('#modifySubscriptionContainer').html(data);
-                jQuery.validator.unobtrusive.parse('#modifySubscriptionContainer');
-                $('#modifySubscription').modal('show');
-            });
-            $("#modificationArea").addClass("hide");
-
+        newSubscription: function () {
+            $('#subscriberModel').modal('show');
         },
-
+      
         modifySubscription: function (actionURL) {
 
 

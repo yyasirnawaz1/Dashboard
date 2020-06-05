@@ -23,7 +23,7 @@ namespace LTCDataManager.Covid
             _configuration = configuration.Value;
             Utility.Config = configuration.Value; ;
         }
-        public void SaveSubscriber(gCovidSubscriber model)
+        public static void SaveSubscriber(gCovidSubscriber model)
         {
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
@@ -61,7 +61,7 @@ namespace LTCDataManager.Covid
                 }
             }
         }
-        public void DeleteSubscriber(int Id)
+        public static void DeleteSubscriber(int Id)
         {
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
@@ -73,7 +73,7 @@ namespace LTCDataManager.Covid
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gCovidSubscriber>($"SELECT  * FROM subscribers ").ToList();
         }
-        public void Save(gFormCovidEntry model)
+        public static void Save(gFormCovidEntry model)
         {
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
@@ -109,7 +109,7 @@ namespace LTCDataManager.Covid
                 }
             }
         }
-        public void Delete(int Id)
+        public static void Delete(int Id)
         {
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
@@ -117,7 +117,7 @@ namespace LTCDataManager.Covid
             }
         }
 
-        public List<gFormCovidEntryViewModel> GetCovidForms()
+        public static List<gFormCovidEntryViewModel> GetCovidForms()
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gFormCovidEntryViewModel>($"SELECT  * FROM form_covid_entry Inner join subscribers on form_covid_entry.SubscriberID = subscribers.ID Inner Join form_covid_type on form_covid_entry.FormID = form_covid_type.ID ").ToList();

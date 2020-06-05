@@ -29,11 +29,23 @@
       "wwwroot/Resources/theme/js/vendor/jquery/jquery.min.js",
       "wwwroot/Resources/theme/js/vendor/jquery/jquery-ui.min.js",
       "wwwroot/Resources/Limitless/global_assets/js/main/bootstrap.bundle.min.js",
-     
-
+      ////"wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "wwwroot/Resources/Limitless/global_assets/js/plugins/loaders/blockui.min.js",
+      "wwwroot/Resources/Limitless/global_assets/js/plugins/forms/selects/bootstrap_multiselect.js",
+      "wwwroot/Resources/Limitless/global_assets/js/plugins/ui/moment/moment.min.js",
+      "wwwroot/Resources/Limitless/global_assets/js/plugins/pickers/daterangepicker.js",
       "wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/js/app.js",
+      "wwwroot/Resources/Vendor/bootstrap-select-1.13.7/js/bootstrap-select.min.js",
       "wwwroot/Scripts/SharedJS/Layout.js"
+
+      //"wwwroot/Resources/theme/js/vendor/jquery/jquery.min.js",
+      //"wwwroot/Resources/theme/js/vendor/jquery/jquery-ui.min.js",
+      //"wwwroot/Resources/Limitless/global_assets/js/main/bootstrap.bundle.min.js",
+
+
+      //"wwwroot/Resources/Limitless/global_assets/js/plugins/loaders/blockui.min.js",
+      //"wwwroot/Resources/Limitless/layout_1/LTR/default/full/assets/js/app.js",
+      //"wwwroot/Scripts/SharedJS/Layout.js"
     ],
     "minify": {
       "enabled": true,

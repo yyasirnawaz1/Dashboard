@@ -32,7 +32,10 @@ namespace LTCDataModel.Covid
         public string Covid_Form_Description { get; set; }
 
     }
-
+    public class IdModel
+    {
+        public int Id { get; set; }
+    }
     [TableName("subscribers")]
     [PrimaryKey("ID", AutoIncrement = true)]
     public class gCovidSubscriber
@@ -55,7 +58,7 @@ namespace LTCDataModel.Covid
 
         public bool SubscriptionStatus { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dddd, mmmm dd, yyyy hh:mm:ss tt}")]
+        
         public DateTime LastSubscriptionStatusUpdated { get; set; }
 
         public string CustomID { get; set; }
