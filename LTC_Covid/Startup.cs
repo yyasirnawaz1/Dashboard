@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
+using LTC_Covid.Data;
 using LTC_Dashboard.Helper;
-using LTCDashboard.Data;
-using LTCDashboard.Models;
+using LTC_Covid.Models;
 using LTCDataManager.Email;
 using LTCDataModel.Configurations;
 using Microsoft.AspNetCore.Builder;
@@ -20,7 +20,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 
-namespace LTCDashboard
+namespace LTC_Covid
 {
     public class Startup
     {
@@ -57,10 +57,9 @@ namespace LTCDashboard
                 options.Password.RequireNonAlphanumeric = false;
             });
 
-            services.AddScoped<IPasswordHasher<ApplicationUser>, CustomPasswordHasher>(); // disable password hashing in that class
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySql(Configuration.GetConnectionString("LTCSystem"))
+                options.UseMySql(Configuration.GetConnectionString("LTC_Covid"))
             );
             services.Configure<EmailManager.ElasticEmail>(Configuration.GetSection("ElasticEmail"));
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
@@ -73,7 +72,7 @@ namespace LTCDashboard
 
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddIdentity<ApplicationUser, IdentityRole<int>>()
+            services.AddIdentity<BusinessUserInfo, IdentityRole<int>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddClaimsPrincipalFactory<CustomClaimsPrincipalFactory>()
                 .AddDefaultTokenProviders();

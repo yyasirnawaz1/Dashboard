@@ -7,7 +7,7 @@ using LTCDataModel.Configurations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace LTCDashboard.Controllers
+namespace LTC_Covid.Controllers
 {
     public class AboutController : BaseController
     {

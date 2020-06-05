@@ -1,19 +1,19 @@
 ﻿using System.Threading.Tasks;
-using LTCDashboard.Data;
+using LTC_Covid.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace LTCDashboard.Areas.Identity.Pages.Account.Manage
+namespace LTC_Covid.Areas.Identity.Pages.Account.Manage
 {
     public class PersonalDataModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<BusinessUserInfo> _userManager;
         private readonly ILogger<PersonalDataModel> _logger;
 
         public PersonalDataModel(
-            UserManager<ApplicationUser> userManager,
+            UserManager<BusinessUserInfo> userManager,
             ILogger<PersonalDataModel> logger)
         {
             _userManager = userManager;

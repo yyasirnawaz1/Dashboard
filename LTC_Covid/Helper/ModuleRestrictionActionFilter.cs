@@ -1,4 +1,4 @@
-﻿using LTCDashboard.Controllers;
+﻿using LTC_Covid.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

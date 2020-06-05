@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 
-namespace LTCDashboard.Data
+namespace LTC_Covid.Data
 {
     public class EmailSender : IEmailSender
     {

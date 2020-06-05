@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using LTCDashboard.Models;
+using LTC_Covid.Models;
 using LTCDataManager.Office;
 using LTCDataManager.User;
 using LTCDataModel.Configurations;
@@ -13,23 +13,23 @@ using Microsoft.Extensions.Options;
 using LTCDataManager.Summary;
 using LTCDataModel.Office;
 using Microsoft.AspNetCore.Identity;
-using LTCDashboard.Data;
+using LTC_Covid.Data;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace LTCDashboard.Controllers
+namespace LTC_Covid.Controllers
 {
     public class HomeController : BaseController
     {
         private ConfigSettings _configuration;
         private Mapping _mapping;
         private gOfficeSummaryManager _gOfficeSummaryManager;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<BusinessUserInfo> _userManager;
+        private readonly SignInManager<BusinessUserInfo> _signInManager;
 
         public HomeController(IOptions<ConfigSettings> configuration,
             IOptions<Mapping> mapping,
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            UserManager<BusinessUserInfo> userManager,
+            SignInManager<BusinessUserInfo> signInManager)
         {
             _configuration = configuration.Value;
             _mapping = mapping.Value;

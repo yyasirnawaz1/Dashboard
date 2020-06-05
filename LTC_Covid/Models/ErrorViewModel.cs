@@ -1,6 +1,6 @@
 using System;
 
-namespace LTCDashboard.Models
+namespace LTC_Covid.Models
 {
     public class ErrorViewModel
     {
