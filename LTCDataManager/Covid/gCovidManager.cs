@@ -68,6 +68,15 @@ namespace LTCDataManager.Covid
                 db.Delete("subscribers", "ID", new gCovidSubscriber { ID = Id });
             }
         }
+        public static gCovidSubscriber GetSubscriberById(int Id)
+        {
+            gCovidSubscriber res = null;
+            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
+            {
+                res =  db.Fetch<gCovidSubscriber>($"Select * from subscribers where ID = {Id}").FirstOrDefault();
+            }
+            return res;
+        }
         public  static List<gCovidSubscriber> GetSubscribers()
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);

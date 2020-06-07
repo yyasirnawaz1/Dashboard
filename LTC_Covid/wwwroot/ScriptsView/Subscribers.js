@@ -36,7 +36,7 @@ var Subscription = function () {
                     "title": "Last Update At",
                     "data": "LastSubscriptionStatusUpdated",
                     "searchable": true,
-                   
+
                 },
                 {
                     "title": "Actions",
@@ -156,68 +156,66 @@ var Subscription = function () {
         newSubscription: function () {
             $('#subscriberModel').modal('show');
         },
-      
+
         modifySubscription: function (actionURL) {
 
 
             $.get(actionURL, function (data) {
-                $('#modifySubscriptionContainer').html(data);
-                jQuery.validator.unobtrusive.parse('#modifySubscriptionContainer');
-                $('#modifySubscription').modal('show');
+                debugger;
+                if (data.success) {
+                    $("#fname").val(data.obj.FirstName);
+                    $("#lname").val(data.obj.LastName);
+                    $("#mname").val(data.obj.MiddleInitial);
+                    $("#Salutation").val(data.obj.Salutation);
+                    $("#email").val(data.obj.EmailAddress);
+                     
+                    $('#subscriberModel').modal('show');
+                }
+
+              
             });
 
 
-            $("#modificationArea").removeClass("hide");
 
         },
 
         deleteSubscription: function (actionURL) {
 
-            //
-            swal({
-                title: "Are you sure you want to delete?",
-                text: "Record will be deleted permanently",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes",
-                cancelButtonText: "No",
-                closeOnConfirm: false,
-                closeOnCancel: true
-            },
-                function (isConfirm) {
-                    if (isConfirm) {
-                        Layout.showLoader();
+            var result = confirm("Are you sure, you want to delete?");
+            if (result) {
 
-                        $.ajax({
-                            url: actionURL,
-                            type: 'Post',
-                            async: false,
-                            cache: false,
-                            contentType: 'application/json',
-                            success: function (data) {
+                Layout.showLoader();
 
-                                Subscription.refresh();
+                $.ajax({
+                    url: actionURL,
+                    type: 'Post',
+                    async: false,
+                    cache: false,
+                    contentType: 'application/json',
+                    success: function (data) {
 
-                                ltcApp.successMessage("Deleted!", "Record has been deleted.", "success");
+                        Subscription.refresh();
+
+                        ltcApp.successMessage("Deleted!", "Record has been deleted.", "success");
 
 
-                            },
+                    },
 
-                            error: function (xhr) {
+                    error: function (xhr) {
 
-                                ltcApp.errorMessage("Error!", "Error", "error");
-                            }
-
-
-                        });
-
+                        ltcApp.errorMessage("Error!", "Error", "error");
                     }
+
+
                 });
-            //
+
+            }
+
+
 
 
         },
+
 
 
 

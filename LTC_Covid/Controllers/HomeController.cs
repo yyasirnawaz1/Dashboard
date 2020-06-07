@@ -39,12 +39,16 @@ namespace LTCDashboard.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Index() 
+        public ActionResult CovidForm() 
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        public ActionResult CovidFormView()
         {
             return View();
         }
 
-        
         [AllowAnonymous]
         public ActionResult ViewForms()
         {
