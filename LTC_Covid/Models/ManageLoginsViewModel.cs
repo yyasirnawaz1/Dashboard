@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 
-namespace LTCDashboard.Models
+namespace LTC_Covid.Models
 {
     public class ManageLoginsViewModel
     {

@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LTCDashboard.Controllers
+namespace LTC_Covid.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class BaseController : Controller
     {
        

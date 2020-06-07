@@ -4,23 +4,23 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using LTCDashboard.Data;
+using LTC_Covid.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace LTCDashboard.Areas.Identity.Pages.Account.Manage
+namespace LTC_Covid.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<BusinessUserInfo> _userManager;
+        private readonly SignInManager<BusinessUserInfo> _signInManager;
         private readonly IEmailSender _emailSender;
 
         public IndexModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+            UserManager<BusinessUserInfo> userManager,
+            SignInManager<BusinessUserInfo> signInManager,
             IEmailSender emailSender)
         {
             _userManager = userManager;

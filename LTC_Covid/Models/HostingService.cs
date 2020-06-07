@@ -8,7 +8,7 @@ using LTCDataManager.Email;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
-namespace LTCDashboard.Models
+namespace LTC_Covid.Models
 {
     public class HostingService : IHostedService
     { 

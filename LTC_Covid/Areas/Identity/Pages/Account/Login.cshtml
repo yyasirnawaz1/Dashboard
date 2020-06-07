@@ -7,8 +7,8 @@
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<BusinessUserInfo> SignInManager
+@inject UserManager<BusinessUserInfo> UserManager
 
 @{
     ViewData["Title"] = "Log in";

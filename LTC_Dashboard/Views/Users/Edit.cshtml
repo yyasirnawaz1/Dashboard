@@ -44,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">Allowed Offices</label>
-                        <select name="allowed_offices" id="allowed_offices" class="form-control" asp-items="@((IEnumerable<SelectListItem>)(ViewBag.OfficeList))" disabled="@(isEditModuleEnabled?"":"disabled")" multiple>
+                        <select name="allowed_offices" id="allowed_offices" class="form-control" asp-items="@((IEnumerable<SelectListItem>)(ViewBag.OfficeList))" multiple>
                         </select>
                     </div>
 
@@ -228,9 +228,14 @@
 @section Scripts {
 
     <script type="text/javascript">
+
         $(document).ready(function () {
             $("#Office_Number").select2();
             $("#allowed_offices").select2();
+            @if(!isAssignOfficeEnabled)
+            {
+                <text> $("#allowed_offices").attr("disabled","disabled") </text>
+            }
         });
     </script>
 

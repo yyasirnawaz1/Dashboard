@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using LTCDashboard.Data;
+using LTC_Covid.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace LTCDashboard.Areas.Identity.Pages.Account.Manage
+namespace LTC_Covid.Areas.Identity.Pages.Account.Manage
 {
     public class SetPasswordModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<BusinessUserInfo> _userManager;
+        private readonly SignInManager<BusinessUserInfo> _signInManager;
 
         public SetPasswordModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            UserManager<BusinessUserInfo> userManager,
+            SignInManager<BusinessUserInfo> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
