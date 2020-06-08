@@ -118,7 +118,7 @@ namespace LTC_Dashboard.Controllers
                 }
                 else
                 {
-                    if (IsEditModuleEnabled)
+                    if (IsAssignOfficeEnabled)
                         gOfficeManager.InsertAllowedOffices(model.Id, allowed_offices);
                 }
                 return RedirectToAction(nameof(Index));
@@ -198,7 +198,7 @@ namespace LTC_Dashboard.Controllers
                     model.IsAssignOfficeEnabled = false;
                     model.Office_Sequence = gOfficeManager.GetOfficeSequenceByOfficeNumber(model.Office_Number);
                     gOfficeManager.UpdateUser(model);
-                    if (IsEditModuleEnabled)
+                    if (IsAssignOfficeEnabled)
                         gOfficeManager.InsertAllowedOffices(model.Id, allowed_offices);
                 }
 
@@ -271,6 +271,7 @@ namespace LTC_Dashboard.Controllers
                 Value = (i.Office_Number != null ? i.Office_Number.ToString() : ""),
                 Selected = selectedList.Any(x => x == i.Office_Number)
             });
+
 
             //ViewBag.ModuleList = gUserModuleManager.GetAllModules();
         }
