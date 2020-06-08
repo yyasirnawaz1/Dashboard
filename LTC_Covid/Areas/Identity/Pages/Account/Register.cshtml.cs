@@ -55,6 +55,54 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+
+            [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+
+
+            [Required]
+            [Display(Name = "Phone Number")]
+            public string PhoneNumber { get; set; }
+
+
+            [Required]
+            [Display(Name = "Address")]
+            public string AddressLine1 { get; set; }
+
+            [Display(Name = "")]
+            public string AddressLine2 { get; set; }
+
+            [Display(Name = "")]
+            public string AddressLine3 { get; set; }
+
+
+            [Required]
+            [Display(Name = "City")]
+            public string City { get; set; }
+
+
+            [Required]
+            [Display(Name = "Province")]
+            public string Province { get; set; }
+
+
+
+            [Required]
+            [Display(Name = "Country")]
+            public string Country { get; set; }
+
+
+            [Required]
+            [Display(Name = "Postal Code")]
+            public string PostalCode { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -67,7 +115,21 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new BusinessUserInfo { UserName = Input.Email, Email = Input.Email };
+                var user = new BusinessUserInfo
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    PhoneNumber = Input.PhoneNumber,
+                    AddressLine1 = Input.AddressLine1,
+                    AddressLine2 = Input.AddressLine2,
+                    AddressLine3 = Input.AddressLine3,
+                    City = Input.City,
+                    Province = Input.Province,
+                    Country = Input.Country,
+                    PostalCode = Input.PostalCode
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

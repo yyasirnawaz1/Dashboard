@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LTC_Covid.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class BaseController : Controller
     {
        

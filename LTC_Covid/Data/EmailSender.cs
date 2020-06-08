@@ -35,19 +35,22 @@ namespace LTC_Covid.Data
         {
 
             MailMessage mail = new MailMessage();
-            SmtpClient smtpServer = new SmtpClient(_emailSetting.MailServer);
+            
 
             mail.From = new MailAddress(_emailSetting.SenderEmail);
             mail.To.Add(email);
 
             mail.Subject = subject;
             mail.Body = htmlMessage;
-
-            smtpServer.Port = _emailSetting.MailPort;
-            smtpServer.Credentials = new System.Net.NetworkCredential(_emailSetting.SenderEmail, _emailSetting.Password);
-            smtpServer.EnableSsl = false;
-
-            await smtpServer.SendMailAsync(mail);
+            using (SmtpClient smtpServer = new SmtpClient(_emailSetting.MailServer))
+            {
+                smtpServer.UseDefaultCredentials = false;
+                smtpServer.Port = _emailSetting.MailPort;
+                smtpServer.Credentials = new System.Net.NetworkCredential(_emailSetting.SenderEmail, _emailSetting.Password);
+                smtpServer.EnableSsl = true;
+                await smtpServer.SendMailAsync(mail);
+            }
+            
         }
     }
 }

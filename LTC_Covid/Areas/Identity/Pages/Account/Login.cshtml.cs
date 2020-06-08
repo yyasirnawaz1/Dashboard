@@ -10,9 +10,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using LTCDataManager.Office;
-using LTCDataManager.NewsLetter;
-using Microsoft.AspNetCore.Http;
 
 namespace LTC_Covid.Areas.Identity.Pages.Account
 {
@@ -21,12 +18,11 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<BusinessUserInfo> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-        private readonly UserManager<BusinessUserInfo> _userManager;
-        public LoginModel(SignInManager<BusinessUserInfo> signInManager, ILogger<LoginModel> logger, UserManager<BusinessUserInfo> userManager)
+
+        public LoginModel(SignInManager<BusinessUserInfo> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
-            _userManager = userManager;
         }
 
         [BindProperty]
@@ -38,10 +34,6 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
 
         [TempData]
         public string ErrorMessage { get; set; }
-
-
-        [TempData]
-        public string MenuErrorMessage { get; set; }
 
         public class InputModel
         {
@@ -76,19 +68,18 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = Url.Content("/Identity/Account/Login");
+            returnUrl = returnUrl ?? Url.Content("~/Home/");
 
             if (ModelState.IsValid)
             {
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-                    Response.Cookies.Delete("ModuleRestriction");
-
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
-
                 if (result.RequiresTwoFactor)
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });

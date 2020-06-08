@@ -17,6 +17,12 @@ namespace LTC_Covid.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<BusinessUserInfo>(entity =>
+            {
+                entity.ToTable(name: "businessinfo");
+                entity.Property(e => e.Id).HasColumnName("Id");
+
+            });
         }
     }
 }
