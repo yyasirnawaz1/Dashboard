@@ -42,29 +42,29 @@ namespace LTC_Covid.Controllers
                 return officeSequence;
             }
         }
-        public string OfficeName
-        {
-            get
-            {
-                var office = gOfficeManager.GetOfficeName(OfficeSequence);
-                if (office != null)
-                {
+        //public string OfficeName
+        //{
+        //    get
+        //    {
+        //        var office = gOfficeManager.GetOfficeName(OfficeSequence);
+        //        if (office != null)
+        //        {
                    
-                    return office.ClinicName;
-                }
-                else
-                {
-                    return string.Empty;
+        //            return office.ClinicName;
+        //        }
+        //        else
+        //        {
+        //            return string.Empty;
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
 
         //TODO: remove this method and get the connection string based on office id
-        public string GetUserConnectionString()
-        {
-            return DbConfiguration.LtcDental;
-        }
+        //public string GetUserConnectionString()
+        //{
+        //    return DbConfiguration.LtcDental;
+        //}
 
         
 

@@ -4,6 +4,10 @@
     Layout = "~/Views/Shared/Layouts/_DashboardLayout.cshtml";
 }
 <style>
+    .table-responsive {
+        overflow-x: hidden !important;
+    }
+
     .form-check-input {
         position: center;
         margin-top: 0px;
@@ -19,7 +23,7 @@
             <h5 class="card-title">Subscribers</h5>
             <div class="header-elements">
                 <div class="list-icons">
-                    <button type="button" id="btnCreate" class="btn btn-primary" onclick="">Add Subscriber</button>
+                    <button type="button" id="btnCreate" class="btn btn-primary" onclick="Subscription.newSubscription();">Add Subscriber</button>
                     <a class="list-icons-item" data-action="collapse"></a>
 
                 </div>
@@ -28,70 +32,10 @@
 
         <div class="card-body">
             <br />
-            <div class="row">
-                <div class="col-md-1" style="margin-top: 10px;">
-                    <label>Type: </label>
-                </div>
-                <div class="col-md-2">
-                    <select id="ddlTemplatesTypes1" class="form-control" onchange="Newsletter.ddlTemplatesTypes1_OnChange()"></select>
-                </div>
 
-
-
-            </div>
             <fieldset class="mb-3">
                 <div class="table-responsive">
-                    <table id="subscriberTable" class="table table-bordered table-striped table-lg">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Name</th>
-                                <th class="text-center">Email Address</th>
-                                <th class="text-center">Last Update At</th>
-                                <th class="text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center">Ishaq Khan</td>
-                                <td class="text-center">test@mailinator.com</td>
-                                <td class="text-center">03/06/2020</td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="dropdown show">
-                                            <a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="true"><i class="icon-menu9"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-158px, -145px, 0px);">
-                                                <a href="#" class="dropdown-item" onclick=""><i class="icon-pencil"></i> Edit</a>
-                                                <a href="#" class="dropdown-item" onclick=""><i class="icon-file-eye"></i> Delete</a>
-                                                <div class="dropdown-divider"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-
-                            </tr>
-
-                            <tr>
-                                <td class="text-center">Yasir</td>
-                                <td class="text-center">test@mailinator.com</td>
-                                <td class="text-center">03/06/2020</td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="dropdown show">
-                                            <a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="true"><i class="icon-menu9"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-158px, -145px, 0px);">
-                                                <a href="#" class="dropdown-item" onclick=""><i class="icon-pencil"></i> Edit</a>
-                                                <a href="#" class="dropdown-item" onclick=""><i class="icon-file-eye"></i> Delete</a>
-                                                <div class="dropdown-divider"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-
-                            </tr>
-
-
-                        </tbody>
-                    </table>
+                    <table id="subscriberTable" class="table table-bordered table-striped table-lg"></table>
                 </div>
 
 
@@ -110,6 +54,25 @@
     </div>
     <!-- /form inputs -->
 
+</div>
+<div id="div_template" style="display:none">
+    <div id="div_grid_actions">
+        <div class="btn-group">
+
+            <div class="list-icons">
+                <div class="dropdown">
+                    <a href="#" class="list-icons-item" data-toggle="dropdown">
+                        <i class="icon-menu9"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#" onclick="Subscription.modifySubscription('@Url.Action("GetDetail", "Subscribers",new { Id= "__prm_id__" })');" data-target="#modifySubscription" data-toggle="modal" class="dropdown-item"><i class="icon-pencil7"></i> Modify</a>
+                        <a href="#" onclick="Subscription.deleteSubscription('@Url.Action("Delete", "Subscribers",new { Id="__prm_id__" })');" class="dropdown-item"><i class="icon-x"></i> Delete</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 <div id="subscriberModel" class="modal fade" tabindex="-1" data-width="600" data-keyboard="false" role="dialog" aria-labelledby="subscriberModel" aria-hidden="true" data-backdrop="static">
 
@@ -133,9 +96,7 @@
 
                                 </label>
                                 <div class="col-md-9">
-
-
-
+                                    <input type="text" class="form-control" id="fname" name="fname">
                                 </div>
                             </div>
 
@@ -145,7 +106,23 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Last Name</label>
                                     <div class="col-md-9">
-
+                                        <input type="text" class="form-control" id="lname" name="lname">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Middle Name</label>
+                                    <div class="col-md-9">
+                                        <input type="text" id="mname" class="form-control" name="mname">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Salutation</label>
+                                    <div class="col-md-9">
+                                        <input type="text" id="Salutation" class="form-control" name="Salutation">
                                     </div>
                                 </div>
                             </div>
@@ -153,10 +130,13 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Email</label>
                                     <div class="col-md-9">
-
+                                        <input type="email" id="email" class="form-control" name="email">
                                     </div>
                                 </div>
-                                <div class="form-body">
+                                
+                               
+
+                                @*<div class="form-body">
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Status</label>
                                         <div class="col-md-9">
@@ -173,7 +153,7 @@
 
                                         </div>
                                     </div>
-                                </div>
+                                </div>*@
                             </div>
                             <hr>
 
@@ -182,10 +162,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
 
             </div>
             <div class="modal-footer">
@@ -197,13 +173,10 @@
     </div>
 </div>
 @section scripts{
-    <script src="~/ScriptsView/Subscribers.js"></script>
-    <style>
-            jQuery(document).ready(function () {
-        alert('a');
-        Subscription.init();
+    <script src="~/Resources/theme/js/vendor/datatables/jquery.dataTables.min.js"></script>
 
-        });
-    </style>
+    <script src="~/Resources/theme/js/vendor/datatables.net/js/DataTables-1.10.18/js/dataTables.bootstrap.js"></script>
+    <script src="~/ScriptsView/Subscribers.js"></script>
+
 }
 

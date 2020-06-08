@@ -15,12 +15,58 @@ namespace LTC_Covid.Controllers
         {
             return View();
         }
+        public ActionResult Delete(IdModel model)
+        {
+            gCovidManager.DeleteSubscriber(model.Id);
+            var json = new
+            {
+                success = true
+            };
+            return Json(json);
+            // return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });
 
+
+        }
+       
+        [HttpGet]
+        public ActionResult GetDetail(IdModel model)
+        {
+            gCovidSubscriber objModel = new gCovidSubscriber();
+            objModel = gCovidManager.GetSubscriberById(model.Id);
+            var json = new
+            {
+                success = true,
+                obj = objModel
+            };
+            return Json(json);
+
+        }
+
+        public ActionResult Upsert(gCovidSubscriber model)
+        {
+            try
+            {
+                model.LastSubscriptionStatusUpdated = DateTime.Now;
+                gCovidManager.SaveSubscriber(model);
+                var json = new
+                {
+                    success = true,
+                };
+                return Json(json);
+
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+
+        }
         public ActionResult Get([DataTablesRequest] DataTablesRequest requestModel)
         {
             List<gCovidSubscriber> objViewModelList = new List<gCovidSubscriber>();
 
-            
+
 
             objViewModelList = gCovidManager.GetSubscribers();
 
