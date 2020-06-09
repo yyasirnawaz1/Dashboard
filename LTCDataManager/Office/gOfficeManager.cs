@@ -168,7 +168,7 @@ namespace LTCDataManager.Office
             List<int> model = new List<int>();
             using (var db = new Database(DbConfiguration.LtcSystem))
             {
-                string qry = $"SELECT office_sequence FROM authentication_office_list WHERE userid = {userId}";
+                string qry = $"SELECT BI.Office_Number FROM authentication_office_list OL Inner Join businessInfo BI On BI.office_sequence = OL.office_sequence where OL.userid = {userId}";
                 model = db.Fetch<int>(qry).ToList();
             }
 
@@ -227,11 +227,19 @@ namespace LTCDataManager.Office
 
         public static void InsertAllowedOffices(int userId, List<int> allowedOffices)
         {
+            var offices = string.Join<int>(",", allowedOffices);
+            var officeSequenceList = new List<int>();
+            using (var db = new Database(DbConfiguration.LtcSystem))
+            {
+                string qry = $"select office_sequence from businessinfo where office_number in ({offices})";
+                officeSequenceList = db.Fetch<int>(qry).ToList();
+            }
+
             var sql = $"Delete from authentication_office_list WHERE UserId = {userId}; ";
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
             {
                 var sqlTemplate = $"INSERT INTO authentication_office_list Values ({userId},[officeId],'*'); ";
-                foreach (var item in allowedOffices)
+                foreach (var item in officeSequenceList)
                 {
                     sql += sqlTemplate.Replace("[officeId]", item.ToString());
                 }
