@@ -41,7 +41,7 @@ namespace LTCDataManager.DataAccess
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                 var config = builder.Build();
-                return config.GetConnectionString("LTCCovidConnection");
+                return config.GetConnectionString("LTC_Covid");
             }
         }
 

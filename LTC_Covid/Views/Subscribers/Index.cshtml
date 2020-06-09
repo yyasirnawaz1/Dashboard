@@ -133,27 +133,28 @@
                                         <input type="email" id="email" class="form-control" name="email">
                                     </div>
                                 </div>
-                                
-                               
+
+                                <input type="hidden" id="IdValue" value="0">
+
 
                                 @*<div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Status</label>
-                                        <div class="col-md-9">
-                                            <div class="mt-radio-inline">
-                                                <label class="mt-radio">
-                                                    <input type="radio" name="SubscriptionStatus" id="rbSubscribe" value="Subscribed" checked> Subscribe
-                                                    <span></span>
-                                                </label>
-                                                <label class="mt-radio">
-                                                    <input type="radio" name="SubscriptionStatus" id="rbUnSubscribe" value="UnSubscribed" checked> Unsubscribe
-                                                    <span></span>
-                                                </label>
-                                            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">Status</label>
+                <div class="col-md-9">
+                    <div class="mt-radio-inline">
+                        <label class="mt-radio">
+                            <input type="radio" name="SubscriptionStatus" id="rbSubscribe" value="Subscribed" checked> Subscribe
+                            <span></span>
+                        </label>
+                        <label class="mt-radio">
+                            <input type="radio" name="SubscriptionStatus" id="rbUnSubscribe" value="UnSubscribed" checked> Unsubscribe
+                            <span></span>
+                        </label>
+                    </div>
 
-                                        </div>
-                                    </div>
-                                </div>*@
+                </div>
+            </div>
+        </div>*@
                             </div>
                             <hr>
 
@@ -166,7 +167,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" onclick="Subscription.saveSubscription();" class="btn btn-primary">Save</button>
             </div>
 
         </div>
