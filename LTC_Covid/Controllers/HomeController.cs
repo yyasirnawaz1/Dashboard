@@ -15,6 +15,8 @@ using LTCDataModel.Office;
 using Microsoft.AspNetCore.Identity;
 using LTC_Covid.Data;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using LTCDataModel.Covid;
+using LTCDataManager.Covid;
 
 namespace LTC_Covid.Controllers
 {
@@ -44,6 +46,12 @@ namespace LTC_Covid.Controllers
             return View();
         }
         [AllowAnonymous]
+        public ActionResult CovidFormMOH()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
         public ActionResult CovidFormView()
         {
             return View();
@@ -55,6 +63,25 @@ namespace LTC_Covid.Controllers
             return View();
         }
 
-      
+        public ActionResult Upsert([FromBody]gFormCovidEntry model)
+        {
+            try
+            {
+
+                gCovidManager.Save(model);
+                var json = new
+                {
+                    success = true,
+                };
+                return Json(json);
+
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+
+        }
     }
 }

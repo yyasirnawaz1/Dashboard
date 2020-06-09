@@ -42,11 +42,14 @@ namespace LTC_Covid.Controllers
 
         }
 
-        public ActionResult Upsert(gCovidSubscriber model)
+        public ActionResult Upsert([FromBody]gCovidSubscriber model)
         {
             try
             {
                 model.LastSubscriptionStatusUpdated = DateTime.Now;
+                model.BusinessInfo_ID = 1;
+                model.SubscriptionStatus = true;
+
                 gCovidManager.SaveSubscriber(model);
                 var json = new
                 {

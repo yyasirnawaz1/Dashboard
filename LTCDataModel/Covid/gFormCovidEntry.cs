@@ -63,7 +63,22 @@ namespace LTCDataModel.Covid
 
         public string CustomID { get; set; }
     }
+    
+    public class gCovidSubscriberModel
+    {
+        public int ID { get; set; }
 
+        public string Salutation { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string MiddleInitial { get; set; }
+
+        public string EmailAddress { get; set; }
+
+    }
     public class gFormCovidEntryViewModel
     {
 

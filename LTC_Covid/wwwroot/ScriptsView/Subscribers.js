@@ -118,7 +118,12 @@ var Subscription = function () {
 
         },
         refresh: function () {
-
+            $("#fname").val('');
+            $("#lname").val('');
+            $("#mname").val('');
+            $("#Salutation").val('');
+            $("#email").val('');
+            $("#IdValue").val('0');
             initSubscriptionTable();
         },
         disableButton: function () {
@@ -156,23 +161,102 @@ var Subscription = function () {
         newSubscription: function () {
             $('#subscriberModel').modal('show');
         },
+        saveSubscription: function () {
+           
+
+            var firstName = '';
+            var lname = '';
+            var mname = '';
+            var Salutation = '';
+            var email = '';
+
+            if ($("#fname").val() == "") {
+                ltcApp.warningMessage(null, "Please provide first name");
+                return;
+            } else {
+                firstName = $("#fname").val();
+            }
+            if ($("#lname").val() == "") {
+                ltcApp.warningMessage(null, "Please provide last name");
+                return;
+            } else {
+                lname = $("#fname").val();
+            }
+
+            if ($("#mname").val() == "") {
+                ltcApp.warningMessage(null, "Please provide middle name");
+                return;
+            } else {
+                mname = $("#mname").val();
+            }
+            if ($("#Salutation").val() == "") {
+                ltcApp.warningMessage(null, "Please provide salutation");
+                return;
+            } else {
+                Salutation = $("#Salutation").val();
+            }
+            if ($("#email").val() == "") {
+                ltcApp.warningMessage(null, "Please provide email");
+                return;
+            } else {
+                email = $("#email").val();
+            }
+
+
+            //   if (template != null && article != null) {
+            var IdValue = $("#IdValue").val();
+
+            var data = {
+                ID : IdValue,
+                FirstName: firstName,
+                LastName: lname,
+                MiddleInitial: mname,
+                EmailAddress: email,
+                Salutation: Salutation,
+            };
+
+
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                url: '/Subscribers/Upsert',
+                success: function (data) {
+                    ltcApp.successMessage("Success", 'Subscriber has been added into the system.');
+                    Subscription.refresh();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    ltcApp.errorMessage("Error", 'Error loading preview');
+
+                },
+                complete: function () {
+                   
+                    $('#subscriberModel').modal('hide');
+
+                }
+            })
+ 
+
+
+        },
 
         modifySubscription: function (actionURL) {
 
 
             $.get(actionURL, function (data) {
-                debugger;
+
                 if (data.success) {
                     $("#fname").val(data.obj.FirstName);
                     $("#lname").val(data.obj.LastName);
                     $("#mname").val(data.obj.MiddleInitial);
                     $("#Salutation").val(data.obj.Salutation);
                     $("#email").val(data.obj.EmailAddress);
-                     
+                    $("#IdValue").val(data.obj.ID);
                     $('#subscriberModel').modal('show');
                 }
 
-              
+
             });
 
 
@@ -219,11 +303,7 @@ var Subscription = function () {
 
 
 
-        saveSubscription: function () {
 
-
-
-        }
     };
 
 }();
