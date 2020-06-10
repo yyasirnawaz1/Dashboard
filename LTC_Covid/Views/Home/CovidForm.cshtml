@@ -16,8 +16,8 @@
         </div>
 
         <div class="card-body">
-            <fieldset class="mb-5">
-
+            <fieldset class="mb-5" style="margin-bottom: 0px !important">
+                <input type="hidden" id="IdValue" value="0">
                 <br />
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Staff Screener</label>
@@ -34,7 +34,7 @@
                                 <input type="text" id="staffScreener" class="form-control">
                             </label>
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -48,7 +48,7 @@
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Patient Age</label>
                     <div class="col-lg-6">
-                        <input type="number" id="patientAge"  class="form-control">
+                        <input type="number" id="patientAge" class="form-control">
                     </div>
                 </div>
 
@@ -88,11 +88,11 @@
 
         <div class="card-body">
             <fieldset class="mb-3">
-                <div class="form-group row">
+                <div class="form-group row" style="margin-bottom: 0px;">
                     <div class="col-lg-3">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" id="" name="prescreen" class="form-check-input">
+                                <input type="radio" name="prescreen" id="preScreen" class="form-check-input">
                                 Pre Screen
                             </label>
                         </div>
@@ -101,7 +101,7 @@
                     <div class="col-lg-3">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" name="inperson" class="form-check-input">
+                                <input type="radio" id="inPerson" name="inperson" class="form-check-input" disabled>
                                 In-Person
                             </label>
                         </div>
@@ -109,19 +109,19 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-3" style="margin-left: 20px !important;">
 
-
-                        <label class="form-check-label">
-                            Date: 02/02/2019
+                        Date:
+                        <label class="form-check-label" id="PreScreenDate">
+                          - 
                         </label>
 
                     </div>
                     <div class="col-lg-3">
 
-
-                        <label class="form-check-label">
-                            Date: 02/02/2019
+                        Date:
+                        <label class="form-check-label" id="InPersonDate">
+                         -
                         </label>
 
                     </div>
@@ -150,14 +150,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer1" value="Yes" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer1" value="Yes" class="form-check-input PreScreen" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer1" value="No" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer1" value="No" class="form-check-input PreScreen" disabled>
                                             No
                                         </label>
                                     </div>
@@ -165,14 +165,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer1" value="Yes" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer1" value="Yes" class="form-check-input InPerson" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer1" value="No" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer1" value="No" class="form-check-input InPerson" disabled>
                                             No
                                         </label>
                                     </div>
@@ -187,14 +187,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer2" value="Yes" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer2" value="Yes" class="form-check-input PreScreen" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer2" value="No" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer2" value="No" class="form-check-input PreScreen" disabled>
                                             No
                                         </label>
                                     </div>
@@ -202,14 +202,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer2" value="Yes" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer2" value="Yes" class="form-check-input InPerson" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer2" value="No" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer2" value="No" class="form-check-input InPerson" disabled>
                                             No
                                         </label>
                                     </div>
@@ -221,14 +221,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer3" value="Yes" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer3" value="Yes" class="form-check-input PreScreen" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer3" value="No" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer3" value="No" class="form-check-input PreScreen" disabled>
                                             No
                                         </label>
                                     </div>
@@ -236,14 +236,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer3" value="Yes" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer3" value="Yes" class="form-check-input InPerson" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer3" value="No" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer3" value="No" class="form-check-input InPerson" disabled>
                                             No
                                         </label>
                                     </div>
@@ -258,14 +258,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer4" value="Yes" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer4" value="Yes" class="form-check-input PreScreen" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer4" value="No" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer4" value="No" class="form-check-input PreScreen" disabled>
                                             No
                                         </label>
                                     </div>
@@ -273,14 +273,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer4" value="Yes" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer4" value="Yes" class="form-check-input InPerson" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer4" value="No" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer4" value="No" class="form-check-input InPerson" disabled>
                                             No
                                         </label>
                                     </div>
@@ -294,14 +294,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer5" value="Yes" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer5" value="Yes" class="form-check-input PreScreen" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer5" value="No" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer5" value="No" class="form-check-input PreScreen" disabled>
                                             No
                                         </label>
                                     </div>
@@ -309,14 +309,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer5" value="Yes" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer5" value="Yes" class="form-check-input InPerson" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer5" value="No" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer5" value="No" class="form-check-input InPerson" disabled>
                                             No
                                         </label>
                                     </div>
@@ -328,14 +328,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer6" value="Yes" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer6" value="Yes" class="form-check-input PreScreen" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer6" value="No" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer6" value="No" class="form-check-input PreScreen" disabled>
                                             No
                                         </label>
                                     </div>
@@ -343,14 +343,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer6" value="Yes" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer6" value="Yes" class="form-check-input InPerson" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer6" value="No" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer6" value="No" class="form-check-input InPerson" disabled>
                                             No
                                         </label>
                                     </div>
@@ -362,14 +362,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer7" value="Yes" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer7" value="Yes" class="form-check-input PreScreen" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer7" value="No" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer7" value="No" class="form-check-input PreScreen" disabled>
                                             No
                                         </label>
                                     </div>
@@ -377,14 +377,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer7" value="Yes" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer7" value="Yes" class="form-check-input InPerson" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer7" value="No" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer7" value="No" class="form-check-input InPerson" disabled>
                                             No
                                         </label>
                                     </div>
@@ -431,14 +431,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer8" value="Yes" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer8" value="Yes" class="form-check-input PreScreen" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer8" value="No" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer8" value="No" class="form-check-input PreScreen" disabled>
                                             No
                                         </label>
                                     </div>
@@ -446,14 +446,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer8" value="Yes" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer8" value="Yes" class="form-check-input InPerson" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer8" value="No" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer8" value="No" class="form-check-input InPerson" disabled>
                                             No
                                         </label>
                                     </div>
@@ -469,14 +469,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer9" value="Yes" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer9" value="Yes" class="form-check-input PreScreen" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="PreScreenAnswer9" value="No" class="form-check-input">
+                                            <input type="radio" name="PreScreenAnswer9" value="No" class="form-check-input PreScreen" disabled>
                                             No
                                         </label>
                                     </div>
@@ -484,14 +484,14 @@
                                 <td>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer9" value="Yes" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer9" value="Yes" class="form-check-input InPerson" disabled>
                                             Yes
                                         </label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
-                                            <input type="radio" name="InPersonScreenAnswer9" value="No" class="form-check-input">
+                                            <input type="radio" name="InPersonScreenAnswer9" value="No" class="form-check-input InPerson" disabled>
                                             No
                                         </label>
                                     </div>

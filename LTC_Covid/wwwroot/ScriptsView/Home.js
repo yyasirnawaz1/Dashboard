@@ -7,7 +7,12 @@ var HomeView = function () {
         init: function () {
 
         },
-
+        selectSubscriber: function () {
+            $('#entryModel').modal('show');
+        },
+        newSubscription: function () {
+            $('#subscriberModel').modal('show');
+        },
         saveForm: function () {
 
             var form = new Object();
@@ -114,13 +119,13 @@ var HomeView = function () {
 
 
             //   if (template != null && article != null) {
-          //  var IdValue = $("#IdValue").val();
+            var IdValue = $("#IdValue").val();
 
             var data = {
-                //ID: 0,
+                ID: IdValue,
                 StorageInJson: string,
-                //IsPreScreen: true,
-                //IsInPersonScreen: true,
+                IsPreScreen: form.IsPreScreen,
+                IsInPersonScreen: form.InPerson,
             };
 
 
@@ -131,11 +136,11 @@ var HomeView = function () {
                 dataType: 'json',
                 url: '/Home/Upsert',
                 success: function (data) {
-                    ltcApp.successMessage("Success", 'Subscriber has been added into the system.');
+                    ltcApp.successMessage("Success", 'Form has been saved');
                    // Subscription.refresh();
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    ltcApp.errorMessage("Error", 'Error loading preview');
+                    ltcApp.errorMessage("Error", 'Error saving the form');
 
                 },
                 complete: function () {
@@ -152,7 +157,20 @@ var HomeView = function () {
     };
 
 }();
-
+ 
+$("input[name=prescreen]").change(function () {
+    $(".PreScreen").attr('disabled', false);
+    $("#inPerson").attr('disabled', false);
+    var d = new Date();
+    $("#PreScreenDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear());
+    
+})
+$("input[name=inperson]").change(function () {
+    $(".InPerson").attr('disabled', false);
+    var d = new Date();
+    $("#InPersonDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear());
+ 
+})
 HomeView.init();
 
 $(document).ready(function () {
