@@ -62,13 +62,26 @@ namespace LTC_Covid.Controllers
         {
             return View();
         }
-
+        [AllowAnonymous]
         public ActionResult Upsert([FromBody]gFormCovidEntry model)
         {
             try
             {
-
-                gCovidManager.Save(model);
+                //                 BusinessInfo_ID { get; set; }
+                //QueueID { get; set; }
+                //        FormID { get; set; }
+                //        SubscriberID { get; set; }
+                //        IsPreScreen { get; set; }
+                //        PreScreenDate { get; set; }
+                //        IsInPersonScreen { get; set; }
+                //        InPersonScreenDate { get; set; }
+                //        StorageInJson { get; set; }
+                model.BusinessInfo_ID = 1;
+                model.InPersonScreenDate = DateTime.Now;
+                model.PreScreenDate = DateTime.Now;
+                model.FormID = 1;
+                model.SubscriberID = 1;
+        gCovidManager.Save(model);
                 var json = new
                 {
                     success = true,

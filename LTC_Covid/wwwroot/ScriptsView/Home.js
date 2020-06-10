@@ -11,20 +11,20 @@ var HomeView = function () {
         saveForm: function () {
 
             var form = new Object();
-            var PreScreenAnswer1 = $("input[name=PreScreenAnswer1]:checked").val();
-            if ($("#staffScreener").val() == "") {
-                ltcApp.warningMessage(null, "Please enter staff screener");
-                return;
+            var screenName = $("input[name=UName]:checked").val();
+            if (screenName == "userName") {
+                form.StaffScreener = 'userName';
             } else {
-                form.StaffScreener = $("#staffScreener").val();
+                if ($("#staffScreener").val() == "") {
+                    ltcApp.warningMessage(null, "Please enter staff screener");
+                    return;
+                } else {
+                    form.StaffScreener = $("#staffScreener").val();
+                }
+
             }
 
-            if ($("#staffScreener").val() == "") {
-                ltcApp.warningMessage(null, "Please enter staff screener");
-                return;
-            } else {
-                form.StaffScreener = $("#staffScreener").val();
-            }
+          
             if ($("#patientName").val() == "") {
                 ltcApp.warningMessage(null, "Please enter patient name");
                 return;
@@ -46,11 +46,11 @@ var HomeView = function () {
             }
 
             form.IsPreScreen = $('input[name="prescreen"]').is(":checked");
-            form.IsPreScreenDate = 'Date1';
+            form.IsPreScreenDate = '10/06/2020';
             form.InPerson = $('input[name="inperson"]').is(":checked");
-            form.InPersonDate = 'Date2';
-            
-            
+            form.InPersonDate = '10/06/2020';
+
+
             if (form.IsPreScreen) {
                 if ($("input[name=PreScreenAnswer1]:checked").val() == null ||
                     $("input[name=PreScreenAnswer2]:checked").val() == null ||
@@ -109,20 +109,18 @@ var HomeView = function () {
             var string = JSON.stringify(form);
 
             //convert string to Json Object
-             
+
+            console.log(string);
 
 
-
-            ////   if (template != null && article != null) {
-            //var IdValue = $("#IdValue").val();
+            //   if (template != null && article != null) {
+          //  var IdValue = $("#IdValue").val();
 
             var data = {
-                ID: IdValue,
-                FirstName: firstName,
-                LastName: lname,
-                MiddleInitial: mname,
-                EmailAddress: email,
-                Salutation: Salutation,
+                //ID: 0,
+                StorageInJson: string,
+                //IsPreScreen: true,
+                //IsInPersonScreen: true,
             };
 
 
@@ -131,10 +129,10 @@ var HomeView = function () {
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 dataType: 'json',
-                url: '/Subscribers/Upsert',
+                url: '/Home/Upsert',
                 success: function (data) {
                     ltcApp.successMessage("Success", 'Subscriber has been added into the system.');
-                    Subscription.refresh();
+                   // Subscription.refresh();
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error loading preview');
@@ -142,7 +140,7 @@ var HomeView = function () {
                 },
                 complete: function () {
 
-                    $('#subscriberModel').modal('hide');
+                    //$('#subscriberModel').modal('hide');
 
                 }
             })
