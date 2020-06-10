@@ -97,7 +97,7 @@ namespace LTCDataModel.Office
         public byte[] Attachment { get; set; }
         public string SyncIdentificator { get; set; }
         public bool IsClientRead { get; set; }
-        public DateTime ReadDate { get; set; }
+        public DateTime DateRead { get; set; }
 
 
     }

@@ -25,7 +25,7 @@ namespace LTCDataManager.Portal
         {
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcDental))
             {
-                string qry = $" Update _portal_attachment Set ReadDate = '{DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd HH:mm")}' , IsClientRead = 1 where SyncIdentificator = '" + attachment.SyncIdentificator + "' ;";
+                string qry = $" Update _portal_attachment Set DateRead = '{DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd HH:mm")}' , IsClientRead = 1 where SyncIdentificator = '" + attachment.SyncIdentificator + "' ;";
                 db.Execute(qry);
             }
         }
