@@ -227,23 +227,32 @@ namespace LTCDataManager.Office
 
         public static void InsertAllowedOffices(int userId, List<int> allowedOffices)
         {
-            var offices = string.Join<int>(",", allowedOffices);
-            var officeSequenceList = new List<int>();
-            using (var db = new Database(DbConfiguration.LtcSystem))
+            if (allowedOffices.Count() > 0)
             {
-                string qry = $"select office_sequence from businessinfo where office_number in ({offices})";
-                officeSequenceList = db.Fetch<int>(qry).ToList();
-            }
 
-            var sql = $"Delete from authentication_office_list WHERE UserId = {userId}; ";
-            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
-            {
-                var sqlTemplate = $"INSERT INTO authentication_office_list Values ({userId},[officeId],'*'); ";
-                foreach (var item in officeSequenceList)
+                var offices = string.Join<int>(",", allowedOffices);
+                var officeSequenceList = new List<int>();
+                using (var db = new Database(DbConfiguration.LtcSystem))
                 {
-                    sql += sqlTemplate.Replace("[officeId]", item.ToString());
+                    string qry = $"select office_sequence from businessinfo where office_number in ({offices})";
+                    officeSequenceList = db.Fetch<int>(qry).ToList();
                 }
-                db.Execute(new Sql(sql));
+
+                var sql = $"Delete from authentication_office_list WHERE UserId = {userId}; ";
+                using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
+                {
+                    var sqlTemplate = $"INSERT INTO authentication_office_list Values ({userId},[officeId],'*'); ";
+                    foreach (var item in officeSequenceList)
+                    {
+                        sql += sqlTemplate.Replace("[officeId]", item.ToString());
+                    }
+                    db.Execute(new Sql(sql));
+                }
+            }
+            else
+            {
+                //do nothing
+
             }
         }
 
