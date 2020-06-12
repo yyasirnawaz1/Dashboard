@@ -65,6 +65,23 @@ namespace LTC_Covid.Controllers
 
 
         }
+        [HttpGet]
+        public ActionResult GetAll()
+        {
+           
+            try
+            {
+                List<gCovidSubscriber> objViewModelList = new List<gCovidSubscriber>();
+                objViewModelList = gCovidManager.GetSubscribers();
+               
+                return Json(objViewModelList);
+
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         public ActionResult Get([DataTablesRequest] DataTablesRequest requestModel)
         {
             List<gCovidSubscriber> objViewModelList = new List<gCovidSubscriber>();

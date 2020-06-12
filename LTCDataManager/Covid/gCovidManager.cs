@@ -23,6 +23,24 @@ namespace LTCDataManager.Covid
             _configuration = configuration.Value;
             Utility.Config = configuration.Value; ;
         }
+        public static gFormCovidEntryViewModel GetFormInfo(int subscriberId)
+        {
+            var form = gCovidManager.GetCovidFormBySubscriberId(subscriberId);
+            if (form == null)
+                form = new gFormCovidEntryViewModel();
+            if (!form.IsInPersonScreen)
+                form.InPersonScreenDate = DateTime.Now;
+
+            if (!form.IsPreScreen)
+                form.PreScreenDate = DateTime.Now;
+
+            form.SubscriberID = subscriberId;
+
+            if (form.StorageInJson != null)
+                form.StorageInJsonView = Encoding.UTF8.GetString(form.StorageInJson, 0, form.StorageInJson.Length);
+            return form;
+        }
+
         public static void SaveSubscriber(gCovidSubscriber model)
         {
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
@@ -82,12 +100,12 @@ namespace LTCDataManager.Covid
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gCovidSubscriber>($"SELECT  * FROM subscribers ").ToList();
         }
-        public static void Save(gFormCovidEntry model)
+        public static int Save(gFormCovidEntry model)
         {
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
                 int fid = model.QueueID;
-                gFormCovidEntry found = db.Fetch<gFormCovidEntry>($"select * from form_covid_entry where QueueID={fid}").FirstOrDefault();
+                gFormCovidEntry found = db.Fetch<gFormCovidEntry>($"select QueueID from form_covid_entry where QueueID={fid}").FirstOrDefault();
                 if (found != null)
                 {
                     found.InPersonScreenDate = model.InPersonScreenDate;
@@ -100,6 +118,8 @@ namespace LTCDataManager.Covid
                     found.FormID = model.FormID;
 
                     db.Update(found, fid);
+                    return fid;
+
                 }
                 else
                 {
@@ -114,9 +134,11 @@ namespace LTCDataManager.Covid
                     design.BusinessInfo_ID = model.BusinessInfo_ID;
                     design.FormID = model.FormID;
 
-                    db.Save(design);
+                    var QueueID = db.Insert(design);
+                    return int.Parse(QueueID.ToString());
                 }
             }
+              
         }
         public static void Delete(int Id)
         {
@@ -124,6 +146,11 @@ namespace LTCDataManager.Covid
             {
                 db.Delete("form_covid_entry", "QueueID", new gFormCovidEntry {  QueueID = Id });
             }
+        }
+        public static gFormCovidEntryViewModel GetCovidFormBySubscriberId(int subscriberId)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
+            return db.Fetch<gFormCovidEntryViewModel>($"SELECT  * FROM form_covid_entry  where form_covid_entry.SubscriberID = {subscriberId}").FirstOrDefault();
         }
 
         public static List<gFormCovidEntryViewModel> GetCovidForms()

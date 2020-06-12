@@ -121,7 +121,7 @@ var Subscription = function () {
             $("#fname").val('');
             $("#lname").val('');
             $("#mname").val('');
-            $("#Salutation").val('');
+            $("#ddlSalutation").val('-1');
             $("#email").val('');
             $("#IdValue").val('0');
             initSubscriptionTable();
@@ -180,7 +180,7 @@ var Subscription = function () {
                 ltcApp.warningMessage(null, "Please provide last name");
                 return;
             } else {
-                lname = $("#fname").val();
+                lname = $("#lname").val();
             }
 
             if ($("#mname").val() == "") {
@@ -189,11 +189,11 @@ var Subscription = function () {
             } else {
                 mname = $("#mname").val();
             }
-            if ($("#Salutation").val() == "") {
+            if ($("#ddlSalutation").val() == "-1") {
                 ltcApp.warningMessage(null, "Please provide salutation");
                 return;
             } else {
-                Salutation = $("#Salutation").val();
+                Salutation = $("#ddlSalutation").val();
             }
             if ($("#email").val() == "") {
                 ltcApp.warningMessage(null, "Please provide email");
@@ -250,7 +250,7 @@ var Subscription = function () {
                     $("#fname").val(data.obj.FirstName);
                     $("#lname").val(data.obj.LastName);
                     $("#mname").val(data.obj.MiddleInitial);
-                    $("#Salutation").val(data.obj.Salutation);
+                    $("#ddlSalutation").val(data.obj.Salutation);
                     $("#email").val(data.obj.EmailAddress);
                     $("#IdValue").val(data.obj.ID);
                     $('#subscriberModel').modal('show');
@@ -299,7 +299,7 @@ var Subscription = function () {
 
 
         },
-
+       
 
 
 
@@ -344,6 +344,6 @@ function createSubscriptionSuccess(data) {
 jQuery(document).ready(function () {
 
     Subscription.init();
-
+     
 
 });

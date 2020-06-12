@@ -17,6 +17,8 @@ using LTC_Covid.Data;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using LTCDataModel.Covid;
 using LTCDataManager.Covid;
+using System.Text;
+using DataTables.AspNetCore.Mvc.Binder;
 
 namespace LTC_Covid.Controllers
 {
@@ -41,20 +43,37 @@ namespace LTC_Covid.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult CovidForm() 
+        public ActionResult CovidForm(int subscriberId)
         {
-            return View();
-        }
-        [AllowAnonymous]
-        public ActionResult CovidFormMOH()
-        {
-            return View();
-        }
 
+            var form = gCovidManager.GetFormInfo(subscriberId);
+
+            return View(form);
+        }
         [AllowAnonymous]
-        public ActionResult CovidFormView()
+        public ActionResult CovidFormMOH(int subscriberId)
         {
             return View();
+        }
+        [AllowAnonymous]
+        public ActionResult DeleteForm([FromBody]IdModel model)
+        {
+            gCovidManager.Delete(model.Id);
+            var json = new
+            {
+                success = true
+            };
+            return Json(json);
+            // return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });
+
+
+        }
+        [AllowAnonymous]
+        public ActionResult CovidFormView(int subscriberId)
+        {
+            var form = gCovidManager.GetFormInfo(subscriberId);
+
+            return View(form);
         }
 
         [AllowAnonymous]
@@ -63,38 +82,84 @@ namespace LTC_Covid.Controllers
             return View();
         }
         [AllowAnonymous]
+        [HttpPost]
         public ActionResult Upsert([FromBody]gFormCovidEntry model)
         {
             try
             {
-                //                 BusinessInfo_ID { get; set; }
-                //QueueID { get; set; }
-                //        FormID { get; set; }
-                //        SubscriberID { get; set; }
-                //        IsPreScreen { get; set; }
-                //        PreScreenDate { get; set; }
-                //        IsInPersonScreen { get; set; }
-                //        InPersonScreenDate { get; set; }
-                //        StorageInJson { get; set; }
                 model.BusinessInfo_ID = 1;
                 model.InPersonScreenDate = DateTime.Now;
                 model.PreScreenDate = DateTime.Now;
-                model.FormID = 1;
-                model.SubscriberID = 1;
-        gCovidManager.Save(model);
+
+
+                int Id = gCovidManager.Save(model);
                 var json = new
                 {
                     success = true,
+                    QueueId = Id
                 };
                 return Json(json);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
 
 
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult GetForms([DataTablesRequest] DataTablesRequest requestModel)
+        {
+
+            var objViewModelList = gCovidManager.GetCovidForms();
+
+            var totalCount = 0;
+            var filteredCount = 0;
+
+
+
+            var query = from s in objViewModelList select s;
+            totalCount = query.Count();
+
+            #region Filtering
+            //search Filters
+            if (!string.IsNullOrEmpty(requestModel.Search?.Value))
+            {
+                var value = requestModel.Search.Value.Trim();
+                query = query.Where(s => s.InPersonScreenDate.ToString().Contains(value) ||
+                                         s.FirstName.Contains(value) ||
+                                         s.LastName.Contains(value) ||
+                                         s.PreScreenDate.ToString().Contains(value) ||
+                                         s.Covid_Form_Description.Contains(value));
+            }
+
+            filteredCount = query.Count();
+
+            #endregion Filtering
+
+
+
+            objViewModelList = query.Skip(requestModel.Start).Take(requestModel.Length).ToList();
+
+
+            return Json(objViewModelList
+               .Select(e => new
+               {
+                   Id = e.QueueID,
+                   FullName = e.FirstName + " " + e.LastName,
+                   FormName = e.Covid_Form_Description,
+                   PreScreenDate = e.PreScreenDate,
+                   IsPreScreen = e.IsPreScreen,
+                   InPersonScreenDate = e.InPersonScreenDate,
+                   IsInPersonScreen = e.IsInPersonScreen,
+                   FormID = e.FormID,
+                   SubscriberID = e.SubscriberID
+               })
+               .ToDataTablesResponse(requestModel, totalCount, filteredCount));
+        }
+
     }
 }
