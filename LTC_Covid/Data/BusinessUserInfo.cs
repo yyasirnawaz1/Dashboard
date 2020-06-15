@@ -17,7 +17,8 @@ namespace LTC_Covid.Data
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-        public string SyncIdentificator { get; set; }
+        public string CustomID { get; set; }
+        public int? Office_Sequence { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
         public string AddressLine3 { get; set; }

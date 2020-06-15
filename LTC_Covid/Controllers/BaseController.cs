@@ -15,8 +15,6 @@ namespace LTC_Covid.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-       
-
         public int UserId
         {
             get
