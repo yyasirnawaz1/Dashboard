@@ -15,8 +15,6 @@ namespace LTC_Covid.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-       
-
         public int UserId
         {
             get
@@ -25,12 +23,11 @@ namespace LTC_Covid.Controllers
                 return userId;
             }
         }
-        public bool IsDefault
+        public string UserName
         {
             get
             {
-                bool.TryParse(User.FindFirstValue("IsDefault"), out var isDefault);
-                return isDefault;
+                return User.FindFirstValue("Name");
             }
         }
 
@@ -42,31 +39,6 @@ namespace LTC_Covid.Controllers
                 return officeSequence;
             }
         }
-        //public string OfficeName
-        //{
-        //    get
-        //    {
-        //        var office = gOfficeManager.GetOfficeName(OfficeSequence);
-        //        if (office != null)
-        //        {
-                   
-        //            return office.ClinicName;
-        //        }
-        //        else
-        //        {
-        //            return string.Empty;
-
-        //        }
-        //    }
-        //}
-
-        //TODO: remove this method and get the connection string based on office id
-        //public string GetUserConnectionString()
-        //{
-        //    return DbConfiguration.LtcDental;
-        //}
-
-        
 
     }
 }
