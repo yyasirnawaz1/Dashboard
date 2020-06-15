@@ -6,6 +6,7 @@ using System.Text;
 
 namespace LTCDataModel.Covid
 {
+   
     [TableName("form_covid_entry")]
     [PrimaryKey("QueueID", AutoIncrement = true)]
     public class gFormCovidEntry
@@ -15,9 +16,9 @@ namespace LTCDataModel.Covid
         public int QueueID { get; set; }
         public int FormID { get; set; }
         public int SubscriberID { get; set; }
-        public short IsPreScreen { get; set; }
+        public Boolean IsPreScreen { get; set; }
         public DateTime PreScreenDate { get; set; }
-        public short IsInPersonScreen { get; set; }
+        public Boolean IsInPersonScreen { get; set; }
         public DateTime InPersonScreenDate { get; set; }
         public string StorageInJson { get; set; }
         
@@ -86,11 +87,13 @@ namespace LTCDataModel.Covid
         public int QueueID { get; set; }
         public int FormID { get; set; }
         public int SubscriberID { get; set; }
-        public short IsPreScreen { get; set; }
+        public bool IsPreScreen { get; set; }
         public DateTime PreScreenDate { get; set; }
-        public short IsInPersonScreen { get; set; }
+        public bool IsInPersonScreen { get; set; }
         public DateTime InPersonScreenDate { get; set; }
-        public string StorageInJson { get; set; }
+        public byte[] StorageInJson { get; set; }
+        public string StorageInJsonView { get; set; }
+
         public string Covid_Form_Description { get; set; }
 
         public string Salutation { get; set; }
