@@ -2,7 +2,7 @@
 var ViewForm = function () {
     var dt = null;
     var initViewFormTable = function () {
-         Layout.showLoader();
+        Layout.showLoader();
 
 
         var table = $('#viewFormTable');
@@ -34,9 +34,23 @@ var ViewForm = function () {
                 {
                     "title": "Pre-Screen",
                     "data": "IsPreScreen",
-                    "searchable": true,
+                    "searchable": false,
+                    "sortable": false,
+                    "render": function (data, type, full, meta) {
+                      
+                        var res = '';
+                        if (type === 'display') {
+                         
+                            if (data == true) {
+                                res = '<input type="radio" name="InPre-' + full.Id +'"   disabled="disabled" checked="checked"  value="' + data + '">';
+                            } else {
+                                res = '<input type="radio"  name="InPre-' + full.Id +'"    value="' + data + '">';
+                            }
+                        }
 
-                },
+                        return res;
+                    }
+                } ,
                 {
                     "title": "Pre-ScreenDate",
                     "data": "PreScreenDate",
@@ -46,9 +60,31 @@ var ViewForm = function () {
                 {
                     "title": "In-Person",
                     "data": "IsInPersonScreen",
-                    "searchable": true,
+                    "searchable": false,
+                    "sortable": false,
+                    "render": function (data, type, full, meta) {
+                        console.log(data)
+                       
+                        if (type === 'display') {
+                            debugger;
+                            if (data == true) {
+                                res = '<input type="radio" name="InPerson-'+full.Id+'"  disabled="disabled" checked="checked"  value="' + data + '">';
+                            } else {
+                                res = '<input type="radio"  disabled="disabled"   name="InPerson-' + full.Id +'"   value="' + data + '">';
+                            }
+                        }
 
+                        return res;
+                    }
                 },
+         
+              
+                //{
+                //    "title": "In-Person",
+                //    "data": "IsInPersonScreen",
+                //    "searchable": true,
+
+                //},
                 {
                     "title": "In-Person Date",
                     "data": "InPersonScreenDate",
@@ -60,7 +96,7 @@ var ViewForm = function () {
                     "searchable": false,
                     "sortable": false,
                     "render": function (data, type, full, meta) {
-                     
+
                         var actionLinks = $('#div_grid_actions').html();
                         actionLinks = actionLinks.replace(/__prm_id__/gi, data);
                         //, __prm_formid__
@@ -81,7 +117,7 @@ var ViewForm = function () {
                 "infoEmpty": "No records found",
                 "infoFiltered": "(filtered1 from _MAX_ total records)",
                 "lengthMenu": "Show _MENU_",
-              
+
                 "zeroRecords": "No matching records found",
 
             },
@@ -147,7 +183,7 @@ var ViewForm = function () {
 
 
 
-  
+
 
 
 
