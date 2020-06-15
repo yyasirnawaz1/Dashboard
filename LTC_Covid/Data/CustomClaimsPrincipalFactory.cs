@@ -20,7 +20,8 @@ namespace LTC_Covid.Data
         protected override async Task<ClaimsIdentity> GenerateClaimsAsync(BusinessUserInfo user)
         {
             var identity = await base.GenerateClaimsAsync(user);
-
+            identity.AddClaim(new Claim("OfficeSequence", user.Office_Sequence.ToString()));
+            identity.AddClaim(new Claim("Name", user.LastName + " " + user.FirstName));
             return identity;
         }
     }
