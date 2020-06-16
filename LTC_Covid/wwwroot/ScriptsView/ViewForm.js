@@ -63,10 +63,7 @@ var ViewForm = function () {
                     "searchable": false,
                     "sortable": false,
                     "render": function (data, type, full, meta) {
-                        console.log(data)
-                       
                         if (type === 'display') {
-                            debugger;
                             if (data == true) {
                                 res = '<input type="radio" name="InPerson-'+full.Id+'"  disabled="disabled" checked="checked"  value="' + data + '">';
                             } else {
@@ -77,14 +74,6 @@ var ViewForm = function () {
                         return res;
                     }
                 },
-         
-              
-                //{
-                //    "title": "In-Person",
-                //    "data": "IsInPersonScreen",
-                //    "searchable": true,
-
-                //},
                 {
                     "title": "In-Person Date",
                     "data": "InPersonScreenDate",
@@ -117,7 +106,6 @@ var ViewForm = function () {
                 "infoEmpty": "No records found",
                 "infoFiltered": "(filtered1 from _MAX_ total records)",
                 "lengthMenu": "Show _MENU_",
-
                 "zeroRecords": "No matching records found",
 
             },
@@ -132,7 +120,7 @@ var ViewForm = function () {
             ],
 
             // set the initial value
-            "pageLength": 20,
+            "pageLength": 10,
             "pagingType": "numbers",
             "columnDefs": [
                 {  // set default column settings

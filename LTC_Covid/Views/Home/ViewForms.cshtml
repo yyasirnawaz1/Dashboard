@@ -4,9 +4,10 @@
     Layout = "~/Views/Shared/Layouts/_DashboardLayout.cshtml";
 }
 <style>
-      .table-responsive {
+    .table-responsive {
         overflow-x: hidden !important;
     }
+
     .dataTables_wrapper {
         display: block !important;
     }
@@ -24,16 +25,21 @@
     .select2-container {
         z-index: 20001 !important;
     }
+
+    
+
+    #viewFormTable_length select {
+        margin-left: 5px;
+    }
 </style>
 <div class="content">
     <div class="card">
         <div class="card-header header-elements-inline">
-            <h5 class="card-title">Enteries</h5>
+            <h5 class="card-title">Entries</h5>
             <div class="header-elements">
                 <div class="list-icons">
                     <button type="button" id="btnCreateForm" class="btn btn-primary" onclick="HomeView.selectSubscriber();">Add Entry</button>
                     <a class="list-icons-item" data-action="collapse"></a>
-
                 </div>
             </div>
         </div>
@@ -44,7 +50,7 @@
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-lg" id="viewFormTable"></table>
                 </div>
- 
+
             </fieldset>
 
         </div>
@@ -52,7 +58,7 @@
     <!-- /form inputs -->
 
 </div>
-<div id="div_template" style="display:none">
+<div id="div_template" style="display: none">
     <div id="div_grid_actions">
         <div class="btn-group">
 
@@ -62,7 +68,7 @@
                         <i class="icon-menu9"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#" onclick="HomeView.OpenFormList(__prm_subid__,__prm_formid__);"  class="dropdown-item"><i class="icon-pencil7"></i> Edit</a>
+                        <a href="#" onclick="HomeView.OpenFormList(__prm_subid__,__prm_formid__);" class="dropdown-item"><i class="icon-pencil7"></i> Edit</a>
                         <a href="#" onclick="HomeView.OpenFormViewList(__prm_subid__,__prm_formid__);" data-target="#modifySubscription" data-toggle="modal" class="dropdown-item"><i class="icon-pencil7"></i> View</a>
                         <a href="#" onclick="HomeView.DeleteForm(__prm_id__);" class="dropdown-item"><i class="icon-x"></i> Delete</a>
                     </div>
@@ -74,7 +80,7 @@
 </div>
 <div id="entryModel" class="modal fade" tabindex="-1" data-width="300" data-keyboard="false" role="dialog" aria-labelledby="entryModel" aria-hidden="true" data-backdrop="static">
 
-    <div class="modal-dialog  modal-full">
+    <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header btn-primary" style="padding-bottom: 10px">
 
@@ -84,42 +90,58 @@
             <div class="modal-body">
                 <br />
 
-
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-horizontal" role="form">
-                            <br />
+                        
+                            
                             <div class="form-group">
 
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <select id="subscriberId" class="form-control" required>
                                     </select>
                                     <br />
                                 </div>
                             </div>
-                            <div class="form-group">
 
-                                <div class="col-md-3">
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                       
 
-                                    <select id="formId" class="form-control" required>
-                                        <option id="1" value="1">General</option>
-                                        <option id="2" value="2">Ontario</option>
-                                    </select>
-                                    <br />
-                                </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-6">
+
+                                <select id="formId" class="form-control" required>
+                                    <option id="1" value="1">General</option>
+                                    <option id="2" value="2">Ontario</option>
+                                </select>
+                                <br />
                             </div>
+                        </div>
 
+                           
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        
+                       
                             <hr>
                             <div class="form-group">
+                               
                                 <div class="col-md-12">
                                     <label class="control-label">If you want to add new [subscriber], </label> <a href="#" onclick="HomeView.newSubscription();">Click Here</a>
 
                                 </div>
                             </div>
-                        </div>
+                         
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
@@ -131,7 +153,7 @@
 </div>
 <div id="subscriberModel" class="modal fade" tabindex="-1" data-width="600" data-keyboard="false" role="dialog" aria-labelledby="subscriberModel" aria-hidden="true" data-backdrop="static">
 
-    <div class="modal-dialog  modal-full">
+    <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header btn-primary" style="padding-bottom: 10px">
                 <h4 class="modal-title">Subscriber Information</h4>
@@ -214,7 +236,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
-                <button type="button" onclick="HomeView.saveSubscription();" class="btn btn-primary">Save</button>
+                <button type="button" id="btnSaveSub" onclick="HomeView.saveSubscription();" class="btn btn-primary">Save</button>
             </div>
 
         </div>
@@ -228,6 +250,7 @@
     <script src="~/Resources/Limitless/global_assets/js/plugins/forms/selects/select2.min.js"></script>
     <script src="~/Resources/theme/js/vendor/select2/select2.full.min.js"></script>
     <script src="~/ScriptsView/ViewForm.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             HomeView.LoadAllSubscribers();
@@ -237,3 +260,4 @@
         });
     </script>
 }
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />

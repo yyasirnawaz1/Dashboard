@@ -124,6 +124,9 @@ var Subscription = function () {
             $("#ddlSalutation").val('-1');
             $("#email").val('');
             $("#IdValue").val('0');
+            
+            $("#customID").val('');
+
             initSubscriptionTable();
         },
         disableButton: function () {
@@ -159,7 +162,17 @@ var Subscription = function () {
 
         },
         newSubscription: function () {
+            $("#fname").val('');
+            $("#lname").val('');
+            $("#mname").val('');
+            $("#ddlSalutation").val('-1');
+            $("#email").val('');
+            $("#IdValue").val('0');
+
+            $("#customID").val('');
+
             $('#subscriberModel').modal('show');
+            
         },
         saveSubscription: function () {
            
@@ -205,7 +218,7 @@ var Subscription = function () {
 
             //   if (template != null && article != null) {
             var IdValue = $("#IdValue").val();
-
+            $("#btnSaveSub").attr("disabled", true);
             var data = {
                 ID : IdValue,
                 FirstName: firstName,
@@ -223,16 +236,24 @@ var Subscription = function () {
                 dataType: 'json',
                 url: '/Subscribers/Upsert',
                 success: function (data) {
-                    ltcApp.successMessage("Success", 'Subscriber has been added into the system.');
-                    Subscription.refresh();
+                    debugger;
+                    if (data.success) {
+                        ltcApp.successMessage("Success", 'Subscriber has been added into the system.');
+                        Subscription.refresh();
+                    } else {
+                        ltcApp.errorMessage("Error", data.Message);
+
+                    }
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error loading preview');
+                    $("#btnSaveSub").attr("disabled", false);
 
                 },
                 complete: function () {
                    
                     $('#subscriberModel').modal('hide');
+                    $("#btnSaveSub").attr("disabled", false);
 
                 }
             })
@@ -253,6 +274,8 @@ var Subscription = function () {
                     $("#ddlSalutation").val(data.obj.Salutation);
                     $("#email").val(data.obj.EmailAddress);
                     $("#IdValue").val(data.obj.ID);
+                    $("#customID").val(data.obj.CustomID);
+
                     $('#subscriberModel').modal('show');
                 }
 

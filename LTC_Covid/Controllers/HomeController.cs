@@ -19,6 +19,7 @@ using LTCDataModel.Covid;
 using LTCDataManager.Covid;
 using System.Text;
 using DataTables.AspNetCore.Mvc.Binder;
+using LTC_Covid.Helper;
 
 namespace LTC_Covid.Controllers
 {
@@ -46,14 +47,16 @@ namespace LTC_Covid.Controllers
         public ActionResult CovidForm(int subscriberId)
         {
 
-            var form = gCovidManager.GetFormInfo(subscriberId);
+            var form = gCovidManager.GetFormInfo(subscriberId,1);
 
             return View(form);
         }
         [AllowAnonymous]
-        public ActionResult CovidFormMOH(int subscriberId)
+        public ActionResult CovidFormOntario(int subscriberId)
         {
-            return View();
+            var form = gCovidManager.GetFormInfo(subscriberId,2);
+
+            return View(form);
         }
         [AllowAnonymous]
         public ActionResult DeleteForm([FromBody]IdModel model)
@@ -64,21 +67,25 @@ namespace LTC_Covid.Controllers
                 success = true
             };
             return Json(json);
-            // return Json(new ResponseViewModel() { StatusCode = 1, StatusMessage = "Record Saved Successfully" });
-
-
         }
         [AllowAnonymous]
         public ActionResult CovidFormView(int subscriberId)
         {
-            var form = gCovidManager.GetFormInfo(subscriberId);
+            var form = gCovidManager.GetFormInfo(subscriberId,1);
+            return View(form);
+        }
+        [AllowAnonymous]
+        public ActionResult CovidFormOntarioView(int subscriberId)
+        {
+            var form = gCovidManager.GetFormInfo(subscriberId,2);
 
             return View(form);
         }
-
+        
         [AllowAnonymous]
         public ActionResult ViewForms()
         {
+          
             return View();
         }
         [AllowAnonymous]
@@ -88,9 +95,9 @@ namespace LTC_Covid.Controllers
             try
             {
                 model.BusinessInfo_ID = 1;
-                model.InPersonScreenDate = DateTime.Now;
-                model.PreScreenDate = DateTime.Now;
 
+                if (model.QueueID < 1)
+                    model.CustomID = Common.GenerateCustomID();
 
                 int Id = gCovidManager.Save(model);
                 var json = new
@@ -126,15 +133,15 @@ namespace LTC_Covid.Controllers
 
             #region Filtering
             //search Filters
-            if (!string.IsNullOrEmpty(requestModel.Search?.Value))
-            {
-                var value = requestModel.Search.Value.Trim();
-                query = query.Where(s => s.InPersonScreenDate.ToString().Contains(value) ||
-                                         s.FirstName.Contains(value) ||
-                                         s.LastName.Contains(value) ||
-                                         s.PreScreenDate.ToString().Contains(value) ||
-                                         s.Covid_Form_Description.Contains(value));
-            }
+            //if (!string.IsNullOrEmpty(requestModel.Search?.Value))
+            //{
+            //    var value = requestModel.Search.Value.Trim();
+            //    query = query.Where(s => s.InPersonScreenDate.ToString().Contains(value) ||
+            //                             s.FirstName.Contains(value) ||
+            //                             s.LastName.Contains(value) ||
+            //                             s.PreScreenDate.ToString().Contains(value) ||
+            //                             s.Covid_Form_Description.Contains(value));
+            //}
 
             filteredCount = query.Count();
 
@@ -151,9 +158,9 @@ namespace LTC_Covid.Controllers
                    Id = e.QueueID,
                    FullName = e.FirstName + " " + e.LastName,
                    FormName = e.Covid_Form_Description,
-                   PreScreenDate = e.PreScreenDate,
+                   PreScreenDate = e.IsPreScreen == true ? e.PreScreenDate.ToString("yyyy-MM-dd") : "-",
                    IsPreScreen = e.IsPreScreen,
-                   InPersonScreenDate = e.InPersonScreenDate,
+                   InPersonScreenDate = e.IsInPersonScreen == true ? e.InPersonScreenDate.ToString("yyyy-MM-dd") : "-",
                    IsInPersonScreen = e.IsInPersonScreen,
                    FormID = e.FormID,
                    SubscriberID = e.SubscriberID

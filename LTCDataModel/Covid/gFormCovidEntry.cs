@@ -17,11 +17,12 @@ namespace LTCDataModel.Covid
         public int FormID { get; set; }
         public int SubscriberID { get; set; }
         public Boolean IsPreScreen { get; set; }
-        public DateTime PreScreenDate { get; set; }
+        public DateTime? PreScreenDate { get; set; }
         public Boolean IsInPersonScreen { get; set; }
-        public DateTime InPersonScreenDate { get; set; }
+        public DateTime? InPersonScreenDate { get; set; }
         public string StorageInJson { get; set; }
-        
+        public string CustomID { get; set; }
+
     }
 
     [TableName("form_covid_type")]
@@ -78,6 +79,7 @@ namespace LTCDataModel.Covid
         public string MiddleInitial { get; set; }
 
         public string EmailAddress { get; set; }
+        public string  CustomID { get; set; }
 
     }
     public class gFormCovidEntryViewModel
@@ -86,6 +88,7 @@ namespace LTCDataModel.Covid
         public int BusinessInfo_ID { get; set; }
         public int QueueID { get; set; }
         public int FormID { get; set; }
+        public string CustomID { get; set; }
         public int SubscriberID { get; set; }
         public bool IsPreScreen { get; set; }
         public DateTime PreScreenDate { get; set; }

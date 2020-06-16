@@ -15,7 +15,6 @@ var HomeView = function () {
         },
 
         saveForm: function (formId) {
-
             var form = new Object();
             var screenName = $("input[name=UName]:checked").val();
             if (screenName == "userName") {
@@ -47,12 +46,25 @@ var HomeView = function () {
             } else {
                 form.PatientAge = $("#patientAge").val();
             }
-            if ($("#whoAns").val() == "") {
-                ltcApp.warningMessage(null, "Please provide name");
-                return;
+
+            var screenNameWhoAns = $("input[name=UNameWhoAns]:checked").val();
+            if (screenNameWhoAns == "userNameWhoAns") {
+                form.WhoAnswer = 'UserNameWhoAnswer';
+                form.WhoAnsType = "UserNameWhoAnswer";
             } else {
-                form.WhoAnswer = $("#whoAns").val();
+                if ($("#whoAns").val() == "") {
+                    ltcApp.warningMessage(null, "Please let us know,who filled the form");
+                    return;
+                } else {
+                    form.WhoAnswer = $("#staffScreener").val();
+                    form.WhoAnsType = "otherWhoAns";
+
+                }
+
             }
+
+
+             
             if ($("#txtTemperature").val() == "") {
                 ltcApp.warningMessage(null, "Please provide temperature");
                 return;
@@ -88,6 +100,8 @@ var HomeView = function () {
                 form.PreScreen.Answer8 = $("input[name=PreScreenAnswer8]:checked").val();
                 form.PreScreen.Answer9 = $("input[name=PreScreenAnswer9]:checked").val();
 
+            } else {
+                form.IsPreScreenDate = null;
             }
 
             if (form.InPerson) {
@@ -115,6 +129,8 @@ var HomeView = function () {
                 form.InPersonScreen.Answer8 = $("input[name=InPersonScreenAnswer8]:checked").val();
                 form.InPersonScreen.Answer9 = $("input[name=InPersonScreenAnswer9]:checked").val();
 
+            } else {
+                form.InPersonDate = null;
             }
 
             form.AdditionalInformation = $("#txtAdditionalInformation").val();
@@ -135,8 +151,10 @@ var HomeView = function () {
                 IsPreScreen: form.IsPreScreen,
                 IsInPersonScreen: form.InPerson,
                 FormID: formId,
-
+                InPersonScreenDate: form.InPersonDate,
+                PreScreenDate: form.IsPreScreenDate
             };
+            $("#btnSave").attr("disabled", true);
 
 
             $.ajax({
@@ -151,8 +169,12 @@ var HomeView = function () {
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error saving the form');
+                    $("#btnSave").attr("disabled", false);
+
                 },
                 complete: function () {
+                    $("#btnSave").attr("disabled", false);
+
                 }
             })
 
@@ -203,6 +225,7 @@ var HomeView = function () {
 
             //   if (template != null && article != null) {
             var IdValue = $("#IdValue").val();
+            $("#btnSaveSub").attr("disabled", true);
 
             var data = {
                 ID: IdValue,
@@ -210,7 +233,8 @@ var HomeView = function () {
                 LastName: lname,
                 MiddleInitial: mname,
                 EmailAddress: email,
-                Salutation: Salutation,
+                Salutation: Salutation
+
             };
 
 
@@ -226,9 +250,11 @@ var HomeView = function () {
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error loading preview');
+                    $("#btnSaveSub").attr("disabled", false);
 
                 },
                 complete: function () {
+                    $("#btnSaveSub").attr("disabled", false);
 
                     $('#subscriberModel').modal('hide');
                     $("#fname").val('');
@@ -250,7 +276,7 @@ var HomeView = function () {
                 success: function (data) {
                     if (data != null) {
                         var subscribers = data;
-                        $("#subscriberId").html('<option value="-1"> --Select All--</option>');
+                        $("#subscriberId").html('<option value="-1"> --Select Subscriber--</option>');
                         $.each(subscribers, function (index, item) {
                             $("#subscriberId").append('<option value="' + item.ID + '">' + item.LastName + " " + item.FirstName + '</option>');
 
@@ -270,7 +296,7 @@ var HomeView = function () {
             if (formId == 1) {
                 window.location.href = "../Home/CovidForm?subscriberId=" + subId;
             } else {
-                window.location.href = "../Home/CovidFormMOH?subscriberId=" + subId;
+                window.location.href = "../Home/CovidFormOntario?subscriberId=" + subId;
             }
 
         },
@@ -278,7 +304,7 @@ var HomeView = function () {
             if (formId == 1) {
                 window.location.href = "../Home/CovidForm?subscriberId=" + subId;
             } else {
-                window.location.href = "../Home/CovidFormMOH?subscriberId=" + subId;
+                window.location.href = "../Home/CovidFormOntario?subscriberId=" + subId;
             }
 
         },
@@ -286,7 +312,7 @@ var HomeView = function () {
             if (formId == 1) {
                 window.location.href = "../Home/CovidFormView?subscriberId=" + subId;
             } else {
-                window.location.href = "../Home/CovidFormView?subscriberId=" + subId;
+                window.location.href = "../Home/CovidFormOntarioView?subscriberId=" + subId;
             }
 
         },

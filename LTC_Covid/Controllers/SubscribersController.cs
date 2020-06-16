@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataTables.AspNetCore.Mvc.Binder;
+using LTC_Covid.Helper;
 using LTCDataManager.Covid;
 using LTCDataModel.Covid;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,7 @@ namespace LTC_Covid.Controllers
 
 
         }
-       
+
         [HttpGet]
         public ActionResult GetDetail(IdModel model)
         {
@@ -41,7 +42,7 @@ namespace LTC_Covid.Controllers
             return Json(json);
 
         }
-
+       
         public ActionResult Upsert([FromBody]gCovidSubscriber model)
         {
             try
@@ -50,12 +51,29 @@ namespace LTC_Covid.Controllers
                 model.BusinessInfo_ID = 1;
                 model.SubscriptionStatus = true;
 
-                gCovidManager.SaveSubscriber(model);
-                var json = new
+                if (model.ID < 1)
+                    model.CustomID =  Common.GenerateCustomID();
+
+                var sub = gCovidManager.GetByEmail(model.EmailAddress);
+                if (sub != null && model.ID < 1)
                 {
-                    success = true,
-                };
-                return Json(json);
+                    var json = new
+                    {
+                        Message = "Subscriber Already Exists",
+                        success = false,
+                    };
+                    return Json(json);
+                }
+                else
+                {
+                    gCovidManager.SaveSubscriber(model);
+                    var json = new
+                    {
+                        success = true,
+                    };
+                    return Json(json);
+
+                }
 
             }
             catch (Exception)
@@ -68,12 +86,12 @@ namespace LTC_Covid.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-           
+
             try
             {
                 List<gCovidSubscriber> objViewModelList = new List<gCovidSubscriber>();
                 objViewModelList = gCovidManager.GetSubscribers();
-               
+
                 return Json(objViewModelList);
 
             }
@@ -130,7 +148,7 @@ namespace LTC_Covid.Controllers
                    Id = e.ID,
                    FirstName = e.FirstName + " " + e.LastName,
                    EmailAddress = e.EmailAddress,
-                   LastSubscriptionStatusUpdated = e.LastSubscriptionStatusUpdated,
+                   LastSubscriptionStatusUpdated = e.LastSubscriptionStatusUpdated.ToString("yyyy-MM-dd"),
 
 
                })
