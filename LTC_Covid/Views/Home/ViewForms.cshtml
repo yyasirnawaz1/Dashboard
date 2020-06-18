@@ -4,6 +4,13 @@
     Layout = "~/Views/Shared/Layouts/_DashboardLayout.cshtml";
 }
 <style>
+    .control-label {
+        margin-bottom: 0px !important;
+    }
+    .form-group {
+        margin-bottom: 10px;
+    }
+
     .table-responsive {
         overflow-x: hidden !important;
     }
@@ -116,8 +123,7 @@
                             <div class="col-md-6">
 
                                 <select id="formId" class="form-control" required>
-                                    <option id="1" value="1">General</option>
-                                    <option id="2" value="2">Ontario</option>
+                                    
                                 </select>
                                 <br />
                             </div>
@@ -254,6 +260,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             HomeView.LoadAllSubscribers();
+            HomeView.LoadAllTypes();
             $("#subscriberId").select2();
             $("#formId").select2();
 

@@ -38,6 +38,7 @@ namespace LTCDataModel.Covid
     {
         public int Id { get; set; }
     }
+
     [TableName("subscribers")]
     [PrimaryKey("ID", AutoIncrement = true)]
     public class gCovidSubscriber
@@ -109,5 +110,7 @@ namespace LTCDataModel.Covid
         public string EmailAddress { get; set; }
 
     }
+
+     
 
 }

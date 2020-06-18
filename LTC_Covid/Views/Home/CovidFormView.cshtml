@@ -2,7 +2,11 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+<style>
+    .dvPreScreen , .dvInPerson{
+        text-align: center!important;
+    }
+</style>
 <div class="content">
 
     <!-- Form inputs -->
@@ -20,6 +24,9 @@
 
         <div class="card-body">
             <fieldset class="mb-5">
+                <input type="hidden" id="SubscriberFullName" value="@Model.FirstName @Model.LastName">
+                <input type="hidden" id="FormID" value="@Model.FormID">
+                <input type="hidden" id="CustomeID" value="@Model.CustomID">
                 <input type="hidden" id="IdValue" value="@Model.SubscriberID">
                 <input type="hidden" id="JsonValue" value="@Model.StorageInJsonView">
                 <input type="hidden" id="QueueID" value="@Model.QueueID">
@@ -57,8 +64,14 @@
                     </div>
                 </div>
 
+                <hr>
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">CustomID</label>
+                    <div class="col-lg-6">
+                        <input type="text" value="@Model.CustomID" class="form-control" id="customID" disabled>
+                    </div>
+                </div>
 
-             
 
 
             </fieldset>
@@ -81,8 +94,8 @@
         <div class="card-body">
 
             <fieldset class="mb-3">
-                <div class="form-group row" style="margin-bottom: 0px;">
-                    <div class="col-lg-3">
+                <div class="form-group row" style="margin-bottom: 0px; ">
+                    <div class="col-lg-3 dvPreScreen">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" name="prescreen" id="preScreen" class="form-check-input">
@@ -91,7 +104,7 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-3 dvInPerson">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" id="inPerson" name="inperson" class="form-check-input" disabled>
@@ -102,7 +115,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-lg-3" style="margin-left: 20px !important;">
+                    <div class="col-lg-3 dvPreScreen" style="margin-left: 20px !important;">
 
                         Date:
                         <label class="form-check-label" id="PreScreenDate">
@@ -110,7 +123,7 @@
                         </label>
 
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-3 dvInPerson">
 
                         Date:
                         <label class="form-check-label" id="InPersonDate">
@@ -123,11 +136,11 @@
                     <table class="table table-bordered table-striped table-lg">
                         <thead>
                             <tr>
-                                <th>Identify yourself and explain the purpose of the call, which is to determine whether <br />there are any special considerations for their dental appointment. Have the patient answer the following questions.</th>
-                                <th class="text-center">
+                                <th style="width:70%">Identify yourself and explain the purpose of the call, which is to determine whether <br />there are any special considerations for their dental appointment. Have the patient answer the following questions.</th>
+                                <th class="text-center dvPreScreen">
                                     Pre-Screen<br>
                                 </th>
-                                <th class="text-center">
+                                <th class="text-center dvInPerson">
                                     In-Office<br>
                                 </th>
 
@@ -136,11 +149,14 @@
                         <tbody>
                             <tr>
                                 <th class="text-nowrap" scope="row">
-                                    1. Do you have a fever or have felt hot or feverish anytime in the last 10 days?
-                                    <br />
-                                    Patient temperature at appointment:<input type="text" id="txtTemperature"  style ="width:25%"  class="form-control"> 	. If elevated, provide mask to patient.
+                                    <ol>
+                                        <li value="1">
+                                            Do you have a fever or have felt hot or feverish anytime in the last 10 days? <br />
+                                            Patient temperature at appointment: <input type="text" id="txtTemperature" style="width:25%" class="form-control">
+                                        </li>
+                                    </ol>
                                 </th>
-                                <td>
+                                <td class="dvPreScreen">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer1" class="form-check-label">
                                             -
@@ -149,7 +165,7 @@
 
 
                                 </td>
-                                <td>
+                                <td class="dvInPerson">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer1" class="form-check-label">
 
@@ -163,10 +179,28 @@
                             </tr>
                             <tr>
                                 <th class="text-nowrap" scope="row">
-                                    2. Do you have any of these symptoms: New or worsening cough?     <br />
-                                    New or worsening shortness of breath? Difficulty breathing? <br /> Sore throat or painful swallowing? Runny nose?
+                                    <ol>
+                                        @{
+                                            if (Model.FormID == 1)
+                                            {
+                                                <li value="2">
+                                                    Do you have any of these symptoms: New or worsening cough? <br />
+                                                    New or worsening shortness of breath? Difficulty breathing? <br /> Sore throat or painful swallowing? Runny nose?
+                                                </li>
+
+                                            }
+                                            else
+                                            {
+                                                <li value="2">
+                                                    Does the person have a confirmed case of COVID-19 or had close contact with a confirmed case of COVID-19?
+                                                </li>
+
+                                            }
+
+                                        }
+                                    </ol>
                                 </th>
-                                <td>
+                                <td class="dvPreScreen">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer2" class="form-check-label">
                                             -
@@ -175,7 +209,7 @@
 
 
                                 </td>
-                                <td>
+                                <td class="dvInPerson">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer2" class="form-check-label">
 
@@ -188,8 +222,47 @@
 
                             </tr>
                             <tr>
-                                <th class="text-nowrap" scope="row">3. Have you experienced a recent loss of smell or taste?</th>
-                                <td>
+                                <th class="text-nowrap" scope="row">
+                                    <ol>
+
+                                        @{
+                                            if (Model.FormID == 1)
+                                            {
+
+                                                <li value="3">
+                                                    Have you experienced a recent loss of smell or taste?
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li value="3">
+
+                                                    Does the person have any of the following symptoms:
+                                                    <br />
+                                                    •Fever<br />
+                                                    •New onset of cough<br />
+                                                    •Worsening chronic cough<br />
+                                                    •Shortness of breath<br />
+                                                    •Difficulty breathing<br />
+                                                    •Sore throat<br />
+                                                    •Difficulty swallowing<br />
+                                                    •Decrease or loss of sense of taste or smell<br />
+                                                    •Chills<br />
+                                                    •Headaches<br />
+                                                    •Unexplained fatigue/malaise/muscle aches (myalgias)<br />
+                                                    •Nausea/vomiting, diarrhea, abdominal pain<br />
+                                                    •Pink eye (conjunctivitis)<br />
+                                                    •Runny nose/nasal congestion without other known cause<br />
+
+
+                                                </li>
+                                            }
+
+                                        }
+
+                                    </ol>
+                                </th>
+                                <td class="dvPreScreen">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer3" class="form-check-label">
                                             -
@@ -198,7 +271,7 @@
 
 
                                 </td>
-                                <td>
+                                <td class="dvInPerson">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer3" class="form-check-label">
 
@@ -212,10 +285,14 @@
                             </tr>
                             <tr>
                                 <th class="text-nowrap" scope="row">
-                                    4. Have you been in contact with any confirmed COVID-19 positive patients,    <br />
-                                    or persons self-isolating because of a determined risk for COVID-19?
+                                    <ol>
+                                        <li value="4">
+                                            Have you been in contact with any confirmed COVID-19 positive patients,    <br />
+                                            or persons self-isolating because of a determined risk for COVID-19?
+                                        </li>
+                                    </ol>
                                 </th>
-                                <td>
+                                <td class="dvPreScreen">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer4" class="form-check-label">
                                             -
@@ -224,7 +301,7 @@
 
 
                                 </td>
-                                <td>
+                                <td class="dvInPerson">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer4" class="form-check-label">
 
@@ -238,9 +315,13 @@
                             </tr>
                             <tr>
                                 <th class="text-nowrap" scope="row">
-                                    5. Have you returned from travel outside of Canada in the last 14 days?
+                                    <ol>
+                                        <li value="5">
+                                            Have you returned from travel outside of Canada in the last 14 days?
+                                        </li>
+                                    </ol>
                                 </th>
-                                <td>
+                                <td class="dvPreScreen">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer5" class="form-check-label">
                                             -
@@ -249,7 +330,7 @@
 
 
                                 </td>
-                                <td>
+                                <td class="dvInPerson">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer5" class="form-check-label">
 
@@ -262,8 +343,14 @@
 
                             </tr>
                             <tr>
-                                <th class="text-nowrap" scope="row">6. Have you returned from travel within Canada  <br /> from a location known affected with COVID-19 in the last 14 days?</th>
-                                <td>
+                                <th class="text-nowrap" scope="row">
+                                    <ol>
+                                        <li value="6">
+                                            Have you returned from travel within Canada  <br /> from a location known affected with COVID-19 in the last 14 days?
+                                        </li>
+                                    </ol>
+                                </th>
+                                <td class="dvPreScreen">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer6" class="form-check-label">
                                             -
@@ -272,7 +359,7 @@
 
 
                                 </td>
-                                <td>
+                                <td class="dvInPerson">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer6" class="form-check-label">
 
@@ -285,8 +372,13 @@
 
                             </tr>
                             <tr>
-                                <th class="text-nowrap" scope="row">7. Is your workplace considered high risk?</th>
-                                <td>
+                                <th class="text-nowrap" scope="row">
+                                    <ol>
+                                        <li value="7">
+                                            Is your workplace considered high risk?
+                                        </li>
+                                    </ol>                                </th>
+                                <td class="dvPreScreen">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer7" class="form-check-label">
                                             -
@@ -295,7 +387,7 @@
 
 
                                 </td>
-                                <td>
+                                <td class="dvInPerson">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer7" class="form-check-label">
 
@@ -329,11 +421,11 @@
                     <table class="table table-bordered table-striped table-lg">
                         <thead>
                             <tr>
-                                <th></th>
-                                <th class="text-center">
+                                <th style="width:70%"></th>
+                                <th class="text-center dvPreScreen">
                                     Pre-Screen<br>
                                 </th>
-                                <th class="text-center">
+                                <th class="text-center dvInPerson">
                                     In-Office<br>
                                 </th>
 
@@ -342,9 +434,13 @@
                         <tbody>
                             <tr>
                                 <th class="text-nowrap" scope="row">
-                                    8. Are you over the age of 65?
+                                    <ol>
+                                        <li value="8">
+                                            Are you over the age of 65?
+                                        </li>
+                                    </ol>
                                 </th>
-                                <td>
+                                <td class="dvPreScreen">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer8" class="form-check-label">
                                             -
@@ -353,7 +449,7 @@
 
 
                                 </td>
-                                <td>
+                                <td class="dvInPerson">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer8" class="form-check-label">
 
@@ -369,9 +465,29 @@
 
                             <tr>
                                 <th class="text-nowrap" scope="row">
-                                    9. Do you have any of the following? Heart disease, lung disease, kidney disease, diabetes, or any auto-immune disorder?
+                                    <ol>
+                                        @{
+                                            if (Model.FormID == 1)
+                                            {
+
+                                                                                <li value="9">
+                                                                                    Do you have any of the following? Heart disease, lung disease, kidney disease, diabetes, or any auto-immune disorder?
+                                                                                </li>
+                                            }
+                                            else
+                                            {
+                                    <li value="9">
+
+                                        Are you experiencing any of the following symptoms: delirium, unexplained or increased number of falls,  <br />acute functional decline, or worsening of chronic conditions?
+
+
+                                    </li>
+                                            }
+
+                                        }
+                                    </ol>
                                 </th>
-                                <td>
+                                <td class="dvPreScreen">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer9" class="form-check-label">
                                             -
@@ -380,7 +496,7 @@
 
 
                                 </td>
-                                <td>
+                                <td class="dvInPerson">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer9" class="form-check-label">
 
@@ -445,96 +561,111 @@
     <script>
         $(document).ready(function () {
             var str = $("#JsonValue").val();
-            var form = JSON.parse(str);
-            if (form != null) {
-                 if (form.StaffScreener != null) {
-                    $("#staffScreener").val(form.StaffScreener);
-                    $("#staffScreener").attr('disabled', true);
-                }
-               
+            var formId = $("#FormID").val();
 
-                if (form.PatientName != null) {
-                    $("#patientName").val(form.PatientName);
-                    $("#patientName").attr('disabled', true);
-                }
+            var subscriberFullName = $("#SubscriberFullName").val();
+            $("#patientName").val(subscriberFullName);
 
-                if (form.PatientAge != null) {
-                    $("#patientAge").val(form.PatientAge);
-                    $("#patientAge").attr('disabled', true);
-
-                }
-
-                if (form.WhoAnswer != null) {
-                    $("#whoAns").val(form.WhoAnswer);
-                    $("#whoAns").attr('disabled', true);
-                }
+            if (formId == 1 || formId == 2) {
+                $(".dvPreScreen").show();
+                $(".dvInPerson").show();
+            } else if (formId == 3) {
+                $(".dvInPerson").hide();
+            } else if (formId == 4) {
+                $(".dvPreScreen").hide();
+            }
+            if (str != "") {
+                var form = JSON.parse(str);
+                if (form != null) {
+                    if (form.StaffScreener != null) {
+                        $("#staffScreener").val(form.StaffScreener);
+                        $("#staffScreener").attr('disabled', true);
+                    }
 
 
-                if (form.IsPreScreenDate != null) {
-                    $("#PreScreenDate").html(form.IsPreScreenDate);
-                    $("#hdnPreScreenDate").val(form.IsPreScreenDate);
-                }
+                    if (form.PatientName != null) {
+                        $("#patientName").val(form.PatientName);
+                        $("#patientName").attr('disabled', true);
+                    }
 
-                if (form.InPersonDate != null) {
-                    $("#InPersonDate").html(form.InPersonDate);
-                    $("#hdnInPersonDate").val(form.InPersonDate);
-                }
-                if (form.Temperature != null) {
-                    $("#txtTemperature").val(form.Temperature);
-                    $("#txtTemperature").attr('disabled', true);
-
-                }
-
-                if (form.IsPreScreen) {
-                    $('input[name="prescreen"]').attr('checked', true);
-                    $('input[name="prescreen"]').attr('disabled', true);
-
-                    if (form.PreScreen != null) {
-
-                        $('#PreScreenAnswer1').html(form.PreScreen.Answer1);
-                        $('#PreScreenAnswer2').html(form.PreScreen.Answer2);
-                        $('#PreScreenAnswer3').html(form.PreScreen.Answer3);
-                        $('#PreScreenAnswer4').html(form.PreScreen.Answer4);
-                        $('#PreScreenAnswer5').html(form.PreScreen.Answer5);
-                        $('#PreScreenAnswer6').html(form.PreScreen.Answer6);
-                        $('#PreScreenAnswer7').html(form.PreScreen.Answer7);
-                        $('#PreScreenAnswer8').html(form.PreScreen.Answer8);
-                        $('#PreScreenAnswer9').html(form.PreScreen.Answer9);
-                        $(".PreScreen").attr('disabled', true);
-                        $("#preScreen").attr('disabled', true);
+                    if (form.PatientAge != null) {
+                        $("#patientAge").val(form.PatientAge);
+                        $("#patientAge").attr('disabled', true);
 
                     }
-                }
-                if (form.InPerson) {
-                    $('input[name="inperson"]').attr('checked', true);
-                    $('input[name="inperson"]').attr('disabled', true);
+                     
+                    if (form.WhoAnswer != null) {
+                        $("#whoAns").val(form.WhoAnswer);
+                        $("#whoAns").attr('disabled', true);
+                    }
 
-                    if (form.InPersonScreen != null) {
-                        
-                        $("#inPerson").attr('disabled', true);
-                          $('#InPersonScreenAnswer1').html(form.InPersonScreen.Answer1);
-                          $('#InPersonScreenAnswer2').html(form.InPersonScreen.Answer2);
-                          $('#InPersonScreenAnswer3').html(form.InPersonScreen.Answer3);
-                          $('#InPersonScreenAnswer4').html(form.InPersonScreen.Answer4);
-                          $('#InPersonScreenAnswer5').html(form.InPersonScreen.Answer5);
-                          $('#InPersonScreenAnswer6').html(form.InPersonScreen.Answer6);
-                          $('#InPersonScreenAnswer7').html(form.InPersonScreen.Answer7);
-                          $('#InPersonScreenAnswer8').html(form.InPersonScreen.Answer8);
-                          $('#InPersonScreenAnswer9').html(form.InPersonScreen.Answer9);
-                        
+
+                    if (form.IsPreScreenDate != null) {
+                        $("#PreScreenDate").html(form.IsPreScreenDate);
+                        $("#hdnPreScreenDate").val(form.IsPreScreenDate);
+                    }
+
+                    if (form.InPersonDate != null) {
+                        $("#InPersonDate").html(form.InPersonDate);
+                        $("#hdnInPersonDate").val(form.InPersonDate);
+                    }
+                    if (form.Temperature != null) {
+                        $("#txtTemperature").val(form.Temperature);
+                        $("#txtTemperature").attr('disabled', true);
 
                     }
-                } else {
-                    $(".InPerson").attr('disabled', true);
-                    $("#inPerson").attr('disabled', false);
-                }
-                if (form.AdditionalInformation != null) {
-                    $("#txtAdditionalInformation").val(form.AdditionalInformation);
+
+                    if (form.IsPreScreen) {
+                        $('input[name="prescreen"]').attr('checked', true);
+                        $('input[name="prescreen"]').attr('disabled', true);
+
+                        if (form.PreScreen != null) {
+
+                            $('#PreScreenAnswer1').html(form.PreScreen.Answer1);
+                            $('#PreScreenAnswer2').html(form.PreScreen.Answer2);
+                            $('#PreScreenAnswer3').html(form.PreScreen.Answer3);
+                            $('#PreScreenAnswer4').html(form.PreScreen.Answer4);
+                            $('#PreScreenAnswer5').html(form.PreScreen.Answer5);
+                            $('#PreScreenAnswer6').html(form.PreScreen.Answer6);
+                            $('#PreScreenAnswer7').html(form.PreScreen.Answer7);
+                            $('#PreScreenAnswer8').html(form.PreScreen.Answer8);
+                            $('#PreScreenAnswer9').html(form.PreScreen.Answer9);
+                            $(".PreScreen").attr('disabled', true);
+                            $("#preScreen").attr('disabled', true);
+
+                        }
+                    }
+                    if (form.InPerson) {
+                        $('input[name="inperson"]').attr('checked', true);
+                        $('input[name="inperson"]').attr('disabled', true);
+
+                        if (form.InPersonScreen != null) {
+
+                            $("#inPerson").attr('disabled', true);
+                            $('#InPersonScreenAnswer1').html(form.InPersonScreen.Answer1);
+                            $('#InPersonScreenAnswer2').html(form.InPersonScreen.Answer2);
+                            $('#InPersonScreenAnswer3').html(form.InPersonScreen.Answer3);
+                            $('#InPersonScreenAnswer4').html(form.InPersonScreen.Answer4);
+                            $('#InPersonScreenAnswer5').html(form.InPersonScreen.Answer5);
+                            $('#InPersonScreenAnswer6').html(form.InPersonScreen.Answer6);
+                            $('#InPersonScreenAnswer7').html(form.InPersonScreen.Answer7);
+                            $('#InPersonScreenAnswer8').html(form.InPersonScreen.Answer8);
+                            $('#InPersonScreenAnswer9').html(form.InPersonScreen.Answer9);
+
+
+                        }
+                    } else {
+                        $(".InPerson").attr('disabled', true);
+                        $("#inPerson").attr('disabled', false);
+                    }
+                    if (form.AdditionalInformation != null) {
+                        $("#txtAdditionalInformation").val(form.AdditionalInformation);
+
+
+                    }
 
 
                 }
-
-
             }
         });
     </script>

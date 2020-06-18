@@ -36,6 +36,8 @@ namespace LTCDataManager.Covid
                 form.PreScreenDate = DateTime.Now;
 
             form.SubscriberID = subscriberId;
+            if (form.FormID < 1 )
+                form.FormID = formId;
 
             if (form.StorageInJson != null)
                 form.StorageInJsonView = Encoding.UTF8.GetString(form.StorageInJson, 0, form.StorageInJson.Length);
@@ -106,6 +108,11 @@ namespace LTCDataManager.Covid
             }
             return res;
         }
+        public static List<gFormCovidType> GetAllTypes()
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
+            return db.Fetch<gFormCovidType>($"SELECT  * FROM form_covid_type ").ToList();
+        }
         public  static List<gCovidSubscriber> GetSubscribers()
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
@@ -116,7 +123,7 @@ namespace LTCDataManager.Covid
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
                 int fid = model.QueueID;
-                gFormCovidEntry found = db.Fetch<gFormCovidEntry>($"select QueueID from form_covid_entry where QueueID={fid}").FirstOrDefault();
+                gFormCovidEntry found = db.Fetch<gFormCovidEntry>($"select QueueID, CustomID from form_covid_entry where QueueID={fid}").FirstOrDefault();
                 if (found != null)
                 {
                     found.InPersonScreenDate = model.InPersonScreenDate;
@@ -127,7 +134,7 @@ namespace LTCDataManager.Covid
                     found.StorageInJson = model.StorageInJson;
                     found.BusinessInfo_ID = model.BusinessInfo_ID;
                     found.FormID = model.FormID;
-
+                    found.CustomID = found.CustomID;
                     db.Update(found, fid);
                     return fid;
 

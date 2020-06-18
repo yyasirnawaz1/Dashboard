@@ -44,10 +44,13 @@ namespace LTC_Covid.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult CovidForm(int subscriberId)
+        public ActionResult CovidForm(int subscriberId, int formId)
         {
 
-            var form = gCovidManager.GetFormInfo(subscriberId,1);
+            var form = gCovidManager.GetFormInfo(subscriberId, formId);
+            var subDetails = gCovidManager.GetSubscriberById(subscriberId);
+            form.FirstName = subDetails.FirstName;
+            form.LastName  = subDetails.LastName;
 
             return View(form);
         }
@@ -69,9 +72,9 @@ namespace LTC_Covid.Controllers
             return Json(json);
         }
         [AllowAnonymous]
-        public ActionResult CovidFormView(int subscriberId)
+        public ActionResult CovidFormView(int subscriberId, int formId)
         {
-            var form = gCovidManager.GetFormInfo(subscriberId,1);
+            var form = gCovidManager.GetFormInfo(subscriberId, formId);
             return View(form);
         }
         [AllowAnonymous]
@@ -89,6 +92,25 @@ namespace LTC_Covid.Controllers
             return View();
         }
         [AllowAnonymous]
+        [HttpGet]
+        public ActionResult GetAllTypes()
+        {
+
+            try
+            {
+                List<gFormCovidType> objViewModelList = new List<gFormCovidType>();
+                objViewModelList = gCovidManager.GetAllTypes();
+
+                return Json(objViewModelList);
+
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult Upsert([FromBody]gFormCovidEntry model)
         {
@@ -98,6 +120,7 @@ namespace LTC_Covid.Controllers
 
                 if (model.QueueID < 1)
                     model.CustomID = Common.GenerateCustomID();
+                
 
                 int Id = gCovidManager.Save(model);
                 var json = new

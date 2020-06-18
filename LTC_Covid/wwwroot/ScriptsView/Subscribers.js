@@ -33,7 +33,7 @@ var Subscription = function () {
                     "searchable": true
                 },
                 {
-                    "title": "Last Update At",
+                    "title": "Last Updated",
                     "data": "LastSubscriptionStatusUpdated",
                     "searchable": true,
 
@@ -196,18 +196,18 @@ var Subscription = function () {
                 lname = $("#lname").val();
             }
 
-            if ($("#mname").val() == "") {
-                ltcApp.warningMessage(null, "Please provide middle name");
-                return;
-            } else {
-                mname = $("#mname").val();
-            }
-            if ($("#ddlSalutation").val() == "-1") {
-                ltcApp.warningMessage(null, "Please provide salutation");
-                return;
-            } else {
-                Salutation = $("#ddlSalutation").val();
-            }
+            //if ($("#mname").val() == "") {
+            //    ltcApp.warningMessage(null, "Please provide middle name");
+            //    return;
+            //} else {
+            //    mname = $("#mname").val();
+            //}
+            //if ($("#ddlSalutation").val() == "-1") {
+            //    ltcApp.warningMessage(null, "Please provide salutation");
+            //    return;
+            //} else {
+            //    Salutation = $("#ddlSalutation").val();
+            //}
             if ($("#email").val() == "") {
                 ltcApp.warningMessage(null, "Please provide email");
                 return;

@@ -24,6 +24,31 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Html\bootstrap.min.css" />
+    <None Remove="Html\bootstrap.min.css.map" />
+    <None Remove="Html\template.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Html\bootstrap.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Html\bootstrap.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Html\template.html">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\ScriptsView\LTC_Covid.csproj.vspscc" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DataTables.AspNet.Core" Version="2.0.0" />
     <PackageReference Include="DataTables.AspNetCore.Mvc" Version="1.4.2" />
     <PackageReference Include="Microsoft.AspNetCore.App">

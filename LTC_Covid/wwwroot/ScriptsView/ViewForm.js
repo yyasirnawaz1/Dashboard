@@ -44,7 +44,7 @@ var ViewForm = function () {
                             if (data == true) {
                                 res = '<input type="radio" name="InPre-' + full.Id +'"   disabled="disabled" checked="checked"  value="' + data + '">';
                             } else {
-                                res = '<input type="radio"  name="InPre-' + full.Id +'"    value="' + data + '">';
+                                res = '<input type="radio"  disabled="disabled" name="InPre-' + full.Id +'"    value="' + data + '">';
                             }
                         }
 
@@ -52,7 +52,7 @@ var ViewForm = function () {
                     }
                 } ,
                 {
-                    "title": "Pre-ScreenDate",
+                    "title": "Pre-Screen Date",
                     "data": "PreScreenDate",
                     "searchable": true,
 
