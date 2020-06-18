@@ -261,7 +261,8 @@ var HomeView = function () {
 
             var screenNameWhoAns = $("input[name=UNameWhoAns]:checked").val();
             if (screenNameWhoAns == "userNameWhoAns") {
-                form.WhoAnswer = 'UserNameWhoAnswer';
+                
+                form.WhoAnswer = $("#SubscriberFullName").val();;
                 form.WhoAnsType = "UserNameWhoAnswer";
             } else {
                 if ($("#whoAns").val() == "") {
@@ -627,6 +628,10 @@ var HomeView = function () {
             //} else {
             //    window.location.href = "../Home/CovidFormOntario?subscriberId=" + subId;
             //}
+
+        },
+        Cancel: function () {
+            window.location.href = "../Home/ViewForms";
 
         },
         OpenFormViewList: function (subId, formId) {

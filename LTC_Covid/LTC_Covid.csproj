@@ -42,10 +42,7 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\ScriptsView\LTC_Covid.csproj.vspscc" />
+    <Content Include="LTC_Covid.csproj.vspscc" />
   </ItemGroup>
 
   <ItemGroup>

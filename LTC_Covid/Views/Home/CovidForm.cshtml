@@ -19,6 +19,7 @@
 
         <div class="card-body">
             <fieldset class="mb-5" style="margin-bottom: 0px !important">
+                <input type="hidden" id="LoggedInUser" value="@Model.FirstName @Model.LastName">
                 <input type="hidden" id="SubscriberFullName" value="@Model.FirstName @Model.LastName">
                 <input type="hidden" id="FormID" value="@Model.FormID">
                 <input type="hidden" id="CustomID" value="@Model.CustomID">
@@ -662,7 +663,8 @@
         </div>
         <div class="card-footer">
             @*<button type="button" id="btnSavePDF" style="float: right;" onclick="HomeView.saveFormPdf();" class="btn btn-dark">Save</button>*@
-            <button type="button" id="btnSave" style="float: right;" onclick="HomeView.saveForm();" class="btn btn-primary">Save</button>
+            <button type="button" id="btnSave" style="float: right;margin-left:15px" onclick="HomeView.saveForm();" class="btn btn-primary">Save</button>
+            <button type="button" id="btnCancel" style="float: right;" onclick="HomeView.Cancel();" class="btn btn-danger">Cancel</button>
         </div>
     </div>
     <!-- /form inputs -->
