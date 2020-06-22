@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 
 namespace LTC_Covid.Controllers
 {
-    public class AboutController : BaseController
+    public class AboutController  :Controller
     {
         private ConfigSettings _configuration;
         public AboutController(IOptions<ConfigSettings> configuration)

@@ -84,7 +84,7 @@ namespace LTC_Covid
                     options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "");
                 })
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
-           
+            services.Configure<EmailManager.ElasticEmail>(Configuration.GetSection("ElasticEmail"));
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/Identity/Account/Login";

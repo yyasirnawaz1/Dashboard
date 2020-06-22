@@ -24,24 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Html\bootstrap.min.css" />
-    <None Remove="Html\bootstrap.min.css.map" />
-    <None Remove="Html\template.html" />
+    <None Remove="wwwroot\Html\bootstrap.min.css" />
+    <None Remove="wwwroot\Html\bootstrap.min.css.map" />
+    <None Remove="wwwroot\Html\form.html" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Html\bootstrap.min.css">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Html\bootstrap.min.css.map">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Html\template.html">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="LTC_Covid.csproj.vspscc" />
   </ItemGroup>
 

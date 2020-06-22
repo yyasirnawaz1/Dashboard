@@ -178,19 +178,23 @@ namespace LTCDataManager
                 return "0,1";
             }
         }
-        public static byte[] GenerateFormPdf(string content)
+        public static byte[] GenerateFormPdf(string content, string filePath)
         {
             #region Create PDF file
+            var htmlPage = System.IO.File.ReadAllText(filePath);
+            
+            htmlPage = htmlPage.Replace("[Body]", content);
 
             HtmlToPdf converter = new HtmlToPdf();
 
-            PdfDocument doc = converter.ConvertHtmlString(content);
+            PdfDocument doc = converter.ConvertHtmlString(htmlPage);
             MemoryStream stream = new MemoryStream();
             doc.Save(stream);
             doc.Close();
-            //byte[] docBytes = stream.ToArray();
+            byte[] docBytes = stream.ToArray();
+            return docBytes;
             //return Encoding.ASCII.GetString(docBytes);
-            return stream.ToArray();
+
             #endregion
         }
 

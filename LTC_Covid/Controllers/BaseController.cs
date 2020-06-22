@@ -15,6 +15,16 @@ namespace LTC_Covid.Controllers
     [Authorize]
     public class BaseController : Controller
     {
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        private string webRootPath;
+
+        public BaseController(IHostingEnvironment hostingEnvironment)
+        {
+            _hostingEnvironment = hostingEnvironment;
+            webRootPath = _hostingEnvironment.WebRootPath;
+
+        }
         public int UserId
         {
             get

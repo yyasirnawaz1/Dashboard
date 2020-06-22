@@ -36,7 +36,7 @@ namespace LTCDataManager.Covid
                 form.PreScreenDate = DateTime.Now;
 
             form.SubscriberID = subscriberId;
-            if (form.FormID < 1 )
+            if (form.FormID < 1)
                 form.FormID = formId;
 
             if (form.StorageInJson != null)
@@ -104,7 +104,7 @@ namespace LTCDataManager.Covid
             gCovidSubscriber res = null;
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
-                res =  db.Fetch<gCovidSubscriber>($"Select * from subscribers where ID = {Id}").FirstOrDefault();
+                res = db.Fetch<gCovidSubscriber>($"Select * from subscribers where ID = {Id}").FirstOrDefault();
             }
             return res;
         }
@@ -113,7 +113,7 @@ namespace LTCDataManager.Covid
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gFormCovidType>($"SELECT  * FROM form_covid_type ").ToList();
         }
-        public  static List<gCovidSubscriber> GetSubscribers()
+        public static List<gCovidSubscriber> GetSubscribers()
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gCovidSubscriber>($"SELECT  * FROM subscribers ").ToList();
@@ -156,13 +156,25 @@ namespace LTCDataManager.Covid
                     return int.Parse(QueueID.ToString());
                 }
             }
-              
+
+        }
+        public static int SavePdf(gformInPdf model)
+        {
+            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
+            {
+
+                //Save Form Design Object
+                var QueueID = db.Insert(model);
+                return int.Parse(QueueID.ToString());
+
+            }
+
         }
         public static void Delete(int Id)
         {
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
-                db.Delete("form_covid_entry", "QueueID", new gFormCovidEntry {  QueueID = Id });
+                db.Delete("form_covid_entry", "QueueID", new gFormCovidEntry { QueueID = Id });
             }
         }
         public static gFormCovidEntryViewModel GetCovidFormBySubscriberId(int subscriberId, int formId)

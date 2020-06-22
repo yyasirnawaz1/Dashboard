@@ -181,18 +181,15 @@ var HomeView = function () {
 
         },
         saveFormPdf: function () {
-            var currentHtml = $("#staffScreener").val()
-            //var string = JSON.stringify(form);
+            debugger;
+            var currentHtml = $(".content").html()
+            var queueId = $("#QueueID").val();
 
+            var string = JSON.stringify(currentHtml);
             var data = {
-                SubscriberID: subscriberID,
+                pdf: currentHtml,
                 QueueID: queueId,
-                StorageInJson: string,
-                IsPreScreen: form.IsPreScreen,
-                IsInPersonScreen: form.InPerson,
-                FormID: form.FormID,
-                InPersonScreenDate: form.InPersonDate,
-                PreScreenDate: form.IsPreScreenDate
+                FromTable : 1
             };
             
 
@@ -201,18 +198,15 @@ var HomeView = function () {
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 dataType: 'json',
-                url: '/Home/Upsert',
+                url: '/Home/SavePdf',
                 success: function (data) {
-                    $("#QueueID").val(data.QueueId)
                     ltcApp.successMessage("Success", 'Form has been saved');
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error saving the form');
-                    $("#btnSave").attr("disabled", false);
 
                 },
                 complete: function () {
-                    $("#btnSave").attr("disabled", false);
 
                 }
             })
@@ -220,7 +214,45 @@ var HomeView = function () {
 
 
         },
+        sendForm: function (subscriberID, queueId) {
 
+           
+ 
+           
+          
+
+
+            var data = {
+                Id: subscriberID,
+                QueueId: queueId,
+            };
+           
+
+            Layout.showLoader();
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                url: '/Home/SendEmail',
+                success: function (data) {
+                   
+                    ltcApp.successMessage("Success", 'Form has been sent');
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    ltcApp.errorMessage("Error", 'Error sending the form');
+                    Layout.hideLoader();
+
+                },
+                complete: function () {
+                    Layout.hideLoader();
+
+                }
+            })
+
+
+
+        },
         saveForm: function () {
 
             var form = new Object();

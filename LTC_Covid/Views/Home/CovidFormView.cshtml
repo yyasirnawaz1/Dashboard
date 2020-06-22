@@ -3,10 +3,18 @@
     ViewData["Title"] = "Home Page";
 }
 <style>
-    .dvPreScreen , .dvInPerson{
-        text-align: center!important;
+    .dvPreScreen, .dvInPerson {
+        text-align: center !important;
     }
 </style>
+<input type="hidden" id="SubscriberFullName" value="@Model.FirstName @Model.LastName">
+<input type="hidden" id="FormID" value="@Model.FormID">
+<input type="hidden" id="CustomeID" value="@Model.CustomID">
+<input type="hidden" id="IdValue" value="@Model.SubscriberID">
+<input type="hidden" id="JsonValue" value="@Model.StorageInJsonView">
+<input type="hidden" id="QueueID" value="@Model.QueueID">
+<input type="hidden" id="hdnPreScreenDate" value="@Model.PreScreenDate">
+<input type="hidden" id="hdnInPersonDate" value="@Model.InPersonScreenDate">
 <div class="content">
 
     <!-- Form inputs -->
@@ -24,20 +32,14 @@
 
         <div class="card-body">
             <fieldset class="mb-5">
-                <input type="hidden" id="SubscriberFullName" value="@Model.FirstName @Model.LastName">
-                <input type="hidden" id="FormID" value="@Model.FormID">
-                <input type="hidden" id="CustomeID" value="@Model.CustomID">
-                <input type="hidden" id="IdValue" value="@Model.SubscriberID">
-                <input type="hidden" id="JsonValue" value="@Model.StorageInJsonView">
-                <input type="hidden" id="QueueID" value="@Model.QueueID">
-                <input type="hidden" id="hdnPreScreenDate" value="@Model.PreScreenDate">
-                <input type="hidden" id="hdnInPersonDate" value="@Model.InPersonScreenDate">
+
 
                 <br />
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Staff Screener</label>
                     <div class="col-lg-6">
-                        <input type="text" id="staffScreener" class="form-control" disabled>
+                        <label id="staffScreener" class="form-check-label"></label>
+
 
                     </div>
                 </div>
@@ -45,14 +47,15 @@
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Patient Name</label>
                     <div class="col-lg-6">
-                        <input type="text" id="patientName" class="form-control">
+                        <label id="patientName" class="form-check-label"></label>
+
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Patient Age</label>
                     <div class="col-lg-6">
-                        <input type="number" id="patientAge" class="form-control">
+                        <label id="patientAge" class="form-check-label"></label>
                     </div>
                 </div>
 
@@ -60,7 +63,7 @@
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Who Answered</label>
                     <div class="col-lg-6">
-                        <input type="text" id="whoAns" class="form-control">
+                        <label id="whoAns" class="form-check-label"></label>
                     </div>
                 </div>
 
@@ -68,7 +71,8 @@
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">CustomID</label>
                     <div class="col-lg-6">
-                        <input type="text" value="@Model.CustomID" class="form-control" id="customID" disabled>
+                        <label id="customID" class="form-check-label">"@Model.CustomID"</label>
+
                     </div>
                 </div>
 
@@ -92,7 +96,6 @@
         </div>
 
         <div class="card-body">
-
             <fieldset class="mb-3">
                 <div class="form-group row" style="margin-bottom: 0px; ">
                     <div class="col-lg-3 dvPreScreen">
@@ -100,7 +103,9 @@
                             <label class="form-check-label">
                                 <input type="radio" name="prescreen" id="preScreen" class="form-check-input">
                                 Pre Screen
-                            </label>
+                            </label>   [ <label class="form-check-label" id="PreScreenDate">
+                                -
+                            </label> ]
                         </div>
 
                     </div>
@@ -109,35 +114,23 @@
                             <label class="form-check-label">
                                 <input type="radio" id="inPerson" name="inperson" class="form-check-input" disabled>
                                 In-Person
-                            </label>
+                            </label>[<label class="form-check-label" id="InPersonDate">
+                                -
+                            </label>]
                         </div>
 
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-lg-3 dvPreScreen" style="margin-left: 20px !important;">
+            </fieldset>
+            <fieldset class="mb-3">
 
-                        Date:
-                        <label class="form-check-label" id="PreScreenDate">
-                            -
-                        </label>
 
-                    </div>
-                    <div class="col-lg-3 dvInPerson">
-
-                        Date:
-                        <label class="form-check-label" id="InPersonDate">
-                            -
-                        </label>
-
-                    </div>
-                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-lg">
                         <thead>
                             <tr>
-                                <th style="width:70%">Identify yourself and explain the purpose of the call, which is to determine whether <br />there are any special considerations for their dental appointment. Have the patient answer the following questions.</th>
-                                <th class="text-center dvPreScreen">
+                                <th style="width:70%" class="dvPreScreen2">Identify yourself and explain the purpose of the call, which is to determine whether <br />there are any special considerations for their dental appointment. Have the patient answer the following questions.</th>
+                                <th class="text-center dvPreScreen ">
                                     Pre-Screen<br>
                                 </th>
                                 <th class="text-center dvInPerson">
@@ -152,11 +145,11 @@
                                     <ol>
                                         <li value="1">
                                             Do you have a fever or have felt hot or feverish anytime in the last 10 days? <br />
-                                            Patient temperature at appointment: <input type="text" id="txtTemperature" style="width:25%" class="form-control">
+                                            Patient temperature at appointment:  [<label id="txtTemperature" class="form-check-label"></label>]
                                         </li>
                                     </ol>
                                 </th>
-                                <td class="dvPreScreen">
+                                <td class="dvPreScreen dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer1" class="form-check-label">
                                             -
@@ -165,7 +158,7 @@
 
 
                                 </td>
-                                <td class="dvInPerson">
+                                <td class="dvInPerson dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer1" class="form-check-label">
 
@@ -183,24 +176,24 @@
                                         @{
                                             if (Model.FormID == 1)
                                             {
-                                                <li value="2">
-                                                    Do you have any of these symptoms: New or worsening cough? <br />
-                                                    New or worsening shortness of breath? Difficulty breathing? <br /> Sore throat or painful swallowing? Runny nose?
-                                                </li>
+                                            <li value="2">
+                                                Do you have any of these symptoms: New or worsening cough? <br />
+                                                New or worsening shortness of breath? Difficulty breathing? <br /> Sore throat or painful swallowing? Runny nose?
+                                            </li>
 
                                             }
                                             else
                                             {
-                                                <li value="2">
-                                                    Does the person have a confirmed case of COVID-19 or had close contact with a confirmed case of COVID-19?
-                                                </li>
+                                            <li value="2">
+                                                Does the person have a confirmed case of COVID-19 or had close contact with a confirmed case of COVID-19?
+                                            </li>
 
                                             }
 
                                         }
                                     </ol>
                                 </th>
-                                <td class="dvPreScreen">
+                                <td class="dvPreScreen dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer2" class="form-check-label">
                                             -
@@ -209,7 +202,7 @@
 
 
                                 </td>
-                                <td class="dvInPerson">
+                                <td class="dvInPerson dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer2" class="form-check-label">
 
@@ -229,40 +222,40 @@
                                             if (Model.FormID == 1)
                                             {
 
-                                                <li value="3">
-                                                    Have you experienced a recent loss of smell or taste?
-                                                </li>
+                                            <li value="3">
+                                                Have you experienced a recent loss of smell or taste?
+                                            </li>
                                             }
                                             else
                                             {
-                                                <li value="3">
+                                            <li value="3">
 
-                                                    Does the person have any of the following symptoms:
-                                                    <br />
-                                                    •Fever<br />
-                                                    •New onset of cough<br />
-                                                    •Worsening chronic cough<br />
-                                                    •Shortness of breath<br />
-                                                    •Difficulty breathing<br />
-                                                    •Sore throat<br />
-                                                    •Difficulty swallowing<br />
-                                                    •Decrease or loss of sense of taste or smell<br />
-                                                    •Chills<br />
-                                                    •Headaches<br />
-                                                    •Unexplained fatigue/malaise/muscle aches (myalgias)<br />
-                                                    •Nausea/vomiting, diarrhea, abdominal pain<br />
-                                                    •Pink eye (conjunctivitis)<br />
-                                                    •Runny nose/nasal congestion without other known cause<br />
+                                                Does the person have any of the following symptoms:
+                                                <br />
+                                                •Fever<br />
+                                                •New onset of cough<br />
+                                                •Worsening chronic cough<br />
+                                                •Shortness of breath<br />
+                                                •Difficulty breathing<br />
+                                                •Sore throat<br />
+                                                •Difficulty swallowing<br />
+                                                •Decrease or loss of sense of taste or smell<br />
+                                                •Chills<br />
+                                                •Headaches<br />
+                                                •Unexplained fatigue/malaise/muscle aches (myalgias)<br />
+                                                •Nausea/vomiting, diarrhea, abdominal pain<br />
+                                                •Pink eye (conjunctivitis)<br />
+                                                •Runny nose/nasal congestion without other known cause<br />
 
 
-                                                </li>
+                                            </li>
                                             }
 
                                         }
 
                                     </ol>
                                 </th>
-                                <td class="dvPreScreen">
+                                <td class="dvPreScreen dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer3" class="form-check-label">
                                             -
@@ -271,7 +264,7 @@
 
 
                                 </td>
-                                <td class="dvInPerson">
+                                <td class="dvInPerson dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer3" class="form-check-label">
 
@@ -292,7 +285,7 @@
                                         </li>
                                     </ol>
                                 </th>
-                                <td class="dvPreScreen">
+                                <td class="dvPreScreen dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer4" class="form-check-label">
                                             -
@@ -301,7 +294,7 @@
 
 
                                 </td>
-                                <td class="dvInPerson">
+                                <td class="dvInPerson dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer4" class="form-check-label">
 
@@ -321,7 +314,7 @@
                                         </li>
                                     </ol>
                                 </th>
-                                <td class="dvPreScreen">
+                                <td class="dvPreScreen dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer5" class="form-check-label">
                                             -
@@ -330,7 +323,7 @@
 
 
                                 </td>
-                                <td class="dvInPerson">
+                                <td class="dvInPerson dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer5" class="form-check-label">
 
@@ -350,7 +343,7 @@
                                         </li>
                                     </ol>
                                 </th>
-                                <td class="dvPreScreen">
+                                <td class="dvPreScreen dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer6" class="form-check-label">
                                             -
@@ -359,7 +352,7 @@
 
 
                                 </td>
-                                <td class="dvInPerson">
+                                <td class="dvInPerson dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer6" class="form-check-label">
 
@@ -377,8 +370,9 @@
                                         <li value="7">
                                             Is your workplace considered high risk?
                                         </li>
-                                    </ol>                                </th>
-                                <td class="dvPreScreen">
+                                    </ol>
+                                </th>
+                                <td class="dvPreScreen dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer7" class="form-check-label">
                                             -
@@ -387,7 +381,7 @@
 
 
                                 </td>
-                                <td class="dvInPerson">
+                                <td class="dvInPerson dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer7" class="form-check-label">
 
@@ -403,17 +397,6 @@
                         </tbody>
                     </table>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
             </fieldset>
             <fieldset class="mb-3">
                 <legend class="text-uppercase font-size-sm font-weight-bold">Patient Vulnerability</legend>
@@ -440,7 +423,7 @@
                                         </li>
                                     </ol>
                                 </th>
-                                <td class="dvPreScreen">
+                                <td class="dvPreScreen dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer8" class="form-check-label">
                                             -
@@ -449,7 +432,7 @@
 
 
                                 </td>
-                                <td class="dvInPerson">
+                                <td class="dvInPerson dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer8" class="form-check-label">
 
@@ -470,24 +453,24 @@
                                             if (Model.FormID == 1)
                                             {
 
-                                                                                <li value="9">
-                                                                                    Do you have any of the following? Heart disease, lung disease, kidney disease, diabetes, or any auto-immune disorder?
-                                                                                </li>
+                                            <li value="9">
+                                                Do you have any of the following? Heart disease, lung disease, kidney disease, diabetes, or any auto-immune disorder?
+                                            </li>
                                             }
                                             else
                                             {
-                                    <li value="9">
+                                            <li value="9">
 
-                                        Are you experiencing any of the following symptoms: delirium, unexplained or increased number of falls,  <br />acute functional decline, or worsening of chronic conditions?
+                                                Are you experiencing any of the following symptoms: delirium, unexplained or increased number of falls,  <br />acute functional decline, or worsening of chronic conditions?
 
 
-                                    </li>
+                                            </li>
                                             }
 
                                         }
                                     </ol>
                                 </th>
-                                <td class="dvPreScreen">
+                                <td class="dvPreScreen dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="PreScreenAnswer9" class="form-check-label">
                                             -
@@ -496,7 +479,7 @@
 
 
                                 </td>
-                                <td class="dvInPerson">
+                                <td class="dvInPerson dvCenter">
                                     <div class="form-check form-check-inline">
                                         <label id="InPersonScreenAnswer9" class="form-check-label">
 
@@ -524,6 +507,10 @@
 
 
             </fieldset>
+            <br />
+            <br />
+            <br />
+
             <fieldset class="mb-3">
                 <legend class="text-uppercase font-size-sm font-weight-bold">Additional Notes</legend>
 
@@ -531,7 +518,7 @@
                 <div class="form-group row">
 
                     <div class="col-lg-12">
-                        <textarea class="form-control" id="txtAdditionalInformation" rows="3" disabled></textarea>
+                        <label id="txtAdditionalInformation" class="form-check-label"></label>
                     </div>
                 </div>
 
@@ -546,14 +533,16 @@
 
         </div>
         <div class="card-footer">
-
+            <button type="button" id="btnSavePDF" style="float: right;;margin-left:15px" onclick="HomeView.saveFormPdf();" class="btn btn-dark">Save PDF</button>
             <button type="button" id="btnCancel" style="float: right;" onclick="HomeView.Cancel();" class="btn btn-danger">Cancel</button>
-
         </div>
     </div>
     <!-- /form inputs -->
 
 </div>
+
+
+
 @section scripts{
     <script src="~/Resources/theme/js/vendor/datatables/jquery.dataTables.min.js"></script>
 
@@ -565,7 +554,7 @@
             var formId = $("#FormID").val();
 
             var subscriberFullName = $("#SubscriberFullName").val();
-            $("#patientName").val(subscriberFullName);
+            $("#patientName").html(subscriberFullName);
 
             if (formId == 1 || formId == 2) {
                 $(".dvPreScreen").show();
@@ -578,25 +567,27 @@
             if (str != "") {
                 var form = JSON.parse(str);
                 if (form != null) {
+
+
                     if (form.StaffScreener != null) {
-                        $("#staffScreener").val(form.StaffScreener);
+                        $("#staffScreener").html(form.StaffScreener);
                         $("#staffScreener").attr('disabled', true);
                     }
 
 
                     if (form.PatientName != null) {
-                        $("#patientName").val(form.PatientName);
+                        $("#patientName").html(form.PatientName);
                         $("#patientName").attr('disabled', true);
                     }
 
                     if (form.PatientAge != null) {
-                        $("#patientAge").val(form.PatientAge);
+                        $("#patientAge").html(form.PatientAge);
                         $("#patientAge").attr('disabled', true);
 
                     }
-                     
+
                     if (form.WhoAnswer != null) {
-                        $("#whoAns").val(form.WhoAnswer);
+                        $("#whoAns").html(form.WhoAnswer);
                         $("#whoAns").attr('disabled', true);
                     }
 
@@ -611,7 +602,7 @@
                         $("#hdnInPersonDate").val(form.InPersonDate);
                     }
                     if (form.Temperature != null) {
-                        $("#txtTemperature").val(form.Temperature);
+                        $("#txtTemperature").html(form.Temperature);
                         $("#txtTemperature").attr('disabled', true);
 
                     }
@@ -660,7 +651,7 @@
                         $("#inPerson").attr('disabled', false);
                     }
                     if (form.AdditionalInformation != null) {
-                        $("#txtAdditionalInformation").val(form.AdditionalInformation);
+                        $("#txtAdditionalInformation").html(form.AdditionalInformation);
 
 
                     }

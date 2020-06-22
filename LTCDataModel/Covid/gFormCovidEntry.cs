@@ -6,7 +6,11 @@ using System.Text;
 
 namespace LTCDataModel.Covid
 {
-   
+    public class ContentModel
+    {
+        public string content { get; set; }
+    }
+
     [TableName("form_covid_entry")]
     [PrimaryKey("QueueID", AutoIncrement = true)]
     public class gFormCovidEntry
@@ -110,7 +114,32 @@ namespace LTCDataModel.Covid
         public string EmailAddress { get; set; }
 
     }
+    public class gEmailModel
+    {
+        public int Id { get; set; }
+        public int QueueId { get; set; }
 
-     
+    }
+
+    public class gformInPdfInputModel
+    {
+
+        public int FromTable { get; set; }
+        public int QueueID { get; set; }
+        public string PDF { get; set; }
+
+    }
+
+    [TableName("form_in_pdf")]
+    [PrimaryKey("ID", AutoIncrement = true)]
+    public class gformInPdf
+    {
+
+        public int ID { get; set; }
+        public int FromTable { get; set; }
+        public int QueueID { get; set; }
+        public byte[] PDF { get; set; }
+
+    }
 
 }

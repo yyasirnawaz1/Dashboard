@@ -20,28 +20,47 @@ using LTCDataManager.Covid;
 using System.Text;
 using DataTables.AspNetCore.Mvc.Binder;
 using LTC_Covid.Helper;
+using Microsoft.AspNetCore.Hosting;
+using LTCDataManager;
+using LTCDataManager.Email;
 
 namespace LTC_Covid.Controllers
 {
     public class HomeController : BaseController
     {
+        private const string Html = @"Dear &Subscriber& <br/>Please click the link below to view the Pre - Screen Form.
+<br/>
+<br/>
+
+
+&Link&
+<br/>
+<br/>
+Regards
+<br/>
+LTC";
+        private readonly IOptions<EmailManager.ElasticEmail> _email;
         private ConfigSettings _configuration;
         private Mapping _mapping;
         private gOfficeSummaryManager _gOfficeSummaryManager;
         private readonly UserManager<BusinessUserInfo> _userManager;
         private readonly SignInManager<BusinessUserInfo> _signInManager;
+        private readonly IHostingEnvironment _webHostEnvironment;
 
         public HomeController(IOptions<ConfigSettings> configuration,
             IOptions<Mapping> mapping,
             UserManager<BusinessUserInfo> userManager,
-            SignInManager<BusinessUserInfo> signInManager)
+            SignInManager<BusinessUserInfo> signInManager, IHostingEnvironment webHostEnvironment, IOptions<EmailManager.ElasticEmail> email) : base(webHostEnvironment)
         {
             _configuration = configuration.Value;
             _mapping = mapping.Value;
+            _email = email;
             _userManager = userManager;
             _signInManager = signInManager;
+            _webHostEnvironment = webHostEnvironment;
             _gOfficeSummaryManager = new gOfficeSummaryManager(configuration);
         }
+
 
         [AllowAnonymous]
         public ActionResult CovidForm(int subscriberId, int formId)
@@ -50,14 +69,14 @@ namespace LTC_Covid.Controllers
             var form = gCovidManager.GetFormInfo(subscriberId, formId);
             var subDetails = gCovidManager.GetSubscriberById(subscriberId);
             form.FirstName = subDetails.FirstName;
-            form.LastName  = subDetails.LastName;
+            form.LastName = subDetails.LastName;
 
             return View(form);
         }
         [AllowAnonymous]
         public ActionResult CovidFormOntario(int subscriberId)
         {
-            var form = gCovidManager.GetFormInfo(subscriberId,2);
+            var form = gCovidManager.GetFormInfo(subscriberId, 2);
 
             return View(form);
         }
@@ -80,15 +99,15 @@ namespace LTC_Covid.Controllers
         [AllowAnonymous]
         public ActionResult CovidFormOntarioView(int subscriberId)
         {
-            var form = gCovidManager.GetFormInfo(subscriberId,2);
+            var form = gCovidManager.GetFormInfo(subscriberId, 2);
 
             return View(form);
         }
-        
+
         [AllowAnonymous]
         public ActionResult ViewForms()
         {
-          
+
             return View();
         }
         [AllowAnonymous]
@@ -112,6 +131,90 @@ namespace LTC_Covid.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        public ActionResult SendEmail([FromBody]gEmailModel model)
+        {
+            try
+            {
+                var subscriber = gCovidManager.GetSubscriberById(model.Id);
+                if (subscriber != null)
+                {
+                    var form = gCovidManager.GetFormInfo(model.QueueId, model.Id);
+                    if (form != null)
+                    {
+                        string[] msgTo = new[]
+                          {subscriber.EmailAddress};
+                        var url = "https://localhost:44380/COVID-prescreen/API=12121123&FormID="+model.QueueId+"&CustomeID=" + subscriber.CustomID;
+
+                        var emailHtml = Html.Replace("&Subscriber&", subscriber.FirstName + " " + subscriber.LastName).Replace("&Link&", url) ;
+
+                        var id = EmailManager.Send("Covid-Form",
+                          msgTo,
+                          Html,
+                          new EmailManager.ElasticEmail
+                          {
+                              Email = _email.Value.Email,
+                              FromName = _email.Value.FromName,
+                              APIKey = _email.Value.APIKey
+                          }); 
+
+                        return Json(new
+                        {
+                            success = true,
+
+                        });
+
+                    }
+                }
+
+                return Json(new
+                {
+                    success = false,
+
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+
+                });
+            }
+
+
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult SavePdf([FromBody]gformInPdfInputModel model)
+        {
+            try
+            {
+                gformInPdf form = new gformInPdf();
+
+                string webRootPath = _webHostEnvironment.WebRootPath;
+                var htmlFile = webRootPath + "/Html/form.html";
+                form.PDF = Utility.GenerateFormPdf(model.PDF, htmlFile);
+                form.QueueID = model.QueueID;
+                form.FromTable = 1;
+
+                int Id = gCovidManager.SavePdf(form);
+                var json = new
+                {
+                    success = true,
+                    Id = Id
+                };
+                return Json(json);
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+
+        }
+        [AllowAnonymous]
+        [HttpPost]
         public ActionResult Upsert([FromBody]gFormCovidEntry model)
         {
             try
@@ -120,7 +223,7 @@ namespace LTC_Covid.Controllers
 
                 if (model.QueueID < 1)
                     model.CustomID = Common.GenerateCustomID();
-                
+
 
                 int Id = gCovidManager.Save(model);
                 var json = new
