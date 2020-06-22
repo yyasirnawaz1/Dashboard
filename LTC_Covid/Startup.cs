@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using LTC_Covid.Data;
-using LTC_Dashboard.Helper;
 using LTC_Covid.Models;
 using LTCDataManager.Email;
 using LTCDataModel.Configurations;
+using LTCDataModel.Covid;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,7 +34,7 @@ namespace LTC_Covid
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
 
 
 
@@ -77,7 +77,7 @@ namespace LTC_Covid
                 .AddClaimsPrincipalFactory<CustomClaimsPrincipalFactory>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc(options=> options.Filters.Add(typeof(ModuleRestrictionActionFilter)))
+            services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
                 {
@@ -115,15 +115,8 @@ namespace LTC_Covid
             app.UseCors(MyAllowSpecificOrigins);
             app.UseMvc(routes =>
             {
-                 
-            
-            //    routes.MapRoute(
-            //name: "accountlogin",
-            //template: "Identity",
-            //defaults: new { controller = "Account", action = "Login" });
-
-
-                routes.MapRoute(
+                routes
+                .MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}");
 

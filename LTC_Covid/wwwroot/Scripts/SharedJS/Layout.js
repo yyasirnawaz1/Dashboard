@@ -167,7 +167,7 @@ var Layout = {
                     $('#txtCountry').val(response.Data.Country);
                     $('#txtPostalCode').val(response.Data.PostalCode);
                     $('#txtDoctorId').val(response.Data.DoctorID);
-                    
+
                 } else {
                     //alert("Something went wrong");
                 }
@@ -182,56 +182,38 @@ var Layout = {
     },
 
     updateUserProfile: function () {
-        if ($('#txtSalutation').val() == '' ||
-            $('#txtInitials').val() == '' ||
-            $('#txtFirstName').val() == '' ||
-            $('#txtLastName').val() == '' ||
-            $('#txtPhone').val() == '' ||
-            $('#txtFax').val() == '' ||
-            $('#txtAddressLine1').val() == '' ||
-            $('#txtCity').val() == '' ||
-            $('#txtProvince').val() == '' ||
-            $('#txtCountry').val() == '' ||
-            $('#txtPostalCode').val() == '') {
-            alert('Invalid Data Entered');
-        }
-        else {
-            //$("#btnUpdateProfile").html('<div class="app-spinner loading"></div>');
-            var SUBMITURL = window.location.origin + "/Home/UpdateProfile";
-            $.ajax({
-                url: SUBMITURL,
-                method: "POST",
-                data: {
-                    Salutation: $('#txtSalutation').val(),
-                    Initials: $('#txtInitials').val(),
-                    FirstName: $('#txtFirstName').val(),
-                    LastName: $('#txtLastName').val(),
-                    Phone: $('#txtPhone').val(),
-                    Fax: $('#txtFax').val(),
-                    AddressLine1: $('#txtAddressLine1').val(),
-                    AddressLine2: $('#txtAddressLine2').val(),
-                    AddressLine3: $('#txtAddressLine3').val(),
-                    City: $('#txtCity').val(),
-                    Province: $('#txtProvince').val(),
-                    Country: $('#txtCountry').val(),
-                    PostalCode: $('#txtPostalCode').val(),
-                    DoctorID: $('#txtDoctorId').val()
-                },
-                success: function (data) {
 
-                    if (data.Success) {
-                        $('#userprofileModal').modal('hide');
-                        alert("profile updated");
-                    }
-                    else {
-                        alert(data.Data);
-                    }
-                },
-                error: function (args) {
-                    alert(args);
+        //$("#btnUpdateProfile").html('<div class="app-spinner loading"></div>');
+        var SUBMITURL = window.location.origin + "/Home/UpdateProfile";
+        $.ajax({
+            url: SUBMITURL,
+            method: "POST",
+            data: {
+                FirstName: $('#FirstName').val(),
+                LastName: $('#LastName').val(),
+                AddressLine1: $('#AddressLine1').val(),
+                AddressLine2: $('#AddressLine2').val(),
+                AddressLine3: $('#AddressLine3').val(),
+                City: $('#City').val(),
+                Province: $('#Province').val(),
+                PostalCode: $('#PostalCode').val(),
+                Country: $('#Country').val(),
+                PhoneNumber: $('#PhoneNumber').val(),
+            },
+            success: function (data) {
+
+                if (data.success) {
+                    $('#userprofileModal').modal('hide');
+                    alert("profile updated");
                 }
-            });
-        }
+                else {
+                    alert(data.message);
+                }
+            },
+            error: function (args) {
+                alert(args);
+            }
+        });
     },
 
     updatePassword: function () {
@@ -393,7 +375,7 @@ var Layout = {
 $(document).ready(function () {
     window.addEventListener('storage', Layout.storageChange, false);
 
-    
+
 
     $('#thePreviewPanel').on('hidden.bs.modal', function (e) {
         if (Layout.currentModel != '') {
@@ -425,7 +407,7 @@ $(document).ready(function () {
             $("#" + Layout.currentModel).modal('hide');
         }
     });
-       
+
 
     Layout.loadCornerMenuControl();
 

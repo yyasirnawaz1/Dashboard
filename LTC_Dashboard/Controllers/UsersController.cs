@@ -272,8 +272,6 @@ namespace LTC_Dashboard.Controllers
                 Selected = selectedList.Any(x => x == i.Office_Number)
             });
 
-
-            //ViewBag.ModuleList = gUserModuleManager.GetAllModules();
         }
 
     }

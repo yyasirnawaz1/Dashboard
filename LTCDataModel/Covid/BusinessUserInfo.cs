@@ -2,10 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace LTC_Covid.Data
+namespace LTCDataModel.Covid
 {
     public class BusinessUserInfo : IdentityUser<int>
     {
@@ -31,6 +30,6 @@ namespace LTC_Covid.Data
 
 
         public bool Active { get; set; } = true;
-
+        public string API { get; set; }
     }
 }

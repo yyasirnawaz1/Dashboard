@@ -10,6 +10,11 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using LTCDataManager.Office;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using LTC_Covid.Helper;
+using LTCDataModel.Covid;
 
 namespace LTC_Covid.Areas.Identity.Pages.Account
 {
@@ -73,7 +78,6 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
             public string PhoneNumber { get; set; }
 
 
-            [Required]
             [Display(Name = "Address")]
             public string AddressLine1 { get; set; }
 
@@ -84,29 +88,30 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
             public string AddressLine3 { get; set; }
 
 
-            [Required]
             [Display(Name = "City")]
             public string City { get; set; }
 
 
-            [Required]
             [Display(Name = "Province")]
             public string Province { get; set; }
 
 
 
-            [Required]
             [Display(Name = "Country")]
             public string Country { get; set; }
 
 
-            [Required]
             [Display(Name = "Postal Code")]
             public string PostalCode { get; set; }
+
+            [Required]
+            [Display(Name = "Office")]
+            public int? Office_Sequence { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
         {
+            GenerateDropdownData();
             ReturnUrl = returnUrl;
         }
 
@@ -128,7 +133,11 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
                     City = Input.City,
                     Province = Input.Province,
                     Country = Input.Country,
-                    PostalCode = Input.PostalCode
+                    PostalCode = Input.PostalCode,
+                    Office_Sequence = Input.Office_Sequence,
+                    CustomID = Common.GenerateCustomID(),
+                    API = Common.GenerateCustomID(),
+                    EmailConfirmed=true //remove this when email functionality is fixed
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
@@ -153,9 +162,22 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-
+            GenerateDropdownData();
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+
+        private void GenerateDropdownData()
+        {
+            var selectedList = new List<int>();
+
+            TempData["OfficeList"] = gOfficeManager.GetAllOffices().Select(i => new SelectListItem()
+            {
+                Text = i.ClinicName + " (" + i.Office_Number + ")",
+                Value = (i.Office_Sequence != null ? i.Office_Sequence.ToString() : ""),
+                Selected = selectedList.Any(x => x == i.Office_Sequence)
+            });
+
         }
     }
 }

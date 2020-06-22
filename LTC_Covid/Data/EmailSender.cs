@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using LTCDataManager.Email;
 using LTCDataModel;
 using LTCDataModel.Configurations;
 using Microsoft.AspNetCore.Hosting;
@@ -13,14 +14,15 @@ namespace LTC_Covid.Data
 {
     public class EmailSender : IEmailSender
     {
-        private readonly EmailSettings _emailSetting;
+        private readonly IOptions<EmailManager.ElasticEmail> _email;
         private readonly IHostingEnvironment _hostingEnvironment;
 
         public EmailSender(
             IOptions<EmailSettings> emailSettings,
+            IOptions<EmailManager.ElasticEmail> email,
             IHostingEnvironment hostingEnvironment)
         {
-            _emailSetting = emailSettings.Value;
+            _email = email;
             _hostingEnvironment = hostingEnvironment;
         }
 
@@ -33,26 +35,16 @@ namespace LTC_Covid.Data
         /// <returns></returns>
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-
-            //MailMessage mail = new MailMessage();
-
-
-            //mail.From = new MailAddress(_emailSetting.SenderEmail);
-            //mail.To.Add(email);
-
-            //mail.Subject = subject;
-            //mail.Body = htmlMessage;
-            //using (SmtpClient smtpServer = new SmtpClient(_emailSetting.MailServer))
-            //{
-            //    smtpServer.UseDefaultCredentials = false;
-            //    smtpServer.Port = _emailSetting.MailPort;
-            //    smtpServer.Credentials = new System.Net.NetworkCredential(_emailSetting.SenderEmail, _emailSetting.Password);
-            //    smtpServer.EnableSsl = true;
-            //    await smtpServer.SendMailAsync(mail);
-            //}
-
-            await ElasticEmailClient.Api.Email.SendAsync(subject, _emailSetting.SenderEmail, email, msgTo: new string[] { email }, bodyHtml: htmlMessage, bodyText: htmlMessage);
-
+            //EmailManager.Send(
+            //    subject,
+            //    new[] { email },
+            //    htmlMessage,
+            //    new EmailManager.ElasticEmail
+            //    {
+            //        Email = _email.Value.Email,
+            //        FromName = _email.Value.FromName,
+            //        APIKey = _email.Value.APIKey
+            //    });
         }
     }
 }

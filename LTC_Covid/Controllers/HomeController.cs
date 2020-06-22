@@ -20,9 +20,11 @@ using LTCDataManager.Covid;
 using System.Text;
 using DataTables.AspNetCore.Mvc.Binder;
 using LTC_Covid.Helper;
-using Microsoft.AspNetCore.Hosting;
-using LTCDataManager;
-using LTCDataManager.Email;
+using LTCDataModel.User;
+using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2;
 
 namespace LTC_Covid.Controllers
 {
@@ -45,11 +47,14 @@ LTC";
         private gOfficeSummaryManager _gOfficeSummaryManager;
         private readonly UserManager<BusinessUserInfo> _userManager;
         private readonly SignInManager<BusinessUserInfo> _signInManager;
+        private readonly IEmailSender _emailSender;
         private readonly IHostingEnvironment _webHostEnvironment;
 
         public HomeController(IOptions<ConfigSettings> configuration,
             IOptions<Mapping> mapping,
             UserManager<BusinessUserInfo> userManager,
+            SignInManager<BusinessUserInfo> signInManager,
+            IEmailSender emailSender)
             SignInManager<BusinessUserInfo> signInManager, IHostingEnvironment webHostEnvironment, IOptions<EmailManager.ElasticEmail> email) : base(webHostEnvironment)
         {
             _configuration = configuration.Value;
@@ -58,6 +63,7 @@ LTC";
             _userManager = userManager;
             _signInManager = signInManager;
             _webHostEnvironment = webHostEnvironment;
+            _emailSender = emailSender;
             _gOfficeSummaryManager = new gOfficeSummaryManager(configuration);
         }
 
@@ -68,11 +74,45 @@ LTC";
 
             var form = gCovidManager.GetFormInfo(subscriberId, formId);
             var subDetails = gCovidManager.GetSubscriberById(subscriberId);
+
             form.FirstName = subDetails.FirstName;
             form.LastName = subDetails.LastName;
 
             return View(form);
         }
+
+        [AllowAnonymous]
+        [Route("/covid-prescreen")]
+        public ActionResult CovidFormPublic(int? formId, string api = "", string customId = "")
+        {
+
+            var subDetails = gCovidManager.GetSubscriberByCustomId(customId);
+            if (subDetails != null)
+            {
+
+                var form = gCovidManager.GetFormInfo(subDetails.ID, formId.Value);
+                if (form == null)
+                {
+                    form.FirstName = subDetails.FirstName;
+                    form.LastName = subDetails.LastName;
+                    form.CustomID = customId;
+
+                    var id = gCovidManager.Save(new gFormCovidEntry
+                    {
+                        CustomID = Common.GenerateCustomID(),
+                        FormID = form.FormID,
+                        BusinessInfo_ID = 1,
+                        SubscriberID = subDetails.ID,
+                    });
+
+                    form.QueueID = id;
+
+                    return View("CovidForm", form);
+                }
+            }
+            return View("CovidForm", new gFormCovidEntry());
+        }
+
         [AllowAnonymous]
         public ActionResult CovidFormOntario(int subscriberId)
         {
@@ -294,5 +334,40 @@ LTC";
                .ToDataTablesResponse(requestModel, totalCount, filteredCount));
         }
 
+
+        public ActionResult Profile()
+        {
+            GenerateDropdownData();
+            var model = gCovidManager.GetUserProfile(UserId);
+            return View("Views/Shared/PartialViews/_Profile.cshtml", model);
+        }
+
+        public IActionResult UpdateProfile(BusinessUserInfo model)
+        {
+            try
+            {
+                gCovidManager.UpdateUserProfile(model);
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+
+        private void GenerateDropdownData()
+        {
+            var selectedList = new List<int>();
+
+            TempData["OfficeList"] = gOfficeManager.GetAllOffices().Select(i => new SelectListItem()
+            {
+                Text = i.ClinicName + " (" + i.Office_Number + ")",
+                Value = (i.Office_Sequence != null ? i.Office_Sequence.ToString() : ""),
+                Selected = selectedList.Any(x => x == i.Office_Sequence)
+            });
+
+        }
     }
 }

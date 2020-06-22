@@ -38,9 +38,8 @@
                     </a>
                 </li>
             </ul>
-           
 
-          
+
             <ul class="navbar-nav">
                 <li class="nav-item">
 
@@ -49,6 +48,7 @@
 
             <span class="badge ml-md-3 mr-md-auto">&nbsp;</span>
 
+            <partial name="~/Views/Shared/Menu/_TopRightMenu.cshtml" />
 
         </div>
     </div>
@@ -132,8 +132,30 @@
 
     <partial name="~/Views/Shared/PartialViews/_About.cshtml" />
     <partial name="~/Views/Shared/PartialViews/_ChangePassword.cshtml" />
-    <partial name="~/Views/Shared/PartialViews/_Profile.cshtml" />
+    <div id="profileModel">
+
+    </div>
     @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+
+        function loadProfile() {
+            Layout.showLoader()
+            $.ajax({
+                url: '@Url.Action("Profile", "Home")',
+                type: 'get',
+                cache: false,
+            }).done(function(result){
+                $('#profileModel').html(result);
+                $("#userprofileModal").modal("show");
+                Layout.hideLoader()
+            });
+        }
+    </script>
+
     <script src="~/Scripts/SharedJS/Common.js"></script>
     <script src="~/assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js"></script>
     <script src="~/assets/global/plugins/ui-sweetalert.min.js"></script>

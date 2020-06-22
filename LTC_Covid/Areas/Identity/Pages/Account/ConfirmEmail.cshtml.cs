@@ -7,6 +7,7 @@ using LTC_Covid.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using LTCDataModel.Covid;
 
 namespace LTC_Covid.Areas.Identity.Pages.Account
 {

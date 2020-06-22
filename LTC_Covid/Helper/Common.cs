@@ -12,7 +12,7 @@ namespace LTC_Covid.Helper
         public static string GenerateAPIKey()
         {
             int Length = 20;
-            string _allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+";
+            string _allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ";
             Random randNum = new Random();
             char[] chars = new char[Length];
             int allowedCharCount = _allowedChars.Length;
@@ -29,7 +29,7 @@ namespace LTC_Covid.Helper
         public static string GenerateCustomID()
         {
             int Length = 10;
-            string _allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+";
+            string _allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ";
             Random randNum = new Random();
             char[] chars = new char[Length];
             int allowedCharCount = _allowedChars.Length;
@@ -40,6 +40,24 @@ namespace LTC_Covid.Helper
             }
 
             return DateTime.Now.ToString("yyMMddHHmmss") + new string(chars);
+
+
+        }
+
+        public static string GeneratePassword()
+        {
+            int Length = 6;
+            string _allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ";
+            Random randNum = new Random();
+            char[] chars = new char[Length];
+            int allowedCharCount = _allowedChars.Length;
+
+            for (int i = 0; i < Length; i++)
+            {
+                chars[i] = _allowedChars[(int)((_allowedChars.Length) * randNum.NextDouble())];
+            }
+
+            return new string(chars);
 
 
         }

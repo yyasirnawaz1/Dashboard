@@ -64,8 +64,10 @@ namespace LTCDataModel.Covid
         public string EmailAddress { get; set; }
 
         public bool SubscriptionStatus { get; set; }
+        public int Office_Sequence { get; set; }
+        public int PatientNumber { get; set; }
 
-        
+
         public DateTime LastSubscriptionStatusUpdated { get; set; }
 
         public string CustomID { get; set; }

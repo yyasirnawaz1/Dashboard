@@ -30,7 +30,6 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-
                                 <div class="form-group form-group-feedback form-group-feedback-left">
                                     <input asp-for="Input.LastName" class="form-control" placeholder="Last Name" />
                                     <div class="form-control-feedback">
@@ -42,7 +41,6 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-
                                 <div class="form-group form-group-feedback form-group-feedback-left">
                                     <input asp-for="Input.Email" class="form-control" placeholder="Email" />
                                     <div class="form-control-feedback">
@@ -53,11 +51,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group form-group-feedback form-group-feedback-left">
-                                    <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Phone Number" />
+                                    <select asp-for="Input.Office_Sequence" class="form-control" asp-items="@((IEnumerable<SelectListItem>)(TempData["OfficeList"]))" required>
+                                    </select>
                                     <div class="form-control-feedback">
-                                        <i class="icon-phone text-muted"></i>
+                                        <i class="icon-office text-muted"></i>
                                     </div>
-                                    <span asp-validation-for="Input.PhoneNumber" class="form-text text-danger"></span>
+                                    <span asp-validation-for="Input.Office_Sequence" class="form-text text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -403,7 +402,13 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-
+                                <div class="form-group form-group-feedback form-group-feedback-left">
+                                    <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Phone Number" />
+                                    <div class="form-control-feedback">
+                                        <i class="icon-phone text-muted"></i>
+                                    </div>
+                                    <span asp-validation-for="Input.PhoneNumber" class="form-text text-danger"></span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">

@@ -1,4 +1,4 @@
-﻿@inject SignInManager<BusinessUserInfo> SignInManager
+﻿@inject SignInManager<LTCDataModel.Covid.BusinessUserInfo> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
