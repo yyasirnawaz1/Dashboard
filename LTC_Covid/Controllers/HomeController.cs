@@ -57,11 +57,45 @@ namespace LTC_Covid.Controllers
 
             var form = gCovidManager.GetFormInfo(subscriberId, formId);
             var subDetails = gCovidManager.GetSubscriberById(subscriberId);
+
             form.FirstName = subDetails.FirstName;
             form.LastName = subDetails.LastName;
 
             return View(form);
         }
+
+        [AllowAnonymous]
+        [Route("/covid-prescreen")]
+        public ActionResult CovidFormPublic(int? formId, string api = "", string customId = "")
+        {
+
+            var subDetails = gCovidManager.GetSubscriberByCustomId(customId);
+            if (subDetails != null)
+            {
+
+                var form = gCovidManager.GetFormInfo(subDetails.ID, formId.Value);
+                if (form == null)
+                {
+                    form.FirstName = subDetails.FirstName;
+                    form.LastName = subDetails.LastName;
+                    form.CustomID = customId;
+
+                    var id = gCovidManager.Save(new gFormCovidEntry
+                    {
+                        CustomID = Common.GenerateCustomID(),
+                        FormID = form.FormID,
+                        BusinessInfo_ID = 1,
+                        SubscriberID = subDetails.ID,
+                    });
+
+                    form.QueueID = id;
+
+                    return View("CovidForm", form);
+                }
+            }
+            return View("CovidForm", new gFormCovidEntry());
+        }
+
         [AllowAnonymous]
         public ActionResult CovidFormOntario(int subscriberId)
         {
@@ -233,6 +267,6 @@ namespace LTC_Covid.Controllers
                 Selected = selectedList.Any(x => x == i.Office_Sequence)
             });
 
-        }   
+        }
     }
 }

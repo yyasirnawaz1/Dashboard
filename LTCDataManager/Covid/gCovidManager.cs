@@ -115,6 +115,17 @@ namespace LTCDataManager.Covid
             return res;
         }
 
+        public static gCovidSubscriber GetSubscriberByCustomId(string Id)
+        {
+            gCovidSubscriber res = null;
+            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
+            {
+                res = db.Fetch<gCovidSubscriber>($"Select * from subscribers where CustomID = '{Id}'").FirstOrDefault();
+            }
+            return res;
+        }
+
+
         public static gCovidSubscriber GetSubscriberByPatientNumberAndOfficeSequence(int patientNumber, int officesequence)
         {
             gCovidSubscriber res = null;

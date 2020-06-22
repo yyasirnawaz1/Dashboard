@@ -111,7 +111,7 @@ namespace LTC_Covid.Controllers
                 if (subscriber != null)
                 {
                     var sub = gCovidManager.GetByEmail(email);
-                    if(sub!=null)
+                    if (sub != null)
                     {
                         if (sub.ID != subscriber.ID)// check if different user exists with same email
                         {
@@ -127,7 +127,7 @@ namespace LTC_Covid.Controllers
                 else
                 {
                     var sub = gCovidManager.GetByEmail(email);
-                    if(sub!=null)
+                    if (sub != null)
                     {
                         return Json(new
                         {
@@ -147,7 +147,7 @@ namespace LTC_Covid.Controllers
                 gCovidManager.SaveSubscriber(new gCovidSubscriber
                 {
                     ID = id,
-                    Office_Sequence=office,
+                    Office_Sequence = office,
                     Salutation = salutation,
                     LastName = lastname,
                     FirstName = firstname,
@@ -155,7 +155,7 @@ namespace LTC_Covid.Controllers
                     LastSubscriptionStatusUpdated = DateTime.Now,
                     BusinessInfo_ID = 1,
                     SubscriptionStatus = true,
-                    PatientNumber=pno,
+                    PatientNumber = pno,
                     CustomID = Common.GenerateCustomID()
                 });
 
@@ -173,5 +173,13 @@ namespace LTC_Covid.Controllers
             });
         }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> Test()
+        {
+            await _emailSender.SendEmailAsync("command.yasir@gmail.com", "Confirm your email",
+                        $"Please confirm your account by <a href='aaa'>clicking here</a>.");
+
+            return Json(true);
+        }
     }
 }
