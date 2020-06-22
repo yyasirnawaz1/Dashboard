@@ -43,6 +43,24 @@ namespace LTC_Covid.Helper
 
 
         }
+
+        public static string GeneratePassword()
+        {
+            int Length = 6;
+            string _allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+";
+            Random randNum = new Random();
+            char[] chars = new char[Length];
+            int allowedCharCount = _allowedChars.Length;
+
+            for (int i = 0; i < Length; i++)
+            {
+                chars[i] = _allowedChars[(int)((_allowedChars.Length) * randNum.NextDouble())];
+            }
+
+            return new string(chars);
+
+
+        }
         //public string GetUserConnectionString()
         //{
         //    try

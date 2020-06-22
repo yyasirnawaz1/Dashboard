@@ -20,6 +20,11 @@ using LTCDataManager.Covid;
 using System.Text;
 using DataTables.AspNetCore.Mvc.Binder;
 using LTC_Covid.Helper;
+using LTCDataModel.User;
+using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2;
 
 namespace LTC_Covid.Controllers
 {
@@ -30,16 +35,19 @@ namespace LTC_Covid.Controllers
         private gOfficeSummaryManager _gOfficeSummaryManager;
         private readonly UserManager<BusinessUserInfo> _userManager;
         private readonly SignInManager<BusinessUserInfo> _signInManager;
+        private readonly IEmailSender _emailSender;
 
         public HomeController(IOptions<ConfigSettings> configuration,
             IOptions<Mapping> mapping,
             UserManager<BusinessUserInfo> userManager,
-            SignInManager<BusinessUserInfo> signInManager)
+            SignInManager<BusinessUserInfo> signInManager,
+            IEmailSender emailSender)
         {
             _configuration = configuration.Value;
             _mapping = mapping.Value;
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailSender = emailSender;
             _gOfficeSummaryManager = new gOfficeSummaryManager(configuration);
         }
 
@@ -50,14 +58,14 @@ namespace LTC_Covid.Controllers
             var form = gCovidManager.GetFormInfo(subscriberId, formId);
             var subDetails = gCovidManager.GetSubscriberById(subscriberId);
             form.FirstName = subDetails.FirstName;
-            form.LastName  = subDetails.LastName;
+            form.LastName = subDetails.LastName;
 
             return View(form);
         }
         [AllowAnonymous]
         public ActionResult CovidFormOntario(int subscriberId)
         {
-            var form = gCovidManager.GetFormInfo(subscriberId,2);
+            var form = gCovidManager.GetFormInfo(subscriberId, 2);
 
             return View(form);
         }
@@ -80,15 +88,15 @@ namespace LTC_Covid.Controllers
         [AllowAnonymous]
         public ActionResult CovidFormOntarioView(int subscriberId)
         {
-            var form = gCovidManager.GetFormInfo(subscriberId,2);
+            var form = gCovidManager.GetFormInfo(subscriberId, 2);
 
             return View(form);
         }
-        
+
         [AllowAnonymous]
         public ActionResult ViewForms()
         {
-          
+
             return View();
         }
         [AllowAnonymous]
@@ -120,7 +128,7 @@ namespace LTC_Covid.Controllers
 
                 if (model.QueueID < 1)
                     model.CustomID = Common.GenerateCustomID();
-                
+
 
                 int Id = gCovidManager.Save(model);
                 var json = new
@@ -191,5 +199,40 @@ namespace LTC_Covid.Controllers
                .ToDataTablesResponse(requestModel, totalCount, filteredCount));
         }
 
+
+        public ActionResult Profile()
+        {
+            GenerateDropdownData();
+            var model = gCovidManager.GetUserProfile(UserId);
+            return View("Views/Shared/PartialViews/_Profile.cshtml", model);
+        }
+
+        public IActionResult UpdateProfile(BusinessUserInfo model)
+        {
+            try
+            {
+                gCovidManager.UpdateUserProfile(model);
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+
+        private void GenerateDropdownData()
+        {
+            var selectedList = new List<int>();
+
+            TempData["OfficeList"] = gOfficeManager.GetAllOffices().Select(i => new SelectListItem()
+            {
+                Text = i.ClinicName + " (" + i.Office_Number + ")",
+                Value = (i.Office_Sequence != null ? i.Office_Sequence.ToString() : ""),
+                Selected = selectedList.Any(x => x == i.Office_Sequence)
+            });
+
+        }   
     }
 }

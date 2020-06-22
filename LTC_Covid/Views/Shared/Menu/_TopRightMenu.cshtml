@@ -27,20 +27,14 @@
                     <span>@User.FindFirstValue("Name")</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a href="javascript:Layout.loadUserData()" class="dropdown-item"><i class="icon-user-plus"></i> User Profile</a>
-                    @*<a href="#" data-toggle="modal" data-target="#userpreferenceModal" class="dropdown-item"><i class="icon-wrench3"></i> User Preference</a>*@
-                    @if (!isDefault)
-                    {
-                        <a href="#" data-toggle="modal" data-target="#changePasswordModal" class="dropdown-item"><i class="icon-envelope"></i> Change Password</a>
-                    }
-
-
+                    <a href="javascript:loadProfile()" class="dropdown-item"><i class="icon-user-plus"></i> User Profile</a>
+                  @*<a href="#" data-toggle="modal" data-target="#changePasswordModal" class="dropdown-item"><i class="icon-envelope"></i> Change Password</a>*@
                     <div class="dropdown-divider"></div>
                     <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/Identity/Account/Login">
                         <button type="submit" class="dropdown-item"><i class="icon-users"></i> Logout</button>
                     </form>
                     <div class="dropdown-divider"></div>
-                    <a href="#" data-toggle="modal" data-target="#aboutModal" class="dropdown-item"><i class="fa fa-tv"></i> About</a>
+                    @*<a href="#" data-toggle="modal" data-target="#aboutModal" class="dropdown-item"><i class="fa fa-tv"></i> About</a>*@
                 </div>
             </li>
         }

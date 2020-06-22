@@ -11,6 +11,8 @@ using LTCDataManager.DataAccess;
 using LTCDataModel.Configurations;
 using Microsoft.Extensions.Options;
 using LTCDataModel.Covid;
+using LTCDataModel.Office;
+using LTCDataModel.PetaPoco;
 
 namespace LTCDataManager.Covid
 {
@@ -36,7 +38,7 @@ namespace LTCDataManager.Covid
                 form.PreScreenDate = DateTime.Now;
 
             form.SubscriberID = subscriberId;
-            if (form.FormID < 1 )
+            if (form.FormID < 1)
                 form.FormID = formId;
 
             if (form.StorageInJson != null)
@@ -71,7 +73,9 @@ namespace LTCDataManager.Covid
                     found.MiddleInitial = model.MiddleInitial;
                     found.BusinessInfo_ID = model.BusinessInfo_ID;
                     found.Salutation = model.Salutation;
+                    found.PatientNumber = model.PatientNumber;
                     found.SubscriptionStatus = model.SubscriptionStatus;
+                    found.Office_Sequence = model.Office_Sequence;
                     db.Update(found, fid);
                 }
                 else
@@ -86,6 +90,8 @@ namespace LTCDataManager.Covid
                     design.MiddleInitial = model.MiddleInitial;
                     design.BusinessInfo_ID = model.BusinessInfo_ID;
                     design.Salutation = model.Salutation;
+                    design.PatientNumber = model.PatientNumber;
+                    design.Office_Sequence = model.Office_Sequence;
                     design.SubscriptionStatus = model.SubscriptionStatus;
 
                     db.Save(design);
@@ -104,7 +110,17 @@ namespace LTCDataManager.Covid
             gCovidSubscriber res = null;
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
-                res =  db.Fetch<gCovidSubscriber>($"Select * from subscribers where ID = {Id}").FirstOrDefault();
+                res = db.Fetch<gCovidSubscriber>($"Select * from subscribers where ID = {Id}").FirstOrDefault();
+            }
+            return res;
+        }
+
+        public static gCovidSubscriber GetSubscriberByPatientNumberAndOfficeSequence(int patientNumber, int officesequence)
+        {
+            gCovidSubscriber res = null;
+            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
+            {
+                res = db.Fetch<gCovidSubscriber>($"Select * from subscribers where PatientNumber = {patientNumber} AND Office_Sequence = {officesequence}").FirstOrDefault();
             }
             return res;
         }
@@ -113,7 +129,7 @@ namespace LTCDataManager.Covid
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gFormCovidType>($"SELECT  * FROM form_covid_type ").ToList();
         }
-        public  static List<gCovidSubscriber> GetSubscribers()
+        public static List<gCovidSubscriber> GetSubscribers()
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gCovidSubscriber>($"SELECT  * FROM subscribers ").ToList();
@@ -156,13 +172,13 @@ namespace LTCDataManager.Covid
                     return int.Parse(QueueID.ToString());
                 }
             }
-              
+
         }
         public static void Delete(int Id)
         {
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
-                db.Delete("form_covid_entry", "QueueID", new gFormCovidEntry {  QueueID = Id });
+                db.Delete("form_covid_entry", "QueueID", new gFormCovidEntry { QueueID = Id });
             }
         }
         public static gFormCovidEntryViewModel GetCovidFormBySubscriberId(int subscriberId, int formId)
@@ -175,6 +191,20 @@ namespace LTCDataManager.Covid
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gFormCovidEntryViewModel>($"SELECT  * FROM form_covid_entry Inner join subscribers on form_covid_entry.SubscriberID = subscribers.ID Inner Join form_covid_type on form_covid_entry.FormID = form_covid_type.ID ").ToList();
+        }
+
+        public static BusinessUserInfo GetUserProfile(int userId)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
+            return db.Fetch<BusinessUserInfo>($"SELECT  * FROM businessinfo WHERE Id={userId}").FirstOrDefault();
+        }
+
+
+        public static void UpdateUserProfile(BusinessUserInfo model)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
+            var sql = $"UPDATE businessinfo SET FirstName='{model.FirstName}', LastName='{model.LastName}', AddressLine1 = '{model.AddressLine1}', AddressLine2 = '{model.AddressLine2}', AddressLine3 = '{model.AddressLine3}', City='{model.City}',Province='{model.Province}',PostalCode='{model.PostalCode}',Country='{model.Country}',PhoneNumber='{model.PhoneNumber}'";
+            db.Execute(sql);
         }
     }
 }
