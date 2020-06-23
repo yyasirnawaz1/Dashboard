@@ -25,9 +25,13 @@ using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2;
+using LTCDataManager.Email;
+using Microsoft.AspNetCore.Hosting;
+using LTCDataManager;
 
 namespace LTC_Covid.Controllers
 {
+   
     public class HomeController : BaseController
     {
         private const string Html = @"Dear &Subscriber& <br/>Please click the link below to view the Pre - Screen Form.
@@ -53,8 +57,7 @@ LTC";
         public HomeController(IOptions<ConfigSettings> configuration,
             IOptions<Mapping> mapping,
             UserManager<BusinessUserInfo> userManager,
-            SignInManager<BusinessUserInfo> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
             SignInManager<BusinessUserInfo> signInManager, IHostingEnvironment webHostEnvironment, IOptions<EmailManager.ElasticEmail> email) : base(webHostEnvironment)
         {
             _configuration = configuration.Value;
@@ -68,7 +71,7 @@ LTC";
         }
 
 
-        [AllowAnonymous]
+        
         public ActionResult CovidForm(int subscriberId, int formId)
         {
 
@@ -113,14 +116,14 @@ LTC";
             return View("CovidForm", new gFormCovidEntry());
         }
 
-        [AllowAnonymous]
-        public ActionResult CovidFormOntario(int subscriberId)
-        {
-            var form = gCovidManager.GetFormInfo(subscriberId, 2);
+        //[AllowAnonymous]
+        //public ActionResult CovidFormOntario(int subscriberId)
+        //{
+        //    var form = gCovidManager.GetFormInfo(subscriberId, 2);
 
-            return View(form);
-        }
-        [AllowAnonymous]
+        //    return View(form);
+        //}
+        //[AllowAnonymous]
         public ActionResult DeleteForm([FromBody]IdModel model)
         {
             gCovidManager.Delete(model.Id);
@@ -130,27 +133,27 @@ LTC";
             };
             return Json(json);
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public ActionResult CovidFormView(int subscriberId, int formId)
         {
             var form = gCovidManager.GetFormInfo(subscriberId, formId);
             return View(form);
         }
-        [AllowAnonymous]
-        public ActionResult CovidFormOntarioView(int subscriberId)
-        {
-            var form = gCovidManager.GetFormInfo(subscriberId, 2);
+        //[AllowAnonymous]
+        //public ActionResult CovidFormOntarioView(int subscriberId)
+        //{
+        //    var form = gCovidManager.GetFormInfo(subscriberId, 2);
 
-            return View(form);
-        }
+        //    return View(form);
+        //}
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public ActionResult ViewForms()
         {
 
             return View();
         }
-        [AllowAnonymous]
+       // [AllowAnonymous]
         [HttpGet]
         public ActionResult GetAllTypes()
         {
@@ -169,7 +172,7 @@ LTC";
             }
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpPost]
         public ActionResult SendEmail([FromBody]gEmailModel model)
         {
@@ -183,9 +186,9 @@ LTC";
                     {
                         string[] msgTo = new[]
                           {subscriber.EmailAddress};
-                        var url = "https://localhost:44380/COVID-prescreen/API=12121123&FormID="+model.QueueId+"&CustomeID=" + subscriber.CustomID;
+                        var url = "https://localhost:44380/COVID-prescreen/API=12121123&FormID=" + model.QueueId + "&CustomeID=" + subscriber.CustomID;
 
-                        var emailHtml = Html.Replace("&Subscriber&", subscriber.FirstName + " " + subscriber.LastName).Replace("&Link&", url) ;
+                        var emailHtml = Html.Replace("&Subscriber&", subscriber.FirstName + " " + subscriber.LastName).Replace("&Link&", url);
 
                         var id = EmailManager.Send("Covid-Form",
                           msgTo,
@@ -195,7 +198,7 @@ LTC";
                               Email = _email.Value.Email,
                               FromName = _email.Value.FromName,
                               APIKey = _email.Value.APIKey
-                          }); 
+                          });
 
                         return Json(new
                         {
@@ -223,7 +226,7 @@ LTC";
 
 
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpPost]
         public ActionResult SavePdf([FromBody]gformInPdfInputModel model)
         {
@@ -253,7 +256,7 @@ LTC";
 
 
         }
-        [AllowAnonymous]
+       // [AllowAnonymous]
         [HttpPost]
         public ActionResult Upsert([FromBody]gFormCovidEntry model)
         {
@@ -282,7 +285,7 @@ LTC";
 
         }
 
-        [AllowAnonymous]
+       // [AllowAnonymous]
         [HttpGet]
         public ActionResult GetForms([DataTablesRequest] DataTablesRequest requestModel)
         {
@@ -369,5 +372,6 @@ LTC";
             });
 
         }
+
     }
 }

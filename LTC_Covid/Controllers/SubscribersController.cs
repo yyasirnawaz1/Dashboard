@@ -6,12 +6,19 @@ using DataTables.AspNetCore.Mvc.Binder;
 using LTC_Covid.Helper;
 using LTCDataManager.Covid;
 using LTCDataModel.Covid;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LTC_Covid.Controllers
 {
-    public class SubscribersController : Controller
+   
+    public class SubscribersController : BaseController
     {
+        public SubscribersController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        {
+        }
+
         public IActionResult Index()
         {
             return View();
