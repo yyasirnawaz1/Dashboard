@@ -35,6 +35,7 @@ namespace LTCDataModel.Covid
     {
 
         public int ID { get; set; }
+        public int Form_ID { get; set; }
         public string Covid_Form_Description { get; set; }
 
     }
@@ -71,6 +72,7 @@ namespace LTCDataModel.Covid
         public DateTime LastSubscriptionStatusUpdated { get; set; }
 
         public string CustomID { get; set; }
+         
     }
     
     public class gCovidSubscriberModel

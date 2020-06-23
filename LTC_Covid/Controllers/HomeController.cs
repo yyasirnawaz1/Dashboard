@@ -95,7 +95,7 @@ namespace LTC_Covid.Controllers
                     {
                         CustomID = Common.GenerateCustomID(),
                         FormID = form.FormID,
-                        BusinessInfo_ID = 1,
+                        BusinessInfo_ID = OfficeSequence,
                         SubscriberID = subDetails.ID,
                     });
 
@@ -108,7 +108,7 @@ namespace LTC_Covid.Controllers
         }
 
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public ActionResult DeleteForm([FromBody]IdModel model)
         {
             gCovidManager.Delete(model.Id);
@@ -118,7 +118,7 @@ namespace LTC_Covid.Controllers
             };
             return Json(json);
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public ActionResult CovidFormView(int subscriberId, int formId)
         {
             var form = gCovidManager.GetFormInfo(subscriberId, formId);
@@ -132,13 +132,13 @@ namespace LTC_Covid.Controllers
         //    return View(form);
         //}
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public ActionResult ViewForms()
         {
 
             return View();
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet]
         public ActionResult GetAllTypes()
         {
@@ -157,7 +157,7 @@ namespace LTC_Covid.Controllers
             }
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpPost]
         public ActionResult SendEmail([FromBody]gEmailModel model)
         {
@@ -215,7 +215,7 @@ namespace LTC_Covid.Controllers
 
 
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpPost]
         public ActionResult SavePdf([FromBody]gformInPdfInputModel model)
         {
@@ -245,13 +245,13 @@ namespace LTC_Covid.Controllers
 
 
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpPost]
         public ActionResult Upsert([FromBody]gFormCovidEntry model)
         {
             try
             {
-                model.BusinessInfo_ID = 1;
+                model.BusinessInfo_ID = OfficeSequence;
 
                 if (model.QueueID < 1)
                     model.CustomID = Common.GenerateCustomID();
@@ -274,12 +274,12 @@ namespace LTC_Covid.Controllers
 
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet]
         public ActionResult GetForms([DataTablesRequest] DataTablesRequest requestModel)
         {
 
-            var objViewModelList = gCovidManager.GetCovidForms();
+            var objViewModelList = gCovidManager.GetCovidForms(OfficeSequence);
 
             var totalCount = 0;
             var filteredCount = 0;
@@ -347,7 +347,6 @@ namespace LTC_Covid.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
-
 
         private void GenerateDropdownData()
         {

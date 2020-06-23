@@ -140,10 +140,10 @@ namespace LTCDataManager.Covid
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gFormCovidType>($"SELECT  * FROM form_covid_type ").ToList();
         }
-        public static List<gCovidSubscriber> GetSubscribers()
+        public static List<gCovidSubscriber> GetSubscribers(int officeNumber)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
-            return db.Fetch<gCovidSubscriber>($"SELECT  * FROM subscribers ").ToList();
+            return db.Fetch<gCovidSubscriber>($"SELECT  * FROM subscribers where Office_Sequence = {officeNumber}").ToList();
         }
         public static int Save(gFormCovidEntry model)
         {
@@ -210,10 +210,10 @@ namespace LTCDataManager.Covid
             return db.Fetch<gFormCovidEntryViewModel>($"SELECT  * FROM form_covid_entry  where form_covid_entry.SubscriberID = {subscriberId} AND form_covid_entry.FormID= {formId} ").FirstOrDefault();
         }
 
-        public static List<gFormCovidEntryViewModel> GetCovidForms()
+        public static List<gFormCovidEntryViewModel> GetCovidForms(int OfficeNumber)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
-            return db.Fetch<gFormCovidEntryViewModel>($"SELECT  * FROM form_covid_entry Inner join subscribers on form_covid_entry.SubscriberID = subscribers.ID Inner Join form_covid_type on form_covid_entry.FormID = form_covid_type.ID ").ToList();
+            return db.Fetch<gFormCovidEntryViewModel>($"SELECT  * FROM form_covid_entry Inner join subscribers on form_covid_entry.SubscriberID = subscribers.ID Inner Join form_covid_type on form_covid_entry.FormID = form_covid_type.ID Where subscribers.Office_Sequence = {OfficeNumber} ").ToList();
         }
 
         public static BusinessUserInfo GetUserProfile(int userId)

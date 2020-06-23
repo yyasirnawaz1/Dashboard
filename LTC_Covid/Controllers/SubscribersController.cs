@@ -55,7 +55,8 @@ namespace LTC_Covid.Controllers
             try
             {
                 model.LastSubscriptionStatusUpdated = DateTime.Now;
-                model.BusinessInfo_ID = 1;
+                model.Office_Sequence = OfficeSequence;
+                model.BusinessInfo_ID = OfficeSequence;
                 model.SubscriptionStatus = true;
 
                 if (model.ID < 1)
@@ -73,6 +74,7 @@ namespace LTC_Covid.Controllers
                 }
                 else
                 {
+
                     gCovidManager.SaveSubscriber(model);
                     var json = new
                     {
@@ -90,15 +92,16 @@ namespace LTC_Covid.Controllers
 
 
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet]
         public ActionResult GetAll()
         {
 
             try
             {
+                
                 List<gCovidSubscriber> objViewModelList = new List<gCovidSubscriber>();
-                objViewModelList = gCovidManager.GetSubscribers();
+                objViewModelList = gCovidManager.GetSubscribers(OfficeSequence);
 
                 return Json(objViewModelList);
 
@@ -114,7 +117,7 @@ namespace LTC_Covid.Controllers
 
 
 
-            objViewModelList = gCovidManager.GetSubscribers();
+            objViewModelList = gCovidManager.GetSubscribers(OfficeSequence);
 
             var totalCount = 0;
             var filteredCount = 0;

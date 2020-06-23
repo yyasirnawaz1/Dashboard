@@ -181,7 +181,7 @@ var HomeView = function () {
 
         },
         saveFormPdf: function () {
-            debugger;
+           
             var currentHtml = $(".content").html()
             var queueId = $("#QueueID").val();
 
