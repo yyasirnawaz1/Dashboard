@@ -90,6 +90,7 @@ namespace LTC_Covid.Controllers
 
 
         }
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult GetAll()
         {

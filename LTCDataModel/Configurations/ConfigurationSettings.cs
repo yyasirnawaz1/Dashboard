@@ -38,5 +38,7 @@ namespace LTCDataModel.Configurations
         public string OfficeName { get; set; }
         public string PatAmount { get; set; }
         public string InsAmount { get; set; }
+
+        public string ServerAddress { get; set; }
     }
 }
