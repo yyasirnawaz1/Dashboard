@@ -35,17 +35,7 @@ namespace LTC_Covid.Controllers
 
     public class HomeController : BaseController
     {
-        private const string Html = @"Dear &Subscriber& <br/>Please click the link below to view the Pre - Screen Form.
-<br/>
-<br/>
-
-
-&Link&
-<br/>
-<br/>
-Regards
-<br/>
-LTC";
+     
         private readonly IOptions<EmailManager.ElasticEmail> _email;
         private ConfigSettings _configuration;
         private Mapping _mapping;
@@ -173,7 +163,11 @@ LTC";
         {
             try
             {
+                string webRootPath = _webHostEnvironment.WebRootPath;
+                var htmlFile = webRootPath + "/Html/email.html";
+                var htmlPage = System.IO.File.ReadAllText(htmlFile);
                 var subscriber = gCovidManager.GetSubscriberById(model.Id);
+
                 if (subscriber != null)
                 {
                     var form = gCovidManager.GetFormInfo(model.QueueId, model.Id);
@@ -183,11 +177,11 @@ LTC";
                           {subscriber.EmailAddress};
                         var url = _configuration.ServerAddress + "/COVID-prescreen/API=12121123&FormID=" + model.QueueId + "&CustomeID=" + subscriber.CustomID;
 
-                        var emailHtml = Html.Replace("&Subscriber&", subscriber.FirstName + " " + subscriber.LastName).Replace("&Link&", url);
+                        htmlPage = htmlPage.Replace("&Subscriber&", subscriber.FirstName + " " + subscriber.LastName).Replace("&Link&", url);
 
                         var id = EmailManager.Send("Covid-Form",
                           msgTo,
-                          Html,
+                          htmlPage,
                           new EmailManager.ElasticEmail
                           {
                               Email = _email.Value.Email,
