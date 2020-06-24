@@ -175,7 +175,7 @@ namespace LTC_Covid.Controllers
                     {
                         string[] msgTo = new[]
                           {subscriber.EmailAddress};
-                        var url = _configuration.ServerAddress + "/COVID-prescreen/API=12121123&FormID=" + model.QueueId + "&CustomeID=" + subscriber.CustomID;
+                        var url = _configuration.ServerAddress + "/COVID-prescreen?API=12121123&FormID=" + model.QueueId + "&CustomeID=" + subscriber.CustomID;
 
                         htmlPage = htmlPage.Replace("&Subscriber&", subscriber.FirstName + " " + subscriber.LastName).Replace("&Link&", url);
 
