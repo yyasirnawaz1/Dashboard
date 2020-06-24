@@ -66,7 +66,14 @@
                         <label id="whoAns" class="form-check-label"></label>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">Contact Details</label>
+                    <div class="col-lg-6">
+                        <label id="txtContactMethod" class="form-check-label"></label>
 
+
+                    </div>
+                </div>
                 <hr>
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">CustomID</label>
@@ -130,10 +137,10 @@
                         <thead>
                             <tr>
                                 <th style="width:70%" class="dvPreScreen2">Identify yourself and explain the purpose of the call, which is to determine whether <br />there are any special considerations for their dental appointment. Have the patient answer the following questions.</th>
-                                <th class="text-center dvPreScreen ">
+                                <th class="text-center dvPreScreen dvCenter">
                                     Pre-Screen<br>
                                 </th>
-                                <th class="text-center dvInPerson">
+                                <th class="text-center dvInPerson dvCenter">
                                     In-Office<br>
                                 </th>
 
@@ -176,17 +183,17 @@
                                         @{
                                             if (Model.FormID == 1)
                                             {
-                                            <li value="2">
-                                                Do you have any of these symptoms: New or worsening cough? <br />
-                                                New or worsening shortness of breath? Difficulty breathing? <br /> Sore throat or painful swallowing? Runny nose?
-                                            </li>
+                                                <li value="2">
+                                                    Do you have any of these symptoms: New or worsening cough? <br />
+                                                    New or worsening shortness of breath? Difficulty breathing? <br /> Sore throat or painful swallowing? Runny nose?
+                                                </li>
 
                                             }
                                             else
                                             {
-                                            <li value="2">
-                                                Does the person have a confirmed case of COVID-19 or had close contact with a confirmed case of COVID-19?
-                                            </li>
+                                                <li value="2">
+                                                    Does the person have a confirmed case of COVID-19 or had close contact with a confirmed case of COVID-19?
+                                                </li>
 
                                             }
 
@@ -222,33 +229,33 @@
                                             if (Model.FormID == 1)
                                             {
 
-                                            <li value="3">
-                                                Have you experienced a recent loss of smell or taste?
-                                            </li>
+                                                <li value="3">
+                                                    Have you experienced a recent loss of smell or taste?
+                                                </li>
                                             }
                                             else
                                             {
-                                            <li value="3">
+                                                <li value="3">
 
-                                                Does the person have any of the following symptoms:
-                                                <br />
-                                                •Fever<br />
-                                                •New onset of cough<br />
-                                                •Worsening chronic cough<br />
-                                                •Shortness of breath<br />
-                                                •Difficulty breathing<br />
-                                                •Sore throat<br />
-                                                •Difficulty swallowing<br />
-                                                •Decrease or loss of sense of taste or smell<br />
-                                                •Chills<br />
-                                                •Headaches<br />
-                                                •Unexplained fatigue/malaise/muscle aches (myalgias)<br />
-                                                •Nausea/vomiting, diarrhea, abdominal pain<br />
-                                                •Pink eye (conjunctivitis)<br />
-                                                •Runny nose/nasal congestion without other known cause<br />
+                                                    Does the person have any of the following symptoms:
+                                                    <br />
+                                                    •Fever<br />
+                                                    •New onset of cough<br />
+                                                    •Worsening chronic cough<br />
+                                                    •Shortness of breath<br />
+                                                    •Difficulty breathing<br />
+                                                    •Sore throat<br />
+                                                    •Difficulty swallowing<br />
+                                                    •Decrease or loss of sense of taste or smell<br />
+                                                    •Chills<br />
+                                                    •Headaches<br />
+                                                    •Unexplained fatigue/malaise/muscle aches (myalgias)<br />
+                                                    •Nausea/vomiting, diarrhea, abdominal pain<br />
+                                                    •Pink eye (conjunctivitis)<br />
+                                                    •Runny nose/nasal congestion without other known cause<br />
 
 
-                                            </li>
+                                                </li>
                                             }
 
                                         }
@@ -398,140 +405,148 @@
                     </table>
                 </div>
             </fieldset>
-            <fieldset class="mb-3">
-                <legend class="text-uppercase font-size-sm font-weight-bold">Patient Vulnerability</legend>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-lg">
-                        <thead>
-                            <tr>
-                                <th style="width:70%"></th>
-                                <th class="text-center dvPreScreen">
-                                    Pre-Screen<br>
-                                </th>
-                                <th class="text-center dvInPerson">
-                                    In-Office<br>
-                                </th>
+            @{
+                if (Model.FormID != 1)
+                {
+                    <br />
+                    <br />
+                    <br />
+                    } 
+                }
+                    <fieldset class="mb-3">
+                        <legend class="text-uppercase font-size-sm font-weight-bold">Patient Vulnerability</legend>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-lg">
+                                <thead>
+                                    <tr>
+                                        <th style="width:70%"></th>
+                                        <th class="text-center dvPreScreen dvCenter">
+                                            Pre-Screen<br>
+                                        </th>
+                                        <th class="text-center dvInPerson dvCenter">
+                                            In-Office<br>
+                                        </th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th class="text-nowrap" scope="row">
-                                    <ol>
-                                        <li value="8">
-                                            Are you over the age of 65?
-                                        </li>
-                                    </ol>
-                                </th>
-                                <td class="dvPreScreen dvCenter">
-                                    <div class="form-check form-check-inline">
-                                        <label id="PreScreenAnswer8" class="form-check-label">
-                                            -
-                                        </label>
-                                    </div>
-
-
-                                </td>
-                                <td class="dvInPerson dvCenter">
-                                    <div class="form-check form-check-inline">
-                                        <label id="InPersonScreenAnswer8" class="form-check-label">
-
-                                            -
-                                        </label>
-                                    </div>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th class="text-nowrap" scope="row">
+                                            <ol>
+                                                <li value="8">
+                                                    Are you over the age of 65?
+                                                </li>
+                                            </ol>
+                                        </th>
+                                        <td class="dvPreScreen dvCenter">
+                                            <div class="form-check form-check-inline">
+                                                <label id="PreScreenAnswer8" class="form-check-label">
+                                                    -
+                                                </label>
+                                            </div>
 
 
-                                </td>
+                                        </td>
+                                        <td class="dvInPerson dvCenter">
+                                            <div class="form-check form-check-inline">
+                                                <label id="InPersonScreenAnswer8" class="form-check-label">
 
-                            </tr>
-
-
-                            <tr>
-                                <th class="text-nowrap" scope="row">
-                                    <ol>
-                                        @{
-                                            if (Model.FormID == 1)
-                                            {
-
-                                            <li value="9">
-                                                Do you have any of the following? Heart disease, lung disease, kidney disease, diabetes, or any auto-immune disorder?
-                                            </li>
-                                            }
-                                            else
-                                            {
-                                            <li value="9">
-
-                                                Are you experiencing any of the following symptoms: delirium, unexplained or increased number of falls,  <br />acute functional decline, or worsening of chronic conditions?
+                                                    -
+                                                </label>
+                                            </div>
 
 
-                                            </li>
-                                            }
+                                        </td>
 
-                                        }
-                                    </ol>
-                                </th>
-                                <td class="dvPreScreen dvCenter">
-                                    <div class="form-check form-check-inline">
-                                        <label id="PreScreenAnswer9" class="form-check-label">
-                                            -
-                                        </label>
-                                    </div>
+                                    </tr>
 
 
-                                </td>
-                                <td class="dvInPerson dvCenter">
-                                    <div class="form-check form-check-inline">
-                                        <label id="InPersonScreenAnswer9" class="form-check-label">
+                                    <tr>
+                                        <th class="text-nowrap" scope="row">
+                                            <ol>
+                                                @{
+                                                    if (Model.FormID == 1)
+                                                    {
 
-                                            -
-                                        </label>
-                                    </div>
+                                                        <li value="9">
+                                                            Do you have any of the following? Heart disease, lung disease, kidney disease, diabetes, or any auto-immune disorder?
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li value="9">
+
+                                                            Are you experiencing any of the following symptoms: delirium, unexplained or increased number of falls,  <br />acute functional decline, or worsening of chronic conditions?
 
 
-                                </td>
+                                                        </li>
+                                                    }
 
-                            </tr>
+                                                }
+                                            </ol>
+                                        </th>
+                                        <td class="dvPreScreen dvCenter">
+                                            <div class="form-check form-check-inline">
+                                                <label id="PreScreenAnswer9" class="form-check-label">
+                                                    -
+                                                </label>
+                                            </div>
 
-                        </tbody>
-                    </table>
+
+                                        </td>
+                                        <td class="dvInPerson dvCenter">
+                                            <div class="form-check form-check-inline">
+                                                <label id="InPersonScreenAnswer9" class="form-check-label">
+
+                                                    -
+                                                </label>
+                                            </div>
+
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+                    </fieldset>
+                    <br />
+                    <br />
+                    <br />
+
+                    <fieldset class="mb-3">
+                        <legend class="text-uppercase font-size-sm font-weight-bold">Additional Notes</legend>
+
+
+                        <div class="form-group row">
+
+                            <div class="col-lg-12">
+                                <label id="txtAdditionalInformation" class="form-check-label"></label>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                    </fieldset>
+
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-            </fieldset>
-            <br />
-            <br />
-            <br />
-
-            <fieldset class="mb-3">
-                <legend class="text-uppercase font-size-sm font-weight-bold">Additional Notes</legend>
-
-
-                <div class="form-group row">
-
-                    <div class="col-lg-12">
-                        <label id="txtAdditionalInformation" class="form-check-label"></label>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-            </fieldset>
-
-        </div>
         <div class="card-footer">
             <button type="button" id="btnSavePDF" style="float: right;;margin-left:15px" onclick="HomeView.saveFormPdf();" class="btn btn-dark">Save PDF</button>
             <button type="button" id="btnCancel" style="float: right;" onclick="HomeView.Cancel();" class="btn btn-danger">Cancel</button>
@@ -573,7 +588,10 @@
                         $("#staffScreener").html(form.StaffScreener);
                         $("#staffScreener").attr('disabled', true);
                     }
-
+                    if (form.StaffScreener != null) {
+                        $("#txtContactMethod").html(form.contactDetail);
+                    }
+        
 
                     if (form.PatientName != null) {
                         $("#patientName").html(form.PatientName);

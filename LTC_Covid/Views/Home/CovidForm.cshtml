@@ -3,7 +3,11 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+<style>
+    .dvInPerson .dvPreScreen {
+        text-align: center !important;
+    }
+</style>
 <div class="content">
 
     <!-- Form inputs -->
@@ -18,8 +22,9 @@
         </div>
 
         <div class="card-body">
-            <fieldset class="mb-5" style="margin-bottom: 0px !important">
-                <input type="hidden" id="LoggedInUser" value="@Model.FirstName @Model.LastName">
+            <fieldset class="mb-5" style="margin-bottom: 0px !important
+    ">
+                <input type="hidden" id="LoggedInUser" value="@Model.LoggedInUser">
                 <input type="hidden" id="SubscriberFullName" value="@Model.FirstName @Model.LastName">
                 <input type="hidden" id="FormID" value="@Model.FormID">
                 <input type="hidden" id="CustomID" value="@Model.CustomID">
@@ -35,7 +40,7 @@
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" value="userName" id="userName" name="UName" class="form-check-input">
-                                [UserName]
+                                @Model.LoggedInUser
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -79,6 +84,33 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">Contact Method</label>
+                    <div class="col-lg-6">
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" value="phone" id="phone" name="contactMethod" class="form-check-input">
+                                Phone
+                                <input type="text" id="txtPhone" class="form-control" style="display:none;margin-left:5px">
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" value="email" id="email" name="contactMethod" class="form-check-input">
+                                Email
+                                <input type="email" id="txtEmail" class="form-control" style="display:none;margin-left:5px">
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" value="other" id="cmOther" name="contactMethod" class="form-check-input">
+                                Other
+                                <input type="text" id="txtOther" class="form-control" style="display:none;margin-left:5px">
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
                 <hr>
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">CustomID</label>
@@ -106,7 +138,7 @@
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" name="prescreen" id="preScreen" class="form-check-input">
-                                Pres-Screen
+                                Pre-Screen
                             </label>
                         </div>
 
@@ -574,9 +606,9 @@
                                             if (Model.FormID == 1)
                                             {
 
-                                                                                <li value="9">
-                                                                                    Do you have any of the following? Heart disease, lung disease, kidney disease, diabetes, or any auto-immune disorder?
-                                                                                </li>
+                                                <li value="9">
+                                                    Do you have any of the following? Heart disease, lung disease, kidney disease, diabetes, or any auto-immune disorder?
+                                                </li>
                                             }
                                             else
                                             {
@@ -676,7 +708,28 @@
     <script src="~/Resources/theme/js/vendor/datatables.net/js/DataTables-1.10.18/js/dataTables.bootstrap.js"></script>
     <script src="~/ScriptsView/Home.js"></script>
     <script>
+
         $(document).ready(function () {
+            $('input[name=contactMethod]').change(function () {
+
+                var contactMethod = $("input[name=contactMethod]:checked").val();
+                if (contactMethod == "phone") {
+                    $("#txtPhone").show();
+                    $("#txtEmail").hide();
+                    $("#txtOther").hide();
+
+
+                } else if (contactMethod == "email") {
+                    $("#txtPhone").hide();
+                    $("#txtEmail").show();
+                    $("#txtOther").hide();
+
+                } else if (contactMethod == "other") {
+                    $("#txtPhone").hide();
+                    $("#txtEmail").hide();
+                    $("#txtOther").show();
+                }
+            })
 
             var str = $("#JsonValue").val();
             var formId = $("#FormID").val();
@@ -708,6 +761,18 @@
                         $("#patientName").attr('disabled', true);
                     }
 
+
+                    if (form.contactMethodType == "phone") {
+                        $("#txtPhone").show().val(form.contactDetail);
+
+                          $("#phone").attr('checked', true);
+                    } else if (form.contactMethodType == "email") {
+                        $("#txtEmail").show().val(form.contactDetail);
+                          $("#email").attr('checked', true);
+                    } else if (form.contactMethodType == "other") {
+                        $("#txtOther").val(form.contactDetail);
+                          $("#cmOther").show().attr('checked', true);
+                    }
 
 
                     if (form.PatientAge != null) {

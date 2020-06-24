@@ -71,7 +71,7 @@ namespace LTC_Covid.Controllers
 
             form.FirstName = subDetails.FirstName;
             form.LastName = subDetails.LastName;
-
+            form.LoggedInUser = UserName;
             return View(form);
         }
 

@@ -181,7 +181,7 @@ var HomeView = function () {
 
         },
         saveFormPdf: function () {
-           
+            
             var currentHtml = $(".content").html()
             var queueId = $("#QueueID").val();
 
@@ -258,7 +258,7 @@ var HomeView = function () {
             var form = new Object();
             var screenName = $("input[name=UName]:checked").val();
             if (screenName == "userName") {
-                form.StaffScreener = 'loggedIn User';
+                form.StaffScreener = $("#LoggedInUser").val();
                 form.StaffScreenerType = "UserName";
             } else {
                 if ($("#staffScreener").val() == "") {
@@ -308,6 +308,36 @@ var HomeView = function () {
 
             }
 
+            var contactMethod = $("input[name=contactMethod]:checked").val();
+            if (contactMethod == "phone") {
+                if ($("#txtPhone").val() == "") {
+                    ltcApp.warningMessage(null, "Please enter phone number");
+                    return;
+                } else {
+                    form.contactDetail = $("#txtPhone").val();
+                    form.contactMethodType = "phone";
+                }
+            } else if (contactMethod == "email") {
+                if ($("#txtEmail").val() == "") {
+                    ltcApp.warningMessage(null, "Please enter email");
+                    return;
+                } else {
+                    form.contactDetail = $("#txtEmail").val();
+                    form.contactMethodType = "email";
+                }
+            } else if (contactMethod == "other") {
+                if ($("#txtOther").val() == "") {
+                    ltcApp.warningMessage(null, "Please enter other contact method");
+                    return;
+                } else {
+                form.Phone = $("#txtOther").val();
+                    form.contactMethodType = "other";
+                    form.contactDetail = $("#txtOther").val();
+                }
+            }
+           
+
+            
 
 
             if ($("#txtTemperature").val() == "") {
@@ -727,6 +757,7 @@ var HomeView = function () {
     };
 
 }();
+
 
 $("input[name=prescreen]").change(function () {
     $(".PreScreen").attr('disabled', false);
