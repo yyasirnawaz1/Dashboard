@@ -22,8 +22,8 @@
         </div>
 
         <div class="card-body">
-            <fieldset class="mb-5" style="margin-bottom: 0px !important
-    ">
+            <fieldset class="mb-5" style="margin-bottom: 0px !important">
+                <input type="hidden" id="IsCovid" value="@Model.IsCOVIDPossible">
                 <input type="hidden" id="LoggedInUser" value="@Model.LoggedInUser">
                 <input type="hidden" id="SubscriberFullName" value="@Model.FirstName @Model.LastName">
                 <input type="hidden" id="FormID" value="@Model.FormID">
@@ -139,7 +139,7 @@
                             <label class="form-check-label">
                                 <input type="radio" name="prescreen" id="preScreen" class="form-check-input">
                                 Pre-Screen
-                            </label>
+                            </label>[  <label class="form-check-label" id="PreScreenDate">-</label>]
                         </div>
 
                     </div>
@@ -148,31 +148,14 @@
                             <label class="form-check-label">
                                 <input type="radio" id="inPerson" name="inperson" class="form-check-input">
                                 In-Person
-                            </label>
+                            </label>[<label class="form-check-label" id="InPersonDate">-</label>]
                         </div>
 
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-lg-3 dvPreScreen" style="margin-left: 20px !important;">
 
-                        Date:
-                        <label class="form-check-label" id="PreScreenDate">
-                            -
-                        </label>
-
-                    </div>
-                    <div class="col-lg-3 dvInPerson">
-
-                        Date:
-                        <label class="form-check-label" id="InPersonDate">
-                            -
-                        </label>
-
-                    </div>
-                </div>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-lg">
+                    <table class="table responsive  table-bordered table-striped table-lg">
                         <thead>
                             <tr>
                                 <th style="width:70%">Identify yourself and explain the purpose of the call, which is to determine whether <br />there are any special considerations for their dental appointment. Have the patient answer the following questions.</th>
@@ -607,7 +590,7 @@
                                             {
 
                                                 <li value="9">
-                                                    Do you have any of the following? Heart disease, lung disease, kidney disease, diabetes, or any auto-immune disorder?
+                                                    Do you have any of the following? Heart disease,<br /> lung disease, kidney disease, diabetes, or any auto-immune disorder?
                                                 </li>
                                             }
                                             else
@@ -702,6 +685,35 @@
     <!-- /form inputs -->
 
 </div>
+<div id="frmCovid" class="modal fade" tabindex="-1" data-width="300" data-keyboard="false" role="dialog" aria-labelledby="frmCovid" aria-hidden="true" data-backdrop="static">
+
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header btn-primary" style="padding-bottom: 10px">
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <img class="img-fluid" src="~/Resources/Images/CovidAlert.jpg" />
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 @section scripts{
     <script src="~/Resources/theme/js/vendor/datatables/jquery.dataTables.min.js"></script>
 
@@ -710,6 +722,7 @@
     <script>
 
         $(document).ready(function () {
+
             $('input[name=contactMethod]').change(function () {
 
                 var contactMethod = $("input[name=contactMethod]:checked").val();
@@ -748,6 +761,12 @@
                 var form = JSON.parse(str);
                 if (form != null) {
 
+                    debugger;
+                    var IsCovid = $("#IsCovid").val();
+                    if (IsCovid) {
+                        $('#frmCovid').modal('show');
+                    }
+
                     if (form.StaffScreenerType == "UserName") {
                         // Make Checkbox checkec
                         $("#userName").attr('checked', true);
@@ -765,13 +784,13 @@
                     if (form.contactMethodType == "phone") {
                         $("#txtPhone").show().val(form.contactDetail);
 
-                          $("#phone").attr('checked', true);
+                        $("#phone").attr('checked', true);
                     } else if (form.contactMethodType == "email") {
                         $("#txtEmail").show().val(form.contactDetail);
-                          $("#email").attr('checked', true);
+                        $("#email").attr('checked', true);
                     } else if (form.contactMethodType == "other") {
                         $("#txtOther").val(form.contactDetail);
-                          $("#cmOther").show().attr('checked', true);
+                        $("#cmOther").show().attr('checked', true);
                     }
 
 
@@ -788,7 +807,40 @@
                         $("#whoAns").attr('disabled', false);
                         $("#otherWhoAns").attr('checked', true);
                     }
+                    if (formId == 3 || formId == 4) {
+                        $("#userName").attr('disabled', true);
+                        $("#other").attr('disabled', true);
+                        $("#staffScreener").attr('disabled', true);
+                        $("#userNameWhoAns").attr('disabled', true);
+                        $("#otherWhoAns").attr('disabled', true);
+                        $("#whoAns").attr('disabled', true);
 
+                        $("#phone").attr('disabled', true);
+                        $("#email").attr('disabled', true);
+                        $("#cmOther").attr('disabled', true);
+                        $("#txtEmail").attr('disabled', true);
+                        $("#txtPhone").attr('disabled', true);
+                        $("#txtOther").attr('disabled', true);
+                        $("#txtTemperature").attr('disabled', true);
+                    } else if (formId == 1 || formId == 2) {
+                        if (form.IsPreScreen || form.InPersonScreen) {
+                        $("#userName").attr('disabled', true);
+                        $("#other").attr('disabled', true);
+                        $("#staffScreener").attr('disabled', true);
+                        $("#userNameWhoAns").attr('disabled', true);
+                        $("#otherWhoAns").attr('disabled', true);
+                        $("#whoAns").attr('disabled', true);
+
+                        $("#phone").attr('disabled', true);
+                        $("#email").attr('disabled', true);
+                        $("#cmOther").attr('disabled', true);
+                        $("#txtEmail").attr('disabled', true);
+                        $("#txtPhone").attr('disabled', true);
+                        $("#txtOther").attr('disabled', true);
+                        $("#txtTemperature").attr('disabled', true);
+
+                        }
+                    } 
 
                     if (form.IsPreScreenDate != null) {
                         $("#PreScreenDate").html(form.IsPreScreenDate);
@@ -817,10 +869,10 @@
                             $('input[name=PreScreenAnswer7][value="' + form.PreScreen.Answer7 + '"]').attr('checked', true);
                             $('input[name=PreScreenAnswer8][value="' + form.PreScreen.Answer8 + '"]').attr('checked', true);
                             $('input[name=PreScreenAnswer9][value="' + form.PreScreen.Answer9 + '"]').attr('checked', true);
-                            if (formId == 1) {
-                                $(".PreScreen").attr('disabled', true);
-                                $("#preScreen").attr('disabled', true);
-                            }
+
+                            $(".PreScreen").attr('disabled', true);
+                            $("#preScreen").attr('disabled', true);
+
 
                         }
                     }
@@ -838,10 +890,10 @@
                     if (form.InPerson) {
                         $('input[name="inperson"]').attr('checked', true);
                         if (form.InPersonScreen != null) {
-                            if (formId == 1 || formId == 2) {
-                                $(".InPerson").attr('disabled', true);
-                                $("#inPerson").attr('disabled', true);
-                            }
+                            // (formId == 1 || formId == 2) {
+                            $(".InPerson").attr('disabled', true);
+                            $("#inPerson").attr('disabled', true);
+                            // }
 
 
                             $('input[name=InPersonScreenAnswer1][value="' + form.InPersonScreen.Answer1 + '"]').attr('checked', true);
@@ -865,7 +917,7 @@
                     }
                     if (form.AdditionalInformation != null) {
                         $("#txtAdditionalInformation").val(form.AdditionalInformation);
-
+                        $("#txtAdditionalInformation").attr('disabled', true);
 
                     }
 

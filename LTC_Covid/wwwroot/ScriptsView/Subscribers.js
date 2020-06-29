@@ -14,6 +14,12 @@ var Subscription = function () {
 
             "serverSide": true,
             "processing": true,
+            "responsive": {
+                details: {
+                    type: 'column',
+                    target: -1
+                }
+            },
             "ajax": {
                 "url": "/Subscribers/Get"
             }
@@ -41,6 +47,8 @@ var Subscription = function () {
                 {
                     "title": "Actions",
                     "data": "Id",
+                    "className": "control",
+                    "targets": -1,
                     "searchable": false,
                     "sortable": false,
                     "render": function (data, type, full, meta) {

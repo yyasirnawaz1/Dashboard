@@ -7,6 +7,7 @@
     .control-label {
         margin-bottom: 0px !important;
     }
+
     .form-group {
         margin-bottom: 10px;
     }
@@ -26,7 +27,7 @@
     .dataTables_wrapper .dataTables_paginate .paginate_button {
     }
 
-        
+
 
     .form-check-input {
         position: center;
@@ -54,7 +55,7 @@
             <br />
             <fieldset class="mb-3">
                 <div class="table-responsive">
-                    <table id="subscriberTable" class="table table-bordered table-striped table-lg"></table>
+                    <table id="subscriberTable" class="table display responsive nowrap table-bordered table-striped"></table>
                 </div>
 
             </fieldset>
@@ -110,88 +111,88 @@
                                     </div>
                                 </div>
                             </div>
-                                <div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Last Name</label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" id="lname" name="lname">
-                                        </div>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Last Name</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="lname" name="lname">
                                     </div>
                                 </div>
-                                <div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Middle Name</label>
-                                        <div class="col-md-9">
-                                            <input type="text" id="mname" class="form-control" name="mname">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Salutation</label>
-                                        <div class="col-md-9">
-                                            <select id="ddlSalutation" class="form-control" required>
-                                                <option id="0" value="-1">Please select</option>
-                                                <option id="Dr" value="Dr">Dr</option>
-                                                <option id="Miss" value="Miss">Miss</option>
-                                                <option id="Mr" value="Mr">Mr</option>
-                                                <option id="Mrs" value="Mrs">Mrs</option>
-                                                <option id="Ms" value="Ms">Ms</option>
-                                                <option id="Mstr" value="Miss">Mstr</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Email</label>
-                                        <div class="col-md-9">
-                                            <input type="email" id="email" class="form-control" name="email">
-                                        </div>
-                                    </div>
-
-                                    <input type="hidden" id="IdValue" value="0">
-
-
-                                    @*<div class="form-body">
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Status</label>
-                        <div class="col-md-9">
-                            <div class="mt-radio-inline">
-                                <label class="mt-radio">
-                                    <input type="radio" name="SubscriptionStatus" id="rbSubscribe" value="Subscribed" checked> Subscribe
-                                    <span></span>
-                                </label>
-                                <label class="mt-radio">
-                                    <input type="radio" name="SubscriptionStatus" id="rbUnSubscribe" value="UnSubscribed" checked> Unsubscribe
-                                    <span></span>
-                                </label>
                             </div>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Middle Name</label>
+                                    <div class="col-md-9">
+                                        <input type="text" id="mname" class="form-control" name="mname">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Salutation</label>
+                                    <div class="col-md-9">
+                                        <select id="ddlSalutation" class="form-control" required>
+                                            <option id="0" value="-1">Please select</option>
+                                            <option id="Dr" value="Dr">Dr</option>
+                                            <option id="Miss" value="Miss">Miss</option>
+                                            <option id="Mr" value="Mr">Mr</option>
+                                            <option id="Mrs" value="Mrs">Mrs</option>
+                                            <option id="Ms" value="Ms">Ms</option>
+                                            <option id="Mstr" value="Miss">Mstr</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Email</label>
+                                    <div class="col-md-9">
+                                        <input type="email" id="email" class="form-control" name="email">
+                                    </div>
+                                </div>
+
+                                <input type="hidden" id="IdValue" value="0">
+
+
+                                @*<div class="form-body">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Status</label>
+                                            <div class="col-md-9">
+                                                <div class="mt-radio-inline">
+                                                    <label class="mt-radio">
+                                                        <input type="radio" name="SubscriptionStatus" id="rbSubscribe" value="Subscribed" checked> Subscribe
+                                                        <span></span>
+                                                    </label>
+                                                    <label class="mt-radio">
+                                                        <input type="radio" name="SubscriptionStatus" id="rbUnSubscribe" value="UnSubscribed" checked> Unsubscribe
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>*@
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    CustomID
+
+                                </label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="customID" disabled>
+                                </div>
+                            </div>
+
 
                         </div>
                     </div>
-                </div>*@
-                                </div>
-                                <hr>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">
-                                        CustomID
-
-                                    </label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" id="customID" disabled>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
                 </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
-                <button id ="btnSaveSub" type="button" onclick="Subscription.saveSubscription();" class="btn btn-primary">Save</button>
+                <button id="btnSaveSub" type="button" onclick="Subscription.saveSubscription();" class="btn btn-primary">Save</button>
             </div>
 
         </div>
@@ -199,9 +200,11 @@
 </div>
 @section scripts{
     <script src="~/Resources/theme/js/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/Resources/theme/js/vendor/datatables.net/js/DataTables-1.10.18/js/dataTables.bootstrap.js"></script>
+    <script src="~/Resources/theme/js/vendor/datatables.net/js/Responsive-2.2.2/js/dataTables.responsive.js"></script>
 
     <script src="~/ScriptsView/Subscribers.js"></script>
 }
 
+
 <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Resources/theme/js/vendor/datatables.net/js/Responsive-2.2.2/css/responsive.dataTables.css" rel="stylesheet" />
