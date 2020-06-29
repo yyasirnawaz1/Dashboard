@@ -7,9 +7,7 @@
         width: 70%;
     }
 
-    #txtTemperature {
-        width: 25%;
-    }
+   
 
     .dvPreScreen, .dvInPerson {
         text-align: center !important;
@@ -168,7 +166,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
                                             <li value="1">
                                                 Do you have a fever or have felt hot or feverish anytime in the last 10 days? <br />
@@ -198,7 +196,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
                                             @{
                                                 if (Model.FormID == 1)
@@ -242,7 +240,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
 
                                             @{
@@ -304,7 +302,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
                                             <li value="4">
                                                 Have you been in contact with any confirmed COVID-19 positive patients,    <br />
@@ -334,7 +332,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
                                             <li value="5">
                                                 Have you returned from travel outside of Canada in the last 14 days?
@@ -363,7 +361,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
                                             <li value="6">
                                                 Have you returned from travel within Canada  <br /> from a location known affected with COVID-19 in the last 14 days?
@@ -392,7 +390,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
                                             <li value="7">
                                                 Is your workplace considered high risk?
@@ -452,7 +450,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th class="text-nowrap" scope="row">
+                                <th >
                                     <ol>
                                         <li value="8">
                                             Are you over the age of 65?
@@ -483,7 +481,7 @@
 
 
                             <tr>
-                                <th class="text-nowrap" scope="row">
+                                <th >
                                     <ol>
                                         @{
                                             if (Model.FormID == 1)

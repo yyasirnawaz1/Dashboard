@@ -318,9 +318,9 @@ namespace LTC_Covid.Controllers
                    Id = _protector.Protect(e.QueueID.ToString()),
                    FullName = e.FirstName + " " + e.LastName,
                    FormName = e.Covid_Form_Description,
-                   PreScreenDate = e.IsPreScreen == true ? e.PreScreenDate.ToString("yyyy-MM-dd") : "-",
+                   PreScreenDate = e.IsPreScreen == true ? e.PreScreenDate.ToString("yyyy-MM-dd HH:mm") : "-",
                    IsPreScreen = e.IsPreScreen,
-                   InPersonScreenDate = e.IsInPersonScreen == true ? e.InPersonScreenDate.ToString("yyyy-MM-dd") : "-",
+                   InPersonScreenDate = e.IsInPersonScreen == true ? e.InPersonScreenDate.ToString("yyyy-MM-dd HH:mm") : "-",
                    IsInPersonScreen = e.IsInPersonScreen,
                    FormID = _protector.Protect(e.FormID.ToString()),
                    SubscriberID = _protector.Protect(e.SubscriberID.ToString())

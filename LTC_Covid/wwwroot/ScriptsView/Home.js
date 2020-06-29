@@ -426,6 +426,7 @@ var HomeView = function () {
                         return;
                     }
 
+                    debugger;
                     form.PreScreen = new Object();
                     form.IsPreScreenDate = $('#hdnPreScreenDate').val();
                     form.PreScreen.Answer1 = $("input[name=PreScreenAnswer1]:checked").val();
@@ -470,7 +471,7 @@ var HomeView = function () {
             }
             form.AdditionalInformation = $("#txtAdditionalInformation").val();
             var IscovidPossible = false;
-            debugger;
+           
             if ($("input[name=InPersonScreenAnswer1]:checked").val() == "Yes" ||
                 $("input[name=InPersonScreenAnswer2]:checked").val() == "Yes" ||
                 $("input[name=InPersonScreenAnswer3]:checked").val() == "Yes" ||
