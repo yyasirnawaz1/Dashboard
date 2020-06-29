@@ -324,7 +324,7 @@ namespace LTC_Covid.Controllers
                    IsInPersonScreen = e.IsInPersonScreen,
                    FormID = _protector.Protect(e.FormID.ToString()),
                    SubscriberID = _protector.Protect(e.SubscriberID.ToString())
-               })
+               }).OrderByDescending(o=>o.PreScreenDate).ThenBy(o=>o.InPersonScreenDate)
                .ToDataTablesResponse(requestModel, totalCount, filteredCount));
         }
 

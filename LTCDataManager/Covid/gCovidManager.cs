@@ -191,6 +191,7 @@ namespace LTCDataManager.Covid
                     found.BusinessInfo_ID = model.BusinessInfo_ID;
                     found.FormID = model.FormID;
                     found.CustomID = found.CustomID;
+                    found.IsCOVIDPossible = model.IsCOVIDPossible;
 
                     if (model.FormAction > 0)
                         found.FormAction = model.FormAction;
@@ -212,6 +213,7 @@ namespace LTCDataManager.Covid
                     design.BusinessInfo_ID = model.BusinessInfo_ID;
                     design.FormID = model.FormID;
                     design.CustomID = model.CustomID;
+                    design.IsCOVIDPossible = model.IsCOVIDPossible;
                     design.Counter = model.Counter;
                     if (model.FormAction > 0)
                         design.FormAction = model.FormAction;

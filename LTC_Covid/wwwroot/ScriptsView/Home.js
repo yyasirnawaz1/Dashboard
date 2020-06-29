@@ -483,15 +483,15 @@ var HomeView = function () {
                 IscovidPossible = true;
             }
 
-            if ($("input[name=InPersonScreenAnswer1]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer2]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer3]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer4]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer5]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer6]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer7]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer8]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer9]:checked").val() == "Yes") {
+            if ($("input[name=PreScreenAnswer1]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer2]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer3]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer4]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer5]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer6]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer7]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer8]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer9]:checked").val() == "Yes") {
                 IscovidPossible = true;
             }
 
