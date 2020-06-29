@@ -29,13 +29,14 @@ using LTCDataManager.Email;
 using Microsoft.AspNetCore.Hosting;
 using LTCDataManager;
 using System.Configuration;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace LTC_Covid.Controllers
 {
 
     public class HomeController : BaseController
     {
-     
+
         private readonly IOptions<EmailManager.ElasticEmail> _email;
         private ConfigSettings _configuration;
         private Mapping _mapping;
@@ -44,12 +45,13 @@ namespace LTC_Covid.Controllers
         private readonly SignInManager<BusinessUserInfo> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly IHostingEnvironment _webHostEnvironment;
+        private readonly IDataProtector _protector;
 
-        public HomeController(IOptions<ConfigSettings> configuration,
+        public HomeController(IDataProtectionProvider provider, IOptions<ConfigSettings> configuration,
             IOptions<Mapping> mapping,
             UserManager<BusinessUserInfo> userManager,
             IEmailSender emailSender,
-            SignInManager<BusinessUserInfo> signInManager, IHostingEnvironment webHostEnvironment, IOptions<EmailManager.ElasticEmail> email) : base(webHostEnvironment)
+            SignInManager<BusinessUserInfo> signInManager, IHostingEnvironment webHostEnvironment, IOptions<EmailManager.ElasticEmail> email, DataProtectionPurposeStrings dataProtectionPurposeStrings) : base(webHostEnvironment)
         {
             _configuration = configuration.Value;
             _mapping = mapping.Value;
@@ -59,16 +61,27 @@ namespace LTC_Covid.Controllers
             _webHostEnvironment = webHostEnvironment;
             _emailSender = emailSender;
             _gOfficeSummaryManager = new gOfficeSummaryManager(configuration);
+            _protector = provider.CreateProtector(dataProtectionPurposeStrings.SubAndQueueID);
         }
 
 
-
-        public ActionResult CovidForm(int subscriberId, int formId)
+        public ActionResult CovidForm(string subscriberId, string formId, bool IsNew, string queueId)
         {
-
-            var form = gCovidManager.GetFormInfo(subscriberId, formId);
-            var subDetails = gCovidManager.GetSubscriberById(subscriberId);
-
+            gFormCovidEntryViewModel form = new gFormCovidEntryViewModel();
+            var subId = Convert.ToInt32(_protector.Unprotect(subscriberId));
+            var frmId = Convert.ToInt32(_protector.Unprotect(formId));
+            if (IsNew)
+            {
+                form = new gFormCovidEntryViewModel();
+                form.FormID = frmId;
+                form.SubscriberID = subId;
+            }
+            else
+            {
+                var id = Convert.ToInt32(_protector.Unprotect(queueId));
+                form = gCovidManager.GetCovidFormByQueueId(id);
+            }
+            var subDetails = gCovidManager.GetSubscriberById(subId);
             form.FirstName = subDetails.FirstName;
             form.LastName = subDetails.LastName;
             form.LoggedInUser = UserName;
@@ -111,7 +124,8 @@ namespace LTC_Covid.Controllers
         //[AllowAnonymous]
         public ActionResult DeleteForm([FromBody]IdModel model)
         {
-            gCovidManager.Delete(model.Id);
+            var Id = Convert.ToInt32(_protector.Unprotect(model.Id));
+            gCovidManager.Delete(Id);
             var json = new
             {
                 success = true
@@ -119,9 +133,10 @@ namespace LTC_Covid.Controllers
             return Json(json);
         }
         //[AllowAnonymous]
-        public ActionResult CovidFormView(int subscriberId, int formId)
+        public ActionResult CovidFormView(string queueId)
         {
-            var form = gCovidManager.GetFormInfo(subscriberId, formId);
+            var Id = Convert.ToInt32(_protector.Unprotect(queueId));
+            var form = gCovidManager.GetCovidFormByQueueId(Id);
             return View(form);
         }
 
@@ -147,8 +162,14 @@ namespace LTC_Covid.Controllers
             {
                 List<gFormCovidType> objViewModelList = new List<gFormCovidType>();
                 objViewModelList = gCovidManager.GetAllTypes();
+                return Json(objViewModelList
+   .Select(e => new
+   {
+       ID = _protector.Protect(e.ID.ToString()),
+       FormID = _protector.Protect(e.Form_ID.ToString()),
+       Covid_Form_Description = e.Covid_Form_Description
 
-                return Json(objViewModelList);
+   }));
 
             }
             catch (Exception)
@@ -163,19 +184,22 @@ namespace LTC_Covid.Controllers
         {
             try
             {
+                var subId = Convert.ToInt32(_protector.Unprotect(model.Id));
+                var queueId = Convert.ToInt32(_protector.Unprotect(model.QueueId));
+
                 string webRootPath = _webHostEnvironment.WebRootPath;
                 var htmlFile = webRootPath + "/Html/email.html";
                 var htmlPage = System.IO.File.ReadAllText(htmlFile);
-                var subscriber = gCovidManager.GetSubscriberById(model.Id);
+                var subscriber = gCovidManager.GetSubscriberById(subId);
 
                 if (subscriber != null)
                 {
-                    var form = gCovidManager.GetFormInfo(model.QueueId, model.Id);
+                    var form = gCovidManager.GetFormInfo(queueId, subId);
                     if (form != null)
                     {
                         string[] msgTo = new[]
                           {subscriber.EmailAddress};
-                        var url = _configuration.ServerAddress + "/COVID-prescreen?API=12121123&FormID=" + model.QueueId + "&CustomeID=" + subscriber.CustomID;
+                        var url = _configuration.ServerAddress + "/COVID-prescreen?API=12121123&FormID=" + queueId + "&CustomeID=" + subscriber.CustomID;
 
                         htmlPage = htmlPage.Replace("&Subscriber&", subscriber.FirstName + " " + subscriber.LastName).Replace("&Link&", url);
 
@@ -192,7 +216,6 @@ namespace LTC_Covid.Controllers
                         return Json(new
                         {
                             success = true,
-
                         });
 
                     }
@@ -313,15 +336,16 @@ namespace LTC_Covid.Controllers
             return Json(objViewModelList
                .Select(e => new
                {
-                   Id = e.QueueID,
+                   //Convert.ToInt32(_protector.Unprotect(id))
+                   Id = _protector.Protect(e.QueueID.ToString()),
                    FullName = e.FirstName + " " + e.LastName,
                    FormName = e.Covid_Form_Description,
                    PreScreenDate = e.IsPreScreen == true ? e.PreScreenDate.ToString("yyyy-MM-dd") : "-",
                    IsPreScreen = e.IsPreScreen,
                    InPersonScreenDate = e.IsInPersonScreen == true ? e.InPersonScreenDate.ToString("yyyy-MM-dd") : "-",
                    IsInPersonScreen = e.IsInPersonScreen,
-                   FormID = e.FormID,
-                   SubscriberID = e.SubscriberID
+                   FormID = _protector.Protect(e.FormID.ToString()),
+                   SubscriberID = _protector.Protect(e.SubscriberID.ToString())
                })
                .ToDataTablesResponse(requestModel, totalCount, filteredCount));
         }

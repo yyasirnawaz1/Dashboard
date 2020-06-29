@@ -7,6 +7,7 @@
     .control-label {
         margin-bottom: 0px !important;
     }
+
     .form-group {
         margin-bottom: 10px;
     }
@@ -33,7 +34,7 @@
         z-index: 20001 !important;
     }
 
-    
+
 
     #viewFormTable_length select {
         margin-left: 5px;
@@ -55,7 +56,7 @@
             <br />
             <fieldset class="mb-3">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-lg" id="viewFormTable"></table>
+                    <table class="table display responsive nowrap table-bordered table-striped table-lg" id="viewFormTable"></table>
                 </div>
 
             </fieldset>
@@ -75,10 +76,10 @@
                         <i class="icon-menu9"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#" onclick="HomeView.sendForm(__prm_subid__,__prm_formid__);" class="dropdown-item"><i class="icon-envelop"></i> Send</a>
-                        <a href="#" onclick="HomeView.OpenFormList(__prm_subid__,__prm_formid__);" class="dropdown-item"><i class="icon-pencil7"></i> Edit</a>
-                        <a href="#" onclick="HomeView.OpenFormViewList(__prm_subid__,__prm_formid__);" data-target="#modifySubscription" data-toggle="modal" class="dropdown-item"><i class="icon-pencil7"></i> View</a>
-                        <a href="#" onclick="HomeView.DeleteForm(__prm_id__);" class="dropdown-item"><i class="icon-x"></i> Delete</a>
+                        <a href="#" onclick="HomeView.sendForm('__prm_subid__','__prm_id__');" class="dropdown-item"><i class="icon-envelop"></i> Send</a>
+                        <a href="#" onclick="HomeView.OpenFormList('__prm_subid__','__prm_formid__','__prm_id__');" class="dropdown-item"><i class="icon-pencil7"></i> Edit</a>
+                        <a href="#" onclick="HomeView.OpenFormViewList('__prm_id__');" data-target="#modifySubscription" data-toggle="modal" class="dropdown-item"><i class="icon-pencil7"></i> View</a>
+                        <a href="#" onclick="HomeView.DeleteForm('__prm_id__');" class="dropdown-item"><i class="icon-x"></i> Delete</a>
                     </div>
                 </div>
             </div>
@@ -100,23 +101,23 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        
-                            
-                            <div class="form-group">
 
-                                <div class="col-md-6">
-                                    <select id="subscriberId" class="form-control" required>
-                                    </select>
-                                    <br />
-                                </div>
+
+                        <div class="form-group">
+
+                            <div class="col-md-6">
+                                <select id="subscriberId" class="form-control" required>
+                                </select>
+                                <br />
                             </div>
+                        </div>
 
-                        
+
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                       
+
 
 
                         <div class="form-group">
@@ -124,29 +125,28 @@
                             <div class="col-md-6">
 
                                 <select id="formId" class="form-control" required>
-                                    
                                 </select>
                                 <br />
                             </div>
                         </div>
 
-                           
-                        
+
+
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        
-                       
-                            <hr>
-                            <div class="form-group">
-                               
-                                <div class="col-md-12">
-                                    <label class="control-label">If you want to add new [subscriber], </label> <a href="#" onclick="HomeView.newSubscription();">Click Here</a>
 
-                                </div>
+
+                        <hr>
+                        <div class="form-group">
+
+                            <div class="col-md-12">
+                                <label class="control-label">If you want to add new [subscriber], </label> <a href="#" onclick="HomeView.newSubscription();">Click Here</a>
+
                             </div>
-                         
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -251,8 +251,8 @@
 </div>
 @section scripts{
     <script src="~/Resources/theme/js/vendor/datatables/jquery.dataTables.min.js"></script>
-
-    <script src="~/Resources/theme/js/vendor/datatables.net/js/DataTables-1.10.18/js/dataTables.bootstrap.js"></script>
+    <script src="~/Resources/theme/js/vendor/datatables.net/js/Responsive-2.2.2/js/dataTables.responsive.js"></script>
+   
     <script src="~/ScriptsView/Home.js"></script>
     <script src="~/Resources/Limitless/global_assets/js/plugins/forms/selects/select2.min.js"></script>
     <script src="~/Resources/theme/js/vendor/select2/select2.full.min.js"></script>
@@ -269,3 +269,4 @@
     </script>
 }
 <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+ <link href="~/Resources/theme/js/vendor/datatables.net/js/Responsive-2.2.2/css/responsive.dataTables.css" rel="stylesheet" />

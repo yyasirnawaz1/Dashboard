@@ -25,7 +25,23 @@ namespace LTCDataManager.Covid
             _configuration = configuration.Value;
             Utility.Config = configuration.Value; ;
         }
+        public static gFormCovidEntryViewModel GetCovidFormByQueueId(int queueId)
+        {
+            var form = gCovidManager.GetCovidFormById(queueId);
+            if (form == null)
+                form = new gFormCovidEntryViewModel();
+            if (!form.IsInPersonScreen)
+                form.InPersonScreenDate = DateTime.Now;
 
+            if (!form.IsPreScreen)
+                form.PreScreenDate = DateTime.Now;
+
+          
+
+            if (form.StorageInJson != null)
+                form.StorageInJsonView = Encoding.UTF8.GetString(form.StorageInJson, 0, form.StorageInJson.Length);
+            return form;
+        }
         public static gFormCovidEntryViewModel GetFormInfo(int subscriberId, int formId)
         {
             var form = gCovidManager.GetCovidFormBySubscriberId(subscriberId, formId);
@@ -209,7 +225,11 @@ namespace LTCDataManager.Covid
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gFormCovidEntryViewModel>($"SELECT  * FROM form_covid_entry  where form_covid_entry.SubscriberID = {subscriberId} AND form_covid_entry.FormID= {formId} ").FirstOrDefault();
         }
-
+        public static gFormCovidEntryViewModel GetCovidFormById(int queueId)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
+            return db.Fetch<gFormCovidEntryViewModel>($"SELECT  * FROM form_covid_entry  where form_covid_entry.QueueID = {queueId} ").FirstOrDefault();
+        }
         public static List<gFormCovidEntryViewModel> GetCovidForms(int OfficeNumber)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);

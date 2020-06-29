@@ -13,6 +13,14 @@ var ViewForm = function () {
 
             "serverSide": true,
             "processing": true,
+            "responsive": true,
+            //"responsive": {
+            //    details: {
+            //        type: 'column',
+            //        target: 0
+            //    }
+            //},
+
             "ajax": {
                 "url": "/Home/GetForms"
             }
@@ -24,7 +32,9 @@ var ViewForm = function () {
                 {
                     "title": "Name",
                     "data": "FullName",
-                    "searchable": true
+                    "searchable": true,
+                    "className": "control",
+                    "targets": 0,
                 },
                 {
                     "title": "Form Name",
@@ -37,20 +47,20 @@ var ViewForm = function () {
                     "searchable": false,
                     "sortable": false,
                     "render": function (data, type, full, meta) {
-                      
+
                         var res = '';
                         if (type === 'display') {
-                         
+
                             if (data == true) {
-                                res = '<input type="radio" name="InPre-' + full.Id +'"   disabled="disabled" checked="checked"  value="' + data + '">';
+                                res = '<input type="radio" name="InPre-' + full.Id + '"   disabled="disabled" checked="checked"  value="' + data + '">';
                             } else {
-                                res = '<input type="radio"  disabled="disabled" name="InPre-' + full.Id +'"    value="' + data + '">';
+                                res = '<input type="radio"  disabled="disabled" name="InPre-' + full.Id + '"    value="' + data + '">';
                             }
                         }
 
                         return res;
                     }
-                } ,
+                },
                 {
                     "title": "Pre-Screen Date",
                     "data": "PreScreenDate",
@@ -65,9 +75,9 @@ var ViewForm = function () {
                     "render": function (data, type, full, meta) {
                         if (type === 'display') {
                             if (data == true) {
-                                res = '<input type="radio" name="InPerson-'+full.Id+'"  disabled="disabled" checked="checked"  value="' + data + '">';
+                                res = '<input type="radio" name="InPerson-' + full.Id + '"  disabled="disabled" checked="checked"  value="' + data + '">';
                             } else {
-                                res = '<input type="radio"  disabled="disabled"   name="InPerson-' + full.Id +'"   value="' + data + '">';
+                                res = '<input type="radio"  disabled="disabled"   name="InPerson-' + full.Id + '"   value="' + data + '">';
                             }
                         }
 
@@ -81,8 +91,10 @@ var ViewForm = function () {
 
                 }, {
                     "title": "Actions",
+
                     "data": "Id",
                     "searchable": false,
+
                     "sortable": false,
                     "render": function (data, type, full, meta) {
 

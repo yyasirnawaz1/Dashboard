@@ -4,19 +4,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using DataTables.AspNetCore.Mvc.Binder;
 using LTC_Covid.Helper;
+using LTC_Covid.Models;
 using LTCDataManager.Covid;
 using LTCDataModel.Covid;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LTC_Covid.Controllers
 {
-   
+
     public class SubscribersController : BaseController
     {
-        public SubscribersController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        private readonly IDataProtector _protector;
+        public SubscribersController(IDataProtectionProvider provider, IHostingEnvironment hostingEnvironment, DataProtectionPurposeStrings dataProtectionPurposeStrings) : base(hostingEnvironment)
         {
+            _protector = provider.CreateProtector(dataProtectionPurposeStrings.SubAndQueueID);
+
         }
 
         public IActionResult Index()
@@ -25,7 +30,8 @@ namespace LTC_Covid.Controllers
         }
         public ActionResult Delete(IdModel model)
         {
-            gCovidManager.DeleteSubscriber(model.Id);
+            var subId = Convert.ToInt32(_protector.Unprotect(model.Id));
+            gCovidManager.DeleteSubscriber(subId);
             var json = new
             {
                 success = true
@@ -39,8 +45,9 @@ namespace LTC_Covid.Controllers
         [HttpGet]
         public ActionResult GetDetail(IdModel model)
         {
+            var subId = Convert.ToInt32(_protector.Unprotect(model.Id));
             gCovidSubscriber objModel = new gCovidSubscriber();
-            objModel = gCovidManager.GetSubscriberById(model.Id);
+            objModel = gCovidManager.GetSubscriberById(subId);
             var json = new
             {
                 success = true,
@@ -49,7 +56,7 @@ namespace LTC_Covid.Controllers
             return Json(json);
 
         }
-       
+
         public ActionResult Upsert([FromBody]gCovidSubscriber model)
         {
             try
@@ -60,7 +67,7 @@ namespace LTC_Covid.Controllers
                 model.SubscriptionStatus = true;
 
                 if (model.ID < 1)
-                    model.CustomID =  Common.GenerateCustomID();
+                    model.CustomID = Common.GenerateCustomID();
 
                 var sub = gCovidManager.GetByEmail(model.EmailAddress);
                 if (sub != null && model.ID < 1)
@@ -99,11 +106,30 @@ namespace LTC_Covid.Controllers
 
             try
             {
-                
+
                 List<gCovidSubscriber> objViewModelList = new List<gCovidSubscriber>();
                 objViewModelList = gCovidManager.GetSubscribers(OfficeSequence);
 
-                return Json(objViewModelList);
+                return Json(objViewModelList
+              .Select(e => new
+              {
+                  ID = _protector.Protect(e.ID.ToString()),
+                  BusinessInfo_ID = _protector.Protect(e.BusinessInfo_ID.ToString()),
+                  Salutation = e.Salutation,
+                  FirstName = e.FirstName,
+                  LastName = e.LastName,
+                  MiddleInitial = e.MiddleInitial,
+                  EmailAddress = e.EmailAddress,
+                  SubscriptionStatus = e.SubscriptionStatus,
+                  Office_Sequence = e.Office_Sequence,
+                  PatientNumber = e.PatientNumber,
+
+
+                  LastSubscriptionStatusUpdated = e.LastSubscriptionStatusUpdated,
+
+                  CustomID = e.CustomID,
+
+              }));
 
             }
             catch (Exception)
@@ -156,7 +182,7 @@ namespace LTC_Covid.Controllers
             return Json(objViewModelList
                .Select(e => new
                {
-                   Id = e.ID,
+                   Id = _protector.Protect(e.ID.ToString()),
                    FirstName = e.FirstName + " " + e.LastName,
                    EmailAddress = e.EmailAddress,
                    LastSubscriptionStatusUpdated = e.LastSubscriptionStatusUpdated.ToString("yyyy-MM-dd"),
