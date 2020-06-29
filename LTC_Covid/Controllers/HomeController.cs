@@ -229,7 +229,7 @@ namespace LTC_Covid.Controllers
                     {
                         BusinessInfo_ID = model.BusinessInfo_ID,
                         CustomID = Common.GenerateCustomID(),
-                        EmailAddress = model.Email??""
+                        EmailAddress = model.Email ?? ""
                     });
                     model.SubscriberID = subId;
                 }
@@ -329,7 +329,7 @@ namespace LTC_Covid.Controllers
         //API
         [AllowAnonymous]
         [Route("/covid-prescreen")]
-        public ActionResult CovidFormPublic(int? formId, string api = "", string customId = "")
+        public ActionResult CovidFormPublic(int? formId, string api = "", string customId = "", string contact = "", int counter = 0, int fa = 0)
         {
 
             var subDetails = gCovidManager.GetSubscriberByCustomId(customId);
@@ -342,6 +342,7 @@ namespace LTC_Covid.Controllers
                     form.FirstName = subDetails.FirstName;
                     form.LastName = subDetails.LastName;
                     form.CustomID = customId;
+
 
                     var id = gCovidManager.Save(new gFormCovidEntry
                     {
@@ -356,7 +357,7 @@ namespace LTC_Covid.Controllers
                     return View("CovidForm", form);
                 }
             }
-            return View("CovidForm", new gFormCovidEntry());
+            return View("CovidForm", new gFormCovidEntryViewModel() { ContactMethod = contact, IsInPersonScreen = true });
         }
 
 

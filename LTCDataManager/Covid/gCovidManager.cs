@@ -235,21 +235,11 @@ namespace LTCDataManager.Covid
             return db.Fetch<BusinessUserInfo>($"SELECT  * FROM businessinfo WHERE Id={userId}").FirstOrDefault();
         }
 
-        public static int GetUserIdByOfficeAndEmailAddress(int officeId, string email)
-        {
-            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
-            email = email.Replace("@", "@@");
-            var sql = $"SELECT Id FROM businessinfo WHERE Office_Sequence={officeId} AND Email={email}";
-            return db.Fetch<int>(sql).FirstOrDefault();
-        }
-
         public static int GetFirstUserIdByOffice(int officeId)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<int>($"SELECT Id FROM businessinfo WHERE Office_Sequence={officeId}").FirstOrDefault();
         }
-
-
 
         public static BusinessUserInfo GetUserByCustomIdANDApiKey(string api, string customId)
         {

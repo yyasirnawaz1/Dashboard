@@ -26,6 +26,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2;
 using Twilio.Rest.Video.V1.Room.Participant;
+using System.Configuration;
 
 namespace LTC_Covid.Controllers
 {
@@ -58,6 +59,7 @@ namespace LTC_Covid.Controllers
         public async Task<IActionResult> CreateUser(string api = "", int office = 0, string email = "")
         {
             string error = "";
+            string customId = Common.GenerateCustomID();
             try
             {
                 var password = Common.GeneratePassword();
@@ -66,7 +68,7 @@ namespace LTC_Covid.Controllers
                     UserName = email,
                     Email = email,
                     Office_Sequence = office,
-                    CustomID = Common.GenerateCustomID(),
+                    CustomID = customId,
                     API = api,
                 };
                 var result = await _userManager.CreateAsync(user, password);
@@ -83,7 +85,7 @@ namespace LTC_Covid.Controllers
                     await _emailSender.SendEmailAsync(email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>. <br /> Your current password is " + password + "<br /> Please make sure to change your password.");
 
-                    return Json(new { Data = true, Operation = "User Created", ID = user.Id });
+                    return Json(new { Data = true, Operation = "User Created", customId = user.CustomID });
 
                 }
                 else
@@ -109,8 +111,6 @@ namespace LTC_Covid.Controllers
             string errors = "";
             try
             {
-                //int id = gCovidManager.GetUserIdByOfficeAndEmailAddress(office,email);
-
                 var user = await _userManager.FindByEmailAsync(email);
                 if (user != null)
                 {
@@ -119,7 +119,7 @@ namespace LTC_Covid.Controllers
                         var result = await _userManager.DeleteAsync(user);
                         if (result.Succeeded)
                         {
-                            return Json(new { Data = true, Operation = "Deleted", ID = user.Id });
+                            return Json(new { Data = true, Operation = "Deleted", ID = user.CustomID });
                         }
                         else
                         {
@@ -192,15 +192,20 @@ namespace LTC_Covid.Controllers
                 }
 
                 int id = 0;
+                string customId = "";
                 if (subscriber != null)
                 {
                     id = subscriber.ID;
+                    customId = subscriber.CustomID;
+                }
+                else
+                {
+                    customId = Common.GenerateCustomID();
                 }
 
                 var businessInfoId = gCovidManager.GetFirstUserIdByOffice(office);
 
-                //upsert sub
-                id = gCovidManager.SaveSubscriber(new gCovidSubscriber
+                var newSubscriberDetail = new gCovidSubscriber
                 {
                     ID = id,
                     Office_Sequence = office,
@@ -212,10 +217,20 @@ namespace LTC_Covid.Controllers
                     BusinessInfo_ID = businessInfoId,
                     SubscriptionStatus = true,
                     PatientNumber = pno,
-                    CustomID = Common.GenerateCustomID()
-                });
+                    CustomID = customId
+                };
 
-                return Json(new { Data = true, Operation = "Added", ID = id });
+                var newid = gCovidManager.SaveSubscriber(newSubscriberDetail);
+
+                if (newid != id)
+                {
+                    return Json(new { Data = true, Operation = "Added", CustomID = customId });
+                }
+                else
+                {
+                    return Json(new { Data = true, Operation = "Already Registered", CustomID = customId });
+                }
+
 
             }
             catch (Exception ex)
