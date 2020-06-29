@@ -36,7 +36,7 @@ namespace LTCDataManager.Covid
             if (!form.IsPreScreen)
                 form.PreScreenDate = DateTime.Now;
 
-          
+
 
             if (form.StorageInJson != null)
                 form.StorageInJsonView = Encoding.UTF8.GetString(form.StorageInJson, 0, form.StorageInJson.Length);
@@ -191,6 +191,10 @@ namespace LTCDataManager.Covid
                     found.BusinessInfo_ID = model.BusinessInfo_ID;
                     found.FormID = model.FormID;
                     found.CustomID = found.CustomID;
+
+                    if (model.FormAction > 0)
+                        found.FormAction = model.FormAction;
+
                     db.Update(found, fid);
                     return fid;
 
@@ -208,6 +212,10 @@ namespace LTCDataManager.Covid
                     design.BusinessInfo_ID = model.BusinessInfo_ID;
                     design.FormID = model.FormID;
                     design.CustomID = model.CustomID;
+                    design.Counter = model.Counter;
+                    if (model.FormAction > 0)
+                        design.FormAction = model.FormAction;
+
                     var QueueID = db.Insert(design);
                     return int.Parse(QueueID.ToString());
                 }
@@ -243,6 +251,14 @@ namespace LTCDataManager.Covid
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gFormCovidEntryViewModel>($"SELECT  * FROM form_covid_entry  where form_covid_entry.QueueID = {queueId} ").FirstOrDefault();
         }
+
+        public static gFormCovidEntryViewModel GetCovidFormByCustomId(int businessInfoId, string customId)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
+            return db.Fetch<gFormCovidEntryViewModel>($"SELECT  form_covid_entry.* FROM form_covid_entry Inner join subscribers on form_covid_entry.SubscriberID = subscribers.ID Inner Join form_covid_type on form_covid_entry.FormID = form_covid_type.ID Where form_covid_entry.CustomID = '{customId}' AND form_covid_entry.BusinessInfo_ID = {businessInfoId}").FirstOrDefault();
+            
+        }
+
         public static List<gFormCovidEntryViewModel> GetCovidForms(int OfficeNumber)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);

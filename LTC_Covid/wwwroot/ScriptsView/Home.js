@@ -340,10 +340,6 @@ var HomeView = function () {
                 }
             }
 
-
-
-
-
             if ($("#txtTemperature").val() == "") {
                 ltcApp.warningMessage(null, "Please provide temperature");
                 return;
@@ -517,7 +513,8 @@ var HomeView = function () {
                 FormID: form.FormID,
                 InPersonScreenDate: form.InPersonDate,
                 PreScreenDate: form.IsPreScreenDate,
-                IsCOVIDPossible : IscovidPossible
+                IsCOVIDPossible: IscovidPossible,
+                Counter: $("#hdnCounter").val(),
             };
             $("#btnSave").attr("disabled", true);
 

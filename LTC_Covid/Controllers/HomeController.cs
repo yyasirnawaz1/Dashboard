@@ -375,6 +375,8 @@ namespace LTC_Covid.Controllers
                         FormID = form.FormID,
                         BusinessInfo_ID = OfficeSequence,
                         SubscriberID = subDetails.ID,
+                        Counter = counter,
+                        FormAction = fa
                     });
 
                     form.QueueID = id;
