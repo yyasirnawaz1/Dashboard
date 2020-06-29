@@ -35,6 +35,15 @@ namespace LTC_Covid.Data
         /// <returns></returns>
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
+            EmailManager.Send("Registration Email",
+                           new[] { email },
+                          htmlMessage,
+                          new EmailManager.ElasticEmail
+                          {
+                              Email = _email.Value.Email,
+                              FromName = _email.Value.FromName,
+                              APIKey = _email.Value.APIKey
+                          });
             //EmailManager.Send(
             //    subject,
             //    new[] { email },

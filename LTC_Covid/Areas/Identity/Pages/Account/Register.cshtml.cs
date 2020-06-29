@@ -137,7 +137,6 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
                     Office_Sequence = Input.Office_Sequence,
                     CustomID = Common.GenerateCustomID(),
                     API = Common.GenerateCustomID(),
-                    EmailConfirmed=true //remove this when email functionality is fixed
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

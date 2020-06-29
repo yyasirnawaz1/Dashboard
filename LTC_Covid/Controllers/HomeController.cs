@@ -88,38 +88,6 @@ namespace LTC_Covid.Controllers
             return View(form);
         }
 
-        [AllowAnonymous]
-        [Route("/covid-prescreen")]
-        public ActionResult CovidFormPublic(int? formId, string api = "", string customId = "")
-        {
-
-            var subDetails = gCovidManager.GetSubscriberByCustomId(customId);
-            if (subDetails != null)
-            {
-
-                var form = gCovidManager.GetFormInfo(subDetails.ID, formId.Value);
-                if (form == null)
-                {
-                    form.FirstName = subDetails.FirstName;
-                    form.LastName = subDetails.LastName;
-                    form.CustomID = customId;
-
-                    var id = gCovidManager.Save(new gFormCovidEntry
-                    {
-                        CustomID = Common.GenerateCustomID(),
-                        FormID = form.FormID,
-                        BusinessInfo_ID = OfficeSequence,
-                        SubscriberID = subDetails.ID,
-                    });
-
-                    form.QueueID = id;
-
-                    return View("CovidForm", form);
-                }
-            }
-            return View("CovidForm", new gFormCovidEntry());
-        }
-
 
         //[AllowAnonymous]
         public ActionResult DeleteForm([FromBody]IdModel model)
@@ -279,6 +247,16 @@ namespace LTC_Covid.Controllers
                 if (model.QueueID < 1)
                     model.CustomID = Common.GenerateCustomID();
 
+                if (model.SubscriberID == 0)
+                {
+                    var subId = gCovidManager.SaveSubscriber(new gCovidSubscriber
+                    {
+                        BusinessInfo_ID = model.BusinessInfo_ID,
+                        CustomID = Common.GenerateCustomID(),
+                        EmailAddress = model.Email??""
+                    });
+                    model.SubscriberID = subId;
+                }
 
                 int Id = gCovidManager.Save(model);
                 var json = new
@@ -371,6 +349,42 @@ namespace LTC_Covid.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
+
+        //API
+        [AllowAnonymous]
+        [Route("/covid-prescreen")]
+        public ActionResult CovidFormPublic(int? formId, string api = "", string customId = "")
+        {
+
+            var subDetails = gCovidManager.GetSubscriberByCustomId(customId);
+            if (subDetails != null)
+            {
+
+                var form = gCovidManager.GetFormInfo(subDetails.ID, formId.Value);
+                if (form != null)
+                {
+                    form.FirstName = subDetails.FirstName;
+                    form.LastName = subDetails.LastName;
+                    form.CustomID = customId;
+
+                    var id = gCovidManager.Save(new gFormCovidEntry
+                    {
+                        CustomID = Common.GenerateCustomID(),
+                        FormID = form.FormID,
+                        BusinessInfo_ID = OfficeSequence,
+                        SubscriberID = subDetails.ID,
+                    });
+
+                    form.QueueID = id;
+
+                    return View("CovidForm", form);
+                }
+            }
+            return View("CovidForm", new gFormCovidEntry());
+        }
+
+
 
         private void GenerateDropdownData()
         {

@@ -25,6 +25,8 @@ using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2;
+using Twilio.Rest.Video.V1.Room.Participant;
+
 namespace LTC_Covid.Controllers
 {
     public class APIController : Controller
@@ -75,13 +77,13 @@ namespace LTC_Covid.Controllers
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { userId = user.Id, code = code },
+                        values: new { area = "Identity", userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>. <br /> Your current password is " + password + "<br /> Please make sure to change your password.");
 
-                    return Json(new { data = true, Message = "" });
+                    return Json(new { Data = true, Operation = "User Created", ID = user.Id });
 
                 }
                 else
@@ -96,8 +98,60 @@ namespace LTC_Covid.Controllers
             {
                 error = ex.Message.ToString();
             }
-            return Json(new { data = false, Message = error });
+            return Json(new { Data = false, Operation = error });
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("/deleteuser")]
+        public async Task<IActionResult> DeleteUser(string api = "", int office = 0, string email = "")
+        {
+            string errors = "";
+            try
+            {
+                //int id = gCovidManager.GetUserIdByOfficeAndEmailAddress(office,email);
+
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user != null)
+                {
+                    if (user.Office_Sequence == office && user.API == api)
+                    {
+                        var result = await _userManager.DeleteAsync(user);
+                        if (result.Succeeded)
+                        {
+                            return Json(new { Data = true, Operation = "Deleted", ID = user.Id });
+                        }
+                        else
+                        {
+                            foreach (var err in result.Errors)
+                            {
+                                errors += err.Description + " , ";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (user.API != api)
+                            errors = "Invalid API";
+                        else if (user.Office_Sequence != office)
+                            errors = "User Not Registere with office " + office;
+                    }
+
+                }
+                else
+                {
+                    errors = "User Not Found";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                errors = ex.Message.ToString();
+            }
+            return Json(new { Data = false, Operation = errors });
+        }
+
+
 
         [AllowAnonymous]
         [Route("/createsubscriber")]
@@ -117,8 +171,8 @@ namespace LTC_Covid.Controllers
                         {
                             return Json(new
                             {
-                                Message = "Another subscriber with same email already exists",
-                                success = false,
+                                Operation = "Already Registered",
+                                Data = true,
                             });
                         }
                     }
@@ -131,8 +185,8 @@ namespace LTC_Covid.Controllers
                     {
                         return Json(new
                         {
-                            Message = "Another subscriber with same email already exists",
-                            success = false,
+                            Operation = "Already Registered",
+                            Data = true,
                         });
                     }
                 }
@@ -143,8 +197,10 @@ namespace LTC_Covid.Controllers
                     id = subscriber.ID;
                 }
 
+                var businessInfoId = gCovidManager.GetFirstUserIdByOffice(office);
+
                 //upsert sub
-                gCovidManager.SaveSubscriber(new gCovidSubscriber
+                id = gCovidManager.SaveSubscriber(new gCovidSubscriber
                 {
                     ID = id,
                     Office_Sequence = office,
@@ -153,13 +209,13 @@ namespace LTC_Covid.Controllers
                     FirstName = firstname,
                     EmailAddress = email,
                     LastSubscriptionStatusUpdated = DateTime.Now,
-                    BusinessInfo_ID = 1,
+                    BusinessInfo_ID = businessInfoId,
                     SubscriptionStatus = true,
                     PatientNumber = pno,
                     CustomID = Common.GenerateCustomID()
                 });
 
-                return Json(new { data = true, Message = "" });
+                return Json(new { Data = true, Operation = "Added", ID = id });
 
             }
             catch (Exception ex)
@@ -168,10 +224,60 @@ namespace LTC_Covid.Controllers
             }
             return Json(new
             {
-                data = false,
-                Message = error
+                Data = false,
+                Operation = error
             });
         }
+
+
+        [AllowAnonymous]
+        [Route("/deletesubscriber")]
+        [HttpGet]
+        public IActionResult DeleteSubscriber(string api = "", int office = 0, int pno = 0)
+        {
+            string error = "";
+            try
+            {
+                var numberOfDeletedRecords = gCovidManager.DeleteSubscriberByPatientNumberAndOfficeSequence(pno, office);
+                if (numberOfDeletedRecords > 0)
+                {
+                    return Json(new { Data = true, Operation = "Deleted" });
+                }
+                else
+                {
+                    error = "No Records Found";
+                }
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+            }
+
+            return Json(new
+            {
+                Data = false,
+                Operation = error
+            });
+        }
+
+
+        [AllowAnonymous]
+        [Route("/covidform")]
+        public async Task<IActionResult> AutoLogin(string API, string CustomId)
+        {
+            var user = gCovidManager.GetUserByCustomIdANDApiKey(API, CustomId);
+            if (user != null)
+            {
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return LocalRedirect("~/Home/ViewForms");
+            }
+            else
+            {
+                ViewData["Error Message"] = "Invalid Custom Id";
+                return View("Error");
+            }
+        }
+
 
         [AllowAnonymous]
         public async Task<IActionResult> Test()

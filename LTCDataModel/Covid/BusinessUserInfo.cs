@@ -31,5 +31,6 @@ namespace LTCDataModel.Covid
 
         public bool Active { get; set; } = true;
         public string API { get; set; }
+
     }
 }
