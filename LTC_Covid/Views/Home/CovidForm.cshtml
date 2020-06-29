@@ -33,6 +33,7 @@
                 <input type="hidden" id="QueueID" value="@Model.QueueID">
                 <input type="hidden" id="hdnPreScreenDate" value="@Model.PreScreenDate">
                 <input type="hidden" id="hdnInPersonDate" value="@Model.InPersonScreenDate">
+                <input type="hidden" id="hdnCounter" value="@Model.Counter">
                 <br />
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Staff Screener</label>
@@ -72,14 +73,14 @@
                     <div class="col-lg-6">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" value="userNameWhoAns" id="userNameWhoAns" name="UNameWhoAns" class="form-check-input">
+                                <input type="radio" value="userNameWhoAns" id="userNameWhoAns" name="UNameWhoAns" class="form-check-input" checked />
                                 @Model.FirstName @Model.LastName
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" value="whoAnsScreenerName" id="otherWhoAns" name="UNameWhoAns" class="form-check-input">
-                                <input type="text" id="whoAns" class="form-control">
+                                <input type="radio" value="whoAnsScreenerName" id="otherWhoAns" name="UNameWhoAns" class="form-check-input" />
+                                <input type="text" id="whoAns" class="form-control" />
                             </label>
                         </div>
                     </div>
@@ -742,7 +743,22 @@
                     $("#txtEmail").hide();
                     $("#txtOther").show();
                 }
-            })
+            });
+
+            @if(!string.IsNullOrEmpty(Model.ContactMethod))
+            {
+                <text>
+            var contMethod = '@Model.ContactMethod.ToLower()';
+            if (contMethod == "phone") {
+                $("#phone").click();
+            } else if (contMethod == "phone") {
+                $("#email").click();
+            } else if (contactMethod == "other") {
+                $("#cmOther").click();
+            }
+                </text>
+            }
+
 
             var str = $("#JsonValue").val();
             var formId = $("#FormID").val();
@@ -757,6 +773,8 @@
             } else if (formId == 4) {
                 $(".dvPreScreen").hide();
             }
+
+
             if (str != "") {
                 var form = JSON.parse(str);
                 if (form != null) {
@@ -840,7 +858,7 @@
                         $("#txtTemperature").attr('disabled', true);
 
                         }
-                    } 
+                    }
 
                     if (form.IsPreScreenDate != null) {
                         $("#PreScreenDate").html(form.IsPreScreenDate);
@@ -929,6 +947,15 @@
                     $(".InPerson").attr('disabled', true);
                     $("#inPerson").attr('disabled', true);
                 }
+
+            if ($('.dvPreScreen').is(':visible')) {
+                @if(Model.IsPreScreen)
+                {
+                    <text>
+                        $("#preScreen").click();
+                    </text>
+                }
+             }
             }
 
         });

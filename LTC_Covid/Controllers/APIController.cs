@@ -295,12 +295,54 @@ namespace LTC_Covid.Controllers
 
 
         [AllowAnonymous]
-        public async Task<IActionResult> Test()
+        [Route("/RetrieveCOVIDForm")]
+        public async Task<IActionResult> RetrieveCOVIDForm(string API, string CustomId, string FormCustomID)
         {
-            await _emailSender.SendEmailAsync("command.yasir@gmail.com", "Confirm your email",
-                        $"Please confirm your account by <a href='aaa'>clicking here</a>.");
-
-            return Json(true);
+            string error = "";
+            var user = gCovidManager.GetUserByCustomIdANDApiKey(API, CustomId);
+            if(user!=null)
+            {
+                var formData = gCovidManager.GetCovidFormByCustomId(user.Id, FormCustomID);
+                if(formData!=null)
+                {
+                    return Json(new
+                    {
+                        Data = true,
+                        Operation = new {
+                            BusinessInfo_ID = formData.BusinessInfo_ID,
+                            QueueID = formData.QueueID,
+                            FormID = formData.FormID,
+                            SubscriberID = formData.SubscriberID,
+                            IsCOVIDPossible = formData.IsCOVIDPossible,
+                            IsPreScreen = formData.IsPreScreen,
+                            PreScreenDate = formData.PreScreenDate,
+                            IsInPersonScreen = formData.IsInPersonScreen,
+                            InPersonScreenDate = formData.InPersonScreenDate,
+                            StorageInJson = formData.StorageInJson,
+                            CustomID = formData.CustomID,
+                            Counter = formData.Counter,
+                            FormAction = formData.FormAction
+                        }
+                    });
+                }
+                else
+                {
+                    error = "Form doesn't exist";
+                    //data false , form data not found
+                }
+            }
+            else
+            {
+                error = "User doesn't exist";
+            }
+            return Json(new
+            {
+                Data = false,
+                Operation = error
+            });
         }
+
+
+
     }
 }
