@@ -773,16 +773,16 @@ $("input[name=prescreen]").change(function () {
     $(".PreScreen").attr('disabled', false);
     //$("#inPerson").attr('disabled', false);
     var d = new Date();
-    $("#PreScreenDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear());
-    $("#hdnPreScreenDate").val((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear());
+    $("#PreScreenDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    $("#hdnPreScreenDate").val((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
 
 
 })
 $("input[name=inperson]").change(function () {
     $(".InPerson").attr('disabled', false);
     var d = new Date();
-    $("#InPersonDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear());
-    $("#hdnInPersonDate").val((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear());
+    $("#InPersonDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    $("#hdnInPersonDate").val((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
 
 })
 
