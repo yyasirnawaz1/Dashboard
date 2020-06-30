@@ -23,7 +23,7 @@ namespace LTCDataManager.Covid
         public gCovidManager(IOptions<ConfigSettings> configuration)
         {
             _configuration = configuration.Value;
-            Utility.Config = configuration.Value; ;
+            Utility.Config = configuration.Value; 
         }
         public static gFormCovidEntryViewModel GetCovidFormByQueueId(int queueId)
         {
