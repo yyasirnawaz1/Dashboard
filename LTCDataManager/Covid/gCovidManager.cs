@@ -144,12 +144,12 @@ namespace LTCDataManager.Covid
         }
 
 
-        public static gCovidSubscriber GetSubscriberByPatientNumberAndOfficeSequence(int patientNumber, int officesequence)
+        public static gCovidSubscriber GetSubscriberByPatientNumberAndOfficeSequence(int patientNumber, int officesequence, string email)
         {
             gCovidSubscriber res = null;
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
-                res = db.Fetch<gCovidSubscriber>($"Select * from subscribers where PatientNumber = {patientNumber} AND Office_Sequence = {officesequence}").FirstOrDefault();
+                res = db.Fetch<gCovidSubscriber>($"Select * from subscribers where PatientNumber = {patientNumber} AND Office_Sequence = {officesequence}").ToList().FirstOrDefault(x => x.EmailAddress == email);
             }
             return res;
         }
@@ -256,7 +256,15 @@ namespace LTCDataManager.Covid
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gFormCovidEntryViewModel>($"SELECT  form_covid_entry.* FROM form_covid_entry Inner join subscribers on form_covid_entry.SubscriberID = subscribers.ID Inner Join form_covid_type on form_covid_entry.FormID = form_covid_type.ID Where form_covid_entry.CustomID = '{customId}' AND form_covid_entry.BusinessInfo_ID = {businessInfoId}").FirstOrDefault();
-            
+
+        }
+
+
+        public static gFormCovidEntryViewModel GetCovidFormByCounterAndFa(int businessInfoId, int counter, string fa)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
+            return db.Fetch<gFormCovidEntryViewModel>($"SELECT  form_covid_entry.* FROM form_covid_entry Inner join subscribers on form_covid_entry.SubscriberID = subscribers.ID Inner Join form_covid_type on form_covid_entry.FormID = form_covid_type.ID Where form_covid_entry.Counter = {counter} AND form_covid_entry.fa = '{fa}' AND form_covid_entry.BusinessInfo_ID = {businessInfoId}").FirstOrDefault();
+
         }
 
         public static List<gFormCovidEntryViewModel> GetCovidForms(int OfficeNumber)
