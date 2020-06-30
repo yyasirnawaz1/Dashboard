@@ -426,6 +426,7 @@ var HomeView = function () {
                         return;
                     }
 
+                    debugger;
                     form.PreScreen = new Object();
                     form.IsPreScreenDate = $('#hdnPreScreenDate').val();
                     form.PreScreen.Answer1 = $("input[name=PreScreenAnswer1]:checked").val();
@@ -470,7 +471,7 @@ var HomeView = function () {
             }
             form.AdditionalInformation = $("#txtAdditionalInformation").val();
             var IscovidPossible = false;
-            debugger;
+           
             if ($("input[name=InPersonScreenAnswer1]:checked").val() == "Yes" ||
                 $("input[name=InPersonScreenAnswer2]:checked").val() == "Yes" ||
                 $("input[name=InPersonScreenAnswer3]:checked").val() == "Yes" ||
@@ -483,15 +484,15 @@ var HomeView = function () {
                 IscovidPossible = true;
             }
 
-            if ($("input[name=InPersonScreenAnswer1]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer2]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer3]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer4]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer5]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer6]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer7]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer8]:checked").val() == "Yes" ||
-                $("input[name=InPersonScreenAnswer9]:checked").val() == "Yes") {
+            if ($("input[name=PreScreenAnswer1]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer2]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer3]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer4]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer5]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer6]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer7]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer8]:checked").val() == "Yes" ||
+                $("input[name=PreScreenAnswer9]:checked").val() == "Yes") {
                 IscovidPossible = true;
             }
 
@@ -772,16 +773,16 @@ $("input[name=prescreen]").change(function () {
     $(".PreScreen").attr('disabled', false);
     //$("#inPerson").attr('disabled', false);
     var d = new Date();
-    $("#PreScreenDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear());
-    $("#hdnPreScreenDate").val((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear());
+    $("#PreScreenDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    $("#hdnPreScreenDate").val((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
 
 
 })
 $("input[name=inperson]").change(function () {
     $(".InPerson").attr('disabled', false);
     var d = new Date();
-    $("#InPersonDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear());
-    $("#hdnInPersonDate").val((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear());
+    $("#InPersonDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    $("#hdnInPersonDate").val((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
 
 })
 

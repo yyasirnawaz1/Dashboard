@@ -104,14 +104,14 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
             [Display(Name = "Postal Code")]
             public string PostalCode { get; set; }
 
-            [Required]
-            [Display(Name = "Office")]
-            public int? Office_Sequence { get; set; }
+            //[Required]
+            //[Display(Name = "Office")]
+            //public int? Office_Sequence { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
         {
-            GenerateDropdownData();
+            //GenerateDropdownData();
             ReturnUrl = returnUrl;
         }
 
@@ -134,7 +134,7 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
                     Province = Input.Province,
                     Country = Input.Country,
                     PostalCode = Input.PostalCode,
-                    Office_Sequence = Input.Office_Sequence,
+                    Office_Sequence = 0,
                     CustomID = Common.GenerateCustomID(),
                     API = Common.GenerateCustomID(),
                 };
@@ -161,7 +161,7 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-            GenerateDropdownData();
+          //  GenerateDropdownData();
             // If we got this far, something failed, redisplay form
             return Page();
         }

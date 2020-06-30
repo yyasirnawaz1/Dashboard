@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group form-group-feedback form-group-feedback-left">
                                     <input asp-for="Input.Email" class="form-control" placeholder="Email" />
                                     <div class="form-control-feedback">
@@ -49,7 +49,8 @@
                                     <span asp-validation-for="Input.Email" class="form-text text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+
+                            @*<div class="col-md-6">
                                 <div class="form-group form-group-feedback form-group-feedback-left">
                                     <select asp-for="Input.Office_Sequence" class="form-control" asp-items="@((IEnumerable<SelectListItem>)(TempData["OfficeList"]))" required>
                                     </select>
@@ -58,7 +59,7 @@
                                     </div>
                                     <span asp-validation-for="Input.Office_Sequence" class="form-text text-danger"></span>
                                 </div>
-                            </div>
+                            </div>*@
                         </div>
                         <div class="row">
                             <div class="col-md-6">

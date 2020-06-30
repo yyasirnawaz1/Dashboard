@@ -3,8 +3,24 @@
     ViewData["Title"] = "Home Page";
 }
 <style>
+    .Percent70 {
+        width: 70%;
+    }
+
+   
+
     .dvPreScreen, .dvInPerson {
         text-align: center !important;
+    }
+
+    @@media all and (max-width:600px) {
+        .table td, .table th {
+            padding: 6px 5.25px;
+        }
+
+        #txtTemperature {
+            width: 100%;
+        }
     }
 </style>
 <input type="hidden" id="IsCovid" value="@Model.IsCOVIDPossible">
@@ -34,9 +50,10 @@
         <div class="card-body">
             <fieldset class="mb-5">
 
+             
 
                 <br />
-                <div class="form-group row">
+                <div class="form-group row" >
                     <label class="col-form-label col-lg-2">Staff Screener</label>
                     <div class="col-lg-6">
                         <label id="staffScreener" class="form-check-label"></label>
@@ -75,14 +92,14 @@
 
                     </div>
                 </div>
-                <hr>
+                @*<hr>
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">CustomID</label>
                     <div class="col-lg-6">
                         <label id="customID" class="form-check-label">"@Model.CustomID"</label>
 
                     </div>
-                </div>
+                </div>*@
 
 
 
@@ -134,10 +151,10 @@
 
                 <div class="row">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-lg">
+                        <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th style="width:70%" class="dvPreScreen2">Identify yourself and explain the purpose of the call, which is to determine whether <br />there are any special considerations for their dental appointment. Have the patient answer the following questions.</th>
+                                    <th class="Percent70 dvPreScreen2">Identify yourself and explain the purpose of the call, which is to determine whether <br />there are any special considerations for their dental appointment. Have the patient answer the following questions.</th>
                                     <th class="text-center dvPreScreen dvCenter">
                                         Pre-Screen<br>
                                     </th>
@@ -149,7 +166,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
                                             <li value="1">
                                                 Do you have a fever or have felt hot or feverish anytime in the last 10 days? <br />
@@ -179,22 +196,22 @@
 
                                 </tr>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
                                             @{
                                                 if (Model.FormID == 1)
                                                 {
-                                                    <li value="2">
-                                                        Do you have any of these symptoms: New or worsening cough? <br />
-                                                        New or worsening shortness of breath? Difficulty breathing? <br /> Sore throat or painful swallowing? Runny nose?
-                                                    </li>
+                                                <li value="2">
+                                                    Do you have any of these symptoms: New or worsening cough? <br />
+                                                    New or worsening shortness of breath? Difficulty breathing? <br /> Sore throat or painful swallowing? Runny nose?
+                                                </li>
 
                                                 }
                                                 else
                                                 {
-                                                    <li value="2">
-                                                        Does the person have a confirmed case of COVID-19 or had close contact with a confirmed case of COVID-19?
-                                                    </li>
+                                                <li value="2">
+                                                    Does the person have a confirmed case of COVID-19 or had close contact with a confirmed case of COVID-19?
+                                                </li>
 
                                                 }
 
@@ -223,40 +240,40 @@
 
                                 </tr>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
 
                                             @{
                                                 if (Model.FormID == 1)
                                                 {
 
-                                                    <li value="3">
-                                                        Have you experienced a recent loss of smell or taste?
-                                                    </li>
+                                                <li value="3">
+                                                    Have you experienced a recent loss of smell or taste?
+                                                </li>
                                                 }
                                                 else
                                                 {
-                                                    <li value="3">
+                                                <li value="3">
 
-                                                        Does the person have any of the following symptoms:
-                                                        <br />
-                                                        •Fever<br />
-                                                        •New onset of cough<br />
-                                                        •Worsening chronic cough<br />
-                                                        •Shortness of breath<br />
-                                                        •Difficulty breathing<br />
-                                                        •Sore throat<br />
-                                                        •Difficulty swallowing<br />
-                                                        •Decrease or loss of sense of taste or smell<br />
-                                                        •Chills<br />
-                                                        •Headaches<br />
-                                                        •Unexplained fatigue/malaise/muscle aches (myalgias)<br />
-                                                        •Nausea/vomiting, diarrhea, abdominal pain<br />
-                                                        •Pink eye (conjunctivitis)<br />
-                                                        •Runny nose/nasal congestion without other known cause<br />
+                                                    Does the person have any of the following symptoms:
+                                                    <br />
+                                                    •Fever<br />
+                                                    •New onset of cough<br />
+                                                    •Worsening chronic cough<br />
+                                                    •Shortness of breath<br />
+                                                    •Difficulty breathing<br />
+                                                    •Sore throat<br />
+                                                    •Difficulty swallowing<br />
+                                                    •Decrease or loss of sense of taste or smell<br />
+                                                    •Chills<br />
+                                                    •Headaches<br />
+                                                    •Unexplained fatigue/malaise/muscle aches (myalgias)<br />
+                                                    •Nausea/vomiting, diarrhea, abdominal pain<br />
+                                                    •Pink eye (conjunctivitis)<br />
+                                                    •Runny nose/nasal congestion without other known cause<br />
 
 
-                                                    </li>
+                                                </li>
                                                 }
 
                                             }
@@ -285,7 +302,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
                                             <li value="4">
                                                 Have you been in contact with any confirmed COVID-19 positive patients,    <br />
@@ -315,7 +332,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
                                             <li value="5">
                                                 Have you returned from travel outside of Canada in the last 14 days?
@@ -344,7 +361,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
                                             <li value="6">
                                                 Have you returned from travel within Canada  <br /> from a location known affected with COVID-19 in the last 14 days?
@@ -373,7 +390,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th class="text-nowrap" scope="row">
+                                    <th >
                                         <ol>
                                             <li value="7">
                                                 Is your workplace considered high risk?
@@ -410,18 +427,18 @@
             @{
                 if (Model.FormID != 1)
                 {
-                    <br />
-                    <br />
-                    <br />
+                <br />
+                <br />
+                <br />
                 }
             }
             <fieldset class="mb-3">
                 <legend class="text-uppercase font-size-sm font-weight-bold">Patient Vulnerability</legend>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-lg">
+                    <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th style="width:70%"></th>
+                                <th class="Percent70"></th>
                                 <th class="text-center dvPreScreen dvCenter">
                                     Pre-Screen<br>
                                 </th>
@@ -433,7 +450,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th class="text-nowrap" scope="row">
+                                <th >
                                     <ol>
                                         <li value="8">
                                             Are you over the age of 65?
@@ -464,24 +481,24 @@
 
 
                             <tr>
-                                <th class="text-nowrap" scope="row">
+                                <th >
                                     <ol>
                                         @{
                                             if (Model.FormID == 1)
                                             {
 
-                                                <li value="9">
-                                                    Do you have any of the following? Heart disease, lung disease, kidney disease, diabetes, or any auto-immune disorder?
-                                                </li>
+                                            <li value="9">
+                                                Do you have any of the following? Heart disease, lung disease, kidney disease, diabetes, or any auto-immune disorder?
+                                            </li>
                                             }
                                             else
                                             {
-                                                <li value="9">
+                                            <li value="9">
 
-                                                    Are you experiencing any of the following symptoms: delirium, unexplained or increased number of falls,  <br />acute functional decline, or worsening of chronic conditions?
+                                                Are you experiencing any of the following symptoms: delirium, unexplained or increased number of falls,  <br />acute functional decline, or worsening of chronic conditions?
 
 
-                                                </li>
+                                            </li>
                                             }
 
                                         }
@@ -613,7 +630,7 @@
                 var form = JSON.parse(str);
                 if (form != null) {
                     debugger;
-                      var IsCovid = $("#IsCovid").val();
+                    var IsCovid = $("#IsCovid").val();
                     if (IsCovid) {
                         $('#frmCovid').modal('show');
                     }
