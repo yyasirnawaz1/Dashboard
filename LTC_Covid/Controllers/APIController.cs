@@ -59,42 +59,55 @@ namespace LTC_Covid.Controllers
         public async Task<IActionResult> CreateUser(string api = "", int office = 0, string email = "")
         {
             string error = "";
-            string customId = Common.GenerateCustomID();
+
             try
             {
-                var password = Common.GeneratePassword();
-                var user = new BusinessUserInfo
+
+
+                var duplicate = await _userManager.FindByEmailAsync(email);
+                if (duplicate != null)
                 {
-                    UserName = email,
-                    Email = email,
-                    Office_Sequence = office,
-                    CustomID = customId,
-                    API = api,
-                };
-                var result = await _userManager.CreateAsync(user, password);
-
-                if (result.Succeeded)
-                {
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code },
-                        protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>. <br /> Your current password is " + password + "<br /> Please make sure to change your password.");
-
-                    return Json(new { Data = true, Operation = "User Created", customId = user.CustomID });
-
+                    return Json(new { Data = true, Operation = "Already Registered", CustomID = duplicate.CustomID });
                 }
                 else
                 {
-                    foreach (var err in result.Errors)
+                    string customId = Common.GenerateCustomID();
+                    var password = Common.GeneratePassword();
+                    var user = new BusinessUserInfo
                     {
-                        error += err.Description + " , ";
+                        UserName = email,
+                        Email = email,
+                        Office_Sequence = office,
+                        CustomID = customId,
+                        API = api,
+                    };
+
+                    var result = await _userManager.CreateAsync(user, password);
+
+                    if (result.Succeeded)
+                    {
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var callbackUrl = Url.Page(
+                            "/Account/ConfirmEmail",
+                            pageHandler: null,
+                            values: new { area = "Identity", userId = user.Id, code = code },
+                            protocol: Request.Scheme);
+
+                        await _emailSender.SendEmailAsync(email, "Confirm your email",
+                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>. <br /> Your current password is " + password + "<br /> Please make sure to change your password.");
+
+                        return Json(new { Data = true, Operation = "Added", CustomID = user.CustomID });
+
+                    }
+                    else
+                    {
+                        foreach (var err in result.Errors)
+                        {
+                            error += err.Description + " , ";
+                        }
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -161,7 +174,7 @@ namespace LTC_Covid.Controllers
             string error = "";
             try
             {
-                var subscriber = gCovidManager.GetSubscriberByPatientNumberAndOfficeSequence(pno, office);
+                var subscriber = gCovidManager.GetSubscriberByPatientNumberAndOfficeSequence(pno, office, email);
                 if (subscriber != null)
                 {
                     var sub = gCovidManager.GetByEmail(email);
@@ -171,8 +184,10 @@ namespace LTC_Covid.Controllers
                         {
                             return Json(new
                             {
-                                Operation = "Already Registered",
-                                Data = true,
+                                Operation = "Duplicate Email",
+                                Data = false,
+                                Message = "Email registered with another office",
+                                CustomID = sub.CustomID
                             });
                         }
                     }
@@ -185,8 +200,10 @@ namespace LTC_Covid.Controllers
                     {
                         return Json(new
                         {
-                            Operation = "Already Registered",
+                            Operation = "Duplicate Email",
                             Data = true,
+                            Message = "Email registered with another office",
+                            CustomID = sub.CustomID
                         });
                     }
                 }
@@ -296,39 +313,82 @@ namespace LTC_Covid.Controllers
 
         [AllowAnonymous]
         [Route("/RetrieveCOVIDForm")]
-        public async Task<IActionResult> RetrieveCOVIDForm(string API, string CustomId, string FormCustomID)
+        public IActionResult RetrieveCOVIDForm(string API, string CustomId, string FormCustomID = "", int? counter = null, string fa = "")
         {
             string error = "";
             var user = gCovidManager.GetUserByCustomIdANDApiKey(API, CustomId);
-            if(user!=null)
+            if (user != null)
             {
-                var formData = gCovidManager.GetCovidFormByCustomId(user.Id, FormCustomID);
-                if(formData!=null)
+                if (!string.IsNullOrEmpty(FormCustomID))
                 {
-                    return Json(new
+
+                    var formData = gCovidManager.GetCovidFormByCustomId(user.Id, FormCustomID);
+                    if (formData != null)
                     {
-                        Data = true,
-                        Operation = new {
-                            BusinessInfo_ID = formData.BusinessInfo_ID,
-                            QueueID = formData.QueueID,
-                            FormID = formData.FormID,
-                            SubscriberID = formData.SubscriberID,
-                            IsCOVIDPossible = formData.IsCOVIDPossible,
-                            IsPreScreen = formData.IsPreScreen,
-                            PreScreenDate = formData.PreScreenDate,
-                            IsInPersonScreen = formData.IsInPersonScreen,
-                            InPersonScreenDate = formData.InPersonScreenDate,
-                            StorageInJson = formData.StorageInJson,
-                            CustomID = formData.CustomID,
-                            Counter = formData.Counter,
-                            FormAction = formData.FormAction
-                        }
-                    });
+                        return Json(new
+                        {
+                            Data = true,
+                            Operation = new
+                            {
+                                BusinessInfo_ID = formData.BusinessInfo_ID,
+                                QueueID = formData.QueueID,
+                                FormID = formData.FormID,
+                                SubscriberID = formData.SubscriberID,
+                                IsCOVIDPossible = formData.IsCOVIDPossible,
+                                IsPreScreen = formData.IsPreScreen,
+                                PreScreenDate = formData.PreScreenDate,
+                                IsInPersonScreen = formData.IsInPersonScreen,
+                                InPersonScreenDate = formData.InPersonScreenDate,
+                                StorageInJson = formData.StorageInJson,
+                                CustomID = formData.CustomID,
+                                Counter = formData.Counter,
+                                FormAction = formData.FormAction
+                            }
+                        });
+                    }
+                    else
+                    {
+                        error = "Form doesn't exist";
+                        //data false , form data not found
+                    }
+
+                }
+                else if (counter.HasValue && !string.IsNullOrEmpty(fa))
+                {
+                    var formData = gCovidManager.GetCovidFormByCounterAndFa(user.Id, counter.Value, fa);
+                    if (formData != null)
+                    {
+                        return Json(new
+                        {
+                            Data = true,
+                            Operation = new
+                            {
+                                BusinessInfo_ID = formData.BusinessInfo_ID,
+                                QueueID = formData.QueueID,
+                                FormID = formData.FormID,
+                                SubscriberID = formData.SubscriberID,
+                                IsCOVIDPossible = formData.IsCOVIDPossible,
+                                IsPreScreen = formData.IsPreScreen,
+                                PreScreenDate = formData.PreScreenDate,
+                                IsInPersonScreen = formData.IsInPersonScreen,
+                                InPersonScreenDate = formData.InPersonScreenDate,
+                                StorageInJson = formData.StorageInJson,
+                                CustomID = formData.CustomID,
+                                Counter = formData.Counter,
+                                FormAction = formData.FormAction
+                            }
+                        });
+                    }
+                    else
+                    {
+                        error = "Form doesn't exist";
+                        //data false , form data not found
+                    }
+
                 }
                 else
                 {
-                    error = "Form doesn't exist";
-                    //data false , form data not found
+                    error = "Required Parameters Missing";
                 }
             }
             else

@@ -380,6 +380,8 @@ namespace LTC_Covid.Controllers
                     });
 
                     form.QueueID = id;
+                    form.ContactMethod = contact;
+                    form.IsInPersonScreen = true;
 
                     return View("CovidForm", form);
                 }
