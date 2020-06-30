@@ -62,8 +62,8 @@ namespace LTC_Covid.Controllers
             try
             {
                 model.LastSubscriptionStatusUpdated = DateTime.Now;
-                model.Office_Sequence = OfficeSequence;
-                model.BusinessInfo_ID = OfficeSequence;
+                model.Office_Sequence = 0;
+                model.BusinessInfo_ID = UserId;
                 model.SubscriptionStatus = true;
 
                 if (model.ID < 1)
@@ -108,7 +108,7 @@ namespace LTC_Covid.Controllers
             {
 
                 List<gCovidSubscriber> objViewModelList = new List<gCovidSubscriber>();
-                objViewModelList = gCovidManager.GetSubscribers(OfficeSequence);
+                objViewModelList = gCovidManager.GetSubscribers(UserId);
 
                 return Json(objViewModelList
               .Select(e => new

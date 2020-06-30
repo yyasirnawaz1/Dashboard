@@ -242,7 +242,7 @@ namespace LTC_Covid.Controllers
         {
             try
             {
-                model.BusinessInfo_ID = OfficeSequence;
+                model.BusinessInfo_ID = UserId;
 
                 if (model.QueueID < 1)
                     model.CustomID = Common.GenerateCustomID();
@@ -280,7 +280,7 @@ namespace LTC_Covid.Controllers
         public ActionResult GetForms([DataTablesRequest] DataTablesRequest requestModel)
         {
 
-            var objViewModelList = gCovidManager.GetCovidForms(OfficeSequence);
+            var objViewModelList = gCovidManager.GetCovidForms(UserId);
 
             var totalCount = 0;
             var filteredCount = 0;
@@ -373,7 +373,7 @@ namespace LTC_Covid.Controllers
                     {
                         CustomID = Common.GenerateCustomID(),
                         FormID = form.FormID,
-                        BusinessInfo_ID = OfficeSequence,
+                        BusinessInfo_ID = UserId,
                         SubscriberID = subDetails.ID,
                         Counter = counter,
                         FormAction = fa
