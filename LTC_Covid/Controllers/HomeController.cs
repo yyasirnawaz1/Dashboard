@@ -30,6 +30,7 @@ using Microsoft.AspNetCore.Hosting;
 using LTCDataManager;
 using System.Configuration;
 using Microsoft.AspNetCore.DataProtection;
+using Org.BouncyCastle.Asn1.X509;
 
 namespace LTC_Covid.Controllers
 {
@@ -236,7 +237,13 @@ namespace LTC_Covid.Controllers
 
 
         }
-        //[AllowAnonymous]
+        
+        /// <summary>
+        /// by yasir: keep this anonymous, i need to use this for public api save calls. 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult Upsert([FromBody]gFormCovidEntry model)
         {
@@ -324,7 +331,7 @@ namespace LTC_Covid.Controllers
                    IsInPersonScreen = e.IsInPersonScreen,
                    FormID = _protector.Protect(e.FormID.ToString()),
                    SubscriberID = _protector.Protect(e.SubscriberID.ToString())
-               }).OrderByDescending(o=>o.PreScreenDate).ThenBy(o=>o.InPersonScreenDate)
+               }).OrderByDescending(o => o.PreScreenDate).ThenBy(o => o.InPersonScreenDate)
                .ToDataTablesResponse(requestModel, totalCount, filteredCount));
         }
 
@@ -351,44 +358,78 @@ namespace LTC_Covid.Controllers
         }
 
 
-        //API
         [AllowAnonymous]
         [Route("/covid-prescreen")]
-        public ActionResult CovidFormPublic(int? formId, string api = "", string customId = "", string contact = "", int counter = 0, int fa = 0)
+        public ActionResult CovidFormPublic(int formId, string api = "", string customId = "", string contact = "", int counter = 0, int fa = 0)
         {
-
-            var subDetails = gCovidManager.GetSubscriberByCustomId(customId);
-            if (subDetails != null)
+            string error = "";
+            try
             {
-
-                var form = gCovidManager.GetFormInfo(subDetails.ID, formId.Value);
-                if (form != null)
+                var subDetails = gCovidManager.GetSubscriberByCustomId(customId);
+                if (subDetails != null)
                 {
-                    form.FirstName = subDetails.FirstName;
-                    form.LastName = subDetails.LastName;
-                    form.CustomID = customId;
-
-
-                    var id = gCovidManager.Save(new gFormCovidEntry
+                    var formTypeModel = gCovidManager.GetCovidFormTypeByFormAction(fa);
+                    if (formTypeModel != null)
                     {
-                        CustomID = Common.GenerateCustomID(),
-                        FormID = form.FormID,
-                        BusinessInfo_ID = UserId,
-                        SubscriberID = subDetails.ID,
-                        Counter = counter,
-                        FormAction = fa
-                    });
+                        gFormCovidEntryViewModel existingFormData = gCovidManager.GetFormEntryByCounterAndFormActionAndSubscriberId(subDetails.ID, counter, fa);
 
-                    form.QueueID = id;
-                    form.ContactMethod = contact;
-                    form.IsInPersonScreen = true;
+                        if (existingFormData == null)
+                        {
+                            existingFormData = new gFormCovidEntryViewModel();
+                            existingFormData.FormID = formTypeModel.Form_ID;
+                            existingFormData.SubscriberID = subDetails.ID;
+                            existingFormData.FirstName = subDetails.FirstName;
+                            existingFormData.LastName = subDetails.LastName;
+                            existingFormData.LoggedInUser = null;
+                            existingFormData.ContactMethod = contact;
 
-                    return View("CovidForm", form);
+                            var id = gCovidManager.Save(new gFormCovidEntry
+                            {
+                                CustomID = Common.GenerateCustomID(),
+                                FormID = existingFormData.FormID,
+                                BusinessInfo_ID = subDetails.BusinessInfo_ID,
+                                SubscriberID = subDetails.ID,
+                                Counter = counter,
+                                FormAction = fa
+                            });
+                            existingFormData.QueueID = id;
+                        }
+                        else if (existingFormData.IsInPersonScreen || existingFormData.IsPreScreen)
+                        {
+                            if (existingFormData.StorageInJson != null)
+                                existingFormData.StorageInJsonView = Encoding.UTF8.GetString(existingFormData.StorageInJson, 0, existingFormData.StorageInJson.Length);
+
+                            return View("CovidFormView", existingFormData);
+                        }
+                        else
+                        {
+                            existingFormData.LoggedInUser = null;
+                            existingFormData.ContactMethod = contact;
+                        }
+
+                        return View("covidform", existingFormData);
+                    }
+                    else
+                    {
+                        error = "Form Not Found";
+                    }
+                }
+                else
+                {
+                    error = "Subscriber Not Found";
                 }
             }
-            return View("CovidForm", new gFormCovidEntryViewModel() { ContactMethod = contact, IsInPersonScreen = true });
-        }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+            }
 
+
+            //ViewData["Error Message"] = "The subscriber doesn't exist";
+            ViewData["Error Message"] = error;
+            return View("Error");
+
+        }
 
 
         private void GenerateDropdownData()

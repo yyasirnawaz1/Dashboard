@@ -8,9 +8,10 @@
         width: 70%;
     }
 
-      #txtTemperature {
-            width: 25%;
-        }
+    #txtTemperature {
+        width: 25%;
+    }
+
     @@media all and (max-width:600px) {
         .table td, .table th {
             padding: 6px 5.25px;
@@ -62,15 +63,18 @@
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Staff Screener</label>
                     <div class="col-lg-6">
+                        @if(Model.LoggedInUser!=null)
+                        {
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" value="userName" id="userName" name="UName" class="form-check-input" @(Model.LoggedInUser!=null? "checked":"") />
+                                    @Model.LoggedInUser
+                                </label>
+                            </div>
+                        }
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" value="userName" id="userName" name="UName" class="form-check-input">
-                                @Model.LoggedInUser
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" value="staffScreenerName" id="other" name="UName" class="form-check-input">
+                                <input type="radio" value="staffScreenerName" id="other" name="UName" class="form-check-input" @(Model.LoggedInUser==null? "checked":"") />
                                 <input type="text" id="staffScreener" class="form-control">
                             </label>
                         </div>
@@ -137,12 +141,12 @@
                     </div>
                 </div>
                 @*<hr>
-                <div class="form-group row">
-                    <label class="col-form-label col-lg-2">CustomID</label>
-                    <div class="col-lg-6">
-                        <input type="text" value="@Model.CustomID" class="form-control" id="customID" disabled>
-                    </div>
-                </div>*@
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">CustomID</label>
+                        <div class="col-lg-6">
+                            <input type="text" value="@Model.CustomID" class="form-control" id="customID" disabled>
+                        </div>
+                    </div>*@
             </fieldset>
         </div>
     </div>
@@ -702,8 +706,14 @@
             </fieldset>
         </div>
         <div class="card-footer">
-            @*<button type="button" id="btnSavePDF" style="float: right;" onclick="HomeView.saveFormPdf();" class="btn btn-dark">Save</button>*@
-            <button type="button" id="btnSave" style="float: right;margin-left:15px" onclick="HomeView.saveForm();" class="btn btn-primary">Save</button>
+            @if(!Model.IsAlreadySave)
+            {
+            <text>
+                <button type="button" id="btnSave" style="float: right;margin-left:15px" onclick="HomeView.saveForm();" class="btn btn-primary">Save</button>
+            </text>
+            }
+
+
             <button type="button" id="btnCancel" style="float: right;" onclick="HomeView.Cancel();" class="btn btn-danger">Cancel</button>
         </div>
     </div>
@@ -769,19 +779,7 @@
                 }
             });
 
-            @if(!string.IsNullOrEmpty(Model.ContactMethod))
-            {
-                <text>
-            var contMethod = '@Model.ContactMethod.ToLower()';
-            if (contMethod == "phone") {
-                $("#phone").click();
-            } else if (contMethod == "email") {
-                $("#email").click();
-            } else if (contactMethod == "other") {
-                $("#cmOther").click();
-            }
-                </text>
-            }
+
 
 
             var str = $("#JsonValue").val();
@@ -794,8 +792,11 @@
                 $(".dvInPerson").show();
             } else if (formId == 3) {
                 $(".dvInPerson").hide();
+                //$("#preScreen").click();
+
             } else if (formId == 4) {
                 $(".dvPreScreen").hide();
+                //$("#inPerson").click();
             }
 
 
@@ -981,7 +982,22 @@
                 }
              }
             }
-
+ @if(!string.IsNullOrEmpty(Model.ContactMethod))
+            {
+                <text>
+                    var contactMethod = '@Model.ContactMethod.ToLower()';
+                    if (contactMethod == "phone") {
+                        $("#phone").click();
+                        $("#txtPhone").show();
+                    } else if (contactMethod == "email") {
+                        $("#email").click();
+                        $("#txtEmail").show();
+                    } else if (contactMethod == "other") {
+                        $("#cmOther").click();
+                        $("#txtOther").show();
+                    }
+                </text>
+            }
         });
     </script>
 }
