@@ -313,88 +313,81 @@ namespace LTC_Covid.Controllers
 
         [AllowAnonymous]
         [Route("/RetrieveCOVIDForm")]
-        public IActionResult RetrieveCOVIDForm(string API, string CustomId, string FormCustomID = "", int? counter = null, string fa = "")
+        public IActionResult RetrieveCOVIDForm(string API, string FormCustomID = "", string CustomId="",  int? counter = null, int? fa = null)
         {
             string error = "";
-            var user = gCovidManager.GetUserByCustomIdANDApiKey(API, CustomId);
-            if (user != null)
+
+            if (!string.IsNullOrEmpty(FormCustomID))
             {
-                if (!string.IsNullOrEmpty(FormCustomID))
+
+                var formData = gCovidManager.GetCovidFormByCustomId(FormCustomID);
+                if (formData != null)
                 {
-
-                    var formData = gCovidManager.GetCovidFormByCustomId(user.Id, FormCustomID);
-                    if (formData != null)
+                    return Json(new
                     {
-                        return Json(new
+                        Data = true,
+                        Operation = new
                         {
-                            Data = true,
-                            Operation = new
-                            {
-                                BusinessInfo_ID = formData.BusinessInfo_ID,
-                                QueueID = formData.QueueID,
-                                FormID = formData.FormID,
-                                SubscriberID = formData.SubscriberID,
-                                IsCOVIDPossible = formData.IsCOVIDPossible,
-                                IsPreScreen = formData.IsPreScreen,
-                                PreScreenDate = formData.PreScreenDate,
-                                IsInPersonScreen = formData.IsInPersonScreen,
-                                InPersonScreenDate = formData.InPersonScreenDate,
-                                StorageInJson = formData.StorageInJson,
-                                CustomID = formData.CustomID,
-                                Counter = formData.Counter,
-                                FormAction = formData.FormAction
-                            }
-                        });
-                    }
-                    else
-                    {
-                        error = "Form doesn't exist";
-                        //data false , form data not found
-                    }
-
-                }
-                else if (counter.HasValue && !string.IsNullOrEmpty(fa))
-                {
-                    var formData = gCovidManager.GetCovidFormByCounterAndFa(user.Id, counter.Value, fa);
-                    if (formData != null)
-                    {
-                        return Json(new
-                        {
-                            Data = true,
-                            Operation = new
-                            {
-                                BusinessInfo_ID = formData.BusinessInfo_ID,
-                                QueueID = formData.QueueID,
-                                FormID = formData.FormID,
-                                SubscriberID = formData.SubscriberID,
-                                IsCOVIDPossible = formData.IsCOVIDPossible,
-                                IsPreScreen = formData.IsPreScreen,
-                                PreScreenDate = formData.PreScreenDate,
-                                IsInPersonScreen = formData.IsInPersonScreen,
-                                InPersonScreenDate = formData.InPersonScreenDate,
-                                StorageInJson = formData.StorageInJson,
-                                CustomID = formData.CustomID,
-                                Counter = formData.Counter,
-                                FormAction = formData.FormAction
-                            }
-                        });
-                    }
-                    else
-                    {
-                        error = "Form doesn't exist";
-                        //data false , form data not found
-                    }
-
+                            BusinessInfo_ID = formData.BusinessInfo_ID,
+                            QueueID = formData.QueueID,
+                            FormID = formData.FormID,
+                            SubscriberID = formData.SubscriberID,
+                            IsCOVIDPossible = formData.IsCOVIDPossible,
+                            IsPreScreen = formData.IsPreScreen,
+                            PreScreenDate = formData.PreScreenDate,
+                            IsInPersonScreen = formData.IsInPersonScreen,
+                            InPersonScreenDate = formData.InPersonScreenDate,
+                            StorageInJson = formData.StorageInJson,
+                            CustomID = formData.CustomID,
+                            Counter = formData.Counter,
+                            FormAction = formData.FormAction
+                        }
+                    });
                 }
                 else
                 {
-                    error = "Required Parameters Missing";
+                    error = "Form doesn't exist";
                 }
+
+            }
+            else if (counter.HasValue && !fa.HasValue)
+            {
+                var formData = gCovidManager.GetFormEntryByCounterAndFormActionAndSubscriberCustomId(CustomId, counter.Value, fa.Value);
+                if (formData != null)
+                {
+                    return Json(new
+                    {
+                        Data = true,
+                        Operation = new
+                        {
+                            BusinessInfo_ID = formData.BusinessInfo_ID,
+                            QueueID = formData.QueueID,
+                            FormID = formData.FormID,
+                            SubscriberID = formData.SubscriberID,
+                            IsCOVIDPossible = formData.IsCOVIDPossible,
+                            IsPreScreen = formData.IsPreScreen,
+                            PreScreenDate = formData.PreScreenDate,
+                            IsInPersonScreen = formData.IsInPersonScreen,
+                            InPersonScreenDate = formData.InPersonScreenDate,
+                            StorageInJson = formData.StorageInJson,
+                            CustomID = formData.CustomID,
+                            Counter = formData.Counter,
+                            FormAction = formData.FormAction
+                        }
+                    });
+                }
+                else
+                {
+                    error = "Form doesn't exist";
+                    //data false , form data not found
+                }
+
             }
             else
             {
-                error = "User doesn't exist";
+                error = "Required Parameters Missing";
             }
+
             return Json(new
             {
                 Data = false,

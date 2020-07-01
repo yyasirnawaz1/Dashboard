@@ -23,7 +23,7 @@ namespace LTCDataManager.Covid
         public gCovidManager(IOptions<ConfigSettings> configuration)
         {
             _configuration = configuration.Value;
-            Utility.Config = configuration.Value; 
+            Utility.Config = configuration.Value;
         }
         public static gFormCovidEntryViewModel GetCovidFormByQueueId(int queueId)
         {
@@ -179,7 +179,7 @@ namespace LTCDataManager.Covid
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
                 int fid = model.QueueID;
-                gFormCovidEntry found = db.Fetch<gFormCovidEntry>($"select QueueID, CustomID from form_covid_entry where QueueID={fid}").FirstOrDefault();
+                gFormCovidEntry found = db.Fetch<gFormCovidEntry>($"select QueueID, CustomID,Counter, FormAction, businessInfo_id from form_covid_entry where QueueID={fid}").FirstOrDefault();
                 if (found != null)
                 {
                     found.InPersonScreenDate = model.InPersonScreenDate;
@@ -188,10 +188,14 @@ namespace LTCDataManager.Covid
                     found.PreScreenDate = model.PreScreenDate;
                     found.SubscriberID = model.SubscriberID;
                     found.StorageInJson = model.StorageInJson;
-                    found.BusinessInfo_ID = model.BusinessInfo_ID;
+                    
+                    if (model.BusinessInfo_ID != 0)
+                        found.BusinessInfo_ID = model.BusinessInfo_ID;
+
                     found.FormID = model.FormID;
                     found.CustomID = found.CustomID;
                     found.IsCOVIDPossible = model.IsCOVIDPossible;
+
 
                     if (model.FormAction > 0)
                         found.FormAction = model.FormAction;
@@ -254,19 +258,28 @@ namespace LTCDataManager.Covid
             return db.Fetch<gFormCovidEntryViewModel>($"SELECT  * FROM form_covid_entry  where form_covid_entry.QueueID = {queueId} ").FirstOrDefault();
         }
 
-        public static gFormCovidEntryViewModel GetCovidFormByCustomId(int businessInfoId, string customId)
+        public static gFormCovidType GetCovidFormTypeByFormAction(int formAction)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
-            return db.Fetch<gFormCovidEntryViewModel>($"SELECT  form_covid_entry.* FROM form_covid_entry Inner join subscribers on form_covid_entry.SubscriberID = subscribers.ID Inner Join form_covid_type on form_covid_entry.FormID = form_covid_type.ID Where form_covid_entry.CustomID = '{customId}' AND form_covid_entry.BusinessInfo_ID = {businessInfoId}").FirstOrDefault();
-
+            return db.Fetch<gFormCovidType>($"SELECT  * FROM form_covid_type  where FormAction = {formAction} ").FirstOrDefault();
         }
 
-
-        public static gFormCovidEntryViewModel GetCovidFormByCounterAndFa(int businessInfoId, int counter, string fa)
+        public static gFormCovidEntryViewModel GetCovidFormByCustomId(string FormCustomId)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
-            return db.Fetch<gFormCovidEntryViewModel>($"SELECT  form_covid_entry.* FROM form_covid_entry Inner join subscribers on form_covid_entry.SubscriberID = subscribers.ID Inner Join form_covid_type on form_covid_entry.FormID = form_covid_type.ID Where form_covid_entry.Counter = {counter} AND form_covid_entry.fa = '{fa}' AND form_covid_entry.BusinessInfo_ID = {businessInfoId}").FirstOrDefault();
+            return db.Fetch<gFormCovidEntryViewModel>($"SELECT * FROM form_covid_entry where CustomID = '{FormCustomId}'").FirstOrDefault();
+        }
 
+        public static gFormCovidEntryViewModel GetFormEntryByCounterAndFormActionAndSubscriberCustomId(string customId, int counter, int fa)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
+            return db.Fetch<gFormCovidEntryViewModel>($"SELECT  fc.* FROM form_covid_entry fc INNER JOIN subscribers su on fc.subscriberid=su.id where su.customid='{customId}' AND fc.counter={counter} AND FormAction = '{fa}'").FirstOrDefault();
+        }
+
+        public static gFormCovidEntryViewModel GetFormEntryByCounterAndFormActionAndSubscriberId(int subscriber, int counter, int fa)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
+            return db.Fetch<gFormCovidEntryViewModel>($"SELECT  fc.*, su.firstname,su.lastname FROM form_covid_entry fc INNER JOIN subscribers su on fc.subscriberid=su.id where su.id='{subscriber}' AND fc.counter={counter} AND FormAction = '{fa}'").FirstOrDefault();
         }
 
         public static List<gFormCovidEntryViewModel> GetCovidForms(int OfficeNumber)

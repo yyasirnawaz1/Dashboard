@@ -14,6 +14,7 @@
         public int ID { get; set; }
         public int Form_ID { get; set; }
         public string Covid_Form_Description { get; set; }
+        public int? FormAction { get; set; }
 
     }
     public class IdModel
@@ -100,6 +101,8 @@
         public int Counter { get; set; }
 
         public string FormAction { get; set; }
+        [Ignore]
+        public bool IsAlreadySave { get; set; }
     }
     public class gEmailModel
     {
