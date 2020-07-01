@@ -287,7 +287,7 @@ namespace LTC_Covid.Controllers
         public ActionResult GetForms([DataTablesRequest] DataTablesRequest requestModel)
         {
 
-            var objViewModelList = gCovidManager.GetCovidForms(OfficeSequence);
+            var objViewModelList = gCovidManager.GetCovidForms(UserId);
 
             var totalCount = 0;
             var filteredCount = 0;

@@ -169,10 +169,10 @@ namespace LTCDataManager.Covid
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gFormCovidType>($"SELECT  * FROM form_covid_type ").ToList();
         }
-        public static List<gCovidSubscriber> GetSubscribers(int officeNumber)
+        public static List<gCovidSubscriber> GetSubscribers(int businessInfoID)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
-            return db.Fetch<gCovidSubscriber>($"SELECT  * FROM subscribers where Office_Sequence = {officeNumber}").ToList();
+            return db.Fetch<gCovidSubscriber>($"SELECT  * FROM subscribers where BusinessInfo_ID = {businessInfoID}").ToList();
         }
         public static int Save(gFormCovidEntry model)
         {
@@ -282,10 +282,10 @@ namespace LTCDataManager.Covid
             return db.Fetch<gFormCovidEntryViewModel>($"SELECT  fc.*, su.firstname,su.lastname FROM form_covid_entry fc INNER JOIN subscribers su on fc.subscriberid=su.id where su.id='{subscriber}' AND fc.counter={counter} AND FormAction = '{fa}'").FirstOrDefault();
         }
 
-        public static List<gFormCovidEntryViewModel> GetCovidForms(int OfficeNumber)
+        public static List<gFormCovidEntryViewModel> GetCovidForms(int businessInfoID)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
-            return db.Fetch<gFormCovidEntryViewModel>($"SELECT  * FROM form_covid_entry Inner join subscribers on form_covid_entry.SubscriberID = subscribers.ID Inner Join form_covid_type on form_covid_entry.FormID = form_covid_type.ID Where subscribers.Office_Sequence = {OfficeNumber} ").ToList();
+            return db.Fetch<gFormCovidEntryViewModel>($"SELECT  * FROM form_covid_entry Inner join subscribers on form_covid_entry.SubscriberID = subscribers.ID Inner Join form_covid_type on form_covid_entry.FormID = form_covid_type.ID Where subscribers.BusinessInfo_ID = {businessInfoID} ").ToList();
         }
 
         public static BusinessUserInfo GetUserProfile(int userId)
