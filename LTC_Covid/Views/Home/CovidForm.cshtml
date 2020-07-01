@@ -16,6 +16,10 @@
             padding: 6px 5.25px;
         }
 
+        .dvInPerson, .dvPreScreen {
+            text-align: left !important;
+        }
+
         #txtTemperature {
             width: 100%;
         }
@@ -24,8 +28,8 @@
 
 
 
-    .dvInPerson .dvPreScreen {
-        text-align: center !important;
+    .dvInPerson , .dvPreScreen {
+        text-align: center;
     }
 </style>
 <div class="content">
@@ -84,7 +88,7 @@
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Patient Age</label>
                     <div class="col-lg-6">
-                        <input type="number" id="patientAge" class="form-control">
+                        <input type="number" id="patientAge" min ="0" max="110" class="form-control">
                     </div>
                 </div>
 
@@ -112,7 +116,7 @@
                             <label class="form-check-label">
                                 <input type="radio" value="phone" id="phone" name="contactMethod" class="form-check-input">
                                 Phone
-                                <input type="text" id="txtPhone" class="form-control" style="display:none;margin-left:5px">
+                                <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="txtPhone" class="form-control" style="display:none;margin-left:5px">
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -168,7 +172,7 @@
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" id="inPerson" name="inperson" class="form-check-input">
-                                In-Person
+                                In-Office
                             </label>[<label class="form-check-label" id="InPersonDate">-</label>]
                         </div>
 
@@ -179,7 +183,7 @@
                     <table class="table responsive  table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th class="Percent70">Identify yourself and explain the purpose of the call, which is to determine whether <br />there are any special considerations for their dental appointment. Have the patient answer the following questions.</th>
+                                <th class="Percent70">Identify yourself and explain the purpose of the call, which is to determine whether  there are any special considerations for their dental appointment. Have the patient answer the following questions.</th>
                                 <th class="text-center dvPreScreen">
                                     Pre-Screen<br>
                                 </th>

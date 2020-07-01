@@ -244,7 +244,7 @@ var Subscription = function () {
                 dataType: 'json',
                 url: '/Subscribers/Upsert',
                 success: function (data) {
-                    debugger;
+                    
                     if (data.success) {
                         ltcApp.successMessage("Success", 'Subscriber has been added into the system.');
                         Subscription.refresh();

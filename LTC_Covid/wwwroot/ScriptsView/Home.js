@@ -311,7 +311,7 @@ var HomeView = function () {
                 }
 
             }
-
+            debugger;
             var contactMethod = $("input[name=contactMethod]:checked").val();
             if (contactMethod == "phone") {
                 if ($("#txtPhone").val() == "") {
@@ -326,8 +326,16 @@ var HomeView = function () {
                     ltcApp.warningMessage(null, "Please enter email");
                     return;
                 } else {
-                    form.contactDetail = $("#txtEmail").val();
-                    form.contactMethodType = "email";
+                   
+                    if (ltcApp.validateEmail($("#txtEmail").val())) {
+                        form.contactDetail = $("#txtEmail").val();
+                        form.contactMethodType = "email";
+                    } else {
+                        ltcApp.warningMessage(null, "Invalid email address.");
+                        return;
+                    }
+
+                   
                 }
             } else if (contactMethod == "other") {
                 if ($("#txtOther").val() == "") {
@@ -338,21 +346,29 @@ var HomeView = function () {
                     form.contactMethodType = "other";
                     form.contactDetail = $("#txtOther").val();
                 }
+            } if (contactMethod == null) {
+                ltcApp.warningMessage(null, "Please select contact method");
+                return;
             }
 
-            if ($("#txtTemperature").val() == "") {
-                ltcApp.warningMessage(null, "Please provide temperature");
-                return;
-            } else {
-                form.Temperature = $("#txtTemperature").val();
-            }
+
+
             if (form.IsPreScreen == false && form.InPerson == false) {
                 ltcApp.warningMessage(null, "Please select the option");
             }
             form.IsPreScreen = $('input[name="prescreen"]').is(":checked");
             form.InPerson = $('input[name="inperson"]').is(":checked");
             form.FormID = $("#FormID").val();
+            debugger;
             if (form.FormID == 1 || form.FormID == 2) {
+                if ((form.IsPreScreen == false && form.InPerson == false)
+                    || (form.IsPreScreen == false && form.InPerson == null)
+                    || (form.IsPreScreen == null && form.InPerson == false)
+                    || (form.IsPreScreen == null && form.InPerson == null)
+                ) {
+                    ltcApp.warningMessage(null, "Please fill the form.");
+                    return;
+                }
                 if (form.IsPreScreen) {
                     if ($("input[name=PreScreenAnswer1]:checked").val() == null ||
                         $("input[name=PreScreenAnswer2]:checked").val() == null ||
@@ -392,7 +408,7 @@ var HomeView = function () {
                         $("input[name=InPersonScreenAnswer7]:checked").val() == null ||
                         $("input[name=InPersonScreenAnswer8]:checked").val() == null ||
                         $("input[name=InPersonScreenAnswer9]:checked").val() == null) {
-                        ltcApp.warningMessage(null, "Please select the options for InPerson-Screen");
+                        ltcApp.warningMessage(null, "Please select the options for In-Office Screen");
                         return;
                     }
 
@@ -412,6 +428,18 @@ var HomeView = function () {
                     form.InPersonDate = null;
                 }
             } else {
+                if (form.FormID == 3) {
+                    if (form.IsPreScreen == false || form.IsPreScreen == null) {
+                        ltcApp.warningMessage(null, "Please fill the form.");
+                        return;
+                    }
+                } else if (form.FormID == 4) {
+                    if (form.InPerson == false || form.InPerson == null) {
+                        ltcApp.warningMessage(null, "Please fill the form.");
+                        return;
+                    }
+                }
+
                 if (form.IsPreScreen) {
                     if ($("input[name=PreScreenAnswer1]:checked").val() == null ||
                         $("input[name=PreScreenAnswer2]:checked").val() == null ||
@@ -426,7 +454,7 @@ var HomeView = function () {
                         return;
                     }
 
-                    debugger;
+
                     form.PreScreen = new Object();
                     form.IsPreScreenDate = $('#hdnPreScreenDate').val();
                     form.PreScreen.Answer1 = $("input[name=PreScreenAnswer1]:checked").val();
@@ -451,7 +479,7 @@ var HomeView = function () {
                         $("input[name=InPersonScreenAnswer7]:checked").val() == null ||
                         $("input[name=InPersonScreenAnswer8]:checked").val() == null ||
                         $("input[name=InPersonScreenAnswer9]:checked").val() == null) {
-                        ltcApp.warningMessage(null, "Please select the options for InPerson-Screen");
+                        ltcApp.warningMessage(null, "Please select the options for In-Office Screen");
                         return;
                     }
 
@@ -471,7 +499,7 @@ var HomeView = function () {
             }
             form.AdditionalInformation = $("#txtAdditionalInformation").val();
             var IscovidPossible = false;
-           
+
             if ($("input[name=InPersonScreenAnswer1]:checked").val() == "Yes" ||
                 $("input[name=InPersonScreenAnswer2]:checked").val() == "Yes" ||
                 $("input[name=InPersonScreenAnswer3]:checked").val() == "Yes" ||
@@ -496,6 +524,14 @@ var HomeView = function () {
                 IscovidPossible = true;
             }
 
+            if (form.InPerson) {
+                if ($("#txtTemperature").val() == "") {
+                    ltcApp.warningMessage(null, "Please provide temperature");
+                    return;
+                } else {
+                    form.Temperature = $("#txtTemperature").val();
+                }
+            }
             //convert object to json string
             var string = JSON.stringify(form);
             Layout.showLoader();
@@ -543,7 +579,7 @@ var HomeView = function () {
                     $("#btnSave").attr("disabled", false);
                     //$("#inPerson").attr("disabled", true);
                     Layout.hideLoader();
-
+                    window.location.href = "../Home/ViewForms";
                 }
             })
 
@@ -614,8 +650,13 @@ var HomeView = function () {
                 dataType: 'json',
                 url: '/Subscribers/Upsert',
                 success: function (data) {
-                    ltcApp.successMessage("Success", 'Subscriber has been added into the system.');
-                    HomeView.LoadAllSubscribers();
+                    if (data.success) {
+                        ltcApp.successMessage("Success", 'Subscriber has been added into the system.');
+                        HomeView.LoadAllSubscribers();
+                    } else {
+                        ltcApp.errorMessage("Error", data.Message);
+
+                    }
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error loading preview');
@@ -714,8 +755,8 @@ var HomeView = function () {
 
         },
         OpenFormViewList: function (queueId) {
-             
-            window.location.href = "../Home/CovidFormView?queueId=" + queueId ;
+
+            window.location.href = "../Home/CovidFormView?queueId=" + queueId;
 
             //if (formId == 3) {
             //    window.location.href = "../Home/CovidFormView?subscriberId=" + subId + "&formId=" + formId;

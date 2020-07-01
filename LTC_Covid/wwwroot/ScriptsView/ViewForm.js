@@ -68,7 +68,7 @@ var ViewForm = function () {
 
                 },
                 {
-                    "title": "In-Person",
+                    "title": "In-Office",
                     "data": "IsInPersonScreen",
                     "searchable": false,
                     "sortable": false,
@@ -85,7 +85,7 @@ var ViewForm = function () {
                     }
                 },
                 {
-                    "title": "In-Person Date",
+                    "title": "In-Office Date",
                     "data": "InPersonScreenDate",
                     "searchable": true,
 
