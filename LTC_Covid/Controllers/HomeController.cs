@@ -396,7 +396,10 @@ namespace LTC_Covid.Controllers
                         }
                         else if (existingFormData.IsInPersonScreen || existingFormData.IsPreScreen)
                         {
-                            existingFormData.IsAlreadySave = true;
+                            if (existingFormData.StorageInJson != null)
+                                existingFormData.StorageInJsonView = Encoding.UTF8.GetString(existingFormData.StorageInJson, 0, existingFormData.StorageInJson.Length);
+
+                            return View("CovidFormView", existingFormData);
                         }
                         else
                         {
