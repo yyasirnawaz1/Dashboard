@@ -358,56 +358,6 @@ namespace LTC_Covid.Controllers
         }
 
 
-        ////API
-        //[AllowAnonymous]
-        //[Route("/covid-prescreen")]
-        //public ActionResult CovidFormPublic(int? formId, string api = "", string customId = "", string contact = "", int counter = 0, int fa = 0)
-        //{
-        //    try
-        //    {
-        //        var subDetails = gCovidManager.GetSubscriberByCustomId(customId);
-        //        if (subDetails != null)
-        //        {
-        //            var form = gCovidManager.GetFormInfo(subDetails.ID, formId.Value);
-        //            if (form != null)
-        //            {
-        //                form.FirstName = subDetails.FirstName;
-        //                form.LastName = subDetails.LastName;
-        //                form.CustomID = customId;
-
-        //                var id = gCovidManager.Save(new gFormCovidEntry
-        //                {
-        //                    CustomID = Common.GenerateCustomID(),
-        //                    FormID = form.FormID,
-        //                    BusinessInfo_ID = subDetails.BusinessInfo_ID,
-        //                    SubscriberID = subDetails.ID,
-        //                    Counter = counter,
-        //                    FormAction = fa
-        //                });
-
-        //                form.QueueID = id;
-        //                form.ContactMethod = contact;
-        //                form.IsInPersonScreen = true;
-
-        //                return View("CovidForm", form);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ViewData["Error Message"] = ex.Message;
-        //        return View("Error");
-
-        //    }
-
-
-        //    ViewData["Error Message"] = "The subscriber doesn't exist";
-        //    return View("Error");
-
-        //}
-
-
         [AllowAnonymous]
         [Route("/covid-prescreen")]
         public ActionResult CovidFormPublic(int formId, string api = "", string customId = "", string contact = "", int counter = 0, int fa = 0)
