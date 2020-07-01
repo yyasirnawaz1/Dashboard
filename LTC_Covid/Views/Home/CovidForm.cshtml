@@ -29,7 +29,7 @@
 
 
 
-    .dvInPerson , .dvPreScreen {
+    .dvInPerson, .dvPreScreen {
         text-align: center;
     }
 </style>
@@ -65,12 +65,12 @@
                     <div class="col-lg-6">
                         @if(Model.LoggedInUser!=null)
                         {
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" value="userName" id="userName" name="UName" class="form-check-input" @(Model.LoggedInUser!=null? "checked":"") />
-                                    @Model.LoggedInUser
-                                </label>
-                            </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" value="userName" id="userName" name="UName" class="form-check-input" @(Model.LoggedInUser!=null? "checked":"") />
+                                @Model.LoggedInUser
+                            </label>
+                        </div>
                         }
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
@@ -92,7 +92,7 @@
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Patient Age</label>
                     <div class="col-lg-6">
-                        <input type="number" id="patientAge" min ="0" max="110" class="form-control">
+                        <input type="number" id="patientAge" min="0" max="110" class="form-control">
                     </div>
                 </div>
 
@@ -203,7 +203,7 @@
                                     <ol>
                                         <li value="1">
                                             Do you have a fever or have felt hot or feverish anytime in the last 10 days? <br />
-                                            Patient temperature at appointment: <input type="number" id="txtTemperature"  class="form-control">
+                                            Patient temperature at appointment: <input type="number" id="txtTemperature" class="form-control">
                                         </li>
                                     </ol>
 
@@ -804,7 +804,6 @@
                 var form = JSON.parse(str);
                 if (form != null) {
 
-                    debugger;
                     var IsCovid = $("#IsCovid").val();
                     if (IsCovid) {
                         $('#frmCovid').modal('show');
@@ -968,6 +967,18 @@
                 }
 
             } else {
+
+                    if (formId == 1 || formId == 2) {
+                        $('input[name="prescreen"]').click();
+                    } else if (formId == 3) {
+                         
+                                            $('input[name="prescreen"]').click();
+                    } else if (formId == 4) {
+                             
+                                              $('input[name="inperson"]').click();
+                                    }
+
+
                 if (formId == 1 || formId == 2) {
                     $(".InPerson").attr('disabled', true);
                     $("#inPerson").attr('disabled', true);
