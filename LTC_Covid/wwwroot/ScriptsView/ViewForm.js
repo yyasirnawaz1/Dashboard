@@ -33,13 +33,15 @@ var ViewForm = function () {
                     "title": "Name",
                     "data": "FullName",
                     "searchable": true,
+                    "sortable": true,
                     "className": "control",
                     "targets": 0,
                 },
                 {
                     "title": "Form Name",
                     "data": "FormName",
-                    "searchable": true
+                    "searchable": true,
+                    "sortable": true
                 },
                 {
                     "title": "Pre-Screen",
@@ -65,7 +67,7 @@ var ViewForm = function () {
                     "title": "Pre-Screen Date",
                     "data": "PreScreenDate",
                     "searchable": true,
-
+                    "sortable": false
                 },
                 {
                     "title": "In-Office",
@@ -88,6 +90,7 @@ var ViewForm = function () {
                     "title": "In-Office Date",
                     "data": "InPersonScreenDate",
                     "searchable": true,
+                    "sortable": false
 
                 }, {
                     "title": "Actions",

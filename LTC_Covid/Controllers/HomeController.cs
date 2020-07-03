@@ -298,16 +298,19 @@ namespace LTC_Covid.Controllers
             totalCount = query.Count();
 
             #region Filtering
-            //search Filters
-            //if (!string.IsNullOrEmpty(requestModel.Search?.Value))
-            //{
-            //    var value = requestModel.Search.Value.Trim();
-            //    query = query.Where(s => s.InPersonScreenDate.ToString().Contains(value) ||
-            //                             s.FirstName.Contains(value) ||
-            //                             s.LastName.Contains(value) ||
-            //                             s.PreScreenDate.ToString().Contains(value) ||
-            //                             s.Covid_Form_Description.Contains(value));
-            //}
+            // search Filters
+            if (!string.IsNullOrEmpty(requestModel.Search?.Value))
+            {
+                var value = requestModel.Search.Value.Trim();
+                query = query.Where(s => s.InPersonScreenDate.ToString().Contains(value) ||
+                                         s.FirstName.Contains(value) ||
+                                         s.LastName.Contains(value) ||
+                                         s.PreScreenDate.ToString().Contains(value) ||
+                                         s.Covid_Form_Description.Contains(value));
+            }
+
+
+
 
             filteredCount = query.Count();
 
@@ -318,7 +321,7 @@ namespace LTC_Covid.Controllers
             objViewModelList = query.Skip(requestModel.Start).Take(requestModel.Length).ToList();
 
 
-            return Json(objViewModelList
+            var res = objViewModelList
                .Select(e => new
                {
                    //Convert.ToInt32(_protector.Unprotect(id))
@@ -331,8 +334,20 @@ namespace LTC_Covid.Controllers
                    IsInPersonScreen = e.IsInPersonScreen,
                    FormID = _protector.Protect(e.FormID.ToString()),
                    SubscriberID = _protector.Protect(e.SubscriberID.ToString())
-               }).OrderByDescending(o => o.PreScreenDate).ThenBy(o => o.InPersonScreenDate)
-               .ToDataTablesResponse(requestModel, totalCount, filteredCount));
+               });
+            //var order = requestModel.Orders.FirstOrDefault();
+            //var orderByString = order.Column;
+            //string orderDir = order.Dir;
+            //if (orderDir == "asc")
+            //{
+            //    res = res.OrderBy(c => c.FullName);
+            //}
+            //else
+            //{
+            //    res = res.OrderByDescending(c => c.FullName);
+
+            //}
+            return Json(res.ToDataTablesResponse(requestModel, totalCount, filteredCount));
         }
 
 

@@ -2,7 +2,7 @@
 var Subscription = function () {
     var dt = null;
     var initSubscriptionTable = function () {
-        debugger;
+        
         Layout.showLoader();
 
 
