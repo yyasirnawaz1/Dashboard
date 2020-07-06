@@ -108,6 +108,26 @@
                         <div id="signature"></div>
                         <input type="text" id="input-signature" style="display:none" class="form-control" />
                     </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Patient Name</label>
+                        <div class="col-lg-6">
+                            <input type="text" id="txtPatientName" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Date</label>
+                        <div class="col-lg-6">
+                            <input type="date" id="txtConsentDate" min="0" max="110" class="form-control">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group row">
+
+                        <div class="col-lg-12">
+                            <label class="col-form-label ">* Patients are screened and temperatures taken so that we only see those who are healthy and asymptomatic. Advanced sanitation and sterilization protocols, PPEs, hand sanitation, physical distancing, physical barriers, HEPA air filtration units, antimicrobial mouth rinses, contactless interaction, fallow times and the reduction of AGPs where possible.</label>
+                        </div>
+                    </div>
                 </fieldset>
             </div>
         </div>
@@ -829,6 +849,48 @@
     <script>
 
         $(document).ready(function () {
+
+              $("#txtTemperature").keydown(function (event) {
+            if (event.shiftKey) {
+                event.preventDefault();
+            }
+
+            if (event.keyCode == 46 || event.keyCode == 8) {
+            }
+            else {
+                if (event.keyCode < 95) {
+                    if (event.keyCode < 48 || event.keyCode > 57) {
+                        event.preventDefault();
+                    }
+                }
+                else {
+                    if (event.keyCode < 96 || event.keyCode > 105) {
+                        event.preventDefault();
+                    }
+                }
+            }
+              });
+             $("#patientAge").keydown(function (event) {
+            if (event.shiftKey) {
+                event.preventDefault();
+            }
+
+            if (event.keyCode == 46 || event.keyCode == 8) {
+            }
+            else {
+                if (event.keyCode < 95) {
+                    if (event.keyCode < 48 || event.keyCode > 57) {
+                        event.preventDefault();
+                    }
+                }
+                else {
+                    if (event.keyCode < 96 || event.keyCode > 105) {
+                        event.preventDefault();
+                    }
+                }
+            }
+        });
+
             var formId = $("#FormID").val();
             if (formId == 5) {
                var signature = $('#signature');
@@ -1123,6 +1185,9 @@
 
 <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script src="~/assets/global/plugins/jquery.min.js"></script>
+<script type="text/javascript" src="/Resources/theme/js/vendor/jquery/jquery-ui.min.js"></script>
+<script src="~/Resources/theme/js/vendor/jquery/jquery-ui.min.js"></script>
 <link href="~/Resources/Vendor/Signature/jquery.signature.css" rel="stylesheet" />
 <script src="~/Resources/Vendor/Signature/jquery.signature.js"></script>
