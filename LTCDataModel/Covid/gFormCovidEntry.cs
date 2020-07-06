@@ -50,7 +50,7 @@
         public DateTime LastSubscriptionStatusUpdated { get; set; }
 
         public string CustomID { get; set; }
-
+        public string CellPhone { get; set; }
     }
     public class gCovidSubscriberView
     {

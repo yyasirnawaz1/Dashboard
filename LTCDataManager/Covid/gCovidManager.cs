@@ -92,6 +92,7 @@ namespace LTCDataManager.Covid
                     found.PatientNumber = model.PatientNumber;
                     found.SubscriptionStatus = model.SubscriptionStatus;
                     found.Office_Sequence = model.Office_Sequence;
+                    found.CellPhone = model.CellPhone;
                     db.Update(found, fid);
                 }
                 else
@@ -109,6 +110,7 @@ namespace LTCDataManager.Covid
                     design.PatientNumber = model.PatientNumber;
                     design.Office_Sequence = model.Office_Sequence;
                     design.SubscriptionStatus = model.SubscriptionStatus;
+                    design.CellPhone = model.CellPhone;
 
                     db.Save(design);
                     fid = design.ID;
