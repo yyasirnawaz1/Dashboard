@@ -169,7 +169,7 @@ namespace LTC_Covid.Controllers
         [AllowAnonymous]
         [Route("/createsubscriber")]
         [HttpGet]
-        public IActionResult CreateSubscriber(string api = "", int office = 0, string email = "", string lastname = "", string firstname = "", string salutation = "", int pno = 0)
+        public IActionResult CreateSubscriber(string api = "", int office = 0, string email = "", string lastname = "", string firstname = "", string salutation = "", int pno = 0, string cell = "")
         {
             string error = "";
             try
@@ -234,7 +234,8 @@ namespace LTC_Covid.Controllers
                     BusinessInfo_ID = businessInfoId,
                     SubscriptionStatus = true,
                     PatientNumber = pno,
-                    CustomID = customId
+                    CustomID = customId,
+                    CellPhone = cell
                 };
 
                 var newid = gCovidManager.SaveSubscriber(newSubscriberDetail);
@@ -350,7 +351,7 @@ namespace LTC_Covid.Controllers
                 }
 
             }
-            else if (counter.HasValue && !fa.HasValue)
+            else if (counter.HasValue && fa.HasValue)
             {
                 var formData = gCovidManager.GetFormEntryByCounterAndFormActionAndSubscriberCustomId(CustomId, counter.Value, fa.Value);
                 if (formData != null)
