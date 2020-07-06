@@ -547,7 +547,7 @@ var HomeView = function () {
                         $("input[name=PreScreenAnswer7]:checked").val() == null ||
                         $("input[name=PreScreenAnswer8]:checked").val() == null ||
                         $("input[name=PreScreenAnswer9]:checked").val() == null) {
-                        ltcApp.warningMessage(null, "Please select the options for Pre-Screen");
+                        HomeView.CheckAllPrescreen();
                         return;
                     }
                     form.PreScreen = new Object();
@@ -576,7 +576,8 @@ var HomeView = function () {
                         $("input[name=InPersonScreenAnswer7]:checked").val() == null ||
                         $("input[name=InPersonScreenAnswer8]:checked").val() == null ||
                         $("input[name=InPersonScreenAnswer9]:checked").val() == null) {
-                        ltcApp.warningMessage(null, "Please select the options for In-Office Screen");
+                        HomeView.CheckAllInOffice();
+
                         return;
                     }
 
@@ -618,7 +619,8 @@ var HomeView = function () {
                         $("input[name=PreScreenAnswer7]:checked").val() == null ||
                         $("input[name=PreScreenAnswer8]:checked").val() == null ||
                         $("input[name=PreScreenAnswer9]:checked").val() == null) {
-                        ltcApp.warningMessage(null, "Please select the options for Pre-Screen");
+                        HomeView.CheckAllPrescreen();
+
                         return;
                     }
 
@@ -647,7 +649,8 @@ var HomeView = function () {
                         $("input[name=InPersonScreenAnswer7]:checked").val() == null ||
                         $("input[name=InPersonScreenAnswer8]:checked").val() == null ||
                         $("input[name=InPersonScreenAnswer9]:checked").val() == null) {
-                        ltcApp.warningMessage(null, "Please select the options for In-Office Screen");
+                        HomeView.CheckAllInOffice();
+
                         return;
                     }
 
@@ -1006,6 +1009,18 @@ HomeView.init();
 
 $(document).ready(function () {
 
+    //var signature = $('#signature');
+    //var input = $('#input-signature');
+
+    //signature.signature({
+    //    change: function (event, ui) {
+    //        input.val(signature.signature('toSVG'));
+    //    }
+    //});
+
+    //$('#clear').click(function () {
+    //    signature.signature('clear');
+    //});
 
 });
 
