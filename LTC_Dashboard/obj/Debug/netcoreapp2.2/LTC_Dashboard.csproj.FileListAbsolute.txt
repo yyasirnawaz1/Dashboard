@@ -654,13 +654,6 @@ D:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.Views.p
 D:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.csproj.CopyComplete
 D:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.dll
 D:\LTC Git\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.pdb
-F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.csprojAssemblyReference.cache
-F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.RazorAssemblyInfo.cache
-F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.RazorAssemblyInfo.cs
-F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.AssemblyInfoInputs.cache
-F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.AssemblyInfo.cs
-F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.dll
-F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.pdb
 D:\Office\Github\Dashboard\LTC_Dashboard\bin\Debug\netcoreapp2.2\Select.Html.dep
 D:\Office\Github\Dashboard\LTC_Dashboard\bin\Debug\netcoreapp2.2\appsettings.Development.json
 D:\Office\Github\Dashboard\LTC_Dashboard\bin\Debug\netcoreapp2.2\appsettings.json

@@ -103,6 +103,9 @@
         public string FormAction { get; set; }
         [Ignore]
         public bool IsAlreadySave { get; set; }
+
+        public bool IsViewed { get; set; }
+        
     }
     public class gEmailModel
     {

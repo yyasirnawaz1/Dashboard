@@ -13,10 +13,21 @@
     }
 
     @@media all and (max-width:600px) {
+        .form-check-inline .form-check-input {
+        margin-top : 0px !important;
+        }
+        .form-check-label {
+        font-size: 15px;
+        }
         .table td, .table th {
             padding: 6px 5.25px;
         }
+        input[type="radio"]{
 
+width: 19px;
+height: 25px;
+
+}
         .dvInPerson, .dvPreScreen {
             text-align: left !important;
         }
@@ -48,6 +59,9 @@
 
         <div class="card-body">
             <fieldset class="mb-5" style="margin-bottom: 0px !important">
+
+                <input type="hidden" id="IsLinkEnabled" value="@ViewBag.FromLink">
+                <input type="hidden" id="IsViewed" value="@Model.IsViewed">
                 <input type="hidden" id="IsCovid" value="@Model.IsCOVIDPossible">
                 <input type="hidden" id="LoggedInUser" value="@Model.LoggedInUser">
                 <input type="hidden" id="SubscriberFullName" value="@Model.FirstName @Model.LastName">
@@ -198,7 +212,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr  id="Answer1">
                                 <th>
                                     <ol>
                                         <li value="1">
@@ -208,7 +222,7 @@
                                     </ol>
 
                                 </th>
-                                <td class="dvPreScreen" id="PreScreenAnswer1">
+                                <td class="dvPreScreen">
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
                                             <input type="radio" name="PreScreenAnswer1" value="Yes" class="form-check-input PreScreen" disabled>
@@ -223,7 +237,7 @@
                                         </label>
                                     </div>
                                 </td>
-                                <td class="dvInPerson" id="InPersonScreenAnswer1">
+                                <td class="dvInPerson">
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
                                             <input type="radio" name="InPersonScreenAnswer1" value="Yes" class="form-check-input InPerson" disabled>
@@ -240,7 +254,7 @@
                                 </td>
 
                             </tr>
-                            <tr>
+                            <tr  id="Answer2">
                                 <th>
                                     <ol>
                                         @{
@@ -296,7 +310,7 @@
                                 </td>
 
                             </tr>
-                            <tr>
+                            <tr  id="Answer3">
                                 <th>
                                     <ol>
 
@@ -369,7 +383,7 @@
                                 </td>
 
                             </tr>
-                            <tr>
+                            <tr  id="Answer4">
                                 <th>
                                     <ol>
                                         <li value="4">
@@ -411,7 +425,7 @@
                                 </td>
 
                             </tr>
-                            <tr>
+                            <tr  id="Answer5">
                                 <th>
                                     <ol>
                                         <li value="5">
@@ -452,7 +466,7 @@
                                 </td>
 
                             </tr>
-                            <tr>
+                            <tr  id="Answer6">
                                 <th>
                                     <ol>
                                         <li value="6">
@@ -494,7 +508,7 @@
                                 </td>
 
                             </tr>
-                            <tr>
+                            <tr  id="Answer7">
                                 <th>
                                     <ol>
                                         <li value="7">
@@ -567,7 +581,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr  id="Answer8">
                                 <th>
                                     <ol>
                                         <li value="8">
@@ -611,7 +625,7 @@
                             </tr>
 
 
-                            <tr>
+                            <tr  id="Answer9">
                                 <th>
                                     <ol>
                                         @{
@@ -803,11 +817,29 @@
             if (str != "") {
                 var form = JSON.parse(str);
                 if (form != null) {
-
+                    var IsViewed = $("#IsViewed").val();
                     var IsCovid = $("#IsCovid").val();
-                    if (IsCovid) {
-                        $('#frmCovid').modal('show');
+                    var IsLinkEnabled = $("#IsLinkEnabled").val();
+
+                    if (IsLinkEnabled) {
+                        if (!IsViewed) {
+
+                            if (IsCovid) {
+                                $('#frmCovid').modal('show');
+                                var queueID = $('#QueueID').val();
+
+                                if (queueID != 0) {
+                                    HomeView.formViewed(queueID);
+                                }
+                            }
+                        }
+                    } else {
+                        if (IsCovid) {
+                                $('#frmCovid').modal('show');
+                                
+                            }
                     }
+
 
                     if (form.StaffScreenerType == "UserName") {
                         // Make Checkbox checkec
@@ -971,10 +1003,10 @@
                     if (formId == 1 || formId == 2) {
                         $('input[name="prescreen"]').click();
                     } else if (formId == 3) {
-                         
+
                                             $('input[name="prescreen"]').click();
                     } else if (formId == 4) {
-                             
+
                                               $('input[name="inperson"]').click();
                                     }
 

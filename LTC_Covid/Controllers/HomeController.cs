@@ -88,7 +88,15 @@ namespace LTC_Covid.Controllers
             form.LoggedInUser = UserName;
             return View(form);
         }
-
+        public ActionResult FormViewed([FromBody]IdModel model)
+        {
+            gCovidManager.FormViewed(int.Parse(model.Id));
+            var json = new
+            {
+                success = true
+            };
+            return Json(json);
+        }
 
         //[AllowAnonymous]
         public ActionResult DeleteForm([FromBody]IdModel model)
@@ -380,6 +388,7 @@ namespace LTC_Covid.Controllers
             string error = "";
             try
             {
+                ViewBag.FromLink = true;
                 var subDetails = gCovidManager.GetSubscriberByCustomId(customId);
                 if (subDetails != null)
                 {

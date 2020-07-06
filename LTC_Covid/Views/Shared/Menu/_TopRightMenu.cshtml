@@ -6,50 +6,52 @@
 
 }
 
-<ul class="navbar-nav">
-    <li class="nav-item dropdown">
-        <div class="headerDate" style="display:none;">
-            <div class="input-group">
-                <input id="dashboardCalendar" name="dashboardCalendar" type="text" class="form-control daterange-left" value="">
-                <span class="input-group-append">
-                    <span class="input-group-text"><i class="icon-calendar22"></i></span>
-                </span>
-            </div>
-        </div>
-    </li>
-    @{
-
-        if (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var userId))
-        {
-            <li class="nav-item dropdown dropdown-user">
-                <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" style="padding:11px;" data-toggle="dropdown">
-                    <i class="icon-user"></i> &nbsp;
-                    <span>@User.FindFirstValue("Name")</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a href="javascript:loadProfile()" class="dropdown-item"><i class="icon-user-plus"></i> User Profile</a>
-                  @*<a href="#" data-toggle="modal" data-target="#changePasswordModal" class="dropdown-item"><i class="icon-envelope"></i> Change Password</a>*@
-                    <div class="dropdown-divider"></div>
-                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/Identity/Account/Login">
-                        <button type="submit" class="dropdown-item"><i class="icon-users"></i> Logout</button>
-                    </form>
-                    <div class="dropdown-divider"></div>
-                    @*<a href="#" data-toggle="modal" data-target="#aboutModal" class="dropdown-item"><i class="fa fa-tv"></i> About</a>*@
+    <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+            <div class="headerDate" style="display:none;">
+                <div class="input-group">
+                    <input id="dashboardCalendar" name="dashboardCalendar" type="text" class="form-control daterange-left" value="">
+                    <span class="input-group-append">
+                        <span class="input-group-text"><i class="icon-calendar22"></i></span>
+                    </span>
                 </div>
-            </li>
-        }
-        else
-        {
+            </div>
+        </li>
+        @{
+            if (ViewBag.FromLink == null)
+            {
+                if (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var userId))
+                {
+                    <li class="nav-item dropdown dropdown-user">
+                        <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" style="padding:11px;" data-toggle="dropdown">
+                            <i class="icon-user"></i> &nbsp;
+                            <span>@User.FindFirstValue("Name")</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="javascript:loadProfile()" class="dropdown-item"><i class="icon-user-plus"></i> User Profile</a>
+                            @*<a href="#" data-toggle="modal" data-target="#changePasswordModal" class="dropdown-item"><i class="icon-envelope"></i> Change Password</a>*@
+                            <div class="dropdown-divider"></div>
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/Identity/Account/Login">
+                                <button type="submit" class="dropdown-item"><i class="icon-users"></i> Logout</button>
+                            </form>
+                            <div class="dropdown-divider"></div>
+                            @*<a href="#" data-toggle="modal" data-target="#aboutModal" class="dropdown-item"><i class="fa fa-tv"></i> About</a>*@
+                        </div>
+                    </li>
+                }
+                else
+                {
 
-            <li class="nav-item dropdown ">
-                <a href="@Url.Action("Login", "Account")" class="navbar-nav-link dropdown-toggle caret-0">
-                    <i class="icon-users"></i> Login
-                    <span class="d-md-none ml-2"></span>
-                </a>
+                    <li class="nav-item dropdown ">
+                        <a href="@Url.Action("Login", "Account")" class="navbar-nav-link dropdown-toggle caret-0">
+                            <i class="icon-users"></i> Login
+                            <span class="d-md-none ml-2"></span>
+                        </a>
 
-            </li>
+                    </li>
+                }
+            }
         }
-    }
-</ul>
+    </ul>
 
 

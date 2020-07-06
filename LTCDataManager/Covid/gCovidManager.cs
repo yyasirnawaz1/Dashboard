@@ -188,7 +188,7 @@ namespace LTCDataManager.Covid
                     found.PreScreenDate = model.PreScreenDate;
                     found.SubscriberID = model.SubscriberID;
                     found.StorageInJson = model.StorageInJson;
-                    
+
                     if (model.BusinessInfo_ID != 0)
                         found.BusinessInfo_ID = model.BusinessInfo_ID;
 
@@ -239,6 +239,13 @@ namespace LTCDataManager.Covid
 
             }
 
+        }
+        public static void FormViewed(int Id)
+        {
+            using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
+            {
+                db.Execute($"Update form_covid_entry Set IsViewed = true where QueueID = {Id}" );
+            }
         }
         public static void Delete(int Id)
         {

@@ -7,7 +7,7 @@
         width: 70%;
     }
 
-   
+
 
     .dvPreScreen, .dvInPerson {
         text-align: center !important;
@@ -23,6 +23,8 @@
         }
     }
 </style>
+<input type="hidden" id="IsLinkEnabled" value="@ViewBag.FromLink">
+<input type="hidden" id="IsViewed" value="@Model.IsViewed">
 <input type="hidden" id="IsCovid" value="@Model.IsCOVIDPossible">
 <input type="hidden" id="SubscriberFullName" value="@Model.FirstName @Model.LastName">
 <input type="hidden" id="FormID" value="@Model.FormID">
@@ -50,10 +52,10 @@
         <div class="card-body">
             <fieldset class="mb-5">
 
-             
+
 
                 <br />
-                <div class="form-group row" >
+                <div class="form-group row">
                     <label class="col-form-label col-lg-2">Staff Screener</label>
                     <div class="col-lg-6">
                         <label id="staffScreener" class="form-check-label"></label>
@@ -93,13 +95,13 @@
                     </div>
                 </div>
                 @*<hr>
-                <div class="form-group row">
-                    <label class="col-form-label col-lg-2">CustomID</label>
-                    <div class="col-lg-6">
-                        <label id="customID" class="form-check-label">"@Model.CustomID"</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">CustomID</label>
+                        <div class="col-lg-6">
+                            <label id="customID" class="form-check-label">"@Model.CustomID"</label>
 
-                    </div>
-                </div>*@
+                        </div>
+                    </div>*@
 
 
 
@@ -166,7 +168,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th >
+                                    <th>
                                         <ol>
                                             <li value="1">
                                                 Do you have a fever or have felt hot or feverish anytime in the last 10 days? <br />
@@ -196,7 +198,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th >
+                                    <th>
                                         <ol>
                                             @{
                                                 if (Model.FormID == 1)
@@ -240,7 +242,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th >
+                                    <th>
                                         <ol>
 
                                             @{
@@ -302,7 +304,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th >
+                                    <th>
                                         <ol>
                                             <li value="4">
                                                 Have you been in contact with any confirmed COVID-19 positive patients,    <br />
@@ -332,7 +334,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th >
+                                    <th>
                                         <ol>
                                             <li value="5">
                                                 Have you returned from travel outside of Canada in the last 14 days?
@@ -361,7 +363,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th >
+                                    <th>
                                         <ol>
                                             <li value="6">
                                                 Have you returned from travel within Canada  <br /> from a location known affected with COVID-19 in the last 14 days?
@@ -390,7 +392,7 @@
 
                                 </tr>
                                 <tr>
-                                    <th >
+                                    <th>
                                         <ol>
                                             <li value="7">
                                                 Is your workplace considered high risk?
@@ -450,7 +452,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th >
+                                <th>
                                     <ol>
                                         <li value="8">
                                             Are you over the age of 65?
@@ -481,7 +483,7 @@
 
 
                             <tr>
-                                <th >
+                                <th>
                                     <ol>
                                         @{
                                             if (Model.FormID == 1)
@@ -629,10 +631,27 @@
             if (str != "") {
                 var form = JSON.parse(str);
                 if (form != null) {
-                    debugger;
+                    var IsViewed = $("#IsViewed").val();
                     var IsCovid = $("#IsCovid").val();
-                    if (IsCovid) {
-                        $('#frmCovid').modal('show');
+                    var IsLinkEnabled = $("#IsLinkEnabled").val();
+
+                    if (IsLinkEnabled) {
+                        if (!IsViewed) {
+
+                            if (IsCovid) {
+                                $('#frmCovid').modal('show');
+                                var queueID = $('#QueueID').val();
+
+                                if (queueID != 0) {
+                                    HomeView.formViewed(queueID);
+                                }
+                            }
+                        }
+                    } else {
+                        if (IsCovid) {
+                            $('#frmCovid').modal('show');
+
+                        }
                     }
 
                     if (form.StaffScreener != null) {

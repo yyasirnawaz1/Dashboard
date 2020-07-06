@@ -143,7 +143,7 @@ namespace LTC_Covid.Controllers
 
 
 
-            objViewModelList = gCovidManager.GetSubscribers(OfficeSequence);
+            objViewModelList = gCovidManager.GetSubscribers(UserId);
 
             var totalCount = 0;
             var filteredCount = 0;
