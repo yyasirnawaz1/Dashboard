@@ -88,6 +88,7 @@ namespace LTC_Covid.Controllers
             form.LoggedInUser = UserName;
             return View(form);
         }
+        [AllowAnonymous]
         public ActionResult FormViewed([FromBody]IdModel model)
         {
             gCovidManager.FormViewed(int.Parse(model.Id));
