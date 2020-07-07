@@ -4,6 +4,21 @@
     ViewData["Title"] = "Home Page";
 }
 <style>
+
+    body > iframe {
+        display: none;
+    }
+
+    .kbw-signature {
+        width: 400px;
+        height: 200px;
+    }
+
+
+    ul {
+        list-style-type: none;
+    }
+
     .Percent70 {
         width: 70%;
     }
@@ -17,6 +32,11 @@
             margin-top: 0px !important;
         }
 
+        .kbw-signature {
+            width: 400px;
+            height: 200px;
+        }
+
         .form-check-label {
             font-size: 15px;
         }
@@ -25,11 +45,15 @@
             padding: 6px 5.25px;
         }
 
+
         input[type="radio"] {
             width: 19px;
             height: 25px;
         }
-
+        /*input[type="checkbox"] {
+            width: 19px !important;;
+            height: 25px !important;;
+        }*/
         .dvInPerson, .dvPreScreen {
             text-align: left !important;
         }
@@ -64,728 +88,760 @@
     @{
         if (@Model.FormID == 5)
         {
-            <div class="card">
-                <div class="card-header header-elements-inline">
-                    <h5 class="card-title">COVID-19 RISK ACKNOWLEDGEMENT - Not Completed</h5>
-                    <div class="header-elements">
-                        <div class="list-icons">
-                            <a class="list-icons-item" data-action="collapse"></a>
-                        </div>
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">COVID-19 RISK ACKNOWLEDGEMENT - Not Completed</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
                     </div>
                 </div>
-
-                <div class="card-body">
-                    <fieldset class="mb-5" style="margin-bottom: 0px !important">
-
-
-
-                        <div class="form-group row">
-                            <label class="col-form-label">Welcome Back. Thank you for your confidence in us.</label>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label">Dentists have dealt with previous pandemics and disease outbreaks very successfully. This time around, we are better prepared than ever before.*Despiteour best efforts, there is always a very small riskof exposure to the virus, as there are in other public spaces such as in grocery stores or gyms.</label>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label">The Ontario Dental Associationhas recommended that the COVID-19 Risk Acknowledgementbe obtained from patients seeking treatment.</label>
-                        </div>
-                        <div class="form-group row">
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="chk1" id="chk1" class="form-check-input">
-                                    I and/or my dependents on this accountacknowledge the risk of COVID-19, and consent to treatment.
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="chk2" id="chk2" class="form-check-input">
-                                    I wish to reschedule treatment.
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div id="signature"></div>
-                            <input type="text" id="input-signature" style="display:none" class="form-control" />
-                        </div>
-                    </fieldset>
-                </div>
             </div>
+
+            <div class="card-body">
+                <fieldset class="mb-5" style="margin-bottom: 0px !important">
+
+
+
+                    <div class="form-group row">
+                        <label class="col-form-label">Welcome Back. Thank you for your confidence in us.</label>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label">Dentists have dealt with previous pandemics and disease outbreaks very successfully. This time around, we are better prepared than ever before.*Despiteour best efforts, there is always a very small riskof exposure to the virus, as there are in other public spaces such as in grocery stores or gyms.</label>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label" style="font-weight: bold;">The Ontario Dental Associationhas recommended that the COVID-19 Risk Acknowledgementbe obtained from patients seeking treatment.</label>
+                    </div>
+                    <div class="form-group row">
+                        <ul>
+                            <li>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="chk1" id="chk1" class="form-check-input">
+                                        I and/or my dependents on this accountacknowledge the risk of COVID-19, and consent to treatment.
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="chk2" id="chk2" class="form-check-input">
+                                        I wish to reschedule treatment.
+                                    </label>
+                                </div>
+
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Signature</label>
+
+                        <div id="signature"></div>
+                        <input type="text" id="input-signature" style="display:none" class="form-control" />
+
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Patient Name</label>
+                        <div class="col-lg-6">
+                            <input type="text" id="txtPatientName" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Date</label>
+                        <div class="col-lg-6">
+                            <input type="date" id="txtConsentDate" min="0" max="110" class="form-control">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group row">
+
+                        <div class="col-lg-12">
+                            <label class="col-form-label ">* Patients are screened and temperatures taken so that we only see those who are healthy and asymptomatic. Advanced sanitation and sterilization protocols, PPEs, hand sanitation, physical distancing, physical barriers, HEPA air filtration units, antimicrobial mouth rinses, contactless interaction, fallow times and the reduction of AGPs where possible.</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
         }
         else
         {
-            <div class="card">
-                <div class="card-header header-elements-inline">
-                    <h5 class="card-title">Dental Screening</h5>
-                    <div class="header-elements">
-                        <div class="list-icons">
-                            <a class="list-icons-item" data-action="collapse"></a>
-                        </div>
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">Dental Screening</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
                     </div>
-                </div>
-
-                <div class="card-body">
-                    <fieldset class="mb-5" style="margin-bottom: 0px !important">
-
-
-                        <br />
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Staff Screener</label>
-                            <div class="col-lg-6">
-                                @if (Model.LoggedInUser != null)
-                                {
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="radio" value="userName" id="userName" name="UName" class="form-check-input" @(Model.LoggedInUser != null ? "checked" : "") />
-                                            @Model.LoggedInUser
-                                        </label>
-                                    </div>
-                                }
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="radio" value="staffScreenerName" id="other" name="UName" class="form-check-input" @(Model.LoggedInUser == null ? "checked" : "") />
-                                        <input type="text" id="staffScreener" class="form-control">
-                                    </label>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Patient Name</label>
-                            <div class="col-lg-6">
-                                <input type="text" id="patientName" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Patient Age</label>
-                            <div class="col-lg-6">
-                                <input type="number" id="patientAge" min="0" max="110" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Who Answered</label>
-                            <div class="col-lg-6">
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="radio" value="userNameWhoAns" id="userNameWhoAns" name="UNameWhoAns" class="form-check-input" checked />
-                                        @Model.FirstName @Model.LastName
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="radio" value="whoAnsScreenerName" id="otherWhoAns" name="UNameWhoAns" class="form-check-input" />
-                                        <input type="text" id="whoAns" class="form-control" />
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Contact Method</label>
-                            <div class="col-lg-6">
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="radio" value="phone" id="phone" name="contactMethod" class="form-check-input">
-                                        Phone
-                                        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="txtPhone" class="form-control" style="display:none;margin-left:5px">
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="radio" value="email" id="email" name="contactMethod" class="form-check-input">
-                                        Email
-                                        <input type="email" id="txtEmail" class="form-control" style="display:none;margin-left:5px">
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="radio" value="other" id="cmOther" name="contactMethod" class="form-check-input">
-                                        Other
-                                        <input type="text" id="txtOther" class="form-control" style="display:none;margin-left:5px">
-                                    </label>
-                                </div>
-
-                            </div>
-                        </div>
-                        @*<hr>
-                            <div class="form-group row">
-                                <label class="col-form-label col-lg-2">CustomID</label>
-                                <div class="col-lg-6">
-                                    <input type="text" value="@Model.CustomID" class="form-control" id="customID" disabled>
-                                </div>
-                            </div>*@
-                    </fieldset>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-header header-elements-inline">
-                    <h5 class="card-title">COVID-19 Screening Questions</h5>
-                    <div class="header-elements">
-                        <div class="list-icons">
-                            <a class="list-icons-item" data-action="collapse"></a>
+
+            <div class="card-body">
+                <fieldset class="mb-5" style="margin-bottom: 0px !important">
+
+
+                    <br />
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Staff Screener</label>
+                        <div class="col-lg-6">
+                            @if (Model.LoggedInUser != null)
+                                {
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" value="userName" id="userName" name="UName" class="form-check-input" @(Model.LoggedInUser != null ? "checked" : "") />
+                                    @Model.LoggedInUser
+                                </label>
+                            </div>
+                                }
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" value="staffScreenerName" id="other" name="UName" class="form-check-input" @(Model.LoggedInUser == null ? "checked" : "") />
+                                    <input type="text" id="staffScreener" class="form-control">
+                                </label>
+                            </div>
+
                         </div>
                     </div>
-                </div>
 
-                <div class="card-body">
-                    <fieldset class="mb-3">
-                        <div class="form-group row" style="margin-bottom: 0px;">
-                            <div class="col-lg-3 dvPreScreen">
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="radio" name="prescreen" id="preScreen" class="form-check-input">
-                                        Pre-Screen
-                                    </label>[  <label class="form-check-label" id="PreScreenDate">-</label>]
-                                </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Patient Name</label>
+                        <div class="col-lg-6">
+                            <input type="text" id="patientName" class="form-control">
+                        </div>
+                    </div>
 
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Patient Age</label>
+                        <div class="col-lg-6">
+                            <input type="number" id="patientAge" min="0" max="110" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Who Answered</label>
+                        <div class="col-lg-6">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" value="userNameWhoAns" id="userNameWhoAns" name="UNameWhoAns" class="form-check-input" checked />
+                                    @Model.FirstName @Model.LastName
+                                </label>
                             </div>
-                            <div class="col-lg-3 dvInPerson">
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="radio" id="inPerson" name="inperson" class="form-check-input">
-                                        In-Office
-                                    </label>[<label class="form-check-label" id="InPersonDate">-</label>]
-                                </div>
-
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" value="whoAnsScreenerName" id="otherWhoAns" name="UNameWhoAns" class="form-check-input" />
+                                    <input type="text" id="whoAns" class="form-control" />
+                                </label>
                             </div>
                         </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Contact Method</label>
+                        <div class="col-lg-6">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" value="phone" id="phone" name="contactMethod" class="form-check-input">
+                                    Phone
+                                    <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="txtPhone" class="form-control" style="display:none;margin-left:5px">
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" value="email" id="email" name="contactMethod" class="form-check-input">
+                                    Email
+                                    <input type="email" id="txtEmail" class="form-control" style="display:none;margin-left:5px">
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" value="other" id="cmOther" name="contactMethod" class="form-check-input">
+                                    Other
+                                    <input type="text" id="txtOther" class="form-control" style="display:none;margin-left:5px">
+                                </label>
+                            </div>
 
-                        <div class="table-responsive">
-                            <table class="table responsive  table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="Percent70">Identify yourself and explain the purpose of the call, which is to determine whether  there are any special considerations for their dental appointment. Have the patient answer the following questions.</th>
-                                        <th class="text-center dvPreScreen">
-                                            Pre-Screen<br>
-                                        </th>
-                                        <th class="text-center dvInPerson">
-                                            In-Office<br>
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr id="Answer1">
-                                        <th>
-                                            <ol>
-                                                <li value="1">
-                                                    Do you have a fever or have felt hot or feverish anytime in the last 10 days? <br />
-                                                    Patient temperature at appointment: <input type="number" id="txtTemperature" class="form-control">
-                                                </li>
-                                            </ol>
-
-                                        </th>
-                                        <td class="dvPreScreen">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer1" value="Yes" class="form-check-input PreScreen" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer1" value="No" class="form-check-input PreScreen" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="dvInPerson">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer1" value="Yes" class="form-check-input InPerson" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer1" value="No" class="form-check-input InPerson" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr id="Answer2">
-                                        <th>
-                                            <ol>
-                                                @{
-                                                    if (Model.FormID == 1)
-                                                    {
-                                                        <li value="2">
-                                                            Do you have any of these symptoms: New or worsening cough? <br />
-                                                            New or worsening shortness of breath? Difficulty breathing? <br /> Sore throat or painful swallowing? Runny nose?
-                                                        </li>
-
-                                                    }
-                                                    else
-                                                    {
-                                                        <li value="2">
-                                                            Does the person have a confirmed case of COVID-19 or had close contact with a confirmed case of COVID-19?
-                                                        </li>
-
-                                                    }
-
-                                                }
-                                            </ol>
-
-                                        </th>
-                                        <td class="dvPreScreen" id="PreScreenAnswer2">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer2" value="Yes" class="form-check-input PreScreen" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer2" value="No" class="form-check-input PreScreen" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="dvInPerson" id="InPersonScreenAnswer2">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer2" value="Yes" class="form-check-input InPerson" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer2" value="No" class="form-check-input InPerson" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr id="Answer3">
-                                        <th>
-                                            <ol>
-
-                                                @{
-                                                    if (Model.FormID == 1)
-                                                    {
-
-                                                        <li value="3">
-                                                            Have you experienced a recent loss of smell or taste?
-                                                        </li>
-                                                    }
-                                                    else
-                                                    {
-                                                        <li value="3">
-
-                                                            Does the person have any of the following symptoms:
-                                                            <br />
-                                                            •Fever<br />
-                                                            •New onset of cough<br />
-                                                            •Worsening chronic cough<br />
-                                                            •Shortness of breath<br />
-                                                            •Difficulty breathing<br />
-                                                            •Sore throat<br />
-                                                            •Difficulty swallowing<br />
-                                                            •Decrease or loss of sense of taste or smell<br />
-                                                            •Chills<br />
-                                                            •Headaches<br />
-                                                            •Unexplained fatigue/malaise/muscle aches (myalgias)<br />
-                                                            •Nausea/vomiting, diarrhea, abdominal pain<br />
-                                                            •Pink eye (conjunctivitis)<br />
-                                                            •Runny nose/nasal congestion without other known cause<br />
-
-
-                                                        </li>
-                                                    }
-
-                                                }
-
-                                            </ol>
-                                        </th>
-                                        <td class="dvPreScreen" id="PreScreenAnswer3">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer3" value="Yes" class="form-check-input PreScreen" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer3" value="No" class="form-check-input PreScreen" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="dvInPerson" id="InPersonScreenAnswer3">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer3" value="Yes" class="form-check-input InPerson" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer3" value="No" class="form-check-input InPerson" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr id="Answer4">
-                                        <th>
-                                            <ol>
-                                                <li value="4">
-                                                    Have you been in contact with any confirmed COVID-19 positive patients,    <br />
-                                                    or persons self-isolating because of a determined risk for COVID-19?
-                                                </li>
-                                            </ol>
-
-                                        </th>
-                                        <td class="dvPreScreen" id="PreScreenAnswer4">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer4" value="Yes" class="form-check-input PreScreen" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer4" value="No" class="form-check-input PreScreen" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="dvInPerson" id="InPersonScreenAnswer4">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer4" value="Yes" class="form-check-input InPerson" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer4" value="No" class="form-check-input InPerson" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr id="Answer5">
-                                        <th>
-                                            <ol>
-                                                <li value="5">
-                                                    Have you returned from travel outside of Canada in the last 14 days?
-                                                </li>
-                                            </ol>
-
-                                        </th>
-                                        <td class="dvPreScreen" id="PreScreenAnswer5">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer5" value="Yes" class="form-check-input PreScreen" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer5" value="No" class="form-check-input PreScreen" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="dvInPerson" id="InPersonScreenAnswer5">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer5" value="Yes" class="form-check-input InPerson" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer5" value="No" class="form-check-input InPerson" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr id="Answer6">
-                                        <th>
-                                            <ol>
-                                                <li value="6">
-                                                    Have you returned from travel within Canada  <br /> from a location known affected with COVID-19 in the last 14 days?
-                                                </li>
-                                            </ol>
-
-
-                                        </th>
-                                        <td class="dvPreScreen" id="PreScreenAnswer6">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer6" value="Yes" class="form-check-input PreScreen" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer6" value="No" class="form-check-input PreScreen" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="dvInPerson" id="InPersonScreenAnswer6">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer6" value="Yes" class="form-check-input InPerson" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer6" value="No" class="form-check-input InPerson" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr id="Answer7">
-                                        <th>
-                                            <ol>
-                                                <li value="7">
-                                                    Is your workplace considered high risk?
-                                                </li>
-                                            </ol>
-                                        </th>
-                                        <td class="dvPreScreen" id="PreScreenAnswer7">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer7" value="Yes" class="form-check-input PreScreen" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer7" value="No" class="form-check-input PreScreen" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="dvInPerson" id="InPersonScreenAnswer7">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer7" value="Yes" class="form-check-input InPerson" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer7" value="No" class="form-check-input InPerson" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-
-                                </tbody>
-                            </table>
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-                    </fieldset>
-                    <fieldset class="mb-3">
-                        <legend class="text-uppercase font-size-sm font-weight-bold">Patient Vulnerability</legend>
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="Percent70"></th>
-                                        <th class="text-center dvPreScreen">
-                                            Pre-Screen<br>
-                                        </th>
-                                        <th class="text-center dvInPerson">
-                                            In-Office<br>
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr id="Answer8">
-                                        <th>
-                                            <ol>
-                                                <li value="8">
-                                                    Are you over the age of 65?
-                                                </li>
-                                            </ol>
-
-
-                                        </th>
-                                        <td class="dvPreScreen" id="PreScreenAnswer8">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer8" value="Yes" class="form-check-input PreScreen" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer8" value="No" class="form-check-input PreScreen" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="dvInPerson" id="InPersonScreenAnswer8">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer8" value="Yes" class="form-check-input InPerson" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer8" value="No" class="form-check-input InPerson" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-
-
-                                    <tr id="Answer9">
-                                        <th>
-                                            <ol>
-                                                @{
-                                                    if (Model.FormID == 1)
-                                                    {
-
-                                                        <li value="9">
-                                                            Do you have any of the following? Heart disease,<br /> lung disease, kidney disease, diabetes, or any auto-immune disorder?
-                                                        </li>
-                                                    }
-                                                    else
-                                                    {
-                                                        <li value="9">
-
-                                                            Are you experiencing any of the following symptoms: delirium, unexplained or increased number of falls, <br />
-                                                            acute functional decline, or worsening of chronic conditions?
-
-
-                                                        </li>
-                                                    }
-
-                                                }
-                                            </ol>
-
-                                        </th>
-                                        <td class="dvPreScreen" id="PreScreenAnswer9">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer9" value="Yes" class="form-check-input PreScreen" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="PreScreenAnswer9" value="No" class="form-check-input PreScreen" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="dvInPerson" id="InPersonScreenAnswer9">
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer9" value="Yes" class="form-check-input InPerson" disabled>
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="radio" name="InPersonScreenAnswer9" value="No" class="form-check-input InPerson" disabled>
-                                                    No
-                                                </label>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-
-
-
-
-
-
-
-
-
-
-
-                    </fieldset>
-                    <fieldset class="mb-3">
-                        <legend class="text-uppercase font-size-sm font-weight-bold">Additional Notes</legend>
-
-
+                    </div>
+                    @*<hr>
                         <div class="form-group row">
-
-                            <div class="col-lg-12">
-                                <textarea class="form-control" id="txtAdditionalInformation" rows="3"></textarea>
+                            <label class="col-form-label col-lg-2">CustomID</label>
+                            <div class="col-lg-6">
+                                <input type="text" value="@Model.CustomID" class="form-control" id="customID" disabled>
                             </div>
-                        </div>
-
-
-
-
-
-
-
-
-                    </fieldset>
+                        </div>*@
+                </fieldset>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">COVID-19 Screening Questions</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    @if (!Model.IsAlreadySave)
+            </div>
+
+            <div class="card-body">
+                <fieldset class="mb-3">
+                    <div class="form-group row" style="margin-bottom: 0px;">
+                        <div class="col-lg-3 dvPreScreen">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" name="prescreen" id="preScreen" class="form-check-input">
+                                    Pre-Screen
+                                </label>[  <label class="form-check-label" id="PreScreenDate">-</label>]
+                            </div>
+
+                        </div>
+                        <div class="col-lg-3 dvInPerson">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" id="inPerson" name="inperson" class="form-check-input">
+                                    In-Office
+                                </label>[<label class="form-check-label" id="InPersonDate">-</label>]
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table responsive  table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="Percent70">Identify yourself and explain the purpose of the call, which is to determine whether  there are any special considerations for their dental appointment. Have the patient answer the following questions.</th>
+                                    <th class="text-center dvPreScreen">
+                                        Pre-Screen<br>
+                                    </th>
+                                    <th class="text-center dvInPerson">
+                                        In-Office<br>
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="Answer1">
+                                    <th>
+                                        <ol>
+                                            <li value="1">
+                                                Do you have a fever or have felt hot or feverish anytime in the last 10 days? <br />
+                                                Patient temperature at appointment: <input type="number" id="txtTemperature" class="form-control">
+                                            </li>
+                                        </ol>
+
+                                    </th>
+                                    <td class="dvPreScreen">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer1" value="Yes" class="form-check-input PreScreen" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer1" value="No" class="form-check-input PreScreen" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="dvInPerson">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer1" value="Yes" class="form-check-input InPerson" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer1" value="No" class="form-check-input InPerson" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr id="Answer2">
+                                    <th>
+                                        <ol>
+                                            @{
+                                                    if (Model.FormID == 1)
+                                                    {
+                                                <li value="2">
+                                                    Do you have any of these symptoms: New or worsening cough? <br />
+                                                    New or worsening shortness of breath? Difficulty breathing? <br /> Sore throat or painful swallowing? Runny nose?
+                                                </li>
+
+                                                    }
+                                                    else
+                                                    {
+                                                <li value="2">
+                                                    Does the person have a confirmed case of COVID-19 or had close contact with a confirmed case of COVID-19?
+                                                </li>
+
+                                                    }
+
+                                            }
+                                        </ol>
+
+                                    </th>
+                                    <td class="dvPreScreen" id="PreScreenAnswer2">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer2" value="Yes" class="form-check-input PreScreen" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer2" value="No" class="form-check-input PreScreen" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="dvInPerson" id="InPersonScreenAnswer2">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer2" value="Yes" class="form-check-input InPerson" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer2" value="No" class="form-check-input InPerson" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr id="Answer3">
+                                    <th>
+                                        <ol>
+
+                                            @{
+                                                    if (Model.FormID == 1)
+                                                    {
+
+                                                <li value="3">
+                                                    Have you experienced a recent loss of smell or taste?
+                                                </li>
+                                                    }
+                                                    else
+                                                    {
+                                                <li value="3">
+
+                                                    Does the person have any of the following symptoms:
+                                                    <br />
+                                                    •Fever<br />
+                                                    •New onset of cough<br />
+                                                    •Worsening chronic cough<br />
+                                                    •Shortness of breath<br />
+                                                    •Difficulty breathing<br />
+                                                    •Sore throat<br />
+                                                    •Difficulty swallowing<br />
+                                                    •Decrease or loss of sense of taste or smell<br />
+                                                    •Chills<br />
+                                                    •Headaches<br />
+                                                    •Unexplained fatigue/malaise/muscle aches (myalgias)<br />
+                                                    •Nausea/vomiting, diarrhea, abdominal pain<br />
+                                                    •Pink eye (conjunctivitis)<br />
+                                                    •Runny nose/nasal congestion without other known cause<br />
+
+
+                                                </li>
+                                                    }
+
+                                            }
+
+                                        </ol>
+                                    </th>
+                                    <td class="dvPreScreen" id="PreScreenAnswer3">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer3" value="Yes" class="form-check-input PreScreen" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer3" value="No" class="form-check-input PreScreen" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="dvInPerson" id="InPersonScreenAnswer3">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer3" value="Yes" class="form-check-input InPerson" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer3" value="No" class="form-check-input InPerson" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr id="Answer4">
+                                    <th>
+                                        <ol>
+                                            <li value="4">
+                                                Have you been in contact with any confirmed COVID-19 positive patients,    <br />
+                                                or persons self-isolating because of a determined risk for COVID-19?
+                                            </li>
+                                        </ol>
+
+                                    </th>
+                                    <td class="dvPreScreen" id="PreScreenAnswer4">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer4" value="Yes" class="form-check-input PreScreen" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer4" value="No" class="form-check-input PreScreen" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="dvInPerson" id="InPersonScreenAnswer4">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer4" value="Yes" class="form-check-input InPerson" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer4" value="No" class="form-check-input InPerson" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr id="Answer5">
+                                    <th>
+                                        <ol>
+                                            <li value="5">
+                                                Have you returned from travel outside of Canada in the last 14 days?
+                                            </li>
+                                        </ol>
+
+                                    </th>
+                                    <td class="dvPreScreen" id="PreScreenAnswer5">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer5" value="Yes" class="form-check-input PreScreen" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer5" value="No" class="form-check-input PreScreen" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="dvInPerson" id="InPersonScreenAnswer5">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer5" value="Yes" class="form-check-input InPerson" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer5" value="No" class="form-check-input InPerson" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr id="Answer6">
+                                    <th>
+                                        <ol>
+                                            <li value="6">
+                                                Have you returned from travel within Canada  <br /> from a location known affected with COVID-19 in the last 14 days?
+                                            </li>
+                                        </ol>
+
+
+                                    </th>
+                                    <td class="dvPreScreen" id="PreScreenAnswer6">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer6" value="Yes" class="form-check-input PreScreen" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer6" value="No" class="form-check-input PreScreen" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="dvInPerson" id="InPersonScreenAnswer6">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer6" value="Yes" class="form-check-input InPerson" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer6" value="No" class="form-check-input InPerson" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr id="Answer7">
+                                    <th>
+                                        <ol>
+                                            <li value="7">
+                                                Is your workplace considered high risk?
+                                            </li>
+                                        </ol>
+                                    </th>
+                                    <td class="dvPreScreen" id="PreScreenAnswer7">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer7" value="Yes" class="form-check-input PreScreen" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer7" value="No" class="form-check-input PreScreen" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="dvInPerson" id="InPersonScreenAnswer7">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer7" value="Yes" class="form-check-input InPerson" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer7" value="No" class="form-check-input InPerson" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                </fieldset>
+                <fieldset class="mb-3">
+                    <legend class="text-uppercase font-size-sm font-weight-bold">Patient Vulnerability</legend>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="Percent70"></th>
+                                    <th class="text-center dvPreScreen">
+                                        Pre-Screen<br>
+                                    </th>
+                                    <th class="text-center dvInPerson">
+                                        In-Office<br>
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="Answer8">
+                                    <th>
+                                        <ol>
+                                            <li value="8">
+                                                Are you over the age of 65?
+                                            </li>
+                                        </ol>
+
+
+                                    </th>
+                                    <td class="dvPreScreen" id="PreScreenAnswer8">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer8" value="Yes" class="form-check-input PreScreen" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer8" value="No" class="form-check-input PreScreen" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="dvInPerson" id="InPersonScreenAnswer8">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer8" value="Yes" class="form-check-input InPerson" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer8" value="No" class="form-check-input InPerson" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr id="Answer9">
+                                    <th>
+                                        <ol>
+                                            @{
+                                                    if (Model.FormID == 1)
+                                                    {
+
+                                                <li value="9">
+                                                    Do you have any of the following? Heart disease,<br /> lung disease, kidney disease, diabetes, or any auto-immune disorder?
+                                                </li>
+                                                    }
+                                                    else
+                                                    {
+                                                <li value="9">
+
+                                                    Are you experiencing any of the following symptoms: delirium, unexplained or increased number of falls, <br />
+                                                    acute functional decline, or worsening of chronic conditions?
+
+
+                                                </li>
+                                                    }
+
+                                            }
+                                        </ol>
+
+                                    </th>
+                                    <td class="dvPreScreen" id="PreScreenAnswer9">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer9" value="Yes" class="form-check-input PreScreen" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="PreScreenAnswer9" value="No" class="form-check-input PreScreen" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="dvInPerson" id="InPersonScreenAnswer9">
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer9" value="Yes" class="form-check-input InPerson" disabled>
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="InPersonScreenAnswer9" value="No" class="form-check-input InPerson" disabled>
+                                                No
+                                            </label>
+                                        </div>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                </fieldset>
+                <fieldset class="mb-3">
+                    <legend class="text-uppercase font-size-sm font-weight-bold">Additional Notes</legend>
+
+
+                    <div class="form-group row">
+
+                        <div class="col-lg-12">
+                            <textarea class="form-control" id="txtAdditionalInformation" rows="3"></textarea>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+                </fieldset>
+            </div>
+            <div class="card-footer">
+                @if (!Model.IsAlreadySave)
                     {
-                        <text>
-                            <button type="button" id="btnSave" style="float: right;margin-left:15px" onclick="HomeView.saveForm();" class="btn btn-primary">Save</button>
-                        </text>
+                <text>
+                    <button type="button" id="btnSave" style="float: right;margin-left:15px" onclick="HomeView.saveForm();" class="btn btn-primary">Save</button>
+                </text>
                     }
 
 
-                    <button type="button" id="btnCancel" style="float: right;" onclick="HomeView.Cancel();" class="btn btn-danger">Cancel</button>
-                </div>
+                <button type="button" id="btnCancel" style="float: right;" onclick="HomeView.Cancel();" class="btn btn-danger">Cancel</button>
             </div>
+        </div>
 
         }
     }
@@ -830,6 +886,68 @@
 
         $(document).ready(function () {
 
+
+
+
+              $("#txtTemperature").keydown(function (event) {
+            if (event.shiftKey) {
+                event.preventDefault();
+            }
+
+            if (event.keyCode == 46 || event.keyCode == 8) {
+            }
+            else {
+                if (event.keyCode < 95) {
+                    if (event.keyCode < 48 || event.keyCode > 57) {
+                        event.preventDefault();
+                    }
+                }
+                else {
+                    if (event.keyCode < 96 || event.keyCode > 105) {
+                        event.preventDefault();
+                    }
+                }
+            }
+              });
+             $("#patientAge").keydown(function (event) {
+            if (event.shiftKey) {
+                event.preventDefault();
+            }
+
+            if (event.keyCode == 46 || event.keyCode == 8) {
+            }
+            else {
+                if (event.keyCode < 95) {
+                    if (event.keyCode < 48 || event.keyCode > 57) {
+                        event.preventDefault();
+                    }
+                }
+                else {
+                    if (event.keyCode < 96 || event.keyCode > 105) {
+                        event.preventDefault();
+                    }
+                }
+            }
+        });
+
+            var formId = $("#FormID").val();
+            if (formId == 5) {
+
+              var input = $('#input-signature');
+                $('#signature').signature({
+              background: 'blue', color: '#ffffff',
+                change: function (event, ui) {
+                    input.val( $('#signature').signature('toSVG'));
+                }
+            });
+
+            $('#clear').click(function () {
+                $('#signature').signature('clear');
+            });
+            }
+
+
+
             $('input[name=contactMethod]').change(function () {
 
                 var contactMethod = $("input[name=contactMethod]:checked").val();
@@ -855,7 +973,7 @@
 
 
             var str = $("#JsonValue").val();
-            var formId = $("#FormID").val();
+
             var subscriberFullName = $("#SubscriberFullName").val();
             $("#patientName").val(subscriberFullName);
 
@@ -1106,6 +1224,7 @@
 
 <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<link href="~/Resources/Vendor/Signature/jquery.signature.css" rel="stylesheet" />
-<script src="~/Resources/Vendor/Signature/jquery.signature.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js" rel="stylesheet" />
+@*<script src="~/assets/global/plugins/jquery.min.js"></script>
+    <script type="text/javascript" src="/Resources/theme/js/vendor/jquery/jquery-ui.min.js"></script>
+    <script src="~/Resources/theme/js/vendor/jquery/jquery-ui.min.js"></script>*@
