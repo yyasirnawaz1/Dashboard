@@ -133,4 +133,27 @@
         public int QueueID { get; set; }
         public byte[] PDF { get; set; }
 
-    }}
+    }
+
+    public class gAPIFormCovidEntryViewModel
+    {
+
+        public int BusinessInfo_ID { get; set; }
+        public int QueueID { get; set; }
+        public int FormID { get; set; }
+        public string CustomID { get; set; }
+        public bool IsPreScreen { get; set; }
+        public DateTime PreScreenDate { get; set; }
+        public bool IsInPersonScreen { get; set; }
+        public DateTime InPersonScreenDate { get; set; }
+        public byte[] StorageInJson { get; set; }
+        public bool IsCOVIDPossible { get; set; }
+
+        public int Counter { get; set; }
+
+        public string FormAction { get; set; }
+
+        public bool IsViewed { get; set; }
+
+    }
+}

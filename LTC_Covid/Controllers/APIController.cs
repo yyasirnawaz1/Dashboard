@@ -314,7 +314,7 @@ namespace LTC_Covid.Controllers
 
         [AllowAnonymous]
         [Route("/RetrieveCOVIDForm")]
-        public IActionResult RetrieveCOVIDForm(string API, string FormCustomID = "", string CustomId="",  int? counter = null, int? fa = null)
+        public IActionResult RetrieveCOVIDForm(string API, string FormCustomID = "", string CustomId = "", int? counter = null, int? fa = null)
         {
             string error = "";
 
@@ -351,7 +351,7 @@ namespace LTC_Covid.Controllers
                 }
 
             }
-            else if (counter.HasValue && fa.HasValue)
+            else if (!string.IsNullOrEmpty(CustomId) && counter.HasValue && fa.HasValue)
             {
                 var formData = gCovidManager.GetFormEntryByCounterAndFormActionAndSubscriberCustomId(CustomId, counter.Value, fa.Value);
                 if (formData != null)
@@ -389,6 +389,114 @@ namespace LTC_Covid.Controllers
                 error = "Required Parameters Missing";
             }
 
+            return Json(new
+            {
+                Data = false,
+                Operation = error
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("/RetrieveForms")]
+        [HttpGet]
+        public IActionResult RetrieveForms(string api = "", string customid = "")
+        {
+            string error = "";
+            try
+            {
+                if (!string.IsNullOrEmpty(customid))
+                {
+                    var formData = gCovidManager.GetCovidFormListByCustomId(customid);
+                    if (formData != null)
+                    {
+                        return Json(new
+                        {
+                            Data = true,
+                            Operation = formData
+                        });
+                    }
+                    else
+                    {
+                        error = "Form doesn't exist";
+                    }
+
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        Data = true,
+                        Message = "Missing CustomId",
+                    });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+            }
+            return Json(new
+            {
+                Data = false,
+                Operation = error
+            });
+        }
+
+
+        [AllowAnonymous]
+        [Route("/RetrievePDF")]
+        [HttpGet]
+        public IActionResult RetrievePDF(string api = "", string formCustomId = "", string CustomId = "", int? counter = null, int? fa = null)
+        {
+            string error = "";
+            try
+            {
+                if (!string.IsNullOrEmpty(formCustomId))
+                {
+                    var pdf = gCovidManager.GetPdfByFormCustomId(formCustomId);
+                    if (pdf != null)
+                    {
+                        return Json(new
+                        {
+                            Data = true,
+                            PDF = pdf
+                        });
+                    }
+                    else
+                    {
+                        error = "PDF doesn't exist";
+                    }
+                }
+                else if (!string.IsNullOrEmpty(CustomId) && counter.HasValue && fa.HasValue)
+                {
+                    var pdf = gCovidManager.GetPDFByCounterAndFormActionAndSubscriberCustomId(CustomId, counter.Value, fa.Value);
+                    if (pdf != null)
+                    {
+                        return Json(new
+                        {
+                            Data = true,
+                            PDF = pdf
+                        });
+                    }
+                    else
+                    {
+                        error = "PDF doesn't exist";
+                    }
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        Data = true,
+                        Message = "Missing Parameters",
+                    });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+            }
             return Json(new
             {
                 Data = false,

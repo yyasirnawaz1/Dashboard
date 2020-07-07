@@ -279,6 +279,12 @@ namespace LTCDataManager.Covid
             return db.Fetch<gFormCovidEntryViewModel>($"SELECT * FROM form_covid_entry where CustomID = '{FormCustomId}'").FirstOrDefault();
         }
 
+        public static List<gAPIFormCovidEntryViewModel> GetCovidFormListByCustomId(string customId)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
+            return db.Fetch<gAPIFormCovidEntryViewModel>($"SELECT * FROM form_covid_entry where CustomID = '{customId}'");
+        }
+
         public static gFormCovidEntryViewModel GetFormEntryByCounterAndFormActionAndSubscriberCustomId(string customId, int counter, int fa)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
@@ -321,6 +327,19 @@ namespace LTCDataManager.Covid
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             var sql = $"UPDATE businessinfo SET FirstName='{model.FirstName}', LastName='{model.LastName}', AddressLine1 = '{model.AddressLine1}', AddressLine2 = '{model.AddressLine2}', AddressLine3 = '{model.AddressLine3}', City='{model.City}',Province='{model.Province}',PostalCode='{model.PostalCode}',Country='{model.Country}',PhoneNumber='{model.PhoneNumber}'";
             db.Execute(sql);
+        }
+
+
+        public static byte[] GetPdfByFormCustomId(string FormCustomId)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
+            return db.Fetch<byte[]>($"select pdf from form_covid_entry fc inner join form_In_pdf fid on fc.queueid = fid.queueid where fc.CustomID = '{FormCustomId}'").FirstOrDefault();
+        }
+
+        public static byte[] GetPDFByCounterAndFormActionAndSubscriberCustomId(string customId, int counter, int fa)
+        {
+            var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
+            return db.Fetch<byte[]>($"select pdf from form_covid_entry fc inner join form_In_pdf fid on fc.queueid = fid.queueid INNER JOIN subscribers su on fc.subscriberid=su.id where su.customid='{customId}' AND fc.counter={counter} AND FormAction = '{fa}'").FirstOrDefault();
         }
     }
 }
