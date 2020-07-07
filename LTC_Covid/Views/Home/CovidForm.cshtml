@@ -4,6 +4,21 @@
     ViewData["Title"] = "Home Page";
 }
 <style>
+
+    body > iframe {
+        display: none;
+    }
+
+    .kbw-signature {
+        width: 400px;
+        height: 200px;
+    }
+
+
+    ul {
+        list-style-type: none;
+    }
+
     .Percent70 {
         width: 70%;
     }
@@ -17,6 +32,11 @@
             margin-top: 0px !important;
         }
 
+        .kbw-signature {
+            width: 400px;
+            height: 200px;
+        }
+
         .form-check-label {
             font-size: 15px;
         }
@@ -25,11 +45,15 @@
             padding: 6px 5.25px;
         }
 
+
         input[type="radio"] {
             width: 19px;
             height: 25px;
         }
-
+        /*input[type="checkbox"] {
+            width: 19px !important;;
+            height: 25px !important;;
+        }*/
         .dvInPerson, .dvPreScreen {
             text-align: left !important;
         }
@@ -86,27 +110,39 @@
                         <label class="col-form-label">Dentists have dealt with previous pandemics and disease outbreaks very successfully. This time around, we are better prepared than ever before.*Despiteour best efforts, there is always a very small riskof exposure to the virus, as there are in other public spaces such as in grocery stores or gyms.</label>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label">The Ontario Dental Associationhas recommended that the COVID-19 Risk Acknowledgementbe obtained from patients seeking treatment.</label>
+                        <label class="col-form-label" style="font-weight: bold;">The Ontario Dental Associationhas recommended that the COVID-19 Risk Acknowledgementbe obtained from patients seeking treatment.</label>
                     </div>
                     <div class="form-group row">
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input type="checkbox" name="chk1" id="chk1" class="form-check-input">
-                                I and/or my dependents on this accountacknowledge the risk of COVID-19, and consent to treatment.
-                            </label>
-                        </div>
+                        <ul>
+                            <li>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="chk1" id="chk1" class="form-check-input">
+                                        I and/or my dependents on this accountacknowledge the risk of COVID-19, and consent to treatment.
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="chk2" id="chk2" class="form-check-input">
+                                        I wish to reschedule treatment.
+                                    </label>
+                                </div>
+
+
+                            </li>
+
+                        </ul>
+
                     </div>
                     <div class="form-group row">
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input type="checkbox" name="chk2" id="chk2" class="form-check-input">
-                                I wish to reschedule treatment.
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Signature</label>
+
                         <div id="signature"></div>
                         <input type="text" id="input-signature" style="display:none" class="form-control" />
+
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-lg-2">Patient Name</label>
@@ -850,6 +886,9 @@
 
         $(document).ready(function () {
 
+
+
+
               $("#txtTemperature").keydown(function (event) {
             if (event.shiftKey) {
                 event.preventDefault();
@@ -893,17 +932,17 @@
 
             var formId = $("#FormID").val();
             if (formId == 5) {
-               var signature = $('#signature');
-              var input = $('#input-signature');
 
-            signature.signature({
+              var input = $('#input-signature');
+                $('#signature').signature({
+              background: 'blue', color: '#ffffff',
                 change: function (event, ui) {
-                    input.val(signature.signature('toSVG'));
+                    input.val( $('#signature').signature('toSVG'));
                 }
             });
 
             $('#clear').click(function () {
-                signature.signature('clear');
+                $('#signature').signature('clear');
             });
             }
 
@@ -1185,9 +1224,7 @@
 
 <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-
-<script src="~/assets/global/plugins/jquery.min.js"></script>
-<script type="text/javascript" src="/Resources/theme/js/vendor/jquery/jquery-ui.min.js"></script>
-<script src="~/Resources/theme/js/vendor/jquery/jquery-ui.min.js"></script>
-<link href="~/Resources/Vendor/Signature/jquery.signature.css" rel="stylesheet" />
-<script src="~/Resources/Vendor/Signature/jquery.signature.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js" rel="stylesheet" />
+@*<script src="~/assets/global/plugins/jquery.min.js"></script>
+    <script type="text/javascript" src="/Resources/theme/js/vendor/jquery/jquery-ui.min.js"></script>
+    <script src="~/Resources/theme/js/vendor/jquery/jquery-ui.min.js"></script>*@
