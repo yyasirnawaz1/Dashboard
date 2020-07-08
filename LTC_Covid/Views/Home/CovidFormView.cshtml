@@ -8,7 +8,11 @@
     }
 
 
-
+     canvas {
+     
+  width: 100%;
+  height: auto;
+    }
     .dvPreScreen, .dvInPerson {
         text-align: center !important;
     }
@@ -16,6 +20,16 @@
     @@media all and (max-width:600px) {
         .table td, .table th {
             padding: 6px 5.25px;
+        }
+
+        canvas {
+            width: 100%;
+            height: auto;
+        }
+
+        #signature {
+            width: 300px !important;
+            height: 150px !important;
         }
 
         #txtTemperature {
