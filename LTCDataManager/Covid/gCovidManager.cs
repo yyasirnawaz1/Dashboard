@@ -39,7 +39,7 @@ namespace LTCDataManager.Covid
 
 
             if (form.StorageInJson != null)
-                form.StorageInJsonView = Encoding.UTF8.GetString(form.StorageInJson, 0, form.StorageInJson.Length);
+                form.StorageInJsonView = Encoding.UTF8.GetString(form.StorageInJson, 0, form.StorageInJson.Length).Replace("height=\"15cm\"", "").Replace("width=\"15cm\"","");
             return form;
         }
         public static gFormCovidEntryViewModel GetFormInfo(int subscriberId, int formId)
@@ -234,10 +234,21 @@ namespace LTCDataManager.Covid
         {
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
+                int fid = model.QueueID;
+                gformInPdf found = db.Fetch<gformInPdf>($"select ID, QueueID, FromTable from form_in_pdf where QueueID={fid}").FirstOrDefault();
+                if (found != null)
+                {
+                    found.PDF = model.PDF;
+                    db.Update(found, fid);
+                    return fid;
+                }
+                else
+                {
+                    //Save Form Design Object
+                    var QueueID = db.Insert(model);
+                    return int.Parse(QueueID.ToString());
 
-                //Save Form Design Object
-                var QueueID = db.Insert(model);
-                return int.Parse(QueueID.ToString());
+                }
 
             }
 
@@ -246,7 +257,7 @@ namespace LTCDataManager.Covid
         {
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
-                db.Execute($"Update form_covid_entry Set IsViewed = true where QueueID = {Id}" );
+                db.Execute($"Update form_covid_entry Set IsViewed = true where QueueID = {Id}");
             }
         }
         public static void Delete(int Id)

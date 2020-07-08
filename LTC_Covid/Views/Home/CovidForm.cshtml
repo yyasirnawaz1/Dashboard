@@ -28,10 +28,15 @@
     }
 
     @@media all and (max-width:600px) {
+        .card-title {
+            font-size: 15px;
+        }
         .form-check-inline .form-check-input {
             margin-top: 0px !important;
         }
-
+        .smallFont {
+            font-size:13px !important;
+        }
         .kbw-signature {
             width: 400px;
             height: 200px;
@@ -71,26 +76,14 @@
     }
 </style>
 <div class="content">
-    <input type="hidden" id="IsLinkEnabled" value="@ViewBag.FromLink">
-    <input type="hidden" id="IsViewed" value="@Model.IsViewed">
-    <input type="hidden" id="IsCovid" value="@Model.IsCOVIDPossible">
-    <input type="hidden" id="LoggedInUser" value="@Model.LoggedInUser">
-    <input type="hidden" id="SubscriberFullName" value="@Model.FirstName @Model.LastName">
-    <input type="hidden" id="FormID" value="@Model.FormID">
-    <input type="hidden" id="CustomID" value="@Model.CustomID">
-    <input type="hidden" id="IdValue" value="@Model.SubscriberID">
-    <input type="hidden" id="JsonValue" value="@Model.StorageInJsonView">
-    <input type="hidden" id="QueueID" value="@Model.QueueID">
-    <input type="hidden" id="hdnPreScreenDate" value="@Model.PreScreenDate">
-    <input type="hidden" id="hdnInPersonDate" value="@Model.InPersonScreenDate">
-    <input type="hidden" id="hdnCounter" value="@Model.Counter">
+
     <!-- Form inputs -->
     @{
         if (@Model.FormID == 5)
         {
         <div class="card">
             <div class="card-header header-elements-inline">
-                <h5 class="card-title">COVID-19 RISK ACKNOWLEDGEMENT - Not Completed</h5>
+                <h5 class="card-title">COVID-19 RISK ACKNOWLEDGEMENT</h5>
                 <div class="header-elements">
                     <div class="list-icons">
                         <a class="list-icons-item" data-action="collapse"></a>
@@ -107,25 +100,25 @@
                         <label class="col-form-label">Welcome Back. Thank you for your confidence in us.</label>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label">Dentists have dealt with previous pandemics and disease outbreaks very successfully. This time around, we are better prepared than ever before.*Despiteour best efforts, there is always a very small riskof exposure to the virus, as there are in other public spaces such as in grocery stores or gyms.</label>
+                        <label class="col-form-label">Dentists have dealt with previous pandemics and disease outbreaks very successfully. This time around, we are better prepared than ever before. *Despiteour best efforts, there is always a very small riskof exposure to the virus, as there are in other public spaces such as in grocery stores or gyms.</label>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label" style="font-weight: bold;">The Ontario Dental Associationhas recommended that the COVID-19 Risk Acknowledgementbe obtained from patients seeking treatment.</label>
+                        <label class="col-form-label" style="font-weight: bold;">The Ontario Dental Association has recommended that the COVID-19 Risk Acknowledgementbe obtained from patients seeking treatment.</label>
                     </div>
                     <div class="form-group row">
                         <ul>
                             <li>
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
+                                <div class="form-check form-check-inline" id="chkoption1">
+                                    <label class="form-check-label smallFont" style="margin:10px">
                                         <input type="checkbox" name="chk1" id="chk1" class="form-check-input">
-                                        I and/or my dependents on this accountacknowledge the risk of COVID-19, and consent to treatment.
+                                        I and/or my dependents on this account acknowledge the risk of COVID-19, and consent to treatment.
                                     </label>
                                 </div>
                             </li>
                             <li>
 
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
+                                <div class="form-check form-check-inline" id="chkoption2">
+                                    <label class="form-check-label smallFont" style="margin:10px">
                                         <input type="checkbox" name="chk2" id="chk2" class="form-check-input">
                                         I wish to reschedule treatment.
                                     </label>
@@ -139,29 +132,40 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-lg-2">Signature</label>
-
-                        <div id="signature"></div>
-                        <input type="text" id="input-signature" style="display:none" class="form-control" />
-
+                        <div class="col-lg-6">
+                            <div id="signature"></div>
+                            <input type="text" id="input-signature" style="display:none" class="form-control" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-lg-2">Patient Name</label>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <input type="text" id="txtPatientName" class="form-control">
+                            <label id="lblPatientName" class="form-check-label"></label>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-form-label col-lg-2">Date</label>
-                        <div class="col-lg-6">
-                            <input type="date" id="txtConsentDate" min="0" max="110" class="form-control">
+                        <div class="col-lg-4">
+                            <input type="date" id="txtConsentDate" class="form-control">
+                            <label id="lblConsentDate" class="form-check-label"></label>
+
                         </div>
                     </div>
                     <hr>
                     <div class="form-group row">
 
                         <div class="col-lg-12">
-                            <label class="col-form-label ">* Patients are screened and temperatures taken so that we only see those who are healthy and asymptomatic. Advanced sanitation and sterilization protocols, PPEs, hand sanitation, physical distancing, physical barriers, HEPA air filtration units, antimicrobial mouth rinses, contactless interaction, fallow times and the reduction of AGPs where possible.</label>
+                            <label class="col-form-label" style="font-weight: bold;">* Patients are screened and temperatures taken so that we only see those who are healthy and asymptomatic. Advanced sanitation and sterilization protocols, PPEs, hand sanitation, physical distancing, physical barriers, HEPA air filtration units, antimicrobial mouth rinses, contactless interaction, fallow times and the reduction of AGPs where possible.</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-lg-12">
+                            <button type="button" id="btnSavePDF" style="display:none;float: right;margin-left:15px" onclick="HomeView.saveFormPdf();" class="btn btn-dark">Save PDF</button>
+                            <button type="button" id="btnSave" style="float: right;margin-left:15px" onclick="HomeView.saveConsentForm();" class="btn btn-primary">Save</button>
+                            <button type="button" id="btnCancel" style="float: right;" onclick="HomeView.Cancel();" class="btn btn-danger">Cancel</button>
                         </div>
                     </div>
                 </fieldset>
@@ -328,7 +332,10 @@
                                         <ol>
                                             <li value="1">
                                                 Do you have a fever or have felt hot or feverish anytime in the last 10 days? <br />
-                                                Patient temperature at appointment: <input type="number" id="txtTemperature" class="form-control">
+
+                                                <label id="lblTemperature" class="form-check-label">
+                                                    Patient temperature at appointment: <input type="text" id="txtTemperature" maxlength="3" class="form-control">
+                                                </label>
                                             </li>
                                         </ol>
 
@@ -498,8 +505,7 @@
                                     <th>
                                         <ol>
                                             <li value="4">
-                                                Have you been in contact with any confirmed COVID-19 positive patients,    <br />
-                                                or persons self-isolating because of a determined risk for COVID-19?
+                                                Have you been in contact with any confirmed COVID-19 positive patients, or persons self-isolating because of a determined risk for COVID-19?
                                             </li>
                                         </ol>
 
@@ -581,7 +587,7 @@
                                     <th>
                                         <ol>
                                             <li value="6">
-                                                Have you returned from travel within Canada  <br /> from a location known affected with COVID-19 in the last 14 days?
+                                                Have you returned from travel within Canada from a location known affected with COVID-19 in the last 14 days?
                                             </li>
                                         </ol>
 
@@ -848,6 +854,19 @@
     <!-- /form inputs -->
 
 </div>
+<input type="hidden" id="IsLinkEnabled" value="@ViewBag.FromLink">
+<input type="hidden" id="IsViewed" value="@Model.IsViewed">
+<input type="hidden" id="IsCovid" value="@Model.IsCOVIDPossible">
+<input type="hidden" id="LoggedInUser" value="@Model.LoggedInUser">
+<input type="hidden" id="SubscriberFullName" value="@Model.FirstName @Model.LastName">
+<input type="hidden" id="FormID" value="@Model.FormID">
+<input type="hidden" id="CustomID" value="@Model.CustomID">
+<input type="hidden" id="IdValue" value="@Model.SubscriberID">
+<input type="hidden" id="JsonValue" value="@Model.StorageInJsonView">
+<input type="hidden" id="QueueID" value="@Model.QueueID">
+<input type="hidden" id="hdnPreScreenDate" value="@Model.PreScreenDate">
+<input type="hidden" id="hdnInPersonDate" value="@Model.InPersonScreenDate">
+<input type="hidden" id="hdnCounter" value="@Model.Counter">
 <div id="frmCovid" class="modal fade" tabindex="-1" data-width="300" data-keyboard="false" role="dialog" aria-labelledby="frmCovid" aria-hidden="true" data-backdrop="static">
 
     <div class="modal-dialog ">
@@ -889,65 +908,48 @@
 
 
 
-              $("#txtTemperature").keydown(function (event) {
-            if (event.shiftKey) {
-                event.preventDefault();
-            }
+            $("#txtTemperature").keydown(function (event) {
 
-            if (event.keyCode == 46 || event.keyCode == 8) {
-            }
-            else {
-                if (event.keyCode < 95) {
-                    if (event.keyCode < 48 || event.keyCode > 57) {
-                        event.preventDefault();
-                    }
+                if (event.shiftKey) {
+                    event.preventDefault();
+                }
+
+                if (event.keyCode == 46 || event.keyCode == 8) {
                 }
                 else {
-                    if (event.keyCode < 96 || event.keyCode > 105) {
-                        event.preventDefault();
+                    if (event.keyCode < 95) {
+                        if (event.keyCode < 48 || event.keyCode > 57) {
+                            event.preventDefault();
+                        }
+                    }
+                    else {
+                        if (event.keyCode < 96 || event.keyCode > 105) {
+                            event.preventDefault();
+                        }
                     }
                 }
-            }
-              });
-             $("#patientAge").keydown(function (event) {
-            if (event.shiftKey) {
-                event.preventDefault();
-            }
+            });
+            $("#patientAge").keydown(function (event) {
 
-            if (event.keyCode == 46 || event.keyCode == 8) {
-            }
-            else {
-                if (event.keyCode < 95) {
-                    if (event.keyCode < 48 || event.keyCode > 57) {
-                        event.preventDefault();
-                    }
+                if (event.shiftKey) {
+                    event.preventDefault();
+                }
+
+                if (event.keyCode == 46 || event.keyCode == 8) {
                 }
                 else {
-                    if (event.keyCode < 96 || event.keyCode > 105) {
-                        event.preventDefault();
+                    if (event.keyCode < 95) {
+                        if (event.keyCode < 48 || event.keyCode > 57) {
+                            event.preventDefault();
+                        }
+                    }
+                    else {
+                        if (event.keyCode < 96 || event.keyCode > 105) {
+                            event.preventDefault();
+                        }
                     }
                 }
-            }
-        });
-
-            var formId = $("#FormID").val();
-            if (formId == 5) {
-
-              var input = $('#input-signature');
-                $('#signature').signature({
-              background: 'blue', color: '#ffffff',
-                change: function (event, ui) {
-                    input.val( $('#signature').signature('toSVG'));
-                }
             });
-
-            $('#clear').click(function () {
-                $('#signature').signature('clear');
-            });
-            }
-
-
-
             $('input[name=contactMethod]').change(function () {
 
                 var contactMethod = $("input[name=contactMethod]:checked").val();
@@ -969,6 +971,93 @@
                 }
             });
 
+            var formId = $("#FormID").val();
+            if (formId == 5) {
+                var subscriberFullName = $("#SubscriberFullName").val();
+                $("#txtPatientName").val(subscriberFullName);
+
+
+                var str = $("#JsonValue").val();
+                if (str != "") {
+                    var form = JSON.parse(str);
+                    if (form != null) {
+
+
+
+                        if (form.Signature != null) {
+                            $('#input-signature').val(form.Signature);
+                        }
+
+                        if (form.PatientName != null) {
+                            $("#txtPatientName").hide();
+                            //$("#txtPatientName").val(form.PatientName);
+                            //$("#txtPatientName").attr('disabled', true);
+                            $("#lblPatientName").html(form.PatientName);
+
+                        }
+
+
+
+
+
+                        if (form.ConsentDate != null) {
+                            $("#txtConsentDate").hide();
+                            $("#lblConsentDate").html(form.ConsentDate);
+
+                        //$("#txtConsentDate").val(form.ConsentDate);
+                        //$("#txtConsentDate").attr('disabled', true);
+
+                    }
+                    $("#chk1").attr('disabled', true);
+                    $("#chk2").attr('disabled', true);
+
+
+                    if (form.Answer1 == "on") {
+                        // Make Checkbox checkec
+                        $("#chk1").attr('checked', true);
+                    }
+                     if (form.Answer2 == "on") {
+                        // Make Checkbox checkec
+                        $("#chk2").attr('checked', true);
+                    }
+
+
+                        $('#signature').html($('#input-signature').val());
+                      $('#signature').css("width", "300px");
+                    $('#signature').css("height", "200px");
+                    $('#btnSave').hide();
+                    $('#btnSavePDF').show();
+
+    //$('#signature').signature('enable').
+    //    signature('draw', $('#input-signature').val()).
+    //    signature('disable');
+
+    //$('#signature').signature({disabled: true});
+
+
+                }
+
+            }
+                 else {
+                        var input = $('#input-signature');
+                $('#signature').signature({
+
+                    change: function (event, ui) {
+                        input.val($('#signature').signature('toSVG'));
+                    }
+                });
+
+                $('#clear').click(function () {
+                    $('#signature').signature('clear');
+                });
+                 }
+            }
+            else {
+
+
+
+
+
 
 
 
@@ -981,6 +1070,9 @@
                 $(".dvPreScreen").show();
                 $(".dvInPerson").show();
             } else if (formId == 3) {
+                $("#txtTemperature").hide();
+                $("#lblTemperature").hide();
+
                 $(".dvInPerson").hide();
                 //$("#preScreen").click();
 
@@ -1011,9 +1103,9 @@
                         }
                     } else {
                         if (IsCovid) {
-                                $('#frmCovid').modal('show');
+                            $('#frmCovid').modal('show');
 
-                            }
+                        }
                     }
 
 
@@ -1071,23 +1163,23 @@
                         $("#txtEmail").attr('disabled', true);
                         $("#txtPhone").attr('disabled', true);
                         $("#txtOther").attr('disabled', true);
-                        $("#txtTemperature").attr('disabled', true);
+                        //$("#txtTemperature").attr('disabled', true);
                     } else if (formId == 1 || formId == 2) {
                         if (form.IsPreScreen || form.InPersonScreen) {
-                        $("#userName").attr('disabled', true);
-                        $("#other").attr('disabled', true);
-                        $("#staffScreener").attr('disabled', true);
-                        $("#userNameWhoAns").attr('disabled', true);
-                        $("#otherWhoAns").attr('disabled', true);
-                        $("#whoAns").attr('disabled', true);
+                            $("#userName").attr('disabled', true);
+                            $("#other").attr('disabled', true);
+                            $("#staffScreener").attr('disabled', true);
+                            $("#userNameWhoAns").attr('disabled', true);
+                            $("#otherWhoAns").attr('disabled', true);
+                            $("#whoAns").attr('disabled', true);
 
-                        $("#phone").attr('disabled', true);
-                        $("#email").attr('disabled', true);
-                        $("#cmOther").attr('disabled', true);
-                        $("#txtEmail").attr('disabled', true);
-                        $("#txtPhone").attr('disabled', true);
-                        $("#txtOther").attr('disabled', true);
-                        $("#txtTemperature").attr('disabled', true);
+                            $("#phone").attr('disabled', true);
+                            $("#email").attr('disabled', true);
+                            $("#cmOther").attr('disabled', true);
+                            $("#txtEmail").attr('disabled', true);
+                            $("#txtPhone").attr('disabled', true);
+                            $("#txtOther").attr('disabled', true);
+                            //$("#txtTemperature").attr('disabled', true);
 
                         }
                     }
@@ -1138,6 +1230,7 @@
 
                     }
                     if (form.InPerson) {
+
                         $('input[name="inperson"]').attr('checked', true);
                         if (form.InPersonScreen != null) {
                             // (formId == 1 || formId == 2) {
@@ -1167,7 +1260,7 @@
                     }
                     if (form.AdditionalInformation != null) {
                         $("#txtAdditionalInformation").val(form.AdditionalInformation);
-                        $("#txtAdditionalInformation").attr('disabled', true);
+                        //$("#txtAdditionalInformation").attr('disabled', true);
 
                     }
 
@@ -1176,15 +1269,15 @@
 
             } else {
 
-                    if (formId == 1 || formId == 2) {
-                        $('input[name="prescreen"]').click();
-                    } else if (formId == 3) {
+                if (formId == 1 || formId == 2) {
+                    $('input[name="prescreen"]').click();
+                } else if (formId == 3) {
 
-                                            $('input[name="prescreen"]').click();
-                    } else if (formId == 4) {
+                    $('input[name="prescreen"]').click();
+                } else if (formId == 4) {
 
-                                              $('input[name="inperson"]').click();
-                                    }
+                    $('input[name="inperson"]').click();
+                }
 
 
                 if (formId == 1 || formId == 2) {
@@ -1192,39 +1285,35 @@
                     $("#inPerson").attr('disabled', true);
                 }
 
-            if ($('.dvPreScreen').is(':visible')) {
+                if ($('.dvPreScreen').is(':visible')) {
                 @if(Model.IsPreScreen)
                 {
                     <text>
-                        $("#preScreen").click();
+                    $("#preScreen").click();
                     </text>
                 }
-             }
+                }
             }
  @if(!string.IsNullOrEmpty(Model.ContactMethod))
             {
                 <text>
-                    var contactMethod = '@Model.ContactMethod.ToLower()';
-                    if (contactMethod == "phone") {
-                        $("#phone").click();
-                        $("#txtPhone").show();
-                    } else if (contactMethod == "email") {
-                        $("#email").click();
-                        $("#txtEmail").show();
-                    } else if (contactMethod == "other") {
-                        $("#cmOther").click();
-                        $("#txtOther").show();
-                    }
+            var contactMethod = '@Model.ContactMethod.ToLower()';
+            if (contactMethod == "phone") {
+                $("#phone").click();
+                $("#txtPhone").show();
+            } else if (contactMethod == "email") {
+                $("#email").click();
+                $("#txtEmail").show();
+            } else if (contactMethod == "other") {
+                $("#cmOther").click();
+                $("#txtOther").show();
+            }
                 </text>
             }
+        }
         });
     </script>
 }
 
 
-<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js" rel="stylesheet" />
-@*<script src="~/assets/global/plugins/jquery.min.js"></script>
-    <script type="text/javascript" src="/Resources/theme/js/vendor/jquery/jquery-ui.min.js"></script>
-    <script src="~/Resources/theme/js/vendor/jquery/jquery-ui.min.js"></script>*@
+

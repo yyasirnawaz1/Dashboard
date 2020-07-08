@@ -216,11 +216,12 @@ var Subscription = function () {
             //} else {
             //    Salutation = $("#ddlSalutation").val();
             //}
-            if ($("#email").val() == "") {
-                ltcApp.warningMessage(null, "Please provide email");
-                return;
-            } else {
+
+            if (ltcApp.validateEmail($("#email").val())) {
                 email = $("#email").val();
+            } else {
+                ltcApp.warningMessage(null, "Invalid email address.");
+                return;
             }
 
 
@@ -262,6 +263,7 @@ var Subscription = function () {
                    
                     $('#subscriberModel').modal('hide');
                     $("#btnSaveSub").attr("disabled", false);
+                    window.location.href = "../Subscribers/Index";
 
                 }
             })

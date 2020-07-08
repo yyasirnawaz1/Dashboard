@@ -65,7 +65,7 @@ namespace LTC_Covid.Controllers
             _protector = provider.CreateProtector(dataProtectionPurposeStrings.SubAndQueueID);
         }
 
-
+         
         public ActionResult CovidForm(string subscriberId, string formId, bool IsNew, string queueId)
         {
             gFormCovidEntryViewModel form = new gFormCovidEntryViewModel();
@@ -115,6 +115,15 @@ namespace LTC_Covid.Controllers
         {
             var Id = Convert.ToInt32(_protector.Unprotect(queueId));
             var form = gCovidManager.GetCovidFormByQueueId(Id);
+            if (form.FormID == 5)
+            {
+                var subDetails = gCovidManager.GetSubscriberById(form.SubscriberID);
+                form.FirstName = subDetails.FirstName;
+                form.LastName = subDetails.LastName;
+                form.LoggedInUser = UserName;
+                return View("covidform", form);
+
+            }
             return View(form);
         }
 
@@ -181,7 +190,7 @@ namespace LTC_Covid.Controllers
 
                         htmlPage = htmlPage.Replace("&Subscriber&", subscriber.FirstName + " " + subscriber.LastName).Replace("&Link&", url);
 
-                        var id = EmailManager.Send("Covid-Form",
+                        var id = EmailManager.Send("Your COVID-19 Screening Answers",
                           msgTo,
                           htmlPage,
                           new EmailManager.ElasticEmail
@@ -216,14 +225,13 @@ namespace LTC_Covid.Controllers
 
 
         }
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult SavePdf([FromBody]gformInPdfInputModel model)
         {
             try
             {
                 gformInPdf form = new gformInPdf();
-
                 string webRootPath = _webHostEnvironment.WebRootPath;
                 var htmlFile = webRootPath + "/Html/form.html";
                 form.PDF = Utility.GenerateFormPdf(model.PDF, htmlFile);
@@ -308,15 +316,15 @@ namespace LTC_Covid.Controllers
 
             #region Filtering
             // search Filters
-            if (!string.IsNullOrEmpty(requestModel.Search?.Value))
-            {
-                var value = requestModel.Search.Value.Trim();
-                query = query.Where(s => s.InPersonScreenDate.ToString().Contains(value) ||
-                                         s.FirstName.Contains(value) ||
-                                         s.LastName.Contains(value) ||
-                                         s.PreScreenDate.ToString().Contains(value) ||
-                                         s.Covid_Form_Description.Contains(value));
-            }
+            //if (!string.IsNullOrEmpty(requestModel.Search?.Value))
+            //{
+            //    var value = requestModel.Search.Value.Trim();
+            //    query = query.Where(s => s.InPersonScreenDate.ToString().Contains(value) ||
+            //                             s.FirstName.Contains(value) ||
+            //                             s.LastName.Contains(value) ||
+            //                             s.PreScreenDate.ToString().Contains(value) ||
+            //                             s.Covid_Form_Description.Contains(value));
+            //}
 
 
 

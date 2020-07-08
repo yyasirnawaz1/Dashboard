@@ -79,7 +79,7 @@ var HomeView = function () {
                 form.WhoAnsType = "UserNameWhoAnswer";
             } else {
                 if ($("#whoAns").val() == "") {
-                    ltcApp.warningMessage(null, "Please let us know,who filled the form");
+                    ltcApp.warningMessage(null, "Please let us know who filled the form");
                     return;
                 } else {
                     form.WhoAnswer = $("#staffScreener").val();
@@ -208,7 +208,7 @@ var HomeView = function () {
 
         },
         CheckAllPrescreen: function () {
-          
+
             if ($("input[name=PreScreenAnswer1]:checked").val() == null) {
                 $('#Answer1').css("border-style", "solid");
                 $('#Answer1').css("border-color", "#f44336");
@@ -418,7 +418,143 @@ var HomeView = function () {
 
 
         },
+        saveConsentForm: function () {
 
+            var form = new Object();
+
+
+            form.FormID = $("#FormID").val()
+
+            var chk1 = $("input[name=chk1]:checked").val();
+            var chk2 = $("input[name=chk2]:checked").val();
+            if (chk1 == null) {
+                $('#chkoption1').css("border-style", "solid");
+                $('#chkoption1').css("border-color", "#f44336");
+
+                if (chk2 == null) {
+                    $('#chkoption2').css("border-style", "solid");
+                    $('#chkoption2').css("border-color", "#f44336");
+                } else {
+                    $('#chkoption2').css("border-style", "none");
+                }
+                return;
+            } else {
+                if (chk2 == null) {
+                    $('#chkoption2').css("border-style", "solid");
+                    $('#chkoption2').css("border-color", "#f44336");
+                } else {
+                    $('#chkoption2').css("border-style", "none");
+                }
+
+                $('#chkoption1').css("border-style", "none");
+
+            }
+
+
+
+            if (chk1 == null) {
+                $('#chkoption1').css("border-style", "solid");
+                $('#chkoption1').css("border-color", "#f44336");
+
+                ltcApp.warningMessage(null, "Please select option");
+                return;
+            } else {
+                form.Answer1 = chk1;
+                $('#chkoption1').css("border-style", "none");
+
+            }
+            
+            if (chk2 == null) {
+                $('#chkoption2').css("border-style", "solid");
+                $('#chkoption2').css("border-color", "#f44336");
+                ltcApp.warningMessage(null, "Please select option ");
+                return;
+            } else {
+                form.Answer2 = chk2;
+                $('#chkoption2').css("border-style", "none");
+            }
+
+
+
+            if ($("#input-signature").val() == "") {
+                ltcApp.warningMessage(null, "Please sign");
+                return;
+            } else {
+                form.Signature = $("#input-signature").val();
+            }
+
+
+
+            if ($("#txtPatientName").val() == "") {
+                ltcApp.warningMessage(null, "Please enter patient name");
+                return;
+            } else {
+                form.PatientName = $("#txtPatientName").val();
+            }
+            if ($("#txtConsentDate").val() == "") {
+                ltcApp.warningMessage(null, "Please enter date");
+                return;
+            } else {
+                form.ConsentDate = $("#txtConsentDate").val();
+            }
+
+
+
+
+
+            //convert object to json string
+            var string = JSON.stringify(form);
+            Layout.showLoader();
+            //convert string to Json Object
+
+            //   if (template != null && article != null) {
+            var subscriberID = $("#IdValue").val();
+            var queueId = $("#QueueID").val();
+
+            var data = {
+                SubscriberID: subscriberID,
+                QueueID: queueId,
+                StorageInJson: string,
+                IsPreScreen: false,
+                IsInPersonScreen: false,
+                FormID: form.FormID,
+                InPersonScreenDate: null,
+                PreScreenDate: null,
+                IsCOVIDPossible: false,
+            };
+            $("#btnSaveConsent").attr("disabled", true);
+
+
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                url: '/Home/Upsert',
+                success: function (data) {
+                    $("#QueueID").val(data.QueueId)
+                    ltcApp.successMessage("Success", 'Form has been saved');
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    ltcApp.errorMessage("Error", 'Error saving the form');
+                    $("#btnSaveConsent").attr("disabled", false);
+                    Layout.hideLoader();
+
+                },
+                complete: function () {
+                    $("#btnSaveConsent").attr("disabled", false);
+
+                    Layout.hideLoader();
+
+                    setTimeout(function () { window.location.href = "../Home/ViewForms"; }, 3000);
+
+                }
+            })
+
+
+
+        },
         saveForm: function () {
 
             var form = new Object();
@@ -468,7 +604,7 @@ var HomeView = function () {
                 form.WhoAnsType = "UserNameWhoAnswer";
             } else {
                 if ($("#whoAns").val() == "") {
-                    ltcApp.warningMessage(null, "Please let us know,who filled the form");
+                    ltcApp.warningMessage(null, "Please let us know who filled the form");
                     return;
                 } else {
                     form.WhoAnswer = $("#whoAns").val();
@@ -755,8 +891,8 @@ var HomeView = function () {
                     if (IscovidPossible == true) {
                         $('#frmCovid').modal('show');
                     }
+                    setTimeout(function () { window.location.href = "../Home/ViewForms"; }, 3000);
 
-                    //window.location.href = "../Home/ViewForms";
                 }
             })
 
@@ -797,12 +933,16 @@ var HomeView = function () {
             //} else {
             //    Salutation = $("#ddlSalutation").val();
             //}
-            if ($("#email").val() == "") {
-                ltcApp.warningMessage(null, "Please provide email");
-                return;
-            } else {
+
+            if (ltcApp.validateEmail($("#email").val())) {
                 email = $("#email").val();
+            } else {
+                ltcApp.warningMessage(null, "Invalid email address.");
+                return;
             }
+
+
+
 
 
             //   if (template != null && article != null) {
@@ -931,7 +1071,7 @@ var HomeView = function () {
             window.location.href = "../Home/ViewForms";
 
         },
-        OpenFormViewList: function (queueId) {
+        OpenFormViewList: function (queueId, formId) {
 
             window.location.href = "../Home/CovidFormView?queueId=" + queueId;
 
