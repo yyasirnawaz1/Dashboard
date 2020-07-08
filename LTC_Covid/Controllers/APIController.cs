@@ -504,6 +504,77 @@ namespace LTC_Covid.Controllers
             });
         }
 
+        [AllowAnonymous]
+        [Route("/ViewPDF")]
+        [HttpGet]
+        public IActionResult ViewPDF(string api = "", string formCustomId = "", string CustomId = "", int? counter = null, int? fa = null)
+        {
+            string error = "";
+            try
+            {
+                if (!string.IsNullOrEmpty(formCustomId))
+                {
+                    var pdf = gCovidManager.GetPdfByFormCustomId(formCustomId);
+                    if (pdf != null)
+                    {
+                        var content = new System.IO.MemoryStream(pdf);
+                        var contentType = "application/pdf";
+                        
+                        System.Net.Mime.ContentDisposition contentDisposition = new System.Net.Mime.ContentDisposition
+                        {
+                            FileName = formCustomId+".pdf",
+                            Inline = true
+                        };
+                        Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+                        return File(content, contentType);
+                    }
+                    else
+                    {
+                        error = "PDF doesn't exist";
+                    }
+                }
+                else if (!string.IsNullOrEmpty(CustomId) && counter.HasValue && fa.HasValue)
+                {
+                    var pdf = gCovidManager.GetPDFByCounterAndFormActionAndSubscriberCustomId(CustomId, counter.Value, fa.Value);
+                    if (pdf != null)
+                    {
+                        var content = new System.IO.MemoryStream(pdf);
+                        var contentType = "application/pdf";
+
+                        System.Net.Mime.ContentDisposition contentDisposition = new System.Net.Mime.ContentDisposition
+                        {
+                            FileName = formCustomId + ".pdf",
+                            Inline = true
+                        };
+                        Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+                        return File(content, contentType);
+                    }
+                    else
+                    {
+                        error = "PDF doesn't exist";
+                    }
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        Data = true,
+                        Message = "Missing Parameters",
+                    });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message.ToString();
+            }
+            return Json(new
+            {
+                Data = false,
+                Operation = error
+            });
+        }
+
 
 
     }
