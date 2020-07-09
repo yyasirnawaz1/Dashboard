@@ -89,8 +89,8 @@ var HomeView = function () {
 
             }
 
-
-
+           
+            
             if ($("#txtTemperature").val() == "") {
                 ltcApp.warningMessage(null, "Please provide temperature");
                 return;
@@ -191,7 +191,7 @@ var HomeView = function () {
                 url: '/Home/Upsert',
                 success: function (data) {
                     $("#QueueID").val(data.QueueId)
-                    ltcApp.successMessage("Success", 'Form has been saved');
+                    
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error saving the form');
@@ -200,7 +200,10 @@ var HomeView = function () {
                 },
                 complete: function () {
                     $("#btnSave").attr("disabled", false);
-
+                    var IsLinkEnabled = $("#IsLinkEnabled").val()
+                    if (IsLinkEnabled) {
+                        ltcApp.successMessage("Success", 'Form has been saved');
+                    }
                 }
             })
 
@@ -426,25 +429,15 @@ var HomeView = function () {
             form.FormID = $("#FormID").val()
 
             var chk1 = $("input[name=chk1]:checked").val();
-            var chk2 = $("input[name=chk2]:checked").val();
+            
             if (chk1 == null) {
                 $('#chkoption1').css("border-style", "solid");
                 $('#chkoption1').css("border-color", "#f44336");
 
-                if (chk2 == null) {
-                    $('#chkoption2').css("border-style", "solid");
-                    $('#chkoption2').css("border-color", "#f44336");
-                } else {
-                    $('#chkoption2').css("border-style", "none");
-                }
+               
                 return;
             } else {
-                if (chk2 == null) {
-                    $('#chkoption2').css("border-style", "solid");
-                    $('#chkoption2').css("border-color", "#f44336");
-                } else {
-                    $('#chkoption2').css("border-style", "none");
-                }
+                 
 
                 $('#chkoption1').css("border-style", "none");
 
@@ -464,15 +457,7 @@ var HomeView = function () {
 
             }
             
-            if (chk2 == null) {
-                $('#chkoption2').css("border-style", "solid");
-                $('#chkoption2').css("border-color", "#f44336");
-                ltcApp.warningMessage(null, "Please select option ");
-                return;
-            } else {
-                form.Answer2 = chk2;
-                $('#chkoption2').css("border-style", "none");
-            }
+             
 
 
 
@@ -534,7 +519,23 @@ var HomeView = function () {
                 success: function (data) {
                     $("#QueueID").val(data.QueueId)
                     ltcApp.successMessage("Success", 'Form has been saved');
+                  
 
+                    $("#btnSaveConsent").hide();
+                    $('#signature').html($('#input-signature').val());
+                    $('#signature').css("width", "300px");
+                    $('#signature').css("height", "200px");
+
+                    $("input[type='date'], input[type='number'], input[type='tel'], input[type='text'], input[type='email']").each(function () {
+                        $(this).attr("value", ($(this).val()));
+                    });
+                    $("input[type='checkbox']").each(function () {
+                        if (this.checked) {
+                            $(this).attr("checked", true);
+                        }
+                    });
+                    
+                    HomeView.saveFormPdf();
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error saving the form');
@@ -873,7 +874,23 @@ var HomeView = function () {
                 url: '/Home/Upsert',
                 success: function (data) {
                     $("#QueueID").val(data.QueueId)
-                    ltcApp.successMessage("Success", 'Form has been saved');
+                   
+                    
+                    $("#btnSave").hide();
+                    $("#lblAdditionalInformation").show();
+                    $("#txtAdditionalInformation").hide();
+                    $("#lblAdditionalInformation").html($("#txtAdditionalInformation").val());
+
+                    $("input[type='number'], input[type='tel'], input[type='text'], input[type='email']").each(function () {
+                        $(this).attr("value", ($(this).val()));
+                    });  
+                    $("input[type='radio']").each(function () {
+                        if (this.checked) {
+                            $(this).attr("checked", true);
+                        }
+                    }); 
+
+                    HomeView.saveFormPdf();
                     if (form.IsPreScreen == true && form.IsInPersonScreen == false) {
                         $("#inPerson").attr('disabled', false);
                     }
@@ -888,10 +905,26 @@ var HomeView = function () {
                     $("#btnSave").attr("disabled", false);
                     //$("#inPerson").attr("disabled", true);
                     Layout.hideLoader();
-                    if (IscovidPossible == true) {
-                        $('#frmCovid').modal('show');
+                    var IsLinkEnabled = $("#IsLinkEnabled").val()
+                    if (IsLinkEnabled) {
+                        if (IscovidPossible == true) {
+                            $('#frmCovid').modal('show');
+                            
+                          
+
+                        } else {
+                            ltcApp.successMessage("Success", 'Form has been saved');
+                        }
+                    } else {
+                        if (IscovidPossible == true) {
+                            setTimeout(function () { $('#frmCovid').modal('show'); }, 2000);
+
+                        } else {
+                            ltcApp.successMessage("Success", 'Form has been saved');
+                            setTimeout(function () { window.location.href = "../Home/ViewForms"; }, 3000);
+                        }
                     }
-                    setTimeout(function () { window.location.href = "../Home/ViewForms"; }, 3000);
+                    
 
                 }
             })
@@ -1128,23 +1161,31 @@ var HomeView = function () {
 
 
 $("input[name=prescreen]").change(function () {
+    $("#txtTemperature").hide();
+    $("#lblTemperature").hide();
+
     $(".PreScreen").attr('disabled', false);
     //$("#inPerson").attr('disabled', false);
     var d = new Date();
-    $("#PreScreenDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
-    $("#hdnPreScreenDate").val((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    $("#PreScreenDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + format_two_digits(d.getHours()) + ":" + format_two_digits(d.getMinutes()) + ":" + format_two_digits(d.getSeconds()));
+    $("#hdnPreScreenDate").val((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + format_two_digits(d.getHours()) + ":" + format_two_digits(d.getMinutes()) + ":" + format_two_digits(d.getSeconds()));
 
 
 })
 $("input[name=inperson]").change(function () {
+    $("#txtTemperature").show();
+    $("#lblTemperature").show();
+
     $(".InPerson").attr('disabled', false);
     var d = new Date();
-    $("#InPersonDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
-    $("#hdnInPersonDate").val((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+    $("#InPersonDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + format_two_digits(d.getHours()) + ":" + format_two_digits(d.getMinutes()) + ":" + format_two_digits(d.getSeconds()));
+    $("#hdnInPersonDate").val((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + format_two_digits(d.getHours()) + ":" + format_two_digits(d.getMinutes()) + ":" + format_two_digits(d.getSeconds()));
 
 })
 
-
+function format_two_digits(n) {
+    return n < 10 ? '0' + n : n;
+}
 HomeView.init();
 
 $(document).ready(function () {

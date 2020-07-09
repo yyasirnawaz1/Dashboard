@@ -26,17 +26,24 @@
     #txtTemperature {
         width: 25%;
     }
+
     canvas {
-     
-  width: 100%;
-  height: auto;
+        width: 100%;
+        height: auto;
     }
+
+    @@media all and (max-width:1120px) {
+        .dvInPerson, .dvPreScreen {
+            text-align: left !important;
+        }
+    }
+
     @@media all and (max-width:600px) {
         canvas, svg {
-          
             width: 100%;
             height: auto;
         }
+
         #signature {
             width: 300px !important;
             height: 150px !important;
@@ -46,6 +53,7 @@
             width: 300px !important;
             height: 150px !important;
         }
+
         .card-title {
             font-size: 15px;
         }
@@ -57,12 +65,10 @@
         .smallFont {
             font-size: 13px !important;
         }
-
         /*.kbw-signature {
             width: 400px;
             height: 200px;
         }*/
-
         .form-check-label {
             font-size: 15px;
         }
@@ -121,7 +127,7 @@
                         <label class="col-form-label">Welcome Back. Thank you for your confidence in us.</label>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label">Dentists have dealt with previous pandemics and disease outbreaks very successfully. This time around, we are better prepared than ever before. *Despiteour best efforts, there is always a very small riskof exposure to the virus, as there are in other public spaces such as in grocery stores or gyms.</label>
+                        <label class="col-form-label">Dentists have dealt with previous pandemics and disease outbreaks very successfully. This time around, we are better prepared than ever before. *Despite our best efforts, there is always a very small riskof exposure to the virus, as there are in other public spaces such as in grocery stores or gyms.</label>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label" style="font-weight: bold;">The Ontario Dental Association has recommended that the COVID-19 Risk Acknowledgementbe obtained from patients seeking treatment.</label>
@@ -136,18 +142,7 @@
                                     </label>
                                 </div>
                             </li>
-                            <li>
-
-                                <div class="form-check form-check-inline" id="chkoption2">
-                                    <label class="form-check-label smallFont" style="margin:10px">
-                                        <input type="checkbox" name="chk2" id="chk2" class="form-check-input">
-                                        I wish to reschedule treatment.
-                                    </label>
-                                </div>
-
-
-                            </li>
-
+                         
                         </ul>
 
                     </div>
@@ -313,21 +308,21 @@
             <div class="card-body">
                 <fieldset class="mb-3">
                     <div class="form-group row" style="margin-bottom: 0px;">
-                        <div class="col-lg-3 dvPreScreen">
+                        <div class="col-lg-3 dvPreScreen" style="text-align:left">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
                                     <input type="radio" name="prescreen" id="preScreen" class="form-check-input">
                                     Pre-Screen
-                                </label>[  <label class="form-check-label" id="PreScreenDate">-</label>]
+                                </label>&nbsp;[&nbsp;<label class="form-check-label" id="PreScreenDate">-</label>&nbsp;]
                             </div>
 
                         </div>
-                        <div class="col-lg-3 dvInPerson">
+                        <div class="col-lg-3 dvInPerson" style="text-align:left">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
                                     <input type="radio" id="inPerson" name="inperson" class="form-check-input">
                                     In-Office
-                                </label>[<label class="form-check-label" id="InPersonDate">-</label>]
+                                </label>&nbsp;[&nbsp;<label class="form-check-label" id="InPersonDate">-</label>&nbsp;]
                             </div>
 
                         </div>
@@ -778,8 +773,7 @@
                                                     {
                                                 <li value="9">
 
-                                                    Are you experiencing any of the following symptoms: delirium, unexplained or increased number of falls, <br />
-                                                    acute functional decline, or worsening of chronic conditions?
+                                                    Are you experiencing any of the following symptoms: delirium, unexplained or increased number of falls, acute functional decline, or worsening of chronic conditions?
 
 
                                                 </li>
@@ -845,6 +839,8 @@
 
                         <div class="col-lg-12">
                             <textarea class="form-control" id="txtAdditionalInformation" rows="3"></textarea>
+                            <label class="form-check-label" id="lblAdditionalInformation" style="display:none">
+                            </label>
                         </div>
                     </div>
 
@@ -894,7 +890,7 @@
         <div class="modal-content">
             <div class="modal-header btn-primary" style="padding-bottom: 10px">
 
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <button type="button" class="close" onclick="HomeView.Cancel();" data-dismiss="modal" aria-hidden="true"></button>
             </div>
 
             <div class="modal-body">
@@ -911,7 +907,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
+                <button type="button" data-dismiss="modal" id="btnAuthCancel" onclick="HomeView.Cancel();" class="btn btn-danger">Close</button>
+                <button type="button" data-dismiss="modal" id="btnNonAuthCancel" class="btn btn-danger">Close</button>
             </div>
 
         </div>
@@ -925,6 +922,18 @@
     <script>
 
         $(document).ready(function () {
+          
+            var IsLinkEnabled = $("#IsLinkEnabled").val();
+            if (IsLinkEnabled) {
+                    $('#btnAuthCancel').hide();
+                    $('#btnNonAuthCancel').show();
+                    $('#btnCancel').hide();
+
+            } else {
+                  $('#btnAuthCancel').show();
+              $('#btnNonAuthCancel').hide();
+
+            }
 
 
 
@@ -1030,17 +1039,14 @@
 
                     }
                     $("#chk1").attr('disabled', true);
-                    $("#chk2").attr('disabled', true);
+                 
 
 
                     if (form.Answer1 == "on") {
                         // Make Checkbox checkec
                         $("#chk1").attr('checked', true);
                     }
-                     if (form.Answer2 == "on") {
-                        // Make Checkbox checkec
-                        $("#chk2").attr('checked', true);
-                    }
+                    
 
 
                         $('#signature').html($('#input-signature').val());
@@ -1072,7 +1078,7 @@
                     $('#signature').signature('clear');
                 });
 
-                            
+
                  }
             }
             else {
@@ -1188,6 +1194,11 @@
                         $("#txtOther").attr('disabled', true);
                         //$("#txtTemperature").attr('disabled', true);
                     } else if (formId == 1 || formId == 2) {
+                        if (form.IsPreScreen) {
+                $("#txtTemperature").hide();
+                $("#lblTemperature").hide();
+
+                        }
                         if (form.IsPreScreen || form.InPersonScreen) {
                             $("#userName").attr('disabled', true);
                             $("#other").attr('disabled', true);
@@ -1340,4 +1351,3 @@
 
 
 
- 
