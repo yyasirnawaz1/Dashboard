@@ -127,6 +127,12 @@ namespace LTC_Covid.Controllers
             return View(form);
         }
 
+        public ActionResult FormSaved()
+        {
+            ViewBag.FromLink= true;
+            return View();
+        }
+
         //public ActionResult CovidFormOntarioView(int subscriberId)
         //{
         //    var form = gCovidManager.GetFormInfo(subscriberId, 2);

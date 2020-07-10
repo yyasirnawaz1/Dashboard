@@ -190,7 +190,7 @@ namespace LTCDataManager.Covid
                     found.PreScreenDate = model.PreScreenDate;
                     found.SubscriberID = model.SubscriberID;
                     found.StorageInJson = model.StorageInJson;
-
+                    found.ReplyDate = DateTime.Now;
                     if (model.BusinessInfo_ID != 0)
                         found.BusinessInfo_ID = model.BusinessInfo_ID;
 
@@ -219,6 +219,7 @@ namespace LTCDataManager.Covid
                     design.BusinessInfo_ID = model.BusinessInfo_ID;
                     design.FormID = model.FormID;
                     design.CustomID = model.CustomID;
+                    design.ReplyDate = DateTime.Now;
                     design.IsCOVIDPossible = model.IsCOVIDPossible;
                     design.Counter = model.Counter;
                     if (model.FormAction > 0)

@@ -27,7 +27,7 @@
         width: 25%;
     }
 
-    canvas , svg{
+    canvas, svg {
         width: 100%;
         height: auto;
     }
@@ -142,7 +142,7 @@
                                     </label>
                                 </div>
                             </li>
-                         
+
                         </ul>
 
                     </div>
@@ -861,8 +861,11 @@
                     }
 
 
-                @if(!ViewBag.FromLink) {
+                @if(ViewBag.FromLink != null)
+                {
+                if(!ViewBag.FromLink) {
                 <button type="button" id="btnCancel" style="float: right;" onclick="HomeView.Cancel();" class="btn btn-danger">Back</button>
+                }
                 }
             </div>
         </div>
@@ -923,7 +926,7 @@
     <script>
 
         $(document).ready(function () {
-          
+
             var IsLinkEnabled = $("#IsLinkEnabled").val();
             if (IsLinkEnabled) {
                     $('#btnAuthCancel').hide();
@@ -1040,21 +1043,21 @@
 
                     }
                     $("#chk1").attr('disabled', true);
-                 
+
 
 
                     if (form.Answer1 == "on") {
                         // Make Checkbox checkec
                         $("#chk1").attr('checked', true);
                     }
-                    
+
 
 
                         $('#signature').html($('#input-signature').val());
                       $('#signature').css("width", "300px");
                     $('#signature').css("height", "200px");
                     $('#btnSave').hide();
-                    
+
 
     //$('#signature').signature('enable').
     //    signature('draw', $('#input-signature').val()).
