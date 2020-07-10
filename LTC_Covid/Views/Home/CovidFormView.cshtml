@@ -585,7 +585,9 @@
 
         </div>
         <div class="card-footer">
+            @if(!ViewBag.FromLink) {
             <button type="button" id="btnCancel" style="float: right;" onclick="HomeView.Cancel();" class="btn btn-danger">Back</button>
+                }
         </div>
     </div>
     <!-- /form inputs -->
