@@ -8,7 +8,7 @@
     }
 
 
-     canvas {
+     canvas , svg{
      
   width: 100%;
   height: auto;
@@ -22,9 +22,19 @@
             padding: 6px 5.25px;
         }
 
-        canvas {
+        canvas, svg {
             width: 100%;
             height: auto;
+        }
+
+        #signature {
+            width: 300px !important;
+            height: 150px !important;
+        }
+
+        .kbw-signature {
+            width: 300px !important;
+            height: 150px !important;
         }
 
         #signature {
@@ -575,7 +585,6 @@
 
         </div>
         <div class="card-footer">
-            <button type="button" id="btnSavePDF" style="float: right;margin-left:15px" onclick="HomeView.saveFormPdf();" class="btn btn-dark">Save PDF</button>
             <button type="button" id="btnCancel" style="float: right;" onclick="HomeView.Cancel();" class="btn btn-danger">Cancel</button>
         </div>
     </div>

@@ -368,7 +368,7 @@ var HomeView = function () {
                 dataType: 'json',
                 url: '/Home/SavePdf',
                 success: function (data) {
-                    ltcApp.successMessage("Success", 'Form has been saved');
+                    //ltcApp.successMessage("Success", 'Form has been saved');
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error saving the form');
@@ -507,7 +507,7 @@ var HomeView = function () {
                 PreScreenDate: null,
                 IsCOVIDPossible: false,
             };
-            $("#btnSaveConsent").attr("disabled", true);
+            $("#btnSave").attr("disabled", true);
 
 
             $.ajax({
@@ -518,10 +518,10 @@ var HomeView = function () {
                 url: '/Home/Upsert',
                 success: function (data) {
                     $("#QueueID").val(data.QueueId)
-                    ltcApp.successMessage("Success", 'Form has been saved');
+                    
                   
 
-                    $("#btnSaveConsent").hide();
+                    $("#btnSave").hide();
                     $('#signature').html($('#input-signature').val());
                     $('#signature').css("width", "300px");
                     $('#signature').css("height", "200px");
@@ -539,16 +539,26 @@ var HomeView = function () {
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error saving the form');
-                    $("#btnSaveConsent").attr("disabled", false);
+                    $("#btnSave").attr("disabled", false);
                     Layout.hideLoader();
 
                 },
                 complete: function () {
-                    $("#btnSaveConsent").attr("disabled", false);
+                    $("#btnSave").attr("disabled", false);
 
                     Layout.hideLoader();
 
-                    setTimeout(function () { window.location.href = "../Home/ViewForms"; }, 3000);
+                    var IsLinkEnabled = $("#IsLinkEnabled").val()
+                    if (IsLinkEnabled) {
+                         
+                            ltcApp.successMessage("Success", 'Form has been saved');
+                        
+                    } else {
+                         
+                            ltcApp.successMessage("Success", 'Form has been saved');
+                            setTimeout(function () { window.location.href = "../Home/ViewForms"; }, 3000);
+                        
+                    }
 
                 }
             })

@@ -238,8 +238,8 @@ namespace LTCDataManager.Covid
                 gformInPdf found = db.Fetch<gformInPdf>($"select ID, QueueID, FromTable from form_in_pdf where QueueID={fid}").FirstOrDefault();
                 if (found != null)
                 {
-                    found.PDF = model.PDF;
-                    db.Update(found, fid);
+                    db.Delete("form_in_pdf", "ID", new gformInPdf { ID = found.ID });
+                    var QueueID = db.Insert(model);
                     return fid;
                 }
                 else
