@@ -88,7 +88,7 @@
         public string Covid_Form_Description { get; set; }
 
         public string Salutation { get; set; }
-
+        public DateTime? ReplyDate { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
