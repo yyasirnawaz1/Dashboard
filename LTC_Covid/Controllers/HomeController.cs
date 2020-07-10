@@ -65,7 +65,7 @@ namespace LTC_Covid.Controllers
             _protector = provider.CreateProtector(dataProtectionPurposeStrings.SubAndQueueID);
         }
 
-         
+
         public ActionResult CovidForm(string subscriberId, string formId, bool IsNew, string queueId)
         {
             gFormCovidEntryViewModel form = new gFormCovidEntryViewModel();
@@ -129,7 +129,7 @@ namespace LTC_Covid.Controllers
 
         public ActionResult FormSaved()
         {
-            ViewBag.FromLink= true;
+            ViewBag.FromLink = true;
             return View();
         }
 
@@ -260,7 +260,7 @@ namespace LTC_Covid.Controllers
 
 
         }
-        
+
         /// <summary>
         /// by yasir: keep this anonymous, i need to use this for public api save calls. 
         /// </summary>
@@ -433,12 +433,49 @@ namespace LTC_Covid.Controllers
                             });
                             existingFormData.QueueID = id;
                         }
-                        else if (existingFormData.IsInPersonScreen || existingFormData.IsPreScreen)
+                        else if (existingFormData.IsInPersonScreen || existingFormData.IsPreScreen || existingFormData.ReplyDate != null)
                         {
-                            if (existingFormData.StorageInJson != null)
-                                existingFormData.StorageInJsonView = Encoding.UTF8.GetString(existingFormData.StorageInJson, 0, existingFormData.StorageInJson.Length);
+                            if (!string.IsNullOrEmpty(_configuration.IsDisplayNoPendingMessage))
+                            {
+                                if (bool.Parse(_configuration.IsDisplayNoPendingMessage))
+                                {
+                                    error = "No Pending Online Form";
+                                    ViewData["Error Message"] = error;
+                                    return View("Error");
+                                }
+                                else
+                                {
+                                    if (existingFormData.StorageInJson != null)
+                                        existingFormData.StorageInJsonView = Encoding.UTF8.GetString(existingFormData.StorageInJson, 0, existingFormData.StorageInJson.Length);
+                                    if (existingFormData.FormID == 5)
+                                    {
+                                        //var subDetails = gCovidManager.GetSubscriberById(existingFormData.SubscriberID);
+                                        existingFormData.FirstName = subDetails.FirstName;
+                                        existingFormData.LastName = subDetails.LastName;
+                                        existingFormData.LoggedInUser = UserName;
+                                        return View("covidform", existingFormData);
 
-                            return View("CovidFormView", existingFormData);
+                                    }else
+                                    return View("CovidFormView", existingFormData);
+                                }
+                            }
+                            else
+                            {
+                                if (existingFormData.StorageInJson != null)
+                                    existingFormData.StorageInJsonView = Encoding.UTF8.GetString(existingFormData.StorageInJson, 0, existingFormData.StorageInJson.Length);
+                                if (existingFormData.FormID == 5)
+                                {
+                                    //var subDetails = gCovidManager.GetSubscriberById(existingFormData.SubscriberID);
+                                    existingFormData.FirstName = subDetails.FirstName;
+                                    existingFormData.LastName = subDetails.LastName;
+                                    existingFormData.LoggedInUser = UserName;
+                                    return View("covidform", existingFormData);
+
+                                }
+                                else
+                                    return View("CovidFormView", existingFormData);
+                            }
+
                         }
                         else
                         {
