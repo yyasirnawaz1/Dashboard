@@ -169,7 +169,7 @@ namespace LTC_Covid.Controllers
         [AllowAnonymous]
         [Route("/createsubscriber")]
         [HttpGet]
-        public IActionResult CreateSubscriber(string api = "", int office = 0, string email = "", string lastname = "", string firstname = "", string salutation = "", int pno = 0, string cell = "")
+        public IActionResult CreateSubscriber(string api = "", int office = 0, string email = "", string lastname = "", string firstname = "", string salutation = "", int pno = 0, string cell = "", bool AddIfNotFound = true)
         {
             string error = "";
             try
@@ -238,7 +238,19 @@ namespace LTC_Covid.Controllers
                     CellPhone = cell
                 };
 
-                var newid = gCovidManager.SaveSubscriber(newSubscriberDetail);
+                var newid = 0;
+                if ((!AddIfNotFound && id != 0) || AddIfNotFound)
+                {
+                    newid = gCovidManager.SaveSubscriber(newSubscriberDetail);
+                    if (!AddIfNotFound && id != 0)
+                    {
+                        return Json(new { Data = true, Operation = "Updated", CustomID = customId });
+                    }
+                }
+                else
+                {
+                    return Json(new { Data = true, Operation = "Not Found", CustomID = "" });
+                }
 
                 if (newid != id)
                 {
@@ -519,10 +531,10 @@ namespace LTC_Covid.Controllers
                     {
                         var content = new System.IO.MemoryStream(pdf);
                         var contentType = "application/pdf";
-                        
+
                         System.Net.Mime.ContentDisposition contentDisposition = new System.Net.Mime.ContentDisposition
                         {
-                            FileName = formCustomId+".pdf",
+                            FileName = formCustomId + ".pdf",
                             Inline = true
                         };
                         Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
