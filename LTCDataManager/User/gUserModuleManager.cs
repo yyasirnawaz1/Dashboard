@@ -75,7 +75,7 @@ namespace LTCDataManager.User
             gUserProfile model;
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem))
             {
-                string qry = $"select * from businessInfo where SyncIdentificator = '" + SyncIdentificator + "' AND Active = 1 AND Newsletter = 1;";
+                string qry = $"select * from businessinfo where SyncIdentificator = '" + SyncIdentificator + "' AND Active = 1 AND Newsletter = 1;";
                 model = db.Fetch<gUserProfile>(qry).FirstOrDefault();
             }
 

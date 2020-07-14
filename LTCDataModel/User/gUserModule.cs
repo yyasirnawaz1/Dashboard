@@ -7,7 +7,7 @@ using LTCDataModel.PetaPoco;
 
 namespace LTCDataModel.User
 {
-	[TableName("businessInfo")]
+	[TableName("businessinfo")]
 	[PrimaryKey("Office_Sequence", AutoIncrement = false)]
 	public class gUserModule
 	{

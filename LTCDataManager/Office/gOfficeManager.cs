@@ -31,7 +31,7 @@ namespace LTCDataManager.Office
         //public static gOfficeInfo GetOfficeNames(int OfficeNumber)
         //{
         //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcSystem);
-        //    return db.Fetch<gOfficeInfo>($"SELECT * FROM businessInfo where Office_Sequence = '{OfficeNumber}' ").FirstOrDefault();
+        //    return db.Fetch<gOfficeInfo>($"SELECT * FROM businessinfo where Office_Sequence = '{OfficeNumber}' ").FirstOrDefault();
         //}
 
         //public static gPatientOfficeInfo GetOffice(string email)
@@ -48,7 +48,7 @@ namespace LTCDataManager.Office
         //public static List<gBusinesInfo> GetOfficeDetailByUserId(int userId)
         //{
         //    var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcGateway);
-        //    return db.Fetch<gBusinesInfo>($"select a.Office_Sequence as Id,b.Business_Name as ClinicName from authentication_office_list a INNER JOIN authentication_BusinessInfo b ON a.Office_Sequence=b.Office_Sequence where a.UserId={userId} ").ToList();
+        //    return db.Fetch<gBusinesInfo>($"select a.Office_Sequence as Id,b.Business_Name as ClinicName from authentication_office_list a INNER JOIN authentication_Businessinfo b ON a.Office_Sequence=b.Office_Sequence where a.UserId={userId} ").ToList();
         //}
 
         public static List<gBusinessInfo> GetOfficeDetailByOfficeSequence(int officeSequence)
@@ -89,7 +89,7 @@ namespace LTCDataManager.Office
             //TODO: if allowed list is empty. then handle it properly, right now it throws an error 
             if (allowedOfficeList != null && allowedOfficeList.Count > 0)
             {
-                offices = db.Fetch<gBusinessInfo>($"SELECT Office_Sequence as Id,ClinicName FROM businessInfo where Office_Sequence in (" + string.Join(",", allowedOfficeList) + ")").ToList();
+                offices = db.Fetch<gBusinessInfo>($"SELECT Office_Sequence as Id,ClinicName FROM businessinfo where Office_Sequence in (" + string.Join(",", allowedOfficeList) + ")").ToList();
             }
 
             return offices;
@@ -168,7 +168,7 @@ namespace LTCDataManager.Office
             List<int> model = new List<int>();
             using (var db = new Database(DbConfiguration.LtcSystem))
             {
-                string qry = $"SELECT BI.Office_Number FROM authentication_office_list OL Inner Join businessInfo BI On BI.office_sequence = OL.office_sequence where OL.userid = {userId}";
+                string qry = $"SELECT BI.Office_Number FROM authentication_office_list OL Inner Join businessinfo BI On BI.office_sequence = OL.office_sequence where OL.userid = {userId}";
                 model = db.Fetch<int>(qry).ToList();
             }
 
