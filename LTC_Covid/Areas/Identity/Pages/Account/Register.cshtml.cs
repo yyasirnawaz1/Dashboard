@@ -105,14 +105,17 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
             public string PostalCode { get; set; }
 
             [Required]
+            [Range(typeof(bool), "true", "true", ErrorMessage = "Terms of use is Required")]
             [Display(Name = "Terms of use")]
             public bool IsTermCheck { get; set; }
 
             [Required]
+            [Range(typeof(bool), "true", "true", ErrorMessage = "Privacy policy is Required")]
             [Display(Name = "Privacy policy")]
             public bool IsProfileCheck { get; set; }
 
             [Required]
+            [Range(typeof(bool), "true", "true", ErrorMessage = "Acknowledgement is Required")]
             [Display(Name = "Acknowledgement")]
             public bool IsAcknowledgeCheck { get; set; }
 

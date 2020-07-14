@@ -15,9 +15,9 @@
                         <span class="d-block text-muted">Enter your credentials below</span>
                     </div>
 
-                    <div class="form-group form-group-feedback form-group-feedback-left">
+                    @*<div class="form-group form-group-feedback form-group-feedback-left">
                         <div asp-validation-summary="All" class="text-danger"></div>
-                    </div>
+                    </div>*@
 
                     <div class="row">
                         <div class="col-md-6">
@@ -417,11 +417,11 @@
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label ">
                                     <input type="checkbox" asp-for="Input.IsProfileCheck" class="form-check-input">
-                                    I agree to the terms of use. <a  href="http://intelliform.ca/terms/" target="_blank"> Click Here</a>
-                                    <span asp-validation-for="Input.IsProfileCheck" class="form-text text-danger"></span>
+                                    I agree to the terms of use. <a href="http://intelliform.ca/terms/" target="_blank"> Click Here</a>
                                 </label>
+                                
                             </div>
-                            
+                            <span asp-validation-for="Input.IsProfileCheck" class="form-text text-danger" style="margin-top:0; margin-left:20px;"></span>
                         </div>
                     </div>
                     <div class="row">
@@ -430,11 +430,10 @@
                                 <label class="form-check-label ">
                                     <input type="checkbox" asp-for="Input.IsTermCheck" class="form-check-input">
                                     I agree to the privacy policy. <a href="http://intelliform.ca/privacy/" target="_blank"> Click Here</a>
-                                    <span asp-validation-for="Input.IsTermCheck" class="form-text text-danger"></span>
-
                                 </label>
-                            </div>
 
+                            </div>
+                            <span asp-validation-for="Input.IsTermCheck" class="form-text text-danger" style="margin-top:0; margin-left:20px;"></span>
                         </div>
                     </div>
                     <div class="row">
@@ -443,10 +442,9 @@
                                 <label class="form-check-label ">
                                     <input type="checkbox" asp-for="Input.IsAcknowledgeCheck" class="form-check-input">
                                     I agree and acknowledge that Logic Tech will not be providing any telephone or email support with respect to any services provided hereunder.
-                                    <span asp-validation-for="Input.IsAcknowledgeCheck" class="form-text text-danger"></span>
                                 </label>
                             </div>
-
+                            <span asp-validation-for="Input.IsAcknowledgeCheck" class="form-text text-danger" style="margin-top:0; margin-left:20px;"></span>
                         </div>
                         
                     </div>
@@ -462,80 +460,6 @@
         </div>
     </div>
 </form>
-@*<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-        <h4>Create a new account.</h4>
-        <hr />
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Input.Email"></label>
-            <input asp-for="Input.Email" class="form-control" />
-            <span asp-validation-for="Input.Email" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.Password"></label>
-            <input asp-for="Input.Password" class="form-control" />
-            <span asp-validation-for="Input.Password" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.ConfirmPassword"></label>
-            <input asp-for="Input.ConfirmPassword" class="form-control" />
-            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.FirstName"></label>
-            <input asp-for="Input.FirstName" class="form-control" />
-            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.LastName"></label>
-            <input asp-for="Input.LastName" class="form-control" />
-            <span asp-validation-for="Input.LastName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.PhoneNumber"></label>
-            <input asp-for="Input.PhoneNumber" class="form-control" />
-            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.AddressLine1"></label>
-            <input asp-for="Input.AddressLine1" class="form-control" />
-            <span asp-validation-for="Input.AddressLine1" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <input asp-for="Input.AddressLine2" class="form-control" />
-            <span asp-validation-for="Input.AddressLine2" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <input asp-for="Input.AddressLine3" class="form-control" />
-            <span asp-validation-for="Input.AddressLine3" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.City"></label>
-            <input asp-for="Input.City" class="form-control" />
-            <span asp-validation-for="Input.City" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.Province"></label>
-            <input asp-for="Input.Province" class="form-control" />
-            <span asp-validation-for="Input.Province" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.Country"></label>
-            <select asp-for="Input.Country" class="form-control">
-
-                <option value="Zambia">Zambia</option>
-                <option value="Zimbabwe">Zimbabwe</option>
-            </select>
-            <span asp-validation-for="Input.Country" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.PostalCode"></label>
-            <input asp-for="Input.PostalCode" class="form-control" />
-            <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>*@
-
 
 @section Scripts {
     <script>
