@@ -14,12 +14,8 @@ var Subscription = function () {
 
             "serverSide": true,
             "processing": true,
-            "responsive": {
-                details: {
-                    type: 'column',
-                    target: -1
-                }
-            },
+            "responsive": true,
+
             "ajax": {
                 "url": "/Subscribers/Get"
             }
@@ -46,12 +42,13 @@ var Subscription = function () {
                 },
                 {
                     "title": "Actions",
+
                     "data": "Id",
-                    "className": "control",
-                    "targets": -1,
                     "searchable": false,
+
                     "sortable": false,
                     "render": function (data, type, full, meta) {
+                        
                         var actionLinks = $('#div_grid_actions').html();
                         actionLinks = actionLinks.replace(/__prm_id__/gi, data);
                         return actionLinks;
@@ -126,6 +123,8 @@ var Subscription = function () {
 
         },
         refresh: function () {
+            $("#email").attr("disabled", false);
+            
             $("#fname").val('');
             $("#lname").val('');
             $("#mname").val('');
@@ -183,7 +182,7 @@ var Subscription = function () {
             
         },
         saveSubscription: function () {
-           
+            debugger;
 
             var firstName = '';
             var lname = '';
@@ -210,11 +209,13 @@ var Subscription = function () {
             //} else {
             //    mname = $("#mname").val();
             //}
+            mname = $("#mname").val();
+            Salutation = $("#ddlSalutation").val();
+
             //if ($("#ddlSalutation").val() == "-1") {
             //    ltcApp.warningMessage(null, "Please provide salutation");
             //    return;
             //} else {
-            //    Salutation = $("#ddlSalutation").val();
             //}
 
             if (ltcApp.validateEmail($("#email").val())) {
@@ -276,8 +277,9 @@ var Subscription = function () {
 
 
             $.get(actionURL, function (data) {
-
+           
                 if (data.success) {
+                    
                     $("#fname").val(data.obj.FirstName);
                     $("#lname").val(data.obj.LastName);
                     $("#mname").val(data.obj.MiddleInitial);
@@ -285,7 +287,7 @@ var Subscription = function () {
                     $("#email").val(data.obj.EmailAddress);
                     $("#IdValue").val(data.obj.ID);
                     $("#customID").val(data.obj.CustomID);
-
+                    $("#email").attr("disabled",true);
                     $('#subscriberModel').modal('show');
                 }
 

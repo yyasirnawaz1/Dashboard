@@ -404,8 +404,9 @@ var HomeView = function () {
                 dataType: 'json',
                 url: '/Home/SendEmail',
                 success: function (data) {
-
-                    ltcApp.successMessage("Success", 'Form has been sent');
+                    if (data.success) {
+                        ltcApp.successMessage("Success", ' Form has been sent to ' + data.email);
+                    }
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     ltcApp.errorMessage("Error", 'Error sending the form');
@@ -968,13 +969,13 @@ var HomeView = function () {
             //    ltcApp.warningMessage(null, "Please provide middle name");
             //    return;
             //} else {
-            //    mname = $("#mname").val();
+              mname = $("#mname").val();
             //}
             //if ($("#ddlSalutation").val() == "-1") {
             //    ltcApp.warningMessage(null, "Please provide salutation");
             //    return;
             //} else {
-            //    Salutation = $("#ddlSalutation").val();
+                Salutation = $("#ddlSalutation").val();
             //}
 
             if (ltcApp.validateEmail($("#email").val())) {
@@ -1048,7 +1049,7 @@ var HomeView = function () {
                         var subscribers = data;
                         $("#subscriberId").html('<option value="-1"> --Select Subscriber--</option>');
                         $.each(subscribers, function (index, item) {
-                            $("#subscriberId").append('<option value="' + item.ID + '">' + item.LastName + " " + item.FirstName + '</option>');
+                            $("#subscriberId").append('<option value="' + item.ID + '">' + item.LastName + " " + item.FirstName + " [ " + item.EmailAddress+" ]"+ '</option>');
 
                         });
                     }

@@ -34,8 +34,8 @@ var ViewForm = function () {
                     "data": "FullName",
                     "searchable": true,
                     "sortable": true,
-                    "className": "control",
-                    "targets": 0,
+                    //"className": "control",
+                     
                 },
                 {
                     "title": "Form Name",
@@ -135,7 +135,7 @@ var ViewForm = function () {
             ],
 
             // set the initial value
-            "pageLength": 10,
+            "pageLength": 20,
             "pagingType": "numbers",
             "columnDefs": [
                 {  // set default column settings

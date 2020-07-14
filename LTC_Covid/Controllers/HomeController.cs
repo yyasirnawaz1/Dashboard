@@ -209,6 +209,7 @@ namespace LTC_Covid.Controllers
                         return Json(new
                         {
                             success = true,
+                            email = subscriber.EmailAddress
                         });
 
                     }
