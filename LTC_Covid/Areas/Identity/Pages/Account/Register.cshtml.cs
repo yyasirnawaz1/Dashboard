@@ -95,7 +95,7 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
             [Display(Name = "Province")]
             public string Province { get; set; }
 
-
+        
 
             [Display(Name = "Country")]
             public string Country { get; set; }
@@ -103,6 +103,18 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
 
             [Display(Name = "Postal Code")]
             public string PostalCode { get; set; }
+
+            [Required]
+            [Display(Name = "Terms of use")]
+            public bool IsTermCheck { get; set; }
+
+            [Required]
+            [Display(Name = "Privacy policy")]
+            public bool IsProfileCheck { get; set; }
+
+            [Required]
+            [Display(Name = "Acknowledgement")]
+            public bool IsAcknowledgeCheck { get; set; }
 
             //[Required]
             //[Display(Name = "Office")]
