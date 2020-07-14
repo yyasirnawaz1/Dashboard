@@ -89,7 +89,7 @@ namespace LTCDataManager.Email
             public string FromName { get; set; }
 
         }
-
+         
 
         public static string Send(string subject, string[] msgTo, string html, ElasticEmail email)
         {
