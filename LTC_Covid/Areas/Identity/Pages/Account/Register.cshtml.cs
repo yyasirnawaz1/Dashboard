@@ -25,7 +25,13 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
         private readonly UserManager<BusinessUserInfo> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-
+        public class MustBeTrueAttribute : ValidationAttribute
+        {
+            public override bool IsValid(object value)
+            {
+                return value is bool && (bool)value;
+            }
+        }
         public RegisterModel(
             UserManager<BusinessUserInfo> userManager,
             SignInManager<BusinessUserInfo> signInManager,
@@ -105,17 +111,20 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
             public string PostalCode { get; set; }
 
             [Required]
-            [Range(typeof(bool), "true", "true", ErrorMessage = "Terms of use is Required")]
+            [MustBeTrue(ErrorMessage = "Terms of use is Required")]
+            // [Range(typeof(bool), "true", "true", ErrorMessage = "Terms of use is Required")]
             [Display(Name = "Terms of use")]
             public bool IsTermCheck { get; set; }
 
             [Required]
-            [Range(typeof(bool), "true", "true", ErrorMessage = "Privacy policy is Required")]
+            [MustBeTrue(ErrorMessage = "Privacy policy is Required")]
+            //[Range(typeof(bool), "true", "true", ErrorMessage = "Privacy policy is Required")]
             [Display(Name = "Privacy policy")]
             public bool IsProfileCheck { get; set; }
 
             [Required]
-            [Range(typeof(bool), "true", "true", ErrorMessage = "Acknowledgement is Required")]
+            [MustBeTrue(ErrorMessage = "Acknowledgement is Required")]
+            //[Range(typeof(bool), "true", "true", ErrorMessage = "Acknowledgement is Required")]
             [Display(Name = "Acknowledgement")]
             public bool IsAcknowledgeCheck { get; set; }
 

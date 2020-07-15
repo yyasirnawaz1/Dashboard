@@ -41,7 +41,7 @@ var ViewForm = function () {
                     "title": "Form Name",
                     "data": "FormName",
                     "searchable": true,
-                    "sortable": true
+                    "sortable": false
                 },
                 {
                     "title": "Pre-Screen",

@@ -322,16 +322,16 @@ namespace LTC_Covid.Controllers
             totalCount = query.Count();
 
             #region Filtering
-            // search Filters
-            //if (!string.IsNullOrEmpty(requestModel.Search?.Value))
-            //{
-            //    var value = requestModel.Search.Value.Trim();
-            //    query = query.Where(s => s.InPersonScreenDate.ToString().Contains(value) ||
-            //                             s.FirstName.Contains(value) ||
-            //                             s.LastName.Contains(value) ||
-            //                             s.PreScreenDate.ToString().Contains(value) ||
-            //                             s.Covid_Form_Description.Contains(value));
-            //}
+           // search Filters
+            if (!string.IsNullOrEmpty(requestModel.Search?.Value))
+            {
+                var value = requestModel.Search.Value.Trim();
+                query = query.Where(s => s.InPersonScreenDate.ToString().Contains(value) ||
+                                         s.FirstName.Contains(value) ||
+                                         s.LastName.Contains(value) ||
+                                         s.PreScreenDate.ToString().Contains(value) ||
+                                         s.Covid_Form_Description.Contains(value));
+            }
 
 
 
@@ -359,18 +359,18 @@ namespace LTC_Covid.Controllers
                    FormID = _protector.Protect(e.FormID.ToString()),
                    SubscriberID = _protector.Protect(e.SubscriberID.ToString())
                });
-            //var order = requestModel.Orders.FirstOrDefault();
-            //var orderByString = order.Column;
-            //string orderDir = order.Dir;
-            //if (orderDir == "asc")
-            //{
-            //    res = res.OrderBy(c => c.FullName);
-            //}
-            //else
-            //{
-            //    res = res.OrderByDescending(c => c.FullName);
+            var order = requestModel.Orders.FirstOrDefault();
+            var orderByString = order.Column;
+            string orderDir = order.Dir;
+            if (orderDir == "asc")
+            {
+                res = res.OrderBy(c => c.FullName);
+            }
+            else
+            {
+                res = res.OrderByDescending(c => c.FullName);
 
-            //}
+            }
             return Json(res.ToDataTablesResponse(requestModel, totalCount, filteredCount));
         }
 
