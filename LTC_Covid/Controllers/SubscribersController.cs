@@ -82,12 +82,25 @@ namespace LTC_Covid.Controllers
                 else
                 {
 
-                    gCovidManager.SaveSubscriber(model);
-                    var json = new
+                    var res = gCovidManager.SaveSubscriber(model);
+                    if (res == -1)
                     {
-                        success = true,
-                    };
-                    return Json(json);
+                        var json = new
+                        {
+                            Message = "Email Already linked with other subscriber",
+                            success = false,
+                        };
+                        return Json(json);
+                    }
+                    else
+                    {
+                        var json = new
+                        {
+                            success = true,
+                        };
+                        return Json(json);
+
+                    }
 
                 }
 

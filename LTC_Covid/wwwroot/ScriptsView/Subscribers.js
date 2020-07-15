@@ -249,6 +249,8 @@ var Subscription = function () {
                     
                     if (data.success) {
                         ltcApp.successMessage("Success", 'Subscriber has been added into the system.');
+                        //window.location.href = "../Subscribers/Index";
+
                         Subscription.refresh();
                     } else {
                         ltcApp.errorMessage("Error", data.Message);
@@ -264,8 +266,7 @@ var Subscription = function () {
                    
                     $('#subscriberModel').modal('hide');
                     $("#btnSaveSub").attr("disabled", false);
-                    window.location.href = "../Subscribers/Index";
-
+ 
                 }
             })
  
@@ -287,7 +288,7 @@ var Subscription = function () {
                     $("#email").val(data.obj.EmailAddress);
                     $("#IdValue").val(data.obj.ID);
                     $("#customID").val(data.obj.CustomID);
-                    $("#email").attr("disabled",true);
+                  //  $("#email").attr("disabled",true);
                     $('#subscriberModel').modal('show');
                 }
 

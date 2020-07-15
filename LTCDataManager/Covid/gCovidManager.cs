@@ -82,6 +82,12 @@ namespace LTCDataManager.Covid
                 gCovidSubscriber found = db.Fetch<gCovidSubscriber>($"select * from subscribers where ID={fid}").FirstOrDefault();
                 if (found != null)
                 {
+                    if (found.EmailAddress != model.EmailAddress)
+                    {
+                        var sub = GetByEmail(model.EmailAddress);
+                        if (sub != null && sub.ID != model.ID)
+                            return -1;
+                    }
                     found.FirstName = model.FirstName;
                     found.LastName = model.LastName;
                     found.EmailAddress = model.EmailAddress;
