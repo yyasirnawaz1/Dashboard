@@ -328,15 +328,16 @@ namespace LTC_Covid.Controllers
 
             #region Filtering
             // search Filters
-            //if (!string.IsNullOrEmpty(requestModel.Search?.Value))
-            //{
-            //    var value = requestModel.Search.Value.Trim();
-            //    query = query.Where(s => s.InPersonScreenDate.ToString().Contains(value) ||
-            //                             s.FirstName.Contains(value) ||
-            //                             s.LastName.Contains(value) ||
-            //                             s.PreScreenDate.ToString().Contains(value) ||
-            //                             s.Covid_Form_Description.Contains(value));
-            //}
+            if (!string.IsNullOrEmpty(requestModel.Search?.Value))
+            {
+                var value = requestModel.Search.Value.ToLower().Trim();
+                query = query.Where(s => s.InPersonScreenDate.ToString().ToLower().Contains(value) ||
+                                         s.FirstName.ToLower().Contains(value) ||
+                                         s.LastName.ToLower().Contains(value) ||
+                                         s.EmailAddress.ToLower().Contains(value) ||
+                                         s.PreScreenDate.ToString().Contains(value) ||
+                                         s.Covid_Form_Description.ToLower().Contains(value));
+            }
 
 
 
@@ -362,6 +363,7 @@ namespace LTC_Covid.Controllers
                    InPersonScreenDate = e.IsInPersonScreen == true ? e.InPersonScreenDate.ToString("yyyy-MM-dd HH:mm") : "-",
                    IsInPersonScreen = e.IsInPersonScreen,
                    FormID = _protector.Protect(e.FormID.ToString()),
+                   Email = e.EmailAddress,
                    SubscriberID = _protector.Protect(e.SubscriberID.ToString())
                });
             var order = requestModel.Orders.FirstOrDefault();

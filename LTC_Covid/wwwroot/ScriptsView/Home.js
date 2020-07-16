@@ -1191,7 +1191,7 @@ $("input[name=inperson]").change(function () {
 
     $(".InPerson").attr('disabled', false);
     var d = new Date();
-    $("#InPersonDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + format_two_digits(d.getHours()) + ":" + format_two_digits(d.getMinutes()) + ":" + format_two_digits(d.getSeconds()));
+    $("#InPersonDate").html((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + format_two_digits(d.getHours()) + ":" + format_two_digits(d.getMinutes()) + ":" + format_two_digits(d.getSeconds()));
     $("#hdnInPersonDate").val((d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear() + " " + format_two_digits(d.getHours()) + ":" + format_two_digits(d.getMinutes()) + ":" + format_two_digits(d.getSeconds()));
 
 })

@@ -38,6 +38,14 @@ var ViewForm = function () {
                      
                 },
                 {
+                    "title": "Email",
+                    "data": "Email",
+                    "searchable": true,
+                    "sortable": false,
+                    //"className": "control",
+
+                },
+                {
                     "title": "Form Name",
                     "data": "FormName",
                     "searchable": true,
