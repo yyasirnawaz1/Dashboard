@@ -196,9 +196,7 @@ namespace LTCDataManager.Covid
                     found.PreScreenDate = model.PreScreenDate;
                     found.SubscriberID = model.SubscriberID;
                     found.StorageInJson = model.StorageInJson;
-                    if (fromLink)
-                        found.ReplyDate = null;
-                    else
+                 
                         found.ReplyDate = DateTime.Now;
 
                     if (model.BusinessInfo_ID != 0)
@@ -229,9 +227,7 @@ namespace LTCDataManager.Covid
                     design.BusinessInfo_ID = model.BusinessInfo_ID;
                     design.FormID = model.FormID;
                     design.CustomID = model.CustomID;
-                    if (fromLink)
-                        found.ReplyDate = null;
-                    else
+                    if (!fromLink)
                         found.ReplyDate = DateTime.Now;
 
                     design.IsCOVIDPossible = model.IsCOVIDPossible;

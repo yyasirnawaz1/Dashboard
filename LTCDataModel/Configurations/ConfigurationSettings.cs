@@ -20,7 +20,7 @@ namespace LTCDataModel.Configurations
         public string TotalNetProductionInvoiceTypes { get; set; }
         public string TotalNetProductionTypes { get; set; }
         public string IsDisplayNoPendingMessage { get; set; }
-        
+        public string FormSavedMessage { get; set; }
         public string TotalGrossProductionInvoiceTypes { get; set; }
         public string TotalGrossProductionTypes { get; set; }
         public string TotalHygenistProductionInvoiceTypes { get; set; }

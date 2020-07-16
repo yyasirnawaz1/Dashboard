@@ -127,9 +127,14 @@ namespace LTC_Covid.Controllers
             return View(form);
         }
 
+        [AllowAnonymous]
         public ActionResult FormSaved()
         {
-            ViewBag.Message = "";
+            ViewBag.FromLink = true;
+            if (!string.IsNullOrEmpty(_configuration.FormSavedMessage))
+                ViewBag.Message = _configuration.FormSavedMessage;
+            else
+                ViewBag.Message = "Thanks for your Co-operation.";
             return View();
         }
 

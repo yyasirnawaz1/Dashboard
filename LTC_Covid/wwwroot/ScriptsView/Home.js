@@ -923,13 +923,11 @@ var HomeView = function () {
                     if (IsLinkEnabled) {
                         if (IscovidPossible == true) {
                             $('#frmCovid').modal('show');
-                            
-                          
-
                         } else {
                             ltcApp.successMessage("Success", 'Form has been saved');
-                            setTimeout(function () { window.location.href = "../Home/FormSaved"; }, 3000);
                         }
+                        setTimeout(function () { window.location.href = "../Home/FormSaved"; }, 5000);
+
                     } else {
                         if (IscovidPossible == true) {
                             setTimeout(function () { $('#frmCovid').modal('show'); }, 2000);
