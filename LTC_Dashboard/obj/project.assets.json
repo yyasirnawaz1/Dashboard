@@ -8849,11 +8849,12 @@
       ]
     },
     "runtime.native.System.IO.Compression/4.3.0": {
-      "sha512": "b+V9JC/Ii3sR659flBeaBJww111425tgjcDS1k+hqV4sGh9FALRDBvJnDtQ895gAzpPTUOFDHdqaZ2Et7BpZMg==",
+      "sha512": "INBPonS5QPEgn7naufQFXJEp3zX6L4bwHgJ/ZH78aBTpeNfQMtf7C6VrAFhlq2xxWBveIOWyFzQjJ8XzHMhdOQ==",
       "type": "package",
       "path": "runtime.native.system.io.compression/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -8957,11 +8958,12 @@
       ]
     },
     "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "T5NvFgmHX0WH4c7lP72krsnk+IJI10vJf2j2twGE+5QBRA4RyRAgD+ZjEgdmpLOjW4B+nZGaadewTCUcR899OQ==",
+      "sha512": "nyFNiCk/r+VOiIqreLix8yN+q3Wga9+SE8BCgkf+2BwEKiNx6DyvFjCgkfV743/grxv8jHJ8gUK4XEQw7yzRYg==",
       "type": "package",
       "path": "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -9373,11 +9375,12 @@
       ]
     },
     "System.Collections.NonGeneric/4.3.0": {
-      "sha512": "LE/oChpRvkSi3U25u0KnJcI44JeDZ1QJCyN4qFDx2uusEypdqR24w7lKYw21eYe5esuCBuc862wRmpF63Yy1KQ==",
+      "sha512": "prtjIEMhGUnQq6RnPEYLpFt8AtLbp9yq2zxOSrY7KJJZrw25Fi97IzBqY7iqssbM61Ek5b8f3MG/sG1N2sN5KA==",
       "type": "package",
       "path": "system.collections.nongeneric/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -14212,23 +14215,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Yasir\\.nuget\\packages\\": {},
+    "C:\\Users\\adsh\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Office\\Github\\Dashboard\\LTC_Dashboard\\LTC_Dashboard.csproj",
+      "projectUniqueName": "F:\\Latest LTC GIT\\Dashboard\\LTC_Dashboard\\LTC_Dashboard.csproj",
       "projectName": "LTC_Dashboard",
-      "projectPath": "D:\\Office\\Github\\Dashboard\\LTC_Dashboard\\LTC_Dashboard.csproj",
-      "packagesPath": "C:\\Users\\Yasir\\.nuget\\packages\\",
-      "outputPath": "D:\\Office\\Github\\Dashboard\\LTC_Dashboard\\obj\\",
+      "projectPath": "F:\\Latest LTC GIT\\Dashboard\\LTC_Dashboard\\LTC_Dashboard.csproj",
+      "packagesPath": "C:\\Users\\adsh\\.nuget\\packages\\",
+      "outputPath": "F:\\Latest LTC GIT\\Dashboard\\LTC_Dashboard\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Yasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\adsh\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -14241,11 +14244,11 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj": {
-              "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataManager\\LTCDataManager.csproj"
+            "F:\\Latest LTC GIT\\Dashboard\\LTCDataManager\\LTCDataManager.csproj": {
+              "projectPath": "F:\\Latest LTC GIT\\Dashboard\\LTCDataManager\\LTCDataManager.csproj"
             },
-            "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {
-              "projectPath": "D:\\Office\\Github\\Dashboard\\LTCDataModel\\LTCDataModel.csproj"
+            "F:\\Latest LTC GIT\\Dashboard\\LTCDataModel\\LTCDataModel.csproj": {
+              "projectPath": "F:\\Latest LTC GIT\\Dashboard\\LTCDataModel\\LTCDataModel.csproj"
             }
           }
         }
@@ -14325,7 +14328,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

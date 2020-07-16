@@ -432,7 +432,7 @@ namespace LTC_Covid.Controllers
                                 Counter = counter,
                                 FormAction = fa,
                                 ReplyDate = null
-                            });
+                            }, true);
                             existingFormData.QueueID = id;
                         }
                         else if (existingFormData.IsInPersonScreen || existingFormData.IsPreScreen || existingFormData.ReplyDate != null)

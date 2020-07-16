@@ -182,7 +182,7 @@ namespace LTCDataManager.Covid
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
             return db.Fetch<gCovidSubscriber>($"SELECT  * FROM subscribers where BusinessInfo_ID = {businessInfoID}").ToList();
         }
-        public static int Save(gFormCovidEntry model)
+        public static int Save(gFormCovidEntry model, bool fromLink = false)
         {
             using (var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid))
             {
@@ -196,11 +196,10 @@ namespace LTCDataManager.Covid
                     found.PreScreenDate = model.PreScreenDate;
                     found.SubscriberID = model.SubscriberID;
                     found.StorageInJson = model.StorageInJson;
-                    
-                    if (model.ReplyDate != null)
-                        found.ReplyDate = DateTime.Now;
+                    if (fromLink)
+                        found.ReplyDate = null;
                     else
-                        found.ReplyDate = model.ReplyDate;
+                        found.ReplyDate = DateTime.Now;
 
                     if (model.BusinessInfo_ID != 0)
                         found.BusinessInfo_ID = model.BusinessInfo_ID;
@@ -230,7 +229,11 @@ namespace LTCDataManager.Covid
                     design.BusinessInfo_ID = model.BusinessInfo_ID;
                     design.FormID = model.FormID;
                     design.CustomID = model.CustomID;
-                    design.ReplyDate = DateTime.Now;
+                    if (fromLink)
+                        found.ReplyDate = null;
+                    else
+                        found.ReplyDate = DateTime.Now;
+
                     design.IsCOVIDPossible = model.IsCOVIDPossible;
                     design.Counter = model.Counter;
                     if (model.FormAction > 0)
