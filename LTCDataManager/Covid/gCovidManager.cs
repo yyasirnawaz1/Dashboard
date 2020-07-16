@@ -39,7 +39,7 @@ namespace LTCDataManager.Covid
 
 
             if (form.StorageInJson != null)
-                form.StorageInJsonView = Encoding.UTF8.GetString(form.StorageInJson, 0, form.StorageInJson.Length).Replace("height=\"15cm\"", "").Replace("width=\"15cm\"","");
+                form.StorageInJsonView = Encoding.UTF8.GetString(form.StorageInJson, 0, form.StorageInJson.Length).Replace("height=\"15cm\"", "").Replace("width=\"15cm\"", "");
             return form;
         }
         public static gFormCovidEntryViewModel GetFormInfo(int subscriberId, int formId)
@@ -196,7 +196,12 @@ namespace LTCDataManager.Covid
                     found.PreScreenDate = model.PreScreenDate;
                     found.SubscriberID = model.SubscriberID;
                     found.StorageInJson = model.StorageInJson;
-                    found.ReplyDate = DateTime.Now;
+                    
+                    if (model.ReplyDate != null)
+                        found.ReplyDate = DateTime.Now;
+                    else
+                        found.ReplyDate = model.ReplyDate;
+
                     if (model.BusinessInfo_ID != 0)
                         found.BusinessInfo_ID = model.BusinessInfo_ID;
 
