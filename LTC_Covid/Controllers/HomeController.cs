@@ -129,7 +129,7 @@ namespace LTC_Covid.Controllers
 
         public ActionResult FormSaved()
         {
-            ViewBag.FromLink = true;
+            ViewBag.Message = "";
             return View();
         }
 

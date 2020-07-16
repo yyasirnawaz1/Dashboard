@@ -203,6 +203,7 @@ var HomeView = function () {
                     var IsLinkEnabled = $("#IsLinkEnabled").val()
                     if (IsLinkEnabled) {
                         ltcApp.successMessage("Success", 'Form has been saved');
+
                     }
                 }
             })
@@ -552,7 +553,9 @@ var HomeView = function () {
                     var IsLinkEnabled = $("#IsLinkEnabled").val()
                     if (IsLinkEnabled) {
                          
-                            ltcApp.successMessage("Success", 'Form has been saved');
+                        ltcApp.successMessage("Success", 'Form has been saved');
+                        setTimeout(function () { window.location.href = "../Home/FormSaved"; }, 3000);
+
                         
                     } else {
                          
@@ -925,6 +928,7 @@ var HomeView = function () {
 
                         } else {
                             ltcApp.successMessage("Success", 'Form has been saved');
+                            setTimeout(function () { window.location.href = "../Home/FormSaved"; }, 3000);
                         }
                     } else {
                         if (IscovidPossible == true) {
