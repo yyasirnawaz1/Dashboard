@@ -351,13 +351,13 @@ namespace LTCDataManager.Covid
         public static byte[] GetPdfByFormCustomId(string FormCustomId)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
-            return db.Fetch<byte[]>($"select pdf from form_covid_entry fc inner join form_In_pdf fid on fc.queueid = fid.queueid where fc.CustomID = '{FormCustomId}'").FirstOrDefault();
+            return db.Fetch<byte[]>($"select pdf from form_covid_entry fc inner join form_in_pdf fid on fc.queueid = fid.queueid where fc.CustomID = '{FormCustomId}'").FirstOrDefault();
         }
 
         public static byte[] GetPDFByCounterAndFormActionAndSubscriberCustomId(string customId, int counter, int fa)
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
-            return db.Fetch<byte[]>($"select pdf from form_covid_entry fc inner join form_In_pdf fid on fc.queueid = fid.queueid INNER JOIN subscribers su on fc.subscriberid=su.id where su.customid='{customId}' AND fc.counter={counter} AND FormAction = '{fa}'").FirstOrDefault();
+            return db.Fetch<byte[]>($"select pdf from form_covid_entry fc inner join form_in_pdf fid on fc.queueid = fid.queueid INNER JOIN subscribers su on fc.subscriberid=su.id where su.customid='{customId}' AND fc.counter={counter} AND FormAction = '{fa}'").FirstOrDefault();
         }
     }
 }
