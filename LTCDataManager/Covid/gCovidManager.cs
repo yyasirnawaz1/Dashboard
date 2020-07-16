@@ -228,7 +228,7 @@ namespace LTCDataManager.Covid
                     design.FormID = model.FormID;
                     design.CustomID = model.CustomID;
                     if (!fromLink)
-                        found.ReplyDate = DateTime.Now;
+                        design.ReplyDate = DateTime.Now;
 
                     design.IsCOVIDPossible = model.IsCOVIDPossible;
                     design.Counter = model.Counter;

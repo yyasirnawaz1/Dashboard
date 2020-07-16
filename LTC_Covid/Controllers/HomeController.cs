@@ -328,15 +328,15 @@ namespace LTC_Covid.Controllers
 
             #region Filtering
             // search Filters
-            if (!string.IsNullOrEmpty(requestModel.Search?.Value))
-            {
-                var value = requestModel.Search.Value.Trim();
-                query = query.Where(s => s.InPersonScreenDate.ToString().Contains(value) ||
-                                         s.FirstName.Contains(value) ||
-                                         s.LastName.Contains(value) ||
-                                         s.PreScreenDate.ToString().Contains(value) ||
-                                         s.Covid_Form_Description.Contains(value));
-            }
+            //if (!string.IsNullOrEmpty(requestModel.Search?.Value))
+            //{
+            //    var value = requestModel.Search.Value.Trim();
+            //    query = query.Where(s => s.InPersonScreenDate.ToString().Contains(value) ||
+            //                             s.FirstName.Contains(value) ||
+            //                             s.LastName.Contains(value) ||
+            //                             s.PreScreenDate.ToString().Contains(value) ||
+            //                             s.Covid_Form_Description.Contains(value));
+            //}
 
 
 
