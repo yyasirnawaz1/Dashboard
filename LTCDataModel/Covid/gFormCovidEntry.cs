@@ -2,7 +2,7 @@
 
 
     [TableName("form_covid_entry")]    [PrimaryKey("QueueID", AutoIncrement = true)]    public class gFormCovidEntry    {        public int BusinessInfo_ID { get; set; }        public int QueueID { get; set; }        public int FormID { get; set; }        public int SubscriberID { get; set; }        public Boolean IsPreScreen { get; set; }        public DateTime? PreScreenDate { get; set; }        public Boolean IsInPersonScreen { get; set; }        public DateTime? InPersonScreenDate { get; set; }
-        public DateTime ReplyDate { get; set; }        public string StorageInJson { get; set; }        public string CustomID { get; set; }        [Ignore]        public string PatientName { get; set; }        [Ignore]        public string Email { get; set; }
+        public DateTime? ReplyDate { get; set; }        public string StorageInJson { get; set; }        public string CustomID { get; set; }        [Ignore]        public string PatientName { get; set; }        [Ignore]        public string Email { get; set; }
 
         public Boolean IsCOVIDPossible { get; set; }        public int Counter { get; set; }        public int FormAction { get; set; }    }
 

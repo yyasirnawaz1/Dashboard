@@ -89,7 +89,7 @@ namespace LTC_Covid.Controllers
             return View(form);
         }
         [AllowAnonymous]
-        public ActionResult FormViewed([FromBody]IdModel model)
+        public ActionResult FormViewed([FromBody] IdModel model)
         {
             gCovidManager.FormViewed(int.Parse(model.Id));
             var json = new
@@ -100,7 +100,7 @@ namespace LTC_Covid.Controllers
         }
 
         //[AllowAnonymous]
-        public ActionResult DeleteForm([FromBody]IdModel model)
+        public ActionResult DeleteForm([FromBody] IdModel model)
         {
             var Id = Convert.ToInt32(_protector.Unprotect(model.Id));
             gCovidManager.Delete(Id);
@@ -173,7 +173,7 @@ namespace LTC_Covid.Controllers
 
         //[AllowAnonymous]
         [HttpPost]
-        public ActionResult SendEmail([FromBody]gEmailModel model)
+        public ActionResult SendEmail([FromBody] gEmailModel model)
         {
             try
             {
@@ -234,7 +234,7 @@ namespace LTC_Covid.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult SavePdf([FromBody]gformInPdfInputModel model)
+        public ActionResult SavePdf([FromBody] gformInPdfInputModel model)
         {
             try
             {
@@ -269,7 +269,7 @@ namespace LTC_Covid.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Upsert([FromBody]gFormCovidEntry model)
+        public ActionResult Upsert([FromBody] gFormCovidEntry model)
         {
             try
             {
@@ -322,7 +322,7 @@ namespace LTC_Covid.Controllers
             totalCount = query.Count();
 
             #region Filtering
-           // search Filters
+            // search Filters
             if (!string.IsNullOrEmpty(requestModel.Search?.Value))
             {
                 var value = requestModel.Search.Value.Trim();
@@ -430,7 +430,8 @@ namespace LTC_Covid.Controllers
                                 BusinessInfo_ID = subDetails.BusinessInfo_ID,
                                 SubscriberID = subDetails.ID,
                                 Counter = counter,
-                                FormAction = fa
+                                FormAction = fa,
+                                ReplyDate = null
                             });
                             existingFormData.QueueID = id;
                         }
@@ -456,8 +457,9 @@ namespace LTC_Covid.Controllers
                                         existingFormData.LoggedInUser = UserName;
                                         return View("covidform", existingFormData);
 
-                                    }else
-                                    return View("CovidFormView", existingFormData);
+                                    }
+                                    else
+                                        return View("CovidFormView", existingFormData);
                                 }
                             }
                             else
