@@ -642,29 +642,35 @@ var HomeView = function () {
                 //    form.contactMethodType = "phone";
                 //}
             } else if (contactMethod == "email") {
-                if ($("#txtEmail").val() == "") {
-                    ltcApp.warningMessage(null, "Please enter email");
-                    return;
-                } else {
+                form.contactDetail = $("#txtEmail").val();
+                form.contactMethodType = "email";
 
-                    if (ltcApp.validateEmail($("#txtEmail").val())) {
-                        form.contactDetail = $("#txtEmail").val();
-                        form.contactMethodType = "email";
-                    } else {
-                        ltcApp.warningMessage(null, "Invalid email address.");
-                        return;
-                    }
+                //if ($("#txtEmail").val() == "") {
+                //    ltcApp.warningMessage(null, "Please enter email");
+                //    return;
+                //} else {
+
+                //    if (ltcApp.validateEmail($("#txtEmail").val())) {
+                //        form.contactDetail = $("#txtEmail").val();
+                //        form.contactMethodType = "email";
+                //    } else {
+                //        ltcApp.warningMessage(null, "Invalid email address.");
+                //        return;
+                //    }
 
 
-                }
+                //}
             } else if (contactMethod == "other") {
-                if ($("#txtOther").val() == "") {
-                    ltcApp.warningMessage(null, "Please enter other contact method");
-                    return;
-                } else {
                     form.contactMethodType = "other";
                     form.contactDetail = $("#txtOther").val();
-                }
+
+                //if ($("#txtOther").val() == "") {
+                //    ltcApp.warningMessage(null, "Please enter other contact method");
+                //    return;
+                //} else {
+                //    form.contactMethodType = "other";
+                //    form.contactDetail = $("#txtOther").val();
+                //}
             } if (contactMethod == null) {
                 ltcApp.warningMessage(null, "Please select contact method");
                 return;

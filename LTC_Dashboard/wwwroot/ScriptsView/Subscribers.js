@@ -253,3 +253,9 @@ function createSubscriptionSuccess(data) {
 
 
 
+jQuery(document).ready(function () {
+
+    Subscription.init();
+
+
+});
