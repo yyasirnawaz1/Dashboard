@@ -130,6 +130,7 @@ var Subscription = function () {
             $("#mname").val('');
             $("#ddlSalutation").val('-1');
             $("#email").val('');
+            $("#phone").val('');
             $("#IdValue").val('0');
             
             $("#customID").val('');
@@ -174,6 +175,7 @@ var Subscription = function () {
             $("#mname").val('');
             $("#ddlSalutation").val('-1');
             $("#email").val('');
+            $("#phone").val('');
             $("#IdValue").val('0');
 
             $("#customID").val('');
@@ -182,14 +184,14 @@ var Subscription = function () {
             
         },
         saveSubscription: function () {
-            debugger;
+            
 
             var firstName = '';
             var lname = '';
             var mname = '';
             var Salutation = '';
             var email = '';
-
+            var phone = '';
             if ($("#fname").val() == "") {
                 ltcApp.warningMessage(null, "Please provide first name");
                 return;
@@ -218,12 +220,22 @@ var Subscription = function () {
             //} else {
             //}
 
-            if (ltcApp.validateEmail($("#email").val())) {
-                email = $("#email").val();
+            if ($("#email").val() != "") {
+                if (ltcApp.validateEmail($("#email").val())) {
+                    email = $("#email").val();
+                } else {
+                    ltcApp.warningMessage(null, "Invalid email address.");
+                    return;
+                }
+
             } else {
-                ltcApp.warningMessage(null, "Invalid email address.");
+                ltcApp.warningMessage(null, "Please provide email address.");
                 return;
+
             }
+
+
+            phone = $("#phone").val();
 
 
             //   if (template != null && article != null) {
@@ -236,6 +248,7 @@ var Subscription = function () {
                 MiddleInitial: mname,
                 EmailAddress: email,
                 Salutation: Salutation,
+                CellPhone : phone
             };
 
 
@@ -286,6 +299,7 @@ var Subscription = function () {
                     $("#mname").val(data.obj.MiddleInitial);
                     $("#ddlSalutation").val(data.obj.Salutation);
                     $("#email").val(data.obj.EmailAddress);
+                    $("#phone").val(data.obj.CellPhone);
                     $("#IdValue").val(data.obj.ID);
                     $("#customID").val(data.obj.CustomID);
                   //  $("#email").attr("disabled",true);

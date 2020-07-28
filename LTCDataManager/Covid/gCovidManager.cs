@@ -175,7 +175,7 @@ namespace LTCDataManager.Covid
         public static List<gFormCovidType> GetAllTypes()
         {
             var db = new LTCDataModel.PetaPoco.Database(DbConfiguration.LtcCovid);
-            return db.Fetch<gFormCovidType>($"SELECT  * FROM form_covid_type ").ToList();
+            return db.Fetch<gFormCovidType>($"SELECT  * FROM form_covid_type where Form_ID <> 1").ToList();
         }
         public static List<gCovidSubscriber> GetSubscribers(int businessInfoID)
         {

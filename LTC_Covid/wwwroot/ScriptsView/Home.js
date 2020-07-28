@@ -922,6 +922,7 @@ var HomeView = function () {
 
                 },
                 complete: function () {
+                    
                     $("#btnSave").attr("disabled", false);
                     //$("#inPerson").attr("disabled", true);
                     Layout.hideLoader();
@@ -936,7 +937,11 @@ var HomeView = function () {
 
                     } else {
                         if (IscovidPossible == true) {
-                            setTimeout(function () { $('#frmCovid').modal('show'); }, 2000);
+                            setTimeout(function () {
+                                $('#frmCovid').modal('show');
+                                $('#btnAuthCancel').show();
+                                $('#btnNonAuthCancel').hide();
+                            }, 2000);
 
                         } else {
                             ltcApp.successMessage("Success", 'Form has been saved');
@@ -959,6 +964,7 @@ var HomeView = function () {
             var mname = '';
             var Salutation = '';
             var email = '';
+            var phone = '';
 
             if ($("#fname").val() == "") {
                 ltcApp.warningMessage(null, "Please provide first name");
@@ -986,12 +992,21 @@ var HomeView = function () {
                 Salutation = $("#ddlSalutation").val();
             //}
 
-            if (ltcApp.validateEmail($("#email").val())) {
-                email = $("#email").val();
+            if ($("#email").val() != "") {
+                if (ltcApp.validateEmail($("#email").val())) {
+                    email = $("#email").val();
+                } else {
+                    ltcApp.warningMessage(null, "Invalid email address.");
+                    return;
+                }
+
             } else {
-                ltcApp.warningMessage(null, "Invalid email address.");
+                ltcApp.warningMessage(null, "Please provide email address.");
                 return;
+
             }
+
+            phone = $("#phone").val();
 
 
 
@@ -1007,7 +1022,8 @@ var HomeView = function () {
                 LastName: lname,
                 MiddleInitial: mname,
                 EmailAddress: email,
-                Salutation: Salutation
+                Salutation: Salutation,
+                CellPhone: phone
 
             };
 
@@ -1041,6 +1057,7 @@ var HomeView = function () {
                     $("#mname").val('');
                     $("#ddlSalutation").val('');
                     $("#email").val('');
+                    $("#phone").val('');
                     $("#IdValue").val('0');
                 }
             })
@@ -1118,6 +1135,10 @@ var HomeView = function () {
             window.location.href = "../Home/CovidForm?subscriberId=" + subId + "&formId=" + formId + "&queueId=" + queueId;
 
 
+        },
+        ConfirmCancel: function ()
+        {
+            ltcApp.promptConfirmationMain(null, "The current progress on the form will not be saved and all the answers will be lost!");
         },
         Cancel: function () {
             window.location.href = "../Home/ViewForms";

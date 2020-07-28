@@ -56,21 +56,42 @@ var ltcApp = function () {
             }
 
             swal({
-                    title: title,
-                    text: msg,
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonClass: "btn-danger",
-                    confirmButtonText: "Yes, Close it!",
-                    closeOnConfirm: true
-                },
-                function(isConfirm) {
+                title: title,
+                text: msg,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, Close it!",
+                closeOnConfirm: true
+            },
+                function (isConfirm) {
                     if (isConfirm) {
                         $('#templateEditorWindow').modal('hide');
                     }
                 });
-        }
+        },
+        promptConfirmationMain: function (title, msg) {
+            if (title == null) {
+                title = "Are you sure, you want to cancel?";
+            }
 
+            swal({
+                title: title,
+                text: msg,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-primary",
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+                cancelButtonClass: "btn-danger",
+                closeOnConfirm: true
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        window.location.href = "../Home/ViewForms";
+                    }
+                });
+        }
 
     };
 }();

@@ -30,7 +30,7 @@ var ViewForm = function () {
             },
             "columns": [
                 {
-                    "title": "Name",
+                    "title": "Subscriber",
                     "data": "FullName",
                     "searchable": true,
                     "sortable": true,

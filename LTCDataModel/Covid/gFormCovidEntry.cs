@@ -42,7 +42,7 @@
         [Required(ErrorMessage = "Email Required")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email address")]
         public string EmailAddress { get; set; }
-
+       
         public bool SubscriptionStatus { get; set; }
         public int Office_Sequence { get; set; }
         public int PatientNumber { get; set; }
@@ -62,6 +62,7 @@
         public string LastName { get; set; }
         public string MiddleInitial { get; set; }
         public string EmailAddress { get; set; }
+        
         public bool SubscriptionStatus { get; set; }
         public string Office_Sequence { get; set; }
         public string PatientNumber { get; set; }

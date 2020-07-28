@@ -111,19 +111,19 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
             public string PostalCode { get; set; }
 
             [Required]
-            [MustBeTrue(ErrorMessage = "Terms of use is Required")]
+            [MustBeTrue(ErrorMessage = "Please agree to the terms of use")]
             // [Range(typeof(bool), "true", "true", ErrorMessage = "Terms of use is Required")]
             [Display(Name = "Terms of use")]
             public bool IsTermCheck { get; set; }
 
             [Required]
-            [MustBeTrue(ErrorMessage = "Privacy policy is Required")]
+            [MustBeTrue(ErrorMessage = "Please agree to the privacy policy")]
             //[Range(typeof(bool), "true", "true", ErrorMessage = "Privacy policy is Required")]
             [Display(Name = "Privacy policy")]
             public bool IsProfileCheck { get; set; }
 
             [Required]
-            [MustBeTrue(ErrorMessage = "Acknowledgement is Required")]
+            [MustBeTrue(ErrorMessage = "Please acknowledge that there is no telephone or email support for Intelliform")]
             //[Range(typeof(bool), "true", "true", ErrorMessage = "Acknowledgement is Required")]
             [Display(Name = "Acknowledgement")]
             public bool IsAcknowledgeCheck { get; set; }
@@ -175,7 +175,7 @@ namespace LTC_Covid.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                        $"Hello {user.FirstName}, <br/> Thank you for signing up with Intelliform!<br/><br/>Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.<br/><br/>If you have any questions, you can contact us through our forum <a href='{"http://intelliform.ca/forum/"}'>here</a>.<br/><br/>Sincerely, <br/>The Intelliform Team ");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     //return LocalRedirect(returnUrl);
