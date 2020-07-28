@@ -65,7 +65,6 @@ namespace LTC_Covid.Controllers
                 model.Office_Sequence = 0;
                 model.BusinessInfo_ID = UserId;
                 model.SubscriptionStatus = true;
-
                 if (model.ID < 1)
                     model.CustomID = Common.GenerateCustomID();
 

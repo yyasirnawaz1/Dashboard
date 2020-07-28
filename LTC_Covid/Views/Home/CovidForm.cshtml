@@ -37,7 +37,16 @@
             text-align: left !important;
         }
     }
+       @@media all and (max-width:600px) {
+        .col-md-9{
+            margin-top: 0px !important;
 
+        }
+      
+    }
+    .col-md-9 {
+        margin-bottom: 15px !important;
+    }
     @@media all and (max-width:600px) {
         canvas, svg {
             width: 100%;
@@ -127,19 +136,16 @@
                         <label class="col-form-label">Welcome back. Thank you for your confidence in us.</label>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label">Dentists have dealt with previous pandemics and disease outbreaks very successfully. This time around, we are better prepared than ever before. Despite our best efforts, there is always a very small risk of exposure to the virus, as there is in other public spaces such as in grocery stores or gyms.</label>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label" style="font-weight: bold;">The Ontario Dental Association has recommended that the COVID-19 Risk Acknowledgement be obtained from patients seeking treatment.</label>
+                            <label class="col-form-label">Our business will strictly adhere to the recommended sanitization and social distancing protocols. However, despite our best efforts, there is always a very small risk of exposure to the virus, as there is in other public spaces such as in grocery stores or gyms. </label>
                     </div>
                     <div class="form-group row">
                         <ul>
                             <li>
                                 <div class="form-check form-check-inline" id="chkoption1">
-                                    <label class="form-check-label smallFont" style="margin:10px">
-                                        <input type="checkbox" name="chk1" id="chk1" class="form-check-input">
-                                        I and/or my dependents on this account acknowledge the risk of COVID-19, and consent to treatment.
-                                    </label>
+                                        <label class="form-check-label smallFont" style="margin:10px">
+                                            <input type="checkbox" name="chk1" id="chk1" class="form-check-input">
+                                            I and/or my dependents on this account acknowledge the risk of COVID-19, and consent to receiving the intended services.
+                                        </label>
                                 </div>
                             </li>
 
@@ -173,7 +179,7 @@
                     <div class="form-group row">
 
                         <div class="col-lg-12">
-                                <label class="col-form-label" style="font-weight: bold;">* Patients are screened and temperatures taken so that we only see those who are healthy and asymptomatic. Advanced sanitation and sterilization protocols, PPEs, hand sanitation, physical distancing, physical barriers, HEPA air filtration units, antimicrobial mouth rinses, contactless interaction, fallow times and the reduction of AGPs are in place where possible</label>
+                                <label class="col-form-label" style="font-weight: bold;">* Customers are screened and temperatures taken so that we only see those who are healthy and asymptomatic. Advanced sanitation and sterilization protocols, PPEs, hand sanitation, physical distancing, physical barriers, and HEPA air filtration units are in place where possible.</label>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -191,7 +197,7 @@
         {
         <div class="card">
             <div class="card-header header-elements-inline">
-                <h5 class="card-title">Dental Screening</h5>
+                <h5 class="card-title">Screening Details</h5>
                 <div class="header-elements">
                     <div class="list-icons">
                         <a class="list-icons-item" data-action="collapse"></a>
@@ -227,14 +233,14 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Patient Name</label>
+                        <label class="col-form-label col-lg-2">Subscriber Name</label>
                         <div class="col-lg-6">
                             <input type="text" id="patientName" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Patient Age</label>
+                        <label class="col-form-label col-lg-2">Subscriber Age</label>
                         <div class="col-lg-6">
                             <input type="number" id="patientAge" min="0" max="110" class="form-control">
                         </div>
@@ -307,7 +313,7 @@
             <div class="card-body">
                 <fieldset class="mb-3">
                     <div class="form-group row" style="margin-bottom: 0px;">
-                        <div class="col-lg-3 dvPreScreen" style="text-align:left">
+                        <div class="col-lg-4 dvPreScreen" style="text-align:left">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
                                     <input type="radio" name="prescreen" id="preScreen" class="form-check-input">
@@ -316,7 +322,7 @@
                             </div>
 
                         </div>
-                        <div class="col-lg-3 dvInPerson" style="text-align:left">
+                        <div class="col-lg-4 dvInPerson" style="text-align:left">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
                                     <input type="radio" id="inPerson" name="inperson" class="form-check-input">
@@ -854,18 +860,23 @@
             </div>
             <div class="card-footer">
                 @if (!Model.IsAlreadySave)
-                    {
-                <text>
-                    <button type="button" id="btnSave" style="float: right;margin-left:15px" onclick="HomeView.saveForm();" class="btn btn-primary">Save</button>
-                </text>
-                    }
-
-
-                @if(ViewBag.FromLink != null)
                 {
-                if(!ViewBag.FromLink) {
-                <button type="button" id="btnCancel" style="float: right;" onclick="HomeView.Cancel();" class="btn btn-danger">Back</button>
+                    <text>
+                        <button type="button" id="btnSave" style="float: right;margin-left:15px" onclick="HomeView.saveForm();" class="btn btn-primary">Save</button>
+                    </text>
                 }
+
+
+                @if (ViewBag.FromLink != null)
+                {
+                    if (!ViewBag.FromLink)
+                    {
+                        <button type="button" id="btnCancel" style="float: right;" onclick="HomeView.ConfirmCancel();" class="btn btn-danger">Cancel</button>
+                    }
+                }
+                else
+                {
+                    <button type="button" id="btnCancel" style="float: right;" onclick="HomeView.ConfirmCancel();" class="btn btn-danger">Cancel</button>
                 }
             </div>
         </div>
@@ -900,13 +911,13 @@
             <div class="modal-body">
 
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
+                    
+                        
                             <img class="img-fluid" src="~/Resources/Images/CovidAlert.jpg" />
-                        </div>
+                        
 
 
-                    </div>
+                     
                 </div>
 
             </div>

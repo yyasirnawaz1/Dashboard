@@ -4,6 +4,15 @@
     Layout = "~/Views/Shared/Layouts/_DashboardLayout.cshtml";
 }
 <style>
+    @@media all and (max-width:600px) {
+        .col-md-9 {
+            margin-top: 0px !important;
+        }
+    }
+
+    .col-md-9 {
+        margin-bottom: 15px !important;
+    }
     .control-label {
         margin-bottom: 0px !important;
     }
@@ -232,6 +241,12 @@
 
 
 
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Phone</label>
+                                <div class="col-md-9">
+                                    <input type="tel" id="phone" class="form-control" name="email">
+                                </div>
                             </div>
                             <hr>
 

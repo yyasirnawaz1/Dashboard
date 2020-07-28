@@ -940,3 +940,5 @@ F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.
 F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.csproj.CopyComplete
 F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.dll
 F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.pdb
+F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.csproj.CoreCompileInputs.cache
+F:\Latest LTC GIT\Dashboard\LTC_Dashboard\obj\Debug\netcoreapp2.2\LTC_Dashboard.genruntimeconfig.cache
