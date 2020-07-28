@@ -164,17 +164,17 @@ namespace LTCDataManager.NewsLetter
         public static List<gIndustryModel> GetIndustries(int officeId)
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
-            return db.Fetch<gIndustryModel>($"SELECT * FROM Industrytypes").ToList();
+            return db.Fetch<gIndustryModel>($"SELECT * FROM industrytypes").ToList();
         }
         public static List<gSubIndustryModel> GetSubIndustries(int officeId)
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
-            return db.Fetch<gSubIndustryModel>($"SELECT * FROM Industrysubtypes").ToList();
+            return db.Fetch<gSubIndustryModel>($"SELECT * FROM industrysubtypes").ToList();
         }
         public static List<gTemplateTypeModel> GetTemplateTypes(int officeId)
         {
             var db = new Database(DbConfiguration.LtcNewsletter);
-            return db.Fetch<gTemplateTypeModel>($"SELECT * FROM Templatetypes").ToList();
+            return db.Fetch<gTemplateTypeModel>($"SELECT * FROM templatetypes").ToList();
         }
         public static List<gArticleCategories> GetArticleCategories()
         {
