@@ -93,8 +93,8 @@ namespace LTC_Covid.Controllers
                             values: new { area = "Identity", userId = user.Id, code = code },
                             protocol: Request.Scheme);
 
-                        await _emailSender.SendEmailAsync(email, "Confirm your email",
-                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>. <br /> Your current password is " + password + "<br /> Please make sure to change your password.");
+                        //await _emailSender.SendEmailAsync(email, "Confirm your email",
+                        //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>. <br /> Your current password is " + password + "<br /> Please make sure to change your password.");
 
                         return Json(new { Data = true, Operation = "Added", CustomID = user.CustomID });
 
